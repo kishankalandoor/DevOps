@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netstat Command Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            background: white;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            color: #1d1d1f;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            color: #1d1d1f;
+            border-bottom: 2px solid #1d1d1f;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            color: #333;
+        }
+
+        .info-box {1d1d1f
+            background: #f9f9fb;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box {
+            background: #fff4e6;
+            border-left: 4px solid #ff9500;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .terminal {
+            background: #1d1d1f;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-body {
+            color: #f8f8f2;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .terminal-body strong {
+            color: #66d9ef;
+            font-weight: 600;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-prompt {
+            color: #a6e22e;
+        }
+
+        .terminal-command {
+            color: #66d9ef;
+        }
+
+        .terminal-output {
+            color: #f8f8f2;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .terminal-comment {
+            color: #75715e;
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .command-card {
+            background: #f9f9fb;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            transform: tran1d1d1f;
+        }
+
+        .command-card h4 {
+            color: #1d1d1f
+        .command-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .command-card code {
+            background: #1d1d1f;
+            color: #66d9ef;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 10px 0;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .command-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #1d1d1f;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f9f9fb;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+
+        .badge-success {
+            background: #e6f4ea;
+            color: #1e7e34;
+        }
+
+        .badge-info {
+            background: #e3f2fd;
+            color: #0277bd;
+        }
+
+        .badge-warning {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        footer {
+            background: #f9f9fb;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 24px; }
+            .content { padding: 20px; }
+            header { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Traceroute Network Diagnostics</h1>
+        <p>Network path tracing and connectivity testing examples</p>
+    </header>
+
+    <div class="content">
+        <section>
+            <h2>Terminal Session 1: Initial Commands & Package Update</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@apples-MacBook-Air DevOps % <strong>sudo dnf</strong>
+sudo: dnf: command not found
+apple@apples-MacBook-Air DevOps % <strong>traceroute google.com</strong>
+zsh: command not found: traceroute
+apple@apples-MacBook-Air DevOps % <strong>sudo apt update</strong>
+[sudo] password for apple: 
+Hit:1 http://in.archive.ubuntu.com/ubuntu plucky InRelease
+Hit:2 http://in.archive.ubuntu.com/ubuntu plucky-updates InRelease              
+Hit:3 http://in.archive.ubuntu.com/ubuntu plucky-backports InRelease            
+Get:4 http://security.ubuntu.com/ubuntu plucky-security InRelease [126 kB]      
+Get:5 http://security.ubuntu.com/ubuntu plucky-security/main amd64 DEP-11 Metadata [28.0 kB]
+Get:6 http://security.ubuntu.com/ubuntu plucky-security/universe amd64 DEP-11 Metadata [70.6 kB]
+Get:7 http://security.ubuntu.com/ubuntu plucky-security/multiverse amd64 DEP-11 Metadata [2,464 B]
+Fetched 227 kB in 2s (113 kB/s)                            
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+246 packages can be upgraded. Run 'apt list --upgradable' to see them.
+apple@apples-MacBook-Air DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 2: Traceroute Installation</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@apples-MacBook-Air DevOps % <strong>sudo apt install traceroute</strong>
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  traceroute
+0 upgraded, 1 newly installed, 0 to remove and 246 not upgraded.
+Need to get 52.9 kB of archives.
+After this operation, 183 kB of additional disk space will be used.
+Get:1 http://in.archive.ubuntu.com/ubuntu plucky/universe amd64 traceroute amd64 1:2.1.7-1 [52.9 kB]
+Fetched 52.9 kB in 1s (43.9 kB/s)
+Selecting previously unselected package traceroute.
+(Reading database ... 257853 files and directories currently installed.)
+Preparing to unpack .../traceroute_1%3a2.1.7-1_amd64.deb ...
+Unpacking traceroute (1:2.1.7-1) ...
+Setting up traceroute (1:2.1.7-1) ...
+update-alternatives: using /usr/bin/traceroute.db to provide /usr/bin/traceroute (traceroute) in auto mode
+update-alternatives: using /usr/bin/lft.db to provide /usr/bin/lft (lft) in auto mode
+update-alternatives: using /usr/bin/traceproto.db to provide /usr/bin/traceproto (traceproto) in auto mode
+update-alternatives: using /usr/bin/tcptraceroute.db to provide /usr/bin/tcptraceroute (tcptraceroute) in auto mode
+Processing triggers for man-db (2.13.0-1) ...
+apple@apples-MacBook-Air DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 3: Traceroute to Google.com</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@apples-MacBook-Air DevOps % <strong>traceroute google.com</strong>
+traceroute to google.com (172.217.24.142), 30 hops max, 60 byte packets
+ 1  _gateway (192.168.1.1)  1.882 ms  1.833 ms  1.807 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  172.217.24.142 (172.217.24.142)  32.765 ms  37.421 ms  37.404 ms
+apple@apples-MacBook-Air DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 4: Traceroute to Pacewisdom.com</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@apples-MacBook-Air DevOps % <strong>traceroute pacewisdom.com</strong>
+traceroute to pacewisdom.com (198.202.211.1), 30 hops max, 60 byte packets
+ 1  _gateway (192.168.1.1)  1.964 ms  1.974 ms  1.985 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  198.202.211.1 (198.202.211.1)  286.065 ms  329.002 ms  329.001 ms
+apple@apples-MacBook-Air DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 5: Ping Google.com - Part 1</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@apples-MacBook-Air DevOps % <strong>ping google.com</strong>
+PING google.com (142.250.194.142) 56(84) bytes of data.
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=1 ttl=58 time=38.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=2 ttl=58 time=36.8 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=3 ttl=58 time=31.6 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=4 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=5 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=6 ttl=58 time=35.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=7 ttl=58 time=31.9 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=8 ttl=58 time=37.6 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=9 ttl=58 time=33.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=10 ttl=58 time=36.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=11 ttl=58 time=37.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=12 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=13 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=14 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=15 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=16 ttl=58 time=38.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=17 ttl=58 time=32.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=18 ttl=58 time=37.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=19 ttl=58 time=32.9 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=20 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=21 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=22 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=23 ttl=58 time=32.8 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=24 ttl=58 time=36.8 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=25 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=26 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=27 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=28 ttl=58 time=36.9 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=29 ttl=58 time=32.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=30 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=31 ttl=58 time=32.6 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=32 ttl=58 time=36.8 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=33 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=34 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=35 ttl=58 time=32.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=36 ttl=58 time=36.9 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=37 ttl=58 time=32.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=38 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=39 ttl=58 time=38.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=40 ttl=58 time=32.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=41 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=42 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=43 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=44 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=45 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=46 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=47 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=48 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=49 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=50 ttl=58 time=37.7 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=51 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=52 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=53 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=54 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=55 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=56 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=57 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=58 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=59 ttl=58 time=32.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=60 ttl=58 time=36.8 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=61 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=62 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=63 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=64 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=65 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=66 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=67 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=68 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=69 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=70 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=71 ttl=58 time=32.8 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=72 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=73 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=74 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=75 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=76 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=77 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=78 ttl=58 time=36.9 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=79 ttl=58 time=32.6 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=80 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=81 ttl=58 time=32.3 ms</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 6: Ping Google.com - Part 2 (Continued)</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=82 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=83 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=84 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=85 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=86 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=87 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=88 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=89 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=90 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=91 ttl=58 time=32.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=92 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=93 ttl=58 time=39.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=94 ttl=58 time=32.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=95 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=96 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=97 ttl=58 time=36.9 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=98 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=99 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=100 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=101 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=102 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=103 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=104 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=105 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=106 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=107 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=108 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=109 ttl=58 time=36.8 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=110 ttl=58 time=32.6 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=111 ttl=58 time=36.9 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=112 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=113 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=114 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=115 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=116 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=117 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=118 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=119 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=120 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=121 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=122 ttl=58 time=32.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=123 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=124 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=125 ttl=58 time=36.9 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=126 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=127 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=128 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=129 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=130 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=131 ttl=58 time=37.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=132 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=133 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=134 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=135 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=136 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=137 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=138 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=139 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=140 ttl=58 time=32.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=141 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=142 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=143 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=144 ttl=58 time=32.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=145 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=146 ttl=58 time=40.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=147 ttl=58 time=32.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=148 ttl=58 time=37.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=149 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=150 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=151 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=152 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=153 ttl=58 time=32.5 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=154 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=155 ttl=58 time=32.3 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=156 ttl=58 time=37.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=157 ttl=58 time=32.2 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=158 ttl=58 time=37.0 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=159 ttl=58 time=768 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=160 ttl=58 time=32.4 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=161 ttl=58 time=37.1 ms
+64 bytes from maa05s48-in-f14.1e100.net (142.250.194.142): icmp_seq=162 ttl=58 time=32.4 ms
+^C
+--- google.com ping statistics ---
+162 packets transmitted, 160 received, 1.23457% packet loss, time 161222ms
+rtt min/avg/max/mdev = 31.622/38.886/767.952/56.948 ms
+apple@apples-MacBook-Air DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 7: Ping Pacewisdom.com</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@apples-MacBook-Air DevOps % <strong>ping pacewisdom.com</strong>
+PING pacewisdom.com (198.202.211.1) 56(84) bytes of data.
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=1 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=2 ttl=48 time=285 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=3 ttl=48 time=289 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=4 ttl=48 time=289 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=5 ttl=48 time=286 ms
+^C
+--- pacewisdom.com ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4003ms
+rtt min/avg/max/mdev = 285.391/286.869/289.022/1.465 ms
+apple@apples-MacBook-Air DevOps % <strong>ping pacewisdom.com</strong>
+PING pacewisdom.com (198.202.211.1) 56(84) bytes of data.
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=1 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=2 ttl=48 time=287 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=3 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=4 ttl=48 time=285 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=5 ttl=48 time=287 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=6 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=7 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=8 ttl=48 time=287 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=9 ttl=48 time=285 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=10 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=11 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=12 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=13 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=14 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=15 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=16 ttl=48 time=285 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=17 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=18 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=19 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=20 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=21 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=22 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=23 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=24 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=25 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=26 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=27 ttl=48 time=287 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=28 ttl=48 time=285 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=29 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=30 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=31 ttl=48 time=285 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=32 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=33 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=34 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=35 ttl=48 time=286 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=36 ttl=48 time=285 ms
+64 bytes from 198.202.211.1 (198.202.211.1): icmp_seq=37 ttl=48 time=286 ms
+^C
+--- pacewisdom.com ping statistics ---
+37 packets transmitted, 37 received, 0% packet loss, time 36046ms
+rtt min/avg/max/mdev = 285.180/285.956/288.989/0.679 ms
+apple@apples-MacBook-Air DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 8: Traceroute to 8.8.8.8 & File Operations</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@apples-MacBook-Air DevOps % <strong>traceroute 8.8.8.8</strong>
+traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+ 1  _gateway (192.168.1.1)  2.125 ms  2.174 ms  2.326 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  dns.google (8.8.8.8)  34.001 ms  38.649 ms  38.651 ms
+apple@apples-MacBook-Air DevOps % <strong>mkdir gopal</strong>
+apple@apples-MacBook-Air DevOps % <strong>cd gopal</strong>
+apple@apples-MacBook-Air gopal % <strong>nano gopal.txt</strong>
+apple@apples-MacBook-Air gopal % <strong>cat gopal.txt</strong>
+hai buddy
+apple@apples-MacBook-Air gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 9: Gedit Installation</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@apples-MacBook-Air gopal % <strong>cd ..</strong>
+apple@apples-MacBook-Air DevOps % <strong>sudo apt install gedit</strong>
+[sudo] password for apple: 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  gedit-common gsettings-desktop-schemas libgspell-1-2 libgspell-1-common
+  libpeas-1.0-0 libpeas-common python3-cairo python3-gi-cairo
+Suggested packages:
+  hunspell-dictionary libpeas-1.0-0-python3loader
+The following NEW packages will be installed:
+  gedit gedit-common gsettings-desktop-schemas libgspell-1-2
+  libgspell-1-common libpeas-1.0-0 libpeas-common python3-cairo
+  python3-gi-cairo
+0 upgraded, 9 newly installed, 0 to remove and 246 not upgraded.
+Need to get 1,838 kB of archives.
+After this operation, 10.8 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://in.archive.ubuntu.com/ubuntu plucky/main amd64 gsettings-desktop-schemas all 47.1-1 [650 kB]
+Get:2 http://in.archive.ubuntu.com/ubuntu plucky/main amd64 libgspell-1-common all 1.14.0-2 [7,580 B]
+Get:3 http://in.archive.ubuntu.com/ubuntu plucky/main amd64 libgspell-1-2 amd64 1.14.0-2 [49.6 kB]
+Get:4 http://in.archive.ubuntu.com/ubuntu plucky/main amd64 libpeas-common all 2.0.7-1 [7,312 B]
+Get:5 http://in.archive.ubuntu.com/ubuntu plucky/main amd64 libpeas-1.0-0 amd64 2.0.7-1 [47.6 kB]
+Get:6 http://in.archive.ubuntu.com/ubuntu plucky/main amd64 python3-cairo amd64 1.27.0-1build1 [106 kB]
+Get:7 http://in.archive.ubuntu.com/ubuntu plucky/main amd64 python3-gi-cairo amd64 3.50.0-3build2 [12.8 kB]
+Get:8 http://in.archive.ubuntu.com/ubuntu plucky/main amd64 gedit-common all 48.0-1 [439 kB]
+Get:9 http://in.archive.ubuntu.com/ubuntu plucky/main amd64 gedit amd64 48.0-1 [517 kB]
+Fetched 1,838 kB in 4s (473 kB/s)  
+Selecting previously unselected package gsettings-desktop-schemas.
+(Reading database ... 257867 files and directories currently installed.)
+Preparing to unpack .../0-gsettings-desktop-schemas_47.1-1_all.deb ...
+Unpacking gsettings-desktop-schemas (47.1-1) ...
+Selecting previously unselected package libgspell-1-common.
+Preparing to unpack .../1-libgspell-1-common_1.14.0-2_all.deb ...
+Unpacking libgspell-1-common (1.14.0-2) ...
+Selecting previously unselected package libgspell-1-2:amd64.
+Preparing to unpack .../2-libgspell-1-2_1.14.0-2_amd64.deb ...
+Unpacking libgspell-1-2:amd64 (1.14.0-2) ...
+Selecting previously unselected package libpeas-common.
+Preparing to unpack .../3-libpeas-common_2.0.7-1_all.deb ...
+Unpacking libpeas-common (2.0.7-1) ...
+Selecting previously unselected package libpeas-1.0-0:amd64.
+Preparing to unpack .../4-libpeas-1.0-0_2.0.7-1_amd64.deb ...
+Unpacking libpeas-1.0-0:amd64 (2.0.7-1) ...
+Selecting previously unselected package python3-cairo:amd64.
+Preparing to unpack .../5-python3-cairo_1.27.0-1build1_amd64.deb ...
+Unpacking python3-cairo:amd64 (1.27.0-1build1) ...
+Selecting previously unselected package python3-gi-cairo.
+Preparing to unpack .../6-python3-gi-cairo_3.50.0-3build2_amd64.deb ...
+Unpacking python3-gi-cairo (3.50.0-3build2) ...
+Selecting previously unselected package gedit-common.
+Preparing to unpack .../7-gedit-common_48.0-1_all.deb ...
+Unpacking gedit-common (48.0-1) ...
+Selecting previously unselected package gedit.
+Preparing to unpack .../8-gedit_48.0-1_amd64.deb ...
+Unpacking gedit (48.0-1) ...
+Setting up python3-cairo:amd64 (1.27.0-1build1) ...
+Setting up libgspell-1-common (1.14.0-2) ...
+Setting up libpeas-common (2.0.7-1) ...
+Setting up gsettings-desktop-schemas (47.1-1) ...
+Setting up python3-gi-cairo (3.50.0-3build2) ...
+Setting up libgspell-1-2:amd64 (1.14.0-2) ...
+Setting up libpeas-1.0-0:amd64 (2.0.7-1) ...
+Setting up gedit-common (48.0-1) ...
+Setting up gedit (48.0-1) ...
+Processing triggers for man-db (2.13.0-1) ...
+Processing triggers for mailcap (3.72) ...
+Processing triggers for desktop-file-utils (0.28-1) ...
+Processing triggers for hicolor-icon-theme (0.18-1) ...
+Processing triggers for gnome-menus (3.36.0-1.1ubuntu3) ...
+Processing triggers for libc-bin (2.40-1ubuntu3) ...
+apple@apples-MacBook-Air DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 10: Ping Commands - Basic Tests</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ping -c pacewisdom.com</strong>
+ping: invalid count of packets to transmit: `pacewisdom.com'
+apple@Apples-MacBook-Pro gopal % <strong>ping -c 1 pacewisdom.com</strong>
+PING pacewisdom.com (198.202.211.1): 56 data bytes
+64 bytes from 198.202.211.1: icmp_seq=0 ttl=59 time=33.447 ms
+
+--- pacewisdom.com ping statistics ---
+1 packets transmitted, 1 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 33.447/33.447/33.447/nan ms
+apple@Apples-MacBook-Pro gopal % <strong>ping -c 1 google.com</strong>    
+PING google.com (142.251.222.142): 56 data bytes
+64 bytes from 142.251.222.142: icmp_seq=0 ttl=114 time=54.459 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 54.459/54.459/54.459/nan ms
+apple@Apples-MacBook-Pro gopal % <strong>ping -c 1 kalandoor.com</strong>
+PING kalandoor.com (209.17.116.160): 56 data bytes
+64 bytes from 209.17.116.160: icmp_seq=0 ttl=239 time=251.022 ms
+
+--- kalandoor.com ping statistics ---
+1 packets transmitted, 1 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 251.022/251.022/251.022/0.000 ms
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 11: Ping kalandoor.com - 10 Packets</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ping -c 10 kalandoor.com</strong>
+PING kalandoor.com (209.17.116.160): 56 data bytes
+64 bytes from 209.17.116.160: icmp_seq=0 ttl=239 time=251.510 ms
+64 bytes from 209.17.116.160: icmp_seq=1 ttl=239 time=253.047 ms
+64 bytes from 209.17.116.160: icmp_seq=2 ttl=239 time=253.536 ms
+64 bytes from 209.17.116.160: icmp_seq=3 ttl=239 time=251.589 ms
+64 bytes from 209.17.116.160: icmp_seq=4 ttl=239 time=255.625 ms
+64 bytes from 209.17.116.160: icmp_seq=5 ttl=239 time=256.016 ms
+64 bytes from 209.17.116.160: icmp_seq=6 ttl=239 time=279.138 ms
+64 bytes from 209.17.116.160: icmp_seq=7 ttl=239 time=253.567 ms
+64 bytes from 209.17.116.160: icmp_seq=8 ttl=239 time=257.571 ms
+64 bytes from 209.17.116.160: icmp_seq=9 ttl=239 time=335.168 ms
+
+--- kalandoor.com ping statistics ---
+10 packets transmitted, 10 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 251.510/264.677/335.168/24.725 ms
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 12: Interface Commands & Errors</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ping -I gopal kalandoor.com</strong> 
+ping: invalid multicast interface: `gopal'
+apple@Apples-MacBook-Pro gopal % <strong>ping -I em2 google.com</strong>     
+ping: invalid multicast interface: `em2'
+apple@Apples-MacBook-Pro gopal % <strong>ping -I en0 google.com</strong>
+
+ping: invalid multicast interface: `en0'
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 13: ifconfig Output - Part 1</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ifconfig</strong>  
+lo0: flags=8049&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; mtu 16384
+	options=1203&lt;RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP&gt;
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 ::1 prefixlen 128 
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1 
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+gif0: flags=8010&lt;POINTOPOINT,MULTICAST&gt; mtu 1280
+stf0: flags=0&lt;&gt; mtu 1280
+anpi2: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=400&lt;CHANNEL_IO&gt;
+	ether e6:18:d8:f4:d8:fd
+	media: none
+	status: inactive
+anpi1: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=400&lt;CHANNEL_IO&gt;
+	ether e6:18:d8:f4:d8:fc
+	media: none
+	status: inactive
+anpi0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=400&lt;CHANNEL_IO&gt;
+	ether e6:18:d8:f4:d8:fb
+	media: none
+	status: inactive
+en4: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=400&lt;CHANNEL_IO&gt;
+	ether e6:18:d8:f4:d8:db
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: none
+	status: inactive
+en5: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=400&lt;CHANNEL_IO&gt;
+	ether e6:18:d8:f4:d8:dc
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: none
+	status: inactive
+en6: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=400&lt;CHANNEL_IO&gt;
+	ether e6:18:d8:f4:d8:dd
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: none
+	status: inactive
+en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;
+	ether 36:d4:50:7e:c0:00
+	media: autoselect &lt;full-duplex&gt;
+	status: inactive
+en2: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;
+	ether 36:d4:50:7e:c0:04
+	media: autoselect &lt;full-duplex&gt;
+	status: inactive
+en3: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;
+	ether 36:d4:50:7e:c0:08
+	media: autoselect &lt;full-duplex&gt;
+	status: inactive</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 14: ifconfig Output - Part 2</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>bridge0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=63&lt;RXCSUM,TXCSUM,TSO4,TSO6&gt;
+	ether 36:d4:50:7e:c0:00
+	Configuration:
+		id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
+		maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+		root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
+		ipfilter disabled flags 0x0
+	member: en1 flags=3&lt;LEARNING,DISCOVER&gt;
+	        ifmaxaddr 0 port 10 priority 0 path cost 0
+	member: en2 flags=3&lt;LEARNING,DISCOVER&gt;
+	        ifmaxaddr 0 port 11 priority 0 path cost 0
+	member: en3 flags=3&lt;LEARNING,DISCOVER&gt;
+	        ifmaxaddr 0 port 12 priority 0 path cost 0
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: &lt;unknown type&gt;
+	status: inactive
+ap1: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=6460&lt;TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM&gt;
+	ether 7e:ba:5d:99:6d:c0
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: autoselect (none)
+	status: inactive
+en0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=6460&lt;TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM&gt;
+	ether b2:e0:91:03:11:49
+	inet6 fe80::182e:bde1:320d:a654%en0 prefixlen 64 secured scopeid 0xe 
+	inet 192.168.0.174 netmask 0xffffff00 broadcast 192.168.0.255
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: autoselect
+	status: active
+awdl0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=6460&lt;TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM&gt;
+	ether ca:f8:ab:93:4a:f4
+	inet6 fe80::c8f8:abff:fe93:4af4%awdl0 prefixlen 64 scopeid 0x10 
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: autoselect
+	status: active
+llw0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=400&lt;CHANNEL_IO&gt;
+	ether ca:f8:ab:93:4a:f4
+	inet6 fe80::c8f8:abff:fe93:4af4%llw0 prefixlen 64 scopeid 0x11 
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: autoselect (none)
+utun0: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1500
+	inet6 fe80::8b0f:4346:d283:2549%utun0 prefixlen 64 scopeid 0x12 
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+utun1: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1380
+	inet6 fe80::d1ec:eeba:51c4:5c11%utun1 prefixlen 64 scopeid 0x13 
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+utun2: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 2000
+	inet6 fe80::3171:d209:945:c188%utun2 prefixlen 64 scopeid 0x14 
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+utun3: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1000
+	inet6 fe80::ce81:b1c:bd2c:69e%utun3 prefixlen 64 scopeid 0x15 
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+vmenet0: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+	ether 02:58:d3:db:b3:9a
+	media: autoselect
+	status: active</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 15: ifconfig Output - Part 3</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>bridge100: flags=8a63&lt;UP,BROADCAST,SMART,RUNNING,ALLMULTI,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=3&lt;RXCSUM,TXCSUM&gt;
+	ether 62:3e:5f:b7:e5:64
+	inet 172.16.236.1 netmask 0xffffff00 broadcast 172.16.236.255
+	inet6 fe80::603e:5fff:feb7:e564%bridge100 prefixlen 64 scopeid 0x18 
+	Configuration:
+		id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
+		maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+		root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
+		ipfilter disabled flags 0x0
+	member: vmenet0 flags=3&lt;LEARNING,DISCOVER&gt;
+	        ifmaxaddr 0 port 23 priority 0 path cost 0
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: autoselect
+	status: active
+vmenet1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+	ether 82:17:a8:7e:a5:57
+	media: autoselect
+	status: active
+bridge101: flags=8a63&lt;UP,BROADCAST,SMART,RUNNING,ALLMULTI,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=3&lt;RXCSUM,TXCSUM&gt;
+	ether 62:3e:5f:b7:e5:65
+	inet 172.16.213.1 netmask 0xffffff00 broadcast 172.16.213.255
+	inet6 fe80::603e:5fff:feb7:e565%bridge101 prefixlen 64 scopeid 0x1a 
+	Configuration:
+		id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
+		maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+		root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
+		ipfilter disabled flags 0x0
+	member: vmenet1 flags=3&lt;LEARNING,DISCOVER&gt;
+	        ifmaxaddr 0 port 25 priority 0 path cost 0
+	member: vmenet2 flags=3&lt;LEARNING,DISCOVER&gt;
+	        ifmaxaddr 0 port 27 priority 0 path cost 0
+	member: vmenet3 flags=3&lt;LEARNING,DISCOVER&gt;
+	        ifmaxaddr 0 port 28 priority 0 path cost 0
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: autoselect
+	status: active
+vmenet2: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+	ether 1a:c8:7b:27:00:6e
+	media: autoselect
+	status: active
+vmenet3: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+	ether 86:4c:f6:57:a6:69
+	media: autoselect
+	status: active
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 16: Ping Help & Source Address Tests</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ping -S</strong>                         
+ping: option requires an argument -- S
+usage: ping [-AaDdfnoQqRrv] [-c count] [-G sweepmaxsize]
+            [-g sweepminsize] [-h sweepincrsize] [-i wait]
+            [-l preload] [-M mask | time] [-m ttl] [-p pattern]
+            [-S src_addr] [-s packetsize] [-t timeout][-W waittime]
+            [-z tos] host
+       ping [-AaDdfLnoQqRrv] [-c count] [-I iface] [-i wait]
+            [-l preload] [-M mask | time] [-m ttl] [-p pattern] [-S src_addr]
+            [-s packetsize] [-T ttl] [-t timeout] [-W waittime]
+            [-z tos] mcast-group
+Apple specific options (to be specified before mcast-group or host like all options)
+            -b boundif           # bind the socket to the interface
+            -k traffic_class     # set traffic class socket option
+            -K net_service_type  # set traffic class socket options
+            --apple-connect      # call connect(2) in the socket
+            --apple-time         # display current time
+            --apple-print-id     # display echo ID
+            --apple-print-req    # display echo request
+apple@Apples-MacBook-Pro gopal % <strong>ping -S xyz kalandoor.com</strong>
+ping: cannot resolve xyz: Unknown host
+apple@Apples-MacBook-Pro gopal % <strong>ping -S 192.16.8.8.8.8  kalandoor.com</strong>
+ping: cannot resolve 192.16.8.8.8.8: Unknown host
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 17: Ping Google with Source Address</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ping -S 192.168.0.174 google.com</strong>
+
+PING google.com (172.217.24.142) from 192.168.0.174: 56 data bytes
+64 bytes from 172.217.24.142: icmp_seq=0 ttl=118 time=33.486 ms
+64 bytes from 172.217.24.142: icmp_seq=1 ttl=118 time=38.135 ms
+64 bytes from 172.217.24.142: icmp_seq=2 ttl=118 time=48.704 ms
+64 bytes from 172.217.24.142: icmp_seq=3 ttl=118 time=33.874 ms
+64 bytes from 172.217.24.142: icmp_seq=4 ttl=118 time=43.088 ms
+64 bytes from 172.217.24.142: icmp_seq=5 ttl=118 time=73.458 ms
+64 bytes from 172.217.24.142: icmp_seq=6 ttl=118 time=37.745 ms
+64 bytes from 172.217.24.142: icmp_seq=7 ttl=118 time=35.056 ms
+64 bytes from 172.217.24.142: icmp_seq=8 ttl=118 time=39.278 ms
+64 bytes from 172.217.24.142: icmp_seq=9 ttl=118 time=41.506 ms
+64 bytes from 172.217.24.142: icmp_seq=10 ttl=118 time=37.208 ms
+64 bytes from 172.217.24.142: icmp_seq=11 ttl=118 time=32.865 ms
+64 bytes from 172.217.24.142: icmp_seq=12 ttl=118 time=35.819 ms
+64 bytes from 172.217.24.142: icmp_seq=13 ttl=118 time=35.155 ms
+64 bytes from 172.217.24.142: icmp_seq=14 ttl=118 time=44.915 ms
+64 bytes from 172.217.24.142: icmp_seq=15 ttl=118 time=43.834 ms
+64 bytes from 172.217.24.142: icmp_seq=16 ttl=118 time=42.040 ms
+64 bytes from 172.217.24.142: icmp_seq=17 ttl=118 time=32.859 ms
+
+64 bytes from 172.217.24.142: icmp_seq=18 ttl=118 time=59.348 ms
+64 bytes from 172.217.24.142: icmp_seq=19 ttl=118 time=46.606 ms
+64 bytes from 172.217.24.142: icmp_seq=20 ttl=118 time=43.973 ms
+64 bytes from 172.217.24.142: icmp_seq=21 ttl=118 time=54.772 ms
+64 bytes from 172.217.24.142: icmp_seq=22 ttl=118 time=45.509 ms
+64 bytes from 172.217.24.142: icmp_seq=23 ttl=118 time=55.794 ms
+64 bytes from 172.217.24.142: icmp_seq=24 ttl=118 time=45.607 ms
+64 bytes from 172.217.24.142: icmp_seq=25 ttl=118 time=38.521 ms
+64 bytes from 172.217.24.142: icmp_seq=26 ttl=118 time=38.899 ms
+64 bytes from 172.217.24.142: icmp_seq=27 ttl=118 time=77.573 ms
+64 bytes from 172.217.24.142: icmp_seq=28 ttl=118 time=42.785 ms
+64 bytes from 172.217.24.142: icmp_seq=29 ttl=118 time=39.047 ms
+64 bytes from 172.217.24.142: icmp_seq=30 ttl=118 time=39.793 ms
+64 bytes from 172.217.24.142: icmp_seq=31 ttl=118 time=42.697 ms
+64 bytes from 172.217.24.142: icmp_seq=32 ttl=118 time=44.440 ms
+64 bytes from 172.217.24.142: icmp_seq=33 ttl=118 time=34.329 ms
+^C
+--- google.com ping statistics ---
+34 packets transmitted, 34 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 32.859/43.492/77.573/10.212 ms
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 18: ifconfig en0 & Interface Ping Tests</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ping -I em2 linuxize.com</strong>
+ping: invalid multicast interface: `em2'
+apple@Apples-MacBook-Pro gopal % <strong>ifconfig en0</strong>
+
+en0: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+	options=6460&lt;TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM&gt;
+	ether b2:e0:91:03:11:49
+	inet6 fe80::182e:bde1:320d:a654%en0 prefixlen 64 secured scopeid 0xe 
+	inet 192.168.0.174 netmask 0xffffff00 broadcast 192.168.0.255
+	nd6 options=201&lt;PERFORMNUD,DAD&gt;
+	media: autoselect
+	status: active
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 19: Ping Pacewisdom with Source Address</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ping -S 192.168.0.174 pacewisdom.com</strong>
+
+PING pacewisdom.com (198.202.211.1) from 192.168.0.174: 56 data bytes
+64 bytes from 198.202.211.1: icmp_seq=0 ttl=55 time=62.434 ms
+64 bytes from 198.202.211.1: icmp_seq=1 ttl=55 time=62.954 ms
+64 bytes from 198.202.211.1: icmp_seq=2 ttl=55 time=93.960 ms
+64 bytes from 198.202.211.1: icmp_seq=3 ttl=55 time=66.389 ms
+64 bytes from 198.202.211.1: icmp_seq=4 ttl=55 time=57.202 ms
+64 bytes from 198.202.211.1: icmp_seq=5 ttl=55 time=72.387 ms
+64 bytes from 198.202.211.1: icmp_seq=6 ttl=55 time=76.067 ms
+64 bytes from 198.202.211.1: icmp_seq=7 ttl=55 time=85.834 ms
+64 bytes from 198.202.211.1: icmp_seq=8 ttl=55 time=67.232 ms
+64 bytes from 198.202.211.1: icmp_seq=9 ttl=55 time=55.235 ms
+64 bytes from 198.202.211.1: icmp_seq=10 ttl=55 time=66.019 ms
+^X64 bytes from 198.202.211.1: icmp_seq=11 ttl=55 time=62.106 ms
+64 bytes from 198.202.211.1: icmp_seq=12 ttl=55 time=59.777 ms
+^X64 bytes from 198.202.211.1: icmp_seq=13 ttl=55 time=61.696 ms
+64 bytes from 198.202.211.1: icmp_seq=14 ttl=55 time=81.626 ms
+64 bytes from 198.202.211.1: icmp_seq=15 ttl=55 time=63.956 ms
+^X64 bytes from 198.202.211.1: icmp_seq=16 ttl=55 time=61.133 ms
+64 bytes from 198.202.211.1: icmp_seq=17 ttl=55 time=66.335 ms
+64 bytes from 198.202.211.1: icmp_seq=18 ttl=55 time=55.501 ms
+64 bytes from 198.202.211.1: icmp_seq=19 ttl=55 time=64.687 ms
+64 bytes from 198.202.211.1: icmp_seq=20 ttl=55 time=59.097 ms
+^C
+--- pacewisdom.com ping statistics ---
+21 packets transmitted, 21 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 55.235/66.744/93.960/9.824 ms
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 20: Ping with Interval Option</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ping -i 2 pacewisdom.com</strong>
+PING pacewisdom.com (198.202.211.1): 56 data bytes
+64 bytes from 198.202.211.1: icmp_seq=0 ttl=59 time=45.922 ms
+64 bytes from 198.202.211.1: icmp_seq=1 ttl=59 time=43.065 ms
+64 bytes from 198.202.211.1: icmp_seq=2 ttl=59 time=41.942 ms
+64 bytes from 198.202.211.1: icmp_seq=3 ttl=59 time=62.286 ms
+64 bytes from 198.202.211.1: icmp_seq=4 ttl=59 time=71.058 ms
+64 bytes from 198.202.211.1: icmp_seq=5 ttl=59 time=51.841 ms
+64 bytes from 198.202.211.1: icmp_seq=6 ttl=59 time=40.635 ms
+64 bytes from 198.202.211.1: icmp_seq=7 ttl=59 time=38.552 ms
+64 bytes from 198.202.211.1: icmp_seq=8 ttl=59 time=45.988 ms
+64 bytes from 198.202.211.1: icmp_seq=9 ttl=59 time=42.948 ms
+64 bytes from 198.202.211.1: icmp_seq=10 ttl=59 time=45.295 ms
+64 bytes from 198.202.211.1: icmp_seq=11 ttl=59 time=52.963 ms
+64 bytes from 198.202.211.1: icmp_seq=12 ttl=59 time=43.949 ms
+64 bytes from 198.202.211.1: icmp_seq=13 ttl=59 time=41.875 ms
+^C
+--- pacewisdom.com ping statistics ---
+14 packets transmitted, 14 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 38.552/47.737/71.058/8.758 ms
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 21: Ping Timeout & Packet Size Tests</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ping -W 2 pacewisdom.com</strong>
+PING pacewisdom.com (198.202.211.1): 56 data bytes
+^C  
+--- pacewisdom.com ping statistics ---
+32 packets transmitted, 32 packets received, 0.0% packet loss, 32 packets out of wait time
+round-trip min/avg/max/stddev = 34.337/40.373/50.784/4.404 ms
+apple@Apples-MacBook-Pro gopal % <strong>ping -w 2 pacewisdom.com</strong>
+ping: invalid option -- w
+usage: ping [-AaDdfnoQqRrv] [-c count] [-G sweepmaxsize]
+            [-g sweepminsize] [-h sweepincrsize] [-i wait]
+            [-l preload] [-M mask | time] [-m ttl] [-p pattern]
+            [-S src_addr] [-s packetsize] [-t timeout][-W waittime]
+            [-z tos] host
+       ping [-AaDdfLnoQqRrv] [-c count] [-I iface] [-i wait]
+            [-l preload] [-M mask | time] [-m ttl] [-p pattern] [-S src_addr]
+            [-s packetsize] [-T ttl] [-t timeout] [-W waittime]
+            [-z tos] mcast-group
+Apple specific options (to be specified before mcast-group or host like all options)
+            -b boundif           # bind the socket to the interface
+            -k traffic_class     # set traffic class socket option
+            -K net_service_type  # set traffic class socket options
+            --apple-connect      # call connect(2) in the socket
+            --apple-time         # display current time
+            --apple-print-id     # display echo ID
+            --apple-print-req    # display echo request
+apple@Apples-MacBook-Pro gopal % <strong>ping -s 2 pacewisdom.com</strong>
+PING pacewisdom.com (198.202.211.1): 2 data bytes
+10 bytes from 198.202.211.1: icmp_seq=0 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=1 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=2 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=3 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=4 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=5 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=6 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=7 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=8 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=9 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=10 ttl=59
+10 bytes from 198.202.211.1: icmp_seq=11 ttl=59
+^C
+--- pacewisdom.com ping statistics ---
+12 packets transmitted, 12 packets received, 0.0% packet loss
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Terminal Session 22: Quiet Mode Ping</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>ping -q -c 5 pacewisdom.com</strong>
+PING pacewisdom.com (198.202.211.1): 56 data bytes
+
+--- pacewisdom.com ping statistics ---
+5 packets transmitted, 5 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 35.463/38.144/43.592/2.900 ms
+apple@Apples-MacBook-Pro gopal %</pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+           <p style="margin-top: 15px; font-size: 14px;">
+            <strong>Sources:</strong><br>
+            <a href="https://linuxhint.com/run_traceroute_linux/" target="_blank" style="color: #667eea; text-decoration: none;">Linux Hint - Run Traceroute in Linux</a><br>
+            <a href="https://www.youtube.com/watch?v=Hrgb6Sfq0uY" target="_blank" style="color: #667eea; text-decoration: none;">YouTube Tutorial - Traceroute Basics</a>
+        </p>
+    </footer>
+</body>
+</html>

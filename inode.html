@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inode Command Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            background: white;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            color: #1d1d1f;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            color: #1d1d1f;
+            border-bottom: 2px solid #1d1d1f;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            color: #333;
+        }
+
+        .info-box {1d1d1f
+            background: #f9f9fb;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box {
+            background: #fff4e6;
+            border-left: 4px solid #ff9500;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .terminal {
+            background: #1d1d1f;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-body {
+            color: #f8f8f2;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .terminal-body strong {
+            color: #66d9ef;
+            font-weight: 600;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-prompt {
+            color: #a6e22e;
+        }
+
+        .terminal-command {
+            color: #66d9ef;
+        }
+
+        .terminal-output {
+            color: #f8f8f2;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .terminal-comment {
+            color: #75715e;
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .command-card {
+            background: #f9f9fb;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            transform: tran1d1d1f;
+        }
+
+        .command-card h4 {
+            color: #1d1d1f
+        .command-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .command-card code {
+            background: #1d1d1f;
+            color: #66d9ef;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 10px 0;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .command-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #1d1d1f;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f9f9fb;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+
+        .badge-success {
+            background: #e6f4ea;
+            color: #1e7e34;
+        }
+
+        .badge-info {
+            background: #e3f2fd;
+            color: #0277bd;
+        }
+
+        .badge-warning {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        footer {
+            background: #f9f9fb;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 24px; }
+            .content { padding: 20px; }
+            header { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Inode and grep  Operations</h1>
+        <p class="subtitle">File system inode management and operations</p>
+    </header>
+
+    <div class="content">
+        <section>
+            <h2>Initial Setup & File Creation</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>Last login: Thu Jan 22 12:00:24 on ttys004
+You have new mail.
+apple@Apples-MacBook-Pro ~ % <strong>cd /Users/apple/Documents/DevOps</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>ls</strong>
+gopal			index.html		netstat-guide.html	passsword.txt		pinglogs.txt		traceroute Ping.html	ufw.html
+home			inode.html		netstat.txt		password.html		softlink.html		traceroutelog1.txt	var
+apple@Apples-MacBook-Pro DevOps % <strong>touch innodedemo.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>cat innodedemo.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>vi  innodedemo.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>vi sahdgsq</strong>        
+apple@Apples-MacBook-Pro DevOps % <strong>ls</strong>
+gopal			index.html		inode.html		netstat.txt		password.html		softlink.html		traceroutelog1.txt	var
+home			innodedemo.txt		netstat-guide.html	passsword.txt		pinglogs.txt		traceroute Ping.html	ufw.html
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>stat Command & Inode Listing</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>stat  innodedemo.txt</strong>
+16777231 36239989 -rw-r--r-- 1 apple staff 0 53 "Jan 23 10:42:10 2026" "Jan 23 10:42:09 2026" "Jan 23 10:42:09 2026" "Jan 23 10:42:09 2026" 4096 8 0 innodedemo.txt
+apple@Apples-MacBook-Pro DevOps % <strong>ls -i</strong>
+36116457 gopal			36239989 innodedemo.txt		35944569 netstat.txt		36155124 pinglogs.txt		36143729 traceroutelog1.txt
+36160585 home			36238853 inode.html		36140188 passsword.txt		36162187 softlink.html		35960825 ufw.html
+36234808 index.html		35956167 netstat-guide.html	36140271 password.html		36143856 traceroute Ping.html	36159703 var
+apple@Apples-MacBook-Pro DevOps % <strong>ls -i /etc</strong>
+1152921500312561522 /etc
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Directory Inode Operations</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>mkdir inode</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>cd inode</strong>
+apple@Apples-MacBook-Pro inode % <strong>ls -id .</strong>
+36243235 .
+apple@Apples-MacBook-Pro inode % <strong>ls id..</strong>
+ls: id..: No such file or directory
+apple@Apples-MacBook-Pro inode % <strong>ls -id..</strong>
+ls: invalid option -- .
+usage: ls [-@ABCFGHILOPRSTUWXabcdefghiklmnopqrstuvwxy1%,] [--color=when] [-D format] [file ...]
+apple@Apples-MacBook-Pro inode % <strong>cd.</strong>        
+zsh: command not found: cd.
+apple@Apples-MacBook-Pro inode % <strong>cd .</strong>
+apple@Apples-MacBook-Pro inode % <strong>cd ..</strong>
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Directory Removal & Inode Verification</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>ls</strong>
+gopal			index.html		inode			netstat-guide.html	passsword.txt		pinglogs.txt		traceroute Ping.html	ufw.html
+home			innodedemo.txt		inode.html		netstat.txt		password.html		softlink.html		traceroutelog1.txt	var
+apple@Apples-MacBook-Pro DevOps % <strong>ls -i</strong>   
+36116457 gopal			36239989 innodedemo.txt		35956167 netstat-guide.html	36140271 password.html		36143856 traceroute Ping.html	36159703 var
+36160585 home			36243235 inode			35944569 netstat.txt		36155124 pinglogs.txt		36143729 traceroutelog1.txt
+36234808 index.html		36238853 inode.html		36140188 passsword.txt		36162187 softlink.html		35960825 ufw.html
+apple@Apples-MacBook-Pro DevOps % <strong>ln pinglogs.txt traceroutelog1.txt</strong>
+ln: traceroutelog1.txt: File exists
+apple@Apples-MacBook-Pro DevOps % <strong>mkdir inode</strong>
+mkdir: inode: File exists
+apple@Apples-MacBook-Pro DevOps % <strong>rm inode</strong>   
+rm: inode: is a directory
+apple@Apples-MacBook-Pro DevOps % <strong>rmdir inode</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>ls</strong>
+gopal			index.html		inode.html		netstat.txt		password.html		softlink.html		traceroutelog1.txt	var
+home			innodedemo.txt		netstat-guide.html	passsword.txt		pinglogs.txt		traceroute Ping.html	ufw.html
+apple@Apples-MacBook-Pro DevOps % <strong>ls -i</strong>
+36116457 gopal			36239989 innodedemo.txt		35944569 netstat.txt		36155124 pinglogs.txt		36143729 traceroutelog1.txt
+36160585 home			36238853 inode.html		36140188 passsword.txt		36162187 softlink.html		35960825 ufw.html
+36234808 index.html		35956167 netstat-guide.html	36140271 password.html		36143856 traceroute Ping.html	36159703 var
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>File Creation & stat Analysis</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>touch a.txt b.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>nano a.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>nano b.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>stat b.txt</strong>
+
+16777231 36253700 -rw-r--r-- 1 apple staff 0 8 "Jan 23 11:08:15 2026" "Jan 23 11:08:13 2026" "Jan 23 11:08:13 2026" "Jan 23 11:06:55 2026" 4096 8 0 b.txt
+apple@Apples-MacBook-Pro DevOps % <strong>stat a.txt</strong>
+
+16777231 36253699 -rw-r--r-- 1 apple staff 0 0 "Jan 23 11:06:55 2026" "Jan 23 11:06:55 2026" "Jan 23 11:06:55 2026" "Jan 23 11:06:55 2026" 4096 0 0 a.txt
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Finding Files by Inode Number</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>find file using node number :</strong> 
+find: file: No such file or directory
+find: using: No such file or directory
+find: node: No such file or directory
+find: number: No such file or directory
+find: :: No such file or directory
+apple@Apples-MacBook-Pro DevOps % <strong>ls -i a.txt</strong>                               
+36253699 a.txt
+apple@Apples-MacBook-Pro DevOps % <strong> find /Users/apple/Documents/DevOps -inum 36253699</strong>
+/Users/apple/Documents/DevOps/a.txt
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Disk Usage Commands</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>du h a.txt</strong>
+du: h: No such file or directory
+0	a.txt
+apple@Apples-MacBook-Pro DevOps % <strong>du -h a.txt</strong>
+  0B	a.txt
+apple@Apples-MacBook-Pro DevOps % <strong>du -h         netstat-guide.html</strong>
+ 44K	netstat-guide.html
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>df -i (Inode Usage Information)</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>df -i</strong>
+Filesystem     512-blocks      Used Available Capacity iused     ifree %iused  Mounted on
+/dev/disk3s1s1  965595304  23957016  62841336    28%  453019 314206680    0%   /
+devfs                 417       417         0   100%     722         0  100%   /dev
+/dev/disk3s6    965595304   6291584  62841336    10%       3 314206680    0%   /System/Volumes/VM
+/dev/disk3s2    965595304  15931744  62841336    21%    1315 314206680    0%   /System/Volumes/Preboot
+/dev/disk3s4    965595304     17488  62841336     1%     104 314206680    0%   /System/Volumes/Update
+/dev/disk1s2      1024000     12328    985488     2%       1   4927440    0%   /System/Volumes/xarts
+/dev/disk1s1      1024000     11448    985488     2%      30   4927440    0%   /System/Volumes/iSCPreboot
+/dev/disk1s3      1024000      5016    985488     1%      96   4927440    0%   /System/Volumes/Hardware
+/dev/disk3s5    965595304 853826464  62841336    94% 2358898 314206680    1%   /System/Volumes/Data
+map auto_home           0         0         0   100%       0         0     -   /System/Volumes/Data/home
+apple@Apples-MacBook-Pro DevOps % <strong>df -i netstat-guide.html</strong>
+
+Filesystem   512-blocks      Used Available Capacity iused     ifree %iused  Mounted on
+/dev/disk3s5  965595304 853826848  62840952    94% 2358899 314204760    1%   /System/Volumes/Data
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Directory Inode Listing & Parent Directory</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>Directory inode listing</strong>
+zsh: command not found: Directory
+apple@Apples-MacBook-Pro DevOps % <strong>ls -i  /Users/apple/Documents/DevOps</strong>               
+36253757 a.tx			36116457 gopal			36239989 innodedemo.txt		35944569 netstat.txt		36155124 pinglogs.txt		36143729 traceroutelog1.txt
+36253699 a.txt			36160585 home			36238853 inode.html		36140188 passsword.txt		36162187 softlink.html		35960825 ufw.html
+36253700 b.txt			36234808 index.html		35956167 netstat-guide.html	36140271 password.html		36143856 traceroute Ping.html	36159703 var
+apple@Apples-MacBook-Pro DevOps % <strong>for parent ls -i ..</strong> 
+zsh: parse error near `-i'
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Parent Directory Listing</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong> ls -i ..</strong>  
+36074896 ~$devops.xlsx				22267016 android app				29492060 forest					33858963 Kishan_CV-1.pdf			24145082 salesforce_workshop(1).xlsx
+ 1127614 04mnmnravtempGVF.jpg			 1756690 bda.docx				10261444 GitHub					32371565 Kishan_CV-4.pdf			16192246 sentiment-analysis-main
+15331490 1.mov					 1756711 bda.pdf				 6700018 HackerEarth-Hub-NMAMIT-main		31354899 Kishan_Kalandoor_resume.pdf		16189538 sentiment-analysis-main(1).zip
+14584562 100CANON				 3549859 Book1.xlsx				 5118825 Horos Data				31701572 kishan.jpeg				  516892 sheshakuteera
+  627074 100MEDIA				 1188144 CD UNIT 1.pdf				 1107558 ieee_manglore.png			 6999656 kishan.png				 6732314 sheshakuteerablogtemple.zip
+16104996 103CANON				23061391 cg test				 1745962 iwp.pdf				34414904 KishanKalandoor.pdf			 2361388 Site1.zip
+22767230 17 copy 2.png				 7002318 CopyrightReceipt_merged_compressed.pdf	19322083 kishan copy.png			 1555426 me_gopz.docx				36005210 text.txt
+17880362 17 copy.png				 7002286 CopyrightReceipt_merged.pdf		22766988 Kishan K copy 2.png			 1556419 me_gopz.pdf				 1745974 Universal Selector.docx
+ 7309831 17.png					  626792 DCIM					19321848 Kishan K copy.png			25926364 NNM22CS092.pdf				 1745146 Universal Selector.pdf
+15332516 2.mov					35943859 DevOps					 7289062 KiSHAN K-9.pdf				 1129963 Page 1.zip				13646507 VID_20230429_194239.mp4
+19322297 8.png					36162841 devops.xlsx				 6999691 Kishan K.png				16756881 readme.md
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>File Content Operations</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>echo "Hello" a.txt</strong>
+Hello a.txt
+apple@Apples-MacBook-Pro DevOps % <strong>tail -f  a.txt</strong>
+
+^C
+apple@Apples-MacBook-Pro DevOps % <strong>echo "Hello" > a.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>tail -f  a.txt</strong>      
+Hello
+^C      
+apple@Apples-MacBook-Pro DevOps % <strong>echo "Hello hallo" >> a.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>tail -f  a.txt</strong>             
+Hello
+Hello hallo
+^C
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Broken Symbolic Link Operations</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>ls -s a.txt broken</strong>         
+ls: broken: No such file or directory
+8 a.txt
+apple@Apples-MacBook-Pro DevOps % <strong>ls -l broken</strong>
+ls: broken: No such file or directory
+apple@Apples-MacBook-Pro DevOps % <strong>ls -l missing.txt broken</strong>
+ls: broken: No such file or directory
+ls: missing.txt: No such file or directory
+apple@Apples-MacBook-Pro DevOps % <strong>ln -s missing.txt broken</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>ls -l broken</strong>
+lrwxr-xr-x  1 apple  staff  11 23 Jan 11:43 broken -> missing.txt
+apple@Apples-MacBook-Pro DevOps % <strong>ls -l missing.txt broken</strong>
+ls: missing.txt: No such file or directory
+lrwxr-xr-x  1 apple  staff  11 23 Jan 11:43 broken -> missing.txt
+apple@Apples-MacBook-Pro DevOps % <strong>cat broken</strong>
+cat: broken: No such file or directory
+apple@Apples-MacBook-Pro DevOps % <strong>echo "No issues" > missing.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>cat broken</strong>                    
+No issues
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Grep Command Overview</h2>
+            <div class="info-box">
+                <h3>grep = Global Regular Expression Print</h3>
+                <p><strong>Used for:</strong> logs, config files, code, DevOps debugging</p>
+                <p><strong>Syntax:</strong> grep [options] pattern [file(s)]</p>
+                <p><strong>Meaning:</strong></p>
+                <ul>
+                    <li>options → how grep behaves</li>
+                    <li>pattern → what you are searching</li>
+                    <li>file(s) → where to search</li>
+                </ul>
+                <br>
+                <p><strong>Common Options:</strong></p>
+                <ul>
+                    <li><code>grep "pattern" file</code> - Basic search</li>
+                    <li><code>grep -i "pattern" file</code> - Case-insensitive search</li>
+                    <li><code>grep -c "pattern" file</code> - Count matching lines</li>
+                    <li><code>grep -l "pattern" file(s)</code> - Print only matching file names</li>
+                    <li><code>grep -w "word" file</code> - Match whole words only</li>
+                    <li><code>grep -o "pattern" file</code> - Print only the match (not full line)</li>
+                    <li><code>grep -n "pattern" file</code> - Show line numbers</li>
+                    <li><code>grep -v "pattern" file</code> - Invert match (NOT matching)</li>
+                    <li><code>grep "^pattern" file</code> - Match start of line</li>
+                    <li><code>grep "pattern$" file</code> - Match end of line</li>
+                    <li><code>grep -e "pattern1" -e "pattern2" file</code> - Multiple patterns</li>
+                    <li><code>grep -f pattern_file target_file</code> - Read patterns from file</li>
+                    <li><code>grep -A[n] pattern file</code> - Print lines after match</li>
+                    <li><code>grep -B[n] pattern file</code> - Print lines before match</li>
+                    <li><code>grep -C[n] pattern file</code> - Print lines before + after</li>
+                    <li><code>grep -r "pattern" directory</code> - Search recursively</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep - Basic Search & Case-Insensitive</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep "pattern" file</code> - Basic search<br>
+                <code>grep -i "pattern" file</code> - Case-insensitive search
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>Last login: Fri Jan 23 10:34:25 on ttys000
+You have new mail.
+apple@Apples-MacBook-Pro ~ % <strong>cd /Users/apple/Documents/DevOps</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>grep "hallo" hello.txt</strong>
+grep: hello.txt: No such file or directory
+apple@Apples-MacBook-Pro DevOps % <strong>touch hello.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>grep "hallo" hello.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>nano hello.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>grep -i  "hallo" hello.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>nano hello.txt</strong>            
+apple@Apples-MacBook-Pro DevOps % <strong>grep -i  "hallo" hello.txt</strong>
+hallo
+hallo
+apple@Apples-MacBook-Pro DevOps % <strong>grep "hallo" hello.txt</strong>    
+hallo
+hallo
+apple@Apples-MacBook-Pro DevOps % <strong>grep "hello" hello.txt</strong>
+hello
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep -c (Count Matching Lines)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep -c "pattern" file</code> - Count matching lines
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -c  "hallo" hello.txt</strong>
+2
+apple@Apples-MacBook-Pro DevOps % <strong>grep -c  "hello" hello.txt</strong>
+1
+apple@Apples-MacBook-Pro DevOps % <strong>grep -c  "helloi" hello.txt</strong>
+0
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep -l (Print Only Matching File Names)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep -l "pattern" file(s)</code> - Print only matching file names
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -l  "hallo" hello.txt</strong>
+hello.txt
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep -w (Match Whole Words Only)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep -w "word" file</code> - Match whole words only
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -w  "hallo" hello.txt</strong>
+hallo
+hallo
+apple@Apples-MacBook-Pro DevOps % <strong>grep -w  "hi" hello.txt</strong>
+hi 
+apple@Apples-MacBook-Pro DevOps % <strong>nano hello.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>grep -w  "hi" hello.txt</strong>
+hi 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -w  "hello" hello.txt</strong>
+hello
+apple@Apples-MacBook-Pro DevOps % <strong>grep -l  "hello" hello.txt</strong>
+hello.txt
+apple@Apples-MacBook-Pro DevOps % <strong>grep -w  "hallo" hello.txt</strong>
+hallo, wie geht's ?
+hallo
+apple@Apples-MacBook-Pro DevOps % <strong>grep -l  "hallo" hello.txt</strong>
+hello.txt
+apple@Apples-MacBook-Pro DevOps % <strong>grep -c  "hallo" hello.txt</strong>
+2
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep -o (Print Only the Match)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep -o "pattern" file</code> - Print only the match (not full line)
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -o  "hallo" hello.txt</strong>
+hallo
+hallo
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep -n (Show Line Numbers)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep -n "pattern" file</code> - Show line numbers
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -n  "hallo" hello.txt</strong>
+1:hallo, wie geht's ?
+4:hallo
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep -v (Invert Match)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep -v "pattern" file</code> - Invert match (NOT matching)
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -v  "hallo" hello.txt</strong>
+hi 
+hello
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep ^ and $ (Start and End of Line)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep "^pattern" file</code> - Match start of line<br>
+                <code>grep "pattern$" file</code> - Match end of line
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep  "^hallo" hello.txt</strong>
+hallo, wie geht's ?
+hallo
+apple@Apples-MacBook-Pro DevOps % <strong>grep  "hallo$" hello.txt</strong>
+hallo
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep -e (Multiple Patterns)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep -e "pattern1" -e "pattern2" file</code> - Multiple patterns
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -e  "hallo" hello.txt</strong>
+hallo, wie geht's ?
+hallo
+apple@Apples-MacBook-Pro DevOps % <strong>grep -e  "hallo" -e "hi"  hello.txt</strong>
+hallo, wie geht's ?
+hi 
+hallo
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep -f (Read Patterns from File)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep -f pattern_file target_file</code> - Read patterns from file
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>touch pattern.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>nano pattern.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>grep -f pattern.txt hello.txt</strong>      
+hallo, wie geht's ?
+hi 
+hello
+hallo
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep -A, -B, -C (Context Lines)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep -A[n] pattern file</code> - Print lines after match<br>
+                <code>grep -B[n] pattern file</code> - Print lines before match<br>
+                <code>grep -C[n] pattern file</code> - Print lines before + after
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -[A] pattern.txt</strong>       
+zsh: no matches found: -[A]
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A[] pattern.txt</strong> 
+zsh: no matches found: -A[]
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A[n] pattern.txt</strong> 
+zsh: no matches found: -A[n]
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A2  "hello" hello.txt</strong> 
+hello
+hallo
+apple@Apples-MacBook-Pro DevOps % <strong>grep -B1  "hello" hello.txt</strong> 
+hi 
+hello
+apple@Apples-MacBook-Pro DevOps % <strong>grep -C1  "hello" hello.txt</strong> 
+hi 
+hello
+hallo
+apple@Apples-MacBook-Pro DevOps % <strong>grep -C2  "hello" hello.txt</strong> 
+hallo, wie geht's ?
+hi 
+hello
+hallo
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>grep -r (Recursive Search)</h2>
+            <div class="syntax-box">
+                <strong>Syntax:</strong><br>
+                <code>grep -r "pattern" directory</code> - Search recursively
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -r  "hallo"   hello.txt</strong> 
+hello.txt:hallo, wie geht's ?
+hello.txt:hallo
+apple@Apples-MacBook-Pro DevOps % <strong>ls</strong>
+a.tx			broken			home			inode.html		netstat.txt		pattern.txt		traceroute Ping.html	var
+a.txt			gopal			index.html		missing.txt		passsword.txt		pinglogs.txt		traceroutelog1.txt
+b.txt			hello.txt		innodedemo.txt		netstat-guide.html	password.html		softlink.html		ufw.html
+apple@Apples-MacBook-Pro DevOps %</pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+           <p style="margin-top: 15px; font-size: 14px;">
+            <strong>References:</strong><br>
+            <a href="https://www.geeksforgeeks.org/operating-systems/inode-in-operating-system/" target="_blank" style="color: #1d1d1f; text-decoration: none;">GeeksforGeeks - Inode in Operating System</a><br>
+            <a href="https://www.geeksforgeeks.org/linux-unix/grep-command-in-unixlinux/" target="_blank" style="color: #1d1d1f; text-decoration: none;">GeeksforGeeks - Grep Command in Unix/Linux</a>
+        </p>
+    </footer>
+</body>
+
+</html>

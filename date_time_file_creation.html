@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs and Journalctl Command Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+            background: #ffffff;
+            color: #1d1d1f;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #1d1d1f !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: none;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 22px;
+            color: #ffffff !important;
+        }
+
+        .nav-link {
+            font-weight: 400;
+            color: #f5f5f7 !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            background: #ffffff;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .page-header h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1.5px;
+            color: #1d1d1f;
+        }
+
+        .page-header .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            font-weight: 400;
+        }
+
+        .terminal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .terminal-window {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+            transition: all 0.3s ease;
+        }
+
+        .terminal-window:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border-color: #d2d2d7;
+        }
+
+        .terminal-titlebar {
+            background: #f5f5f7;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: #1d1d1f;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            background: #1d1d1f;
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #3d3d3f;
+            border-radius: 4px;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: #66d9ef;
+        }
+
+        .section-header {
+            background: #ffffff;
+            border: none;
+            color: #1d1d1f;
+            padding: 20px 0;
+            border-radius: 0;
+            margin: 50px 0 30px 0;
+            font-weight: 700;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: none;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .section-header i {
+            font-size: 32px;
+        }
+
+        footer {
+            background: #f5f5f7;
+            padding: 40px;
+            text-align: center;
+            color: #86868b;
+            border-radius: 0;
+            border-top: 1px solid #e5e5e7;
+            margin-top: 50px;
+            box-shadow: none;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1d1d1f;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-custom {
+            background: #1d1d1f;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 32px; }
+            .page-header { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="bi bi-terminal me-2"></i>Date & Time File Creation</a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Date & Time File Creation ;  Crontab</h1>
+            <p class="subtitle">Creating files with dynamic timestamps in Linux</p>
+        </div>
+
+        <!-- Section 1: Initial Setup -->
+        <div class="section-header">
+            <i class="bi bi-folder-plus"></i>
+            <span>Initial Setup & Directory Navigation</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Creating and navigating to 'file' directory</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~$ pwd
+/home/gopala
+gopala@gopala-VMware20-1:~$ cd file
+bash: cd: file: No such file or directory
+gopala@gopala-VMware20-1:~$ mkdir file
+gopala@gopala-VMware20-1:~$ cd file
+gopala@gopala-VMware20-1:~/file$</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Variable Assignment Attempts -->
+        <div class="section-header">
+            <i class="bi bi-exclamation-triangle"></i>
+            <span>Variable Assignment Attempts (with errors)</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Attempting to assign FILENAME variable (incorrect syntax)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/file$ FILENAME = "$(date '+%d-%m-%Y_%H:%M:%S').txt"
+FILENAME: command not found
+gopala@gopala-VMware20-1:~/file$ FILENAME= "$(date '+%d-%m-%Y_%H:%M:%S').txt"
+28-01-2026_12:27:21.txt: command not found</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Using touch command incorrectly</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/file$ touch FILENAME= "$(date '+%d-%m-%Y_%H:%M:%S').txt"
+gopala@gopala-VMware20-1:~/file$ ls
+ 28-01-2026_12:27:36.txt  'FILENAME='</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Echo Command Experiments -->
+        <div class="section-header">
+            <i class="bi bi-chat-left-text"></i>
+            <span>Echo Command with Date & Time</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Testing echo command with incomplete syntax</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/file$ echo "current date and time : $(date +'^C
+gopala@gopala-VMware20-1:~/file$ ^C
+gopala@gopala-VMware20-1:~/file$ ^C</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Successful echo with formatted date and time</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/file$ echo "current date and time : $(date '+%d-%m-%Y_%H:%M:%S') Message : whatever . text ... "
+current date and time : 28-01-2026_12:31:00 Message : whatever . text ...</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Writing to Files -->
+        <div class="section-header">
+            <i class="bi bi-file-earmark-text"></i>
+            <span>Writing Content to Files</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Writing to existing file and editing with nano</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/file$ echo "current date and time : $(date '+%d-%m-%Y_%H:%M:%S') Message : whatever . text ... " > 28-01-2026_12:27:36.txt
+gopala@gopala-VMware20-1:~/file$ nano  28-01-2026_12:27:36.txt</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Creating new file with dynamic filename and content</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/file$ echo "current date and time : $(date '+%d-%m-%Y_%H:%M:%S') Message : anything messqages .. hi kishan ...  " > "$(date '+%d-%m-%Y_%H:%M:%S').txt"
+gopala@gopala-VMware20-1:~/file$ ls
+ 28-01-2026_12:27:36.txt   28-01-2026_12:33:12.txt  'FILENAME='
+gopala@gopala-VMware20-1:~/file$ nano 28-01-2026_12:33:12.txt</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Testing Date Format -->
+        <div class="section-header">
+            <i class="bi bi-calendar-check"></i>
+            <span>Testing Date Format Strings</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Testing date format strings and displaying current date</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/file$ echo "+%d-%m-%Y_%H:%M:%S"
++%d-%m-%Y_%H:%M:%S
+gopala@gopala-VMware20-1:~/file$ echo "+d-%m-%Y_%H:%M:%S"
++d-%m-%Y_%H:%M:%S
+gopala@gopala-VMware20-1:~/file$ date
+Wed Jan 28 12:35:39 IST 2026
+gopala@gopala-VMware20-1:~/file$</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Output Text Content -->
+        <div class="section-header">
+            <i class="bi bi-file-text"></i>
+            <span>Created File Contents</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Content of 28-01-2026_12:27:36.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>current date and time : 28-01-2026_12:31:00 Message : whatever . text ...</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Content of 28-01-2026_12:33:12.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>current date and time : 28-01-2026_12:33:12 Message : anything messqages .. hi kishan ...</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7: Crontab - Working with /tmp Directory -->
+        <div class="section-header">
+            <i class="bi bi-clock-history"></i>
+            <span>Crontab - Working with /tmp Directory & Permissions</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Navigating to /tmp directory and listing contents</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala-VMware20-1:/$ cd tmp
+gopala@gopala-VMware20-1:/tmp$ ls
+VMwareDnD                                                                     systemd-private-61a3e7d7518542d5b6a24891e6da312d-power-profiles-daemon.service-66x83h
+snap-private-tmp                                                              systemd-private-61a3e7d7518542d5b6a24891e6da312d-switcheroo-control.service-ECio7t
+systemd-private-61a3e7d7518542d5b6a24891e6da312d-ModemManager.service-MR15bl  systemd-private-61a3e7d7518542d5b6a24891e6da312d-systemd-logind.service-ZxDcil
+systemd-private-61a3e7d7518542d5b6a24891e6da312d-colord.service-kbjgkR        systemd-private-61a3e7d7518542d5b6a24891e6da312d-upower.service-1J4u0p
+systemd-private-61a3e7d7518542d5b6a24891e6da312d-fwupd.service-bVVBll         vmware-root_1377-4022243323
+systemd-private-61a3e7d7518542d5b6a24891e6da312d-polkit.service-HMSm0R
+gopala@gopala-VMware20-1:/tmp$ cd ..</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Permission denied errors when writing to root directory</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/$ echo "hello "  > temp.log
+bash: temp.log: Permission denied
+gopala@gopala-VMware20-1:/$ sudo echo "hello "  > temp.log
+bash: temp.log: Permission denied</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Successfully writing to /tmp directory with sudo</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/$ sudo echo "hello "  > /tmp/temp.log
+[sudo: authenticate] Password:
+gopala@gopala-VMware20-1:/$ nano /tmp/temp.log
+gopala@gopala-VMware20-1:/$ sudo echo "current date & time :  $(date)"  > /tmp/temp.log
+gopala@gopala-VMware20-1:/$ nano /tmp/temp.log</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Echo command with syntax error (multiline attempt)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/$ sudo echo echo "Hello date :  $(date)"  > /tmp/temp.log
+  "current date & time :  $(date)"  >> /tmp/temp.log
+current date & time :  Wed Jan 28 13:07:44 IST 2026: command not found</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Using redirection (>) and append (>>) correctly</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/$ sudo echo echo "Hello date :  $(date)"  > /tmp/temp.log
+gopala@gopala-VMware20-1:/$ sudo echo "current date & time :  $(date)"  >> /tmp/temp.log
+gopala@gopala-VMware20-1:/$ nano /tmp/temp.log</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 8: Output from temp.log File -->
+        <div class="section-header">
+            <i class="bi bi-file-code"></i>
+            <span>Output - Contents of /tmp/temp.log</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Viewing /tmp/temp.log in GNU nano 8.4</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>GNU nano 8.4                                                                                         /tmp/temp.log
+
+echo Hello date :  Wed Jan 28 13:07:51 IST 2026
+current date & time :  Wed Jan 28 13:07:59 IST 2026</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; </p>
+        <p>Last updated: January 28, 2026</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Scroll to Top Script -->
+    <script>
+        const scrollTop = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+        
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

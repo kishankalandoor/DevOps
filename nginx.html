@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nginx Terminal Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+            background: #ffffff;
+            color: #1d1d1f;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #1d1d1f !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: none;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 22px;
+            color: #ffffff !important;
+        }
+
+        .nav-link {
+            font-weight: 400;
+            color: #f5f5f7 !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            background: #ffffff;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .page-header h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1.5px;
+            color: #1d1d1f;
+        }
+
+        .page-header .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            font-weight: 400;
+        }
+
+        .terminal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .terminal-window {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+            transition: all 0.3s ease;
+        }
+
+        .terminal-window:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border-color: #d2d2d7;
+        }
+
+        .terminal-titlebar {
+            background: #f5f5f7;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: #1d1d1f;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            background: #1d1d1f;
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #3d3d3f;
+            border-radius: 4px;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: #66d9ef;
+        }
+
+        .section-header {
+            background: #ffffff;
+            border: none;
+            color: #1d1d1f;
+            padding: 20px 0;
+            border-radius: 0;
+            margin: 50px 0 30px 0;
+            font-weight: 700;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: none;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .section-header i {
+            font-size: 32px;
+        }
+
+        footer {
+            background: #f5f5f7;
+            padding: 40px;
+            text-align: center;
+            color: #86868b;
+            border-radius: 0;
+            border-top: 1px solid #e5e5e7;
+            margin-top: 50px;
+            box-shadow: none;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1d1d1f;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-custom {
+            background: #1d1d1f;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 32px; }
+            .page-header { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="bi bi-terminal"></i> Nginx Terminal Reference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#install"><i class="bi bi-download"></i> Installation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#config"><i class="bi bi-gear"></i> Configuration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#firewall"><i class="bi bi-shield"></i> Firewall</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#logs"><i class="bi bi-file-text"></i> Logs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#user"><i class="bi bi-person"></i> User Management</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="bi bi-server"></i> Nginx Terminal Session</h1>
+            <p class="subtitle">Complete Installation, Configuration & Management Commands</p>
+        </div>
+
+        <!-- Firewall Setup Section -->
+        <div class="section-header" id="firewall">
+            <i class="bi bi-shield"></i>
+            <span>UFW Firewall Setup</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Enable UFW Firewall</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~$ sudo ufw enable
+[sudo: authenticate] Password: 
+Firewall is active and enabled on system startup</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Installation Section -->
+        <div class="section-header" id="install">
+            <i class="bi bi-download"></i>
+            <span>Nginx Installation</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Check nginx command (Not Found)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~$ nginix -v
+Command 'nginix' not found, did you mean:
+  command 'ninix' from deb ninix-aya (5.0.9-1)
+  command 'nginx' from deb nginx (1.28.0-6ubuntu1)
+Try: sudo apt install &lt;deb name&gt;</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Install Nginx</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~$ sudo apt update
+sudo apt install nginx
+Ign:1 file:/cdrom questing InRelease
+Err:2 file:/cdrom questing Release
+  File not found - /cdrom/dists/questing/Release (2: No such file or directory)
+Hit:3 http://ports.ubuntu.com/ubuntu-ports questing InRelease
+Hit:4 http://ports.ubuntu.com/ubuntu-ports questing-updates InRelease
+Hit:5 http://ports.ubuntu.com/ubuntu-ports questing-backports InRelease
+Hit:6 http://ports.ubuntu.com/ubuntu-ports questing-security InRelease
+Error: The repository 'file:/cdrom questing Release' no longer has a Release file.
+Notice: Updating from such a repository can't be done securely, and is therefore disabled by default.
+Notice: See apt-secure(8) manpage for repository creation and user configuration details.
+Notice: Some sources can be modernized. Run 'apt modernize-sources' to do so.
+The following packages were automatically installed and are no longer required:
+  linux-headers-6.17.0-5          linux-tools-6.17.0-5
+  linux-headers-6.17.0-5-generic  linux-tools-6.17.0-5-generic
+  linux-modules-6.17.0-5-generic
+Use 'sudo apt autoremove' to remove them.
+
+Installing:
+  nginx
+
+Installing dependencies:
+  nginx-common
+
+Suggested packages:
+  fcgiwrap  nginx-doc
+
+Summary:
+  Upgrading: 0, Installing: 2, Removing: 0, Not Upgrading: 184
+  Download size: 659 kB
+  Space needed: 1,881 kB / 8,738 MB available
+
+Continue? [Y/n] y
+Get:1 http://ports.ubuntu.com/ubuntu-ports questing/main arm64 nginx-common all 1.28.0-6ubuntu1 [44.6 kB]
+Get:2 http://ports.ubuntu.com/ubuntu-ports questing/main arm64 nginx arm64 1.28.0-6ubuntu1 [614 kB]
+Fetched 659 kB in 3s (250 kB/s)
+Preconfiguring packages ...
+Selecting previously unselected package nginx-common.
+(Reading database ... 193382 files and directories currently installed.)
+Preparing to unpack .../nginx-common_1.28.0-6ubuntu1_all.deb ...
+Unpacking nginx-common (1.28.0-6ubuntu1) ...
+Selecting previously unselected package nginx.
+Preparing to unpack .../nginx_1.28.0-6ubuntu1_arm64.deb ...
+Unpacking nginx (1.28.0-6ubuntu1) ...
+Setting up nginx-common (1.28.0-6ubuntu1) ...
+Created symlink '/etc/systemd/system/multi-user.target.wants/nginx.service' → '/
+usr/lib/systemd/system/nginx.service'.
+/usr/sbin/policy-rc.d returned 101, not running 'start nginx.service'
+Setting up nginx (1.28.0-6ubuntu1) ...
+invoke-rc.d: policy-rc.d denied execution of start.
+Processing triggers for man-db (2.13.1-1) ...
+Processing triggers for ufw (0.36.2-9) ...</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Verify Installation</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/var/www/tutorial$ sudo apt install nginx
+nginx is already the newest version (1.28.0-6ubuntu1).
+The following packages were automatically installed and are no longer required:
+  linux-headers-6.17.0-5          linux-tools-6.17.0-5
+  linux-headers-6.17.0-5-generic  linux-tools-6.17.0-5-generic
+  linux-modules-6.17.0-5-generic
+Use 'sudo apt autoremove' to remove them.
+
+Summary:
+  Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 184</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Section -->
+        <div class="section-header" id="config">
+            <i class="bi bi-gear"></i>
+            <span>Web Directory & Configuration</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Create Tutorial Directory & Index File</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~$ cd /var/www
+sudo mkdir tutorial
+cd tutorial
+sudo "${EDITOR:-vi}" index.html
+gopala@gopala-VMware20-1:/var/www/tutorial$ vi kishan.txt</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Edit Index HTML with Nano</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/var/www/tutorial$ cd /var/www
+sudo mkdir tutorial
+cd tutorial
+sudo "${EDITOR:-vi}" index.html
+mkdir: tutorial: File exists
+gopala@gopala-VMware20-1:/var/www/tutorial$ sudo "${EDITOR:-nano}" index.html</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Create Nginx Site Config (Single Line)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ echo "server { listen 81; listen [::]:81; server_name example.ubuntu.com; root /var/www/tutorial; index index.html; location / { try_files \$uri \$uri/ =404; } }" | sudo tee /etc/nginx/sites-available/tutorial && sudo ln -s /etc/nginx/sites-available/tutorial /etc/nginx/sites-enabled/ && sudo nginx -t && sudo systemctl restart nginx
+server { listen 81; listen [::]:81; server_name example.ubuntu.com; root /var/www/tutorial; index index.html; location / { try_files $uri $uri/ =404; } }
+ln: Already exists</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Remove & Recreate Nginx Config (Success)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo rm /etc/nginx/sites-enabled/tutorial && echo "server { listen 81; listen [::]:81; server_name example.ubuntu.com; root /var/www/tutorial; index index.html; location / { try_files \$uri \$uri/ =404; } }" | sudo tee /etc/nginx/sites-available/tutorial && sudo ln -s /etc/nginx/sites-available/tutorial /etc/nginx/sites-enabled/ && sudo nginx -t && sudo systemctl restart nginx
+server { listen 81; listen [::]:81; server_name example.ubuntu.com; root /var/www/tutorial; index index.html; location / { try_files $uri $uri/ =404; } }
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nginx Help & Version Section -->
+        <div class="section-header">
+            <i class="bi bi-question-circle"></i>
+            <span>Nginx Help & Version Info</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Man Page for Nginx</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ nginix -h
+Command 'nginix' not found, did you mean:
+  command 'ninix' from deb ninix-aya (5.0.9-1)
+  command 'nginx' from deb nginx (1.28.0-6ubuntu1)
+Try: sudo apt install &lt;deb name&gt;
+gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ man nginix 
+No manual entry for nginix
+gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ man nginx</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">nginx -h (Help)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ nginx -h
+nginx version: nginx/1.28.0 (Ubuntu)
+Usage: nginx [-?hvVtTq] [-s signal] [-p prefix]
+             [-e filename] [-c filename] [-g directives]
+
+Options:
+  -?,-h         : this help
+  -v            : show version and exit
+  -V            : show version and configure options then exit
+  -t            : test configuration and exit
+  -T            : test configuration, dump it and exit
+  -q            : suppress non-error messages during configuration testing
+  -s signal     : send signal to a master process: stop, quit, reopen, reload
+  -p prefix     : set prefix path (default: /usr/share/nginx/)
+  -e filename   : set error log file (default: stderr)
+  -c filename   : set configuration file (default: /etc/nginx/nginx.conf)
+  -g directives : set global directives out of configuration file</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">nginx -v (Version)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ nginx -v
+nginx version: nginx/1.28.0 (Ubuntu)</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">nginx -d (Invalid Option)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ nginx -d
+nginx: invalid option: "d"</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- UFW Application Section -->
+        <div class="section-header">
+            <i class="bi bi-shield-check"></i>
+            <span>UFW Nginx Application Setup</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">UFW List Available Applications</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw app list
+Available applications:
+  CUPS
+  Nginx Full
+  Nginx HTTP
+  Nginx HTTPS
+  Nginx QUIC
+  Wsdd</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Allow Nginx Full</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw allow 'Nginx Full'
+Rule added
+Rule added (v6)</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Allow Nginx HTTP</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw allow 'Nginx HTTP'
+Rule added
+Rule added (v6)</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Allow Nginx HTTPS</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw allow 'Nginx HTTPS'
+Rule added
+Rule added (v6)</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Allow Nginx QUIC</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw allow 'Nginx QUIC'
+Rule added
+Rule added (v6)</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">UFW Status</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+Nginx Full                 ALLOW       Anywhere                  
+Nginx HTTP                 ALLOW       Anywhere                  
+Nginx HTTPS                ALLOW       Anywhere                  
+Nginx QUIC                 ALLOW       Anywhere                  
+Nginx Full (v6)            ALLOW       Anywhere (v6)             
+Nginx HTTP (v6)            ALLOW       Anywhere (v6)             
+Nginx HTTPS (v6)           ALLOW       Anywhere (v6)             
+Nginx QUIC (v6)            ALLOW       Anywhere (v6)</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Systemctl Status Section -->
+        <div class="section-header">
+            <i class="bi bi-activity"></i>
+            <span>Nginx Service Status</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">systemctl status nginx</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo systemctl status nginx
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: en>
+     Active: active (running) since Tue 2026-01-27 16:03:37 IST; 10min ago
+ Invocation: 5b7ad10f05c744bea123072bce376090
+       Docs: man:nginx(8)
+    Process: 8871 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_proce>
+    Process: 8873 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (c>
+   Main PID: 8874 (nginx)
+      Tasks: 7 (limit: 6955)
+     Memory: 5.8M (peak: 6.9M)
+        CPU: 14ms
+     CGroup: /system.slice/nginx.service
+             ├─8874 "nginx: master process /usr/sbin/nginx -g daemon on; master>
+             ├─8875 "nginx: worker process"
+             ├─8876 "nginx: worker process"
+             ├─8877 "nginx: worker process"
+             ├─8879 "nginx: worker process"
+             ├─8880 "nginx: worker process"
+             └─8881 "nginx: worker process"
+
+Jan 27 16:03:37 gopala-VMware20-1 systemd[1]: Starting nginx.service - A high p>
+Jan 27 16:03:37 gopala-VMware20-1 systemd[1]: Started nginx.service - A high pe></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logs Section -->
+        <div class="section-header" id="logs">
+            <i class="bi bi-file-text"></i>
+            <span>Nginx Logs</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Navigate to Nginx Logs Directory</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ cd /var/log/nginx/
+gopala@gopala-VMware20-1:/var/log/nginx$ ls
+access.log  error.log</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">View Access Log with Nano</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/var/log/nginx$ nano access.log</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">View Error Log with Nano</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/var/log/nginx$ nano error.log</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Management Section -->
+        <div class="section-header">
+            <i class="bi bi-folder"></i>
+            <span>File Management</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Create & Edit nginx_file.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/$ touch nginx_file.txt
+touch: cannot touch 'nginx_file.txt': Permission denied
+gopala@gopala-VMware20-1:/$ cat nginx_file.txt
+cat: nginx_file.txt: No such file or directory (os error 2)
+gopala@gopala-VMware20-1:/$ sudo touch nginx_file.txt
+gopala@gopala-VMware20-1:/$ nano nginx_file.txt
+gopala@gopala-VMware20-1:/$ sudo nano nginx_file.txt</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Management Section -->
+        <div class="section-header" id="user">
+            <i class="bi bi-person"></i>
+            <span>User Management - testadmin</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Create User testadmin</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/$ sudo adduser testadmin
+[sudo: authenticate] Password:
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password:
+passwd: password updated successfully
+Changing the user information for testadmin
+Enter the new value, or press ENTER for the default
+Full Name []: 123456
+Room Number []: 11
+Work Phone []: 9496605217
+Home Phone []: 9496605217
+Other []: -
+Is the information correct? [Y/n] y</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Check testadmin Home Directory & Permissions</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/$ /home/testadmin
+bash: /home/testadmin: Is a directory
+gopala@gopala-VMware20-1:/$ ls /home/testadmin
+ls: cannot open directory '/home/testadmin': Permission denied
+gopala@gopala-VMware20-1:/$ sudo ls /home/testadmin
+gopala@gopala-VMware20-1:/$ ls -ld /home/testadmin
+drwxr-x--- 2 testadmin testadmin 4096 Jan 27 17:15 /home/testadmin</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Change Ownership of testadmin Directory</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:/$ sudo chown -R testadmin:testadmin /home/testadmin</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Switch to testadmin User (Multiple Attempts)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~$ su testadmin
+Password:
+testadmin@gopala-VMware20-1:/home/gopala$ nano text.txt
+testadmin@gopala-VMware20-1:/home/gopala$ ls
+ls: cannot open file '.': Permission denied
+testadmin@gopala-VMware20-1:/home/gopala$ exit
+gopala@gopala-VMware20-1:~$ su - testadmin
+Password:
+testadmin@gopala-VMware20-1:~$ logout
+gopala@gopala-VMware20-1:~$ su sudo - testadmin
+su: user sudo does not exist or the user entry does not contain all the required fields
+gopala@gopala-VMware20-1:~$ sudo su - testadmin
+[sudo: authenticate] Password:
+gopala@gopala-VMware20-1:~$ su - testadmin
+Password:
+testadmin@gopala-VMware20-1:~$ ls
+Desktop    Downloads  Pictures  Templates  file
+Documents  Music      Public    Videos     snap
+testadmin@gopala-VMware20-1:~$ cd file
+testadmin@gopala-VMware20-1:~/file$ ls
+text.txt</pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><i class="bi bi-c-circle"></i> 2026 DevOps Training Documentation</p>
+        <p class="mt-2" style="font-size: 14px; color: #86868b;">Terminal Session Log - Nginx Configuration & Management</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

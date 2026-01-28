@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netstat Command Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            background: white;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            color: #1d1d1f;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            color: #1d1d1f;
+            border-bottom: 2px solid #1d1d1f;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            color: #333;
+        }
+
+        .info-box {1d1d1f
+            background: #f9f9fb;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box {
+            background: #fff4e6;
+            border-left: 4px solid #ff9500;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .terminal {
+            background: #1d1d1f;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-prompt {
+            color: #a6e22e;
+        }
+
+        .terminal-command {
+            color: #66d9ef;
+        }
+
+        .terminal-output {
+            color: #f8f8f2;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .terminal-comment {
+            color: #75715e;
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .command-card {
+            background: #f9f9fb;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            transform: tran1d1d1f;
+        }
+
+        .command-card h4 {
+            color: #1d1d1f
+        .command-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .command-card code {
+            background: #1d1d1f;
+            color: #66d9ef;
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 10px 0;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .command-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #1d1d1f;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f9f9fb;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+
+        .badge-success {
+            background: #e6f4ea;
+            color: #1e7e34;
+        }
+
+        .badge-info {
+            background: #e3f2fd;
+            color: #0277bd;
+        }
+
+        .badge-warning {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        footer {
+            background: #f9f9fb;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 24px; }
+            .content { padding: 20px; }
+            header { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>netstat</h1>
+            <p class="subtitle">Network Statistics Command Reference</p>
+        </header>
+
+        <div class="content">
+            <div class="info-box">
+                <h3>What is Netstat?</h3>
+                <p>A powerful command-line utility for monitoring network connections, routing tables, interface statistics, and protocol information. Essential for system administrators and network troubleshooting.</p>
+            </div>
+
+            <div class="warning-box">
+                <h3><i class="bi bi-exclamation-triangle"></i> macOS Users Note</h3>
+                <p><strong>Important:</strong> Flags need a command! Use <code>netstat -a</code> not just <code>-a</code></p>
+                <p><strong>Alternative:</strong> <code>lsof -i -P</code> is more modern on macOS</p>
+            </div>
+
+            <h2>Common Flags</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Description</th>
+                        <th>Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>-a</code></td>
+                        <td>Show all connections (active + listening)</td>
+                        <td>Complete network overview</td>
+                    </tr>
+                    <tr>
+                        <td><code>-t</code></td>
+                        <td>TCP connections only</td>
+                        <td>Web traffic, SSH</td>
+                    </tr>
+                    <tr>
+                        <td><code>-u</code></td>
+                        <td>UDP connections only</td>
+                        <td>DNS, streaming, gaming</td>
+                    </tr>
+                    <tr>
+                        <td><code>-n</code></td>
+                        <td>Numeric addresses (faster)</td>
+                        <td>Quick diagnostics</td>
+                    </tr>
+                    <tr>
+                        <td><code>-p</code></td>
+                        <td>Show process ID and name</td>
+                        <td>Identify which app uses connection</td>
+                    </tr>
+                    <tr>
+                        <td><code>-l</code></td>
+                        <td>Listening ports only</td>
+                        <td>Find open services</td>
+                    </tr>
+                    <tr>
+                        <td><code>-r</code></td>
+                        <td>Display routing table</td>
+                        <td>Network path troubleshooting</td>
+                    </tr>
+                    <tr>
+                        <td><code>-i</code></td>
+                        <td>Show network interfaces</td>
+                        <td>Interface statistics</td>
+                    </tr>
+                    <tr>
+                        <td><code>-c</code></td>
+                        <td>Continuous output</td>
+                        <td>Real-time monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><code>-s</code></td>
+                        <td>Protocol statistics</td>
+                        <td>Network performance analysis</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Example 1: View Routing Table</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -r</span>
+Routing tables
+
+Internet:
+Destination        Gateway            Flags               Netif Expire
+default            192.168.0.1        UGScg                 en0       
+127                localhost          UCS                   lo0       
+localhost          localhost          UH                    lo0       
+169.254            link#14            UCS                   en0      !
+192.168.0          link#14            UCS                   en0      !
+192.168.0.1/32     link#14            UCS                   en0      !
+192.168.0.1        c8:4f:86:f6:c3:ee  UHLWIir               en0   1194
+192.168.0.21       c2:b0:c0:78:88:c8  UHLWI                 en0   1073
+192.168.0.174/32   link#14            UCS                   en0      !
+192.168.0.255      ff:ff:ff:ff:ff:ff  UHLWbI                en0      !
+224.0.0/4          link#14            UmCS                  en0      !
+mdns.mcast.net     1:0:5e:0:0:fb      UHmLWI                en0       
+
+Internet6:
+Destination        Gateway            Flags               Netif Expire
+default            fe80::%utun0       UGcIg               utun0       
+localhost          localhost          UHL                   lo0       
+fe80::%lo0         apples-macbook-pro UcI                   lo0       
+fe80::%en0         link#14            UCI                   en0       
+
+<span class="terminal-comment"># The default gateway (192.168.0.1) is your router
+# All internet traffic goes through this gateway
+# IPv6 traffic routes through utun0 (VPN/tunnel interface)</span></div>
+            </div>
+
+            <h2>Example 2: Show All Active Connections</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -a</span>
+Active Internet connections (including servers)
+Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)    
+tcp4       0      0  192.168.0.174.55407    lcmaaa-as-in-f14.https ESTABLISHED
+tcp4       0      0  192.168.0.174.55406    lcmaaa-as-in-f14.https ESTABLISHED
+tcp4       0      0  192.168.0.174.55403    52.108.9.12.https      ESTABLISHED
+tcp46      0      0  *.55381                *.*                    LISTEN     
+tcp4       0      0  192.168.0.174.55377    a173-223-235-48..https ESTABLISHED
+tcp4       0      0  192.168.0.174.55323    a23-217-52-24.de.https ESTABLISHED
+tcp6       0      0  localhost.42050        *.*                    LISTEN     
+tcp46      0      0  *.mysql                *.*                    LISTEN     
+tcp46      0      0  *.ftp                  *.*                    LISTEN     
+tcp46      0      0  *.https                *.*                    LISTEN     
+tcp46      0      0  *.http                 *.*                    LISTEN     
+tcp4       0      0  192.168.0.174.55395    hkg07s52-in-f10..https TIME_WAIT  
+tcp4       0     39  192.168.0.174.54769    dns.google.443         ESTABLISHED
+udp4       0      0  *.62845                *.*                               
+udp6       0      0  *.mdns                 *.*                               
+udp4       0      0  *.mdns                 *.*                               
+
+<span class="terminal-comment"># ESTABLISHED = Active connection with data flowing
+# LISTEN = Service waiting for connections
+# TIME_WAIT = Connection closed, waiting for late packets</span></div>
+            </div>
+
+            <h2>Essential Commands</h2>
+            <div class="command-grid">
+                <div class="command-card">
+                    <h4><i class="bi bi-globe"></i> View All Connections</h4>
+                    <code>netstat -an</code>
+                    <p>Shows all connections with numeric addresses. Fastest way to see what's happening.</p>
+                    <span class="badge badge-success">Beginner</span>
+                </div>
+
+                <div class="command-card">
+                    <h4><i class="bi bi-search"></i> Find Listening Services</h4>
+                    <code>netstat -ltn</code>
+                    <p>Shows which TCP ports are listening. Great for checking if your server started.</p>
+                    <span class="badge badge-info">Common</span>
+                </div>
+
+                <div class="command-card">
+                    <h4><i class="bi bi-bullseye"></i> Check Specific Port</h4>
+                    <code>netstat -an | grep :8080</code>
+                    <p>Find if anything is using port 8080. Replace with your port number.</p>
+                    <span class="badge badge-info">Common</span>
+                </div>
+
+                <div class="command-card">
+                    <h4><i class="bi bi-cpu"></i> TCP with Programs</h4>
+                    <code>netstat -atp</code>
+                    <p>See which programs are connected (Firefox, Chrome, etc.). May need sudo.</p>
+                    <span class="badge badge-warning">Advanced</span>
+                </div>
+
+                <div class="command-card">
+                    <h4><i class="bi bi-graph-up"></i> Real-time Monitor</h4>
+                    <code>netstat -c</code>
+                    <p>Continuous live feed of connections. Press Ctrl+C to stop.</p>
+                    <span class="badge badge-info">Monitoring</span>
+                </div>
+
+                <div class="command-card">
+                    <h4><i class="bi bi-apple"></i> macOS Alternative</h4>
+                    <code>lsof -i -P</code>
+                    <p>Better for macOS. Shows programs using network with port numbers.</p>
+                    <span class="badge badge-success">Mac Recommended</span>
+                </div>
+            </div>
+
+            <h2>Connection States Explained</h2>
+            <div class="command-grid">
+                <div class="command-card">
+                    <h4><i class="bi bi-check-circle"></i> ESTABLISHED</h4>
+                    <p>Active connection with data flowing. This is a healthy, working connection.</p>
+                </div>
+
+                <div class="command-card">
+                    <h4><i class="bi bi-speaker"></i> LISTEN</h4>
+                    <p>Port is open and waiting for incoming connections. Your server is ready.</p>
+                </div>
+
+                <div class="command-card">
+                    <h4><i class="bi bi-hourglass-split"></i> TIME_WAIT</h4>
+                    <p>Connection closed but waiting for late packets. Normal after closing.</p>
+                </div>
+
+                <div class="command-card">
+                    <h4><i class="bi bi-pause-circle"></i> CLOSE_WAIT</h4>
+                    <p>Remote side closed the connection, local side is about to close.</p>
+                </div>
+
+                <div class="command-card">
+                    <h4><i class="bi bi-arrow-up-circle"></i> SYN_SENT</h4>
+                    <p>Your computer is trying to establish a connection to a server.</p>
+                </div>
+
+                <div class="command-card">
+                    <h4><i class="bi bi-arrow-down-circle"></i> SYN_RECEIVED</h4>
+                    <p>Someone is trying to connect to your computer/server.</p>
+                </div>
+            </div>
+
+            <h2>Common Use Cases</h2>
+
+            <h3>1. Check if Your Web Server Started</h3>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -an | grep :8080</span>
+tcp46      0      0  *.8080                 *.*                    LISTEN
+
+<span class="terminal-comment"># *.8080 in LISTEN state means your server is running!</span></div>
+            </div>
+
+            <h3>2. Find Which App is Using a Port</h3>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">sudo lsof -i :3000</span>
+COMMAND   PID  USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+node     1234  apple  23u  IPv6 0x1a2b3c4d5e6f      0t0  TCP *:3000 (LISTEN)
+
+<span class="terminal-comment"># Node.js is using port 3000</span></div>
+            </div>
+
+            <h3>3. Check SSH Connection</h3>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -an | grep :22</span>
+tcp46      0      0  *.22                   *.*                    LISTEN
+
+<span class="terminal-comment"># SSH server is listening on port 22</span></div>
+            </div>
+
+            <h3>4. View Network Interface Statistics</h3>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -i</span>
+Name  Mtu   Network       Address            Ipkts Ierrs    Opkts Oerrs  Coll
+lo0   16384 <Link#1>                       1234567     0  1234567     0     0
+lo0   16384 127           localhost         1234567     -  1234567     -     -
+lo0   16384 localhost     ::1               1234567     -  1234567     -     -
+en0   1500  <Link#14>     c8:4f:86:f6:c3:ee 5678901     0  4567890     0     0
+en0   1500  192.168.0     192.168.0.174     5678901     -  4567890     -     -
+awdl0 1500  <Link#16>     7a:23:80:d9:b4:96      12     0       36     0     0
+
+<span class="terminal-comment"># lo0 = loopback interface (localhost)
+# en0 = ethernet/wifi interface  
+# awdl0 = Apple Wireless Direct Link (AirDrop)
+# Ipkts/Opkts = Input/Output packets</span></div>
+            </div>
+
+            <h2>Quick Reference</h2>
+            <div class="info-box">
+                <h3>Most Used Commands</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>netstat -an</code> → All connections, numeric format</li>
+                    <li><code>netstat -ltn</code> → Listening TCP ports</li>
+                    <li><code>netstat -r</code> → Routing table</li>
+                    <li><code>netstat -s</code> → Protocol statistics</li>
+                    <li><code>lsof -i -P</code> → macOS: Show programs using network</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>Troubleshooting Tips</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Always type <code>netstat</code> first, then add flags</li>
+                    <li>On Mac, use <code>-anL</code> for listening ports (not <code>-lt</code>)</li>
+                    <li>Add <code>sudo</code> if you get permission errors</li>
+                    <li>Use <code>| grep :PORT</code> to search for specific ports</li>
+                    <li>Combine flags: <code>netstat -tulpn</code> for maximum info</li>
+                </ul>
+            </div>
+
+            <h2>Understanding the Output</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Column</th>
+                        <th>Meaning</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Proto</td>
+                        <td>Protocol type</td>
+                        <td>tcp4, tcp6, udp4</td>
+                    </tr>
+                    <tr>
+                        <td>Recv-Q</td>
+                        <td>Bytes in receive queue</td>
+                        <td>0 (no backlog)</td>
+                    </tr>
+                    <tr>
+                        <td>Send-Q</td>
+                        <td>Bytes in send queue</td>
+                        <td>0 (sent successfully)</td>
+                    </tr>
+                    <tr>
+                        <td>Local Address</td>
+                        <td>Your computer's IP:Port</td>
+                        <td>192.168.0.174.55407</td>
+                    </tr>
+                    <tr>
+                        <td>Foreign Address</td>
+                        <td>Remote server's IP:Port</td>
+                        <td>dns.google.443</td>
+                    </tr>
+                    <tr>
+                        <td>State</td>
+                        <td>Connection status</td>
+                        <td>ESTABLISHED, LISTEN, etc.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Practice Exercise</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-output"><span class="terminal-comment"># Step 1: See all your connections</span>
+<span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -an</span>
+
+<span class="terminal-comment"># Step 2: Open a web browser and visit any website</span>
+
+<span class="terminal-comment"># Step 3: Check for new ESTABLISHED connections</span>
+<span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -nt</span>
+
+<span class="terminal-comment"># You should see new connections to the website's IP!</span>
+
+<span class="terminal-comment"># Step 4: Check what's listening on your Mac</span>
+<span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -anL</span>
+
+<span class="terminal-comment"># Step 5: Use the modern alternative</span>
+<span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">lsof -i -P</span></div>
+            </div>
+
+            <h2>Common Mistakes</h2>
+            <div class="warning-box">
+                <h3><i class="bi bi-x-circle"></i> Wrong: Running flag without command</h3>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                    </div>
+                    <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">-a</span>
+zsh: command not found: -a</div>
+                </div>
+                <br>
+                <h3><i class="bi bi-check-circle"></i> Correct: Command first, then flags</h3>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                    </div>
+                    <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -a</span>
+Active Internet connections (including servers)
+Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)    
+tcp4       0      0  192.168.0.174.55407    lcmaaa-as-in-f14.https ESTABLISHED
+tcp46      0      0  *.mysql                *.*                    LISTEN     
+tcp46      0      0  *.https                *.*                    LISTEN     
+tcp46      0      0  *.http                 *.*                    LISTEN     
+...</div>
+                </div>
+            </div>
+            <h2><i class="bi bi-journal-text"></i> Short Notes on Netstat Command</h2>
+            
+            <div class="info-box">
+                <h3><i class="bi bi-info-circle"></i> What is Netstat?</h3>
+                <p>The netstat command in Linux is a robust tool for network troubleshooting and monitoring. It provides various options and outputs to display network connections, routing tables, interface statistics, masquerade connections, and multicast memberships. When executed, it displays detailed information about currently active TCP, UDP, and Unix socket connections.</p>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="bi bi-broadcast"></i> Connection Types</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>TCP connections:</strong> Guarantee reliable data transfer and are typically used by applications such as web browsers and email clients</li>
+                    <li><strong>UDP connections:</strong> Used for faster, less reliable data transfer, often utilized in video streaming and gaming</li>
+                    <li><strong>Unix socket connections:</strong> Facilitate inter-process communication on the same machine, commonly seen in server applications</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="bi bi-diagram-3"></i> Socket States</h3>
+                <p>Netstat not only shows sockets that are currently connected and exchanging data but also those that are <strong>listening</strong> and ready to accept incoming connections. These listening sockets are essential for server applications, as they await client connection requests.</p>
+            </div>
+
+            <h2><i class="bi bi-list-ul"></i> Complete Options Reference</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>--route, -r</code></td>
+                        <td>Displays the kernel routing tables. Useful for viewing the paths that network packets take. Similar to <code>route -e</code> output.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--groups, -g</code></td>
+                        <td>Shows multicast group membership information for both IPv4 and IPv6. Helpful for understanding multicast network configurations.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--interfaces, -i</code></td>
+                        <td>Displays a table of all network interfaces along with their statistics. Useful for monitoring the status and activity of each network interface.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--masquerade, -M</code></td>
+                        <td>Lists masqueraded connections, which are connections being modified by Network Address Translation (NAT).</td>
+                    </tr>
+                    <tr>
+                        <td><code>--statistics, -s</code></td>
+                        <td>Provides summary statistics for each protocol. Useful for getting an overview of network activity and performance.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--verbose, -v</code></td>
+                        <td>Makes netstat provide more detailed output. Prints additional useful information about unconfigured address families.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--wide, -W</code></td>
+                        <td>Prevents truncation of IP addresses in the output. Useful to see the full address without cutoff, especially when scripting.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--numeric, -n</code></td>
+                        <td>Shows numerical addresses instead of resolving symbolic hostnames, port names, or usernames. Speeds up output by skipping DNS lookups.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--numeric-hosts</code></td>
+                        <td>Displays numerical host addresses only, while still resolving port names and usernames.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--numeric-ports</code></td>
+                        <td>Shows numerical port numbers only, while still resolving hostnames and usernames.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--numeric-users</code></td>
+                        <td>Displays numerical user IDs only, while still resolving hostnames and port names.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--protocol=family, -A</code></td>
+                        <td>Specifies the address families (protocols) for which connections are to be shown. Family can include: inet, unix, ipx, ax25, netrom, ddp.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--continuous, -c</code></td>
+                        <td>Continuously prints the selected information every second. Useful for real-time monitoring of network activity.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--extend, -e</code></td>
+                        <td>Displays additional information about each connection. Using twice (-ee) provides maximum detail.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--timers, -o</code></td>
+                        <td>Includes information related to networking timers, which can help diagnose timing-related network issues.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--program, -p</code></td>
+                        <td>Shows the PID and name of the program associated with each socket. Helps identify which processes are using network connections.</td>
+                    </tr>
+                    <tr>
+                        <td><code>--listening, -l</code></td>
+                        <td>Displays only listening sockets, excluding active connections. Useful for checking which services are ready to accept incoming connections.</td>
+                    </tr>
+                    <tr>
+                        <td><code>-F</code></td>
+                        <td>Prints routing information from the Forwarding Information Base (FIB). This is the default behavior for routing information.</td>
+                    </tr>
+                    <tr>
+                        <td><code>-C</code></td>
+                        <td>Prints routing information from the route cache, providing insights into recent routing decisions made by the kernel.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2><i class="bi bi-lightning"></i> Practical Examples</h2>
+
+            <h3>Display All Active Connections and Listening Ports</h3>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -a</span>
+Active Internet connections (including servers)
+Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)    
+tcp4       0      0  192.168.0.174.55407    lcmaaa-as-in-f14.https ESTABLISHED
+tcp4       0      0  192.168.0.174.55403    52.108.9.12.https      ESTABLISHED
+tcp46      0      0  *.55381                *.*                    LISTEN     
+tcp46      0      0  *.mysql                *.*                    LISTEN     
+tcp46      0      0  *.ftp                  *.*                    LISTEN     
+tcp46      0      0  *.https                *.*                    LISTEN     
+tcp46      0      0  *.http                 *.*                    LISTEN     
+tcp4       0      0  192.168.0.174.55395    hkg07s52-in-f10..https TIME_WAIT  
+udp4       0      0  *.62845                *.*                               
+udp6       0      0  *.mdns                 *.*                               
+udp4       0      0  *.mdns                 *.*                               
+
+<span class="terminal-comment"># Lists all active network connections and listening ports
+# Shows TCP and UDP connections with their current states</span></div>
+            </div>
+
+            <h3>Display Routing Table</h3>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -r</span>
+Routing tables
+
+Internet:
+Destination        Gateway            Flags               Netif Expire
+default            192.168.0.1        UGScg                 en0       
+127                localhost          UCS                   lo0       
+192.168.0          link#14            UCS                   en0      !
+192.168.0.1        c8:4f:86:f6:c3:ee  UHLWIir               en0   1194
+224.0.0/4          link#14            UmCS                  en0      !
+
+Internet6:
+Destination        Gateway            Flags               Netif Expire
+default            fe80::%utun0       UGcIg               utun0       
+localhost          localhost          UHL                   lo0       
+
+<span class="terminal-comment"># Shows kernel routing tables for IPv4 and IPv6
+# Default gateway shows where internet traffic is routed</span></div>
+            </div>
+
+            <h3>Display Multicast Group Information</h3>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                </div>
+                <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">netstat -g</span>
+Virtual Interface Table
+Group                          Link-layer Address              Netif
+224.0.0.251                    1:0:5e:0:0:fb                   en0
+ff02::fb                       33:33:0:0:0:fb                  en0
+
+IPv4 Multicast Forwarding Table
+ Origin           Group            Packets Waits In-Vif        Out-Vifs
+
+<span class="terminal-comment"># Shows multicast group memberships (mDNS, Bonjour services)
+# Important for network discovery and AirPlay</span></div>
+            </div>
+
+            <div class="warning-box">
+                <h3><i class="bi bi-exclamation-triangle"></i> Linux vs macOS Differences</h3>
+                <p><strong>Many Linux netstat options don't work on macOS:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><code>-p</code> (show PID/program) - Not available. Use <code>lsof -i -P</code> instead</li>
+                    <li><code>-c</code> (continuous) - Not supported on macOS</li>
+                    <li><code>-o</code> (timers) - Not supported on macOS</li>
+                    <li><code>-x</code> (Unix sockets) - Not supported on macOS</li>
+                    <li><code>-C</code> (route cache) - Not supported on macOS</li>
+                    <li><code>-g</code> (multicast groups) - Available on macOS</li>
+                    <li><code>-r</code> (routing table) - Available on macOS</li>
+                    <li><code>-i</code> (interfaces) - Available on macOS</li>
+                    <li><code>-a</code> (all connections) - Available on macOS</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>macOS Recommended Alternative:</strong></p>
+                <div class="terminal" style="margin-top: 10px;">
+                    <div class="terminal-header">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                    </div>
+                    <div class="terminal-output"><span class="terminal-prompt">apple@Apples-MacBook-Pro ~ %</span> <span class="terminal-command">lsof -i -P</span>
+COMMAND   PID  USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+Google    456  apple  45u  IPv4 0x1a2b3c4d      0t0  TCP 192.168.0.174:55407->142.250.4.14:443 (ESTABLISHED)
+mysqld   1234  apple   3u  IPv46 0x5e6f7a8b     0t0  TCP *:3306 (LISTEN)
+
+<span class="terminal-comment"># Better for macOS - shows programs using network with ports</span></div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="bi bi-star"></i> Key Takeaways</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>The netstat command is essential for network troubleshooting and monitoring</li>
+                    <li>It displays TCP, UDP, and Unix socket connections with various details</li>
+                    <li>Use <code>-n</code> flag for faster numeric output (no DNS resolution)</li>
+                    <li>The <code>-c</code> flag provides continuous real-time monitoring</li>
+                    <li>Combine <code>-p</code> with other flags to identify which programs are using connections</li>
+                    <li>On macOS, consider using <code>lsof -i</code> as a modern alternative</li>
+                    <li>Whether troubleshooting issues, monitoring performance, or managing configurations, netstat is indispensable</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h3><i class="bi bi-mortarboard"></i> Pro Tips</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Always use <code>sudo</code> with <code>-p</code> flag to see all process information</li>
+                    <li>Combine flags for more specific output: <code>netstat -tulpn</code> shows TCP/UDP listening ports with programs</li>
+                    <li>Use <code>grep</code> to filter results: <code>netstat -an | grep :80</code></li>
+                    <li>The <code>-n</code> flag speeds up output by avoiding DNS lookups</li>
+                    <li>Check listening ports regularly as part of security audits</li>
+                    <li>Use <code>-s</code> for protocol statistics to analyze network performance</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <footer>
+            <p>Created for Network Administrators | Last Updated: January 2026</p>
+        </footer>
+      
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

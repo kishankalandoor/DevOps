@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nmap Command Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            background: white;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            color: #1d1d1f;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            color: #1d1d1f;
+            border-bottom: 2px solid #1d1d1f;
+            padding-bottom: 10px;
+        }
+
+        .terminal {
+            background: #1d1d1f;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-body {
+            color: #f8f8f2;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .terminal-body strong {
+            color: #66d9ef;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #f9f9fb;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 24px; }
+            .content { padding: 20px; }
+            header { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Nmap</h1>
+            <p class="subtitle">Network Mapper - Security Scanner</p>
+        </header>
+
+        <div class="content">
+            <section>
+                <h2>Installation & Version Check</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>Last login: Fri Jan 23 12:02:08 on ttys000
+You have new mail.
+apple@Apples-MacBook-Pro ~ % <strong>nmap www.pacewisdom.com</strong>
+zsh: command not found: nmap
+apple@Apples-MacBook-Pro ~ % <strong>brew --version</strong>
+
+Homebrew 5.0.4
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Homebrew Installation</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</strong>
+
+==> Checking for `sudo` access (which may request your password)...
+Password:
+==> This script will install:
+/opt/homebrew/bin/brew
+/opt/homebrew/share/doc/homebrew
+/opt/homebrew/share/man/man1/brew.1
+/opt/homebrew/share/zsh/site-functions/_brew
+/opt/homebrew/etc/bash_completion.d/brew
+/opt/homebrew
+/etc/paths.d/homebrew
+
+Press RETURN/ENTER to continue or any other key to abort:
+==> /usr/bin/sudo /usr/sbin/chown -R apple:admin /opt/homebrew
+==> Downloading and installing Homebrew...
+remote: Enumerating objects: 3400, done.
+remote: Counting objects: 100% (1458/1458), done.
+remote: Compressing objects: 100% (117/117), done.
+remote: Total 3400 (delta 1412), reused 1343 (delta 1341), pack-reused 1942 (from 4)
+==> /usr/bin/sudo /bin/mkdir -p /etc/paths.d
+==> /usr/bin/sudo tee /etc/paths.d/homebrew
+/opt/homebrew/bin
+==> /usr/bin/sudo /usr/sbin/chown root:wheel /etc/paths.d/homebrew
+==> /usr/bin/sudo /bin/chmod a+r /etc/paths.d/homebrew
+==> Updating Homebrew...
+==> Downloading https://ghcr.io/v2/homebrew/core/portable-ruby/blobs/sha256:1c98fa49eacc935640a6f8e10a2bf33f14cfc276804b71ddb658ea45ba99d167
+#################################################################################################################################################################################################################################################### 100.0%
+==> Pouring portable-ruby-3.4.8.arm64_big_sur.bottle.tar.gz
+Updated 2 taps (homebrew/core and homebrew/cask).
+==> Installation successful!
+
+==> Homebrew has enabled anonymous aggregate formulae and cask analytics.
+Read the analytics documentation (and how to opt-out) here:
+  https://docs.brew.sh/Analytics
+No analytics data has been sent yet (nor will any be during this install run).
+
+==> Homebrew is run entirely by unpaid volunteers. Please consider donating:
+  https://github.com/Homebrew/brew#donations
+
+==> Next steps:
+- Run these commands in your terminal to add Homebrew to your PATH:
+    echo >> /Users/apple/.zprofile
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv zsh)"' >> /Users/apple/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+- Run brew help to get started
+- Further documentation:
+    https://docs.brew.sh
+
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Nmap Installation via Homebrew</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>brew install nmap</strong>
+
+==> Fetching downloads for: nmap
+✔︎ Bottle Manifest nmap (7.98)                                                                                                                                                                                                   Downloaded   22.2KB/ 22.2KB
+✔︎ Bottle Manifest liblinear (2.50)                                                                                                                                                                                              Downloaded    7.6KB/  7.6KB
+✔︎ Bottle Manifest ca-certificates (2025-12-02)                                                                                                                                                                                  Downloaded    2.0KB/  2.0KB
+✔︎ Bottle Manifest openssl@3 (3.6.0)                                                                                                                                                                                             Downloaded   11.8KB/ 11.8KB
+✔︎ Bottle Manifest libssh2 (1.11.1)                                                                                                                                                                                              Downloaded   11.8KB/ 11.8KB
+✔︎ Bottle Manifest lua (5.4.8)                                                                                                                                                                                                   Downloaded   10.8KB/ 10.8KB
+✔︎ Bottle Manifest pcre2 (10.47)                                                                                                                                                                                                 Downloaded   10.4KB/ 10.4KB
+✔︎ Bottle Manifest mpdecimal (4.0.1)                                                                                                                                                                                             Downloaded   11.9KB/ 11.9KB
+✔︎ Bottle Manifest readline (8.3.3)                                                                                                                                                                                              Downloaded   10.0KB/ 10.0KB
+✔︎ Bottle Manifest sqlite (3.51.2)                                                                                                                                                                                               Downloaded   11.4KB/ 11.4KB
+✔︎ Bottle Manifest xz (5.8.2)                                                                                                                                                                                                    Downloaded   11.8KB/ 11.8KB
+✔︎ Bottle Manifest lz4 (1.10.0)                                                                                                                                                                                                  Downloaded   13.8KB/ 13.8KB
+✔︎ Bottle ca-certificates (2025-12-02)                                                                                                                                                                                           Downloaded  131.8KB/131.8KB
+✔︎ Bottle mpdecimal (4.0.1)                                                                                                                                                                                                      Downloaded  186.2KB/186.2KB
+✔︎ Bottle liblinear (2.50)                                                                                                                                                                                                       Downloaded  102.6KB/102.6KB
+✔︎ Bottle readline (8.3.3)                                                                                                                                                                                                       Downloaded  757.9KB/757.9KB
+✔︎ Bottle lua (5.4.8)                                                                                                                                                                                                            Downloaded  269.9KB/269.9KB
+✔︎ Bottle lz4 (1.10.0)                                                                                                                                                                                                           Downloaded  279.7KB/279.7KB
+✔︎ Bottle Manifest zstd (1.5.7)                                                                                                                                                                                                  Downloaded   16.2KB/ 16.2KB
+✔︎ Bottle Manifest python@3.14 (3.14.2)                                                                                                                                                                                          Downloaded   29.5KB/ 29.5KB
+✔︎ Bottle xz (5.8.2)                                                                                                                                                                                                             Downloaded  764.3KB/764.3KB
+✔︎ Bottle libssh2 (1.11.1)                                                                                                                                                                                                       Downloaded  422.9KB/422.9KB
+✔︎ Bottle zstd (1.5.7)                                                                                                                                                                                                           Downloaded  793.5KB/793.5KB
+✔︎ Bottle pcre2 (10.47)                                                                                                                                                                                                          Downloaded    2.4MB/  2.4MB
+✔︎ Bottle sqlite (3.51.2)                                                                                                                                                                                                        Downloaded    2.4MB/  2.4MB
+✔︎ Bottle python@3.14 (3.14.2)                                                                                                                                                                                                   Downloaded   18.8MB/ 18.8MB
+✔︎ Bottle nmap (7.98)                                                                                                                                                                                                            Downloaded    8.0MB/  8.0MB
+✔︎ Bottle openssl@3 (3.6.0)                                                                                                                                                                                                      Downloaded   10.9MB/ 10.9MB
+==> Installing dependencies for nmap: liblinear, ca-certificates, openssl@3, libssh2, lua, pcre2, mpdecimal, readline, sqlite, xz, lz4, zstd and python@3.14
+==> Installing nmap dependency: liblinear
+==> Pouring liblinear--2.50.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/liblinear/2.50: 10 files, 334.8KB
+==> Installing nmap dependency: ca-certificates
+==> Pouring ca-certificates--2025-12-02.all.bottle.1.tar.gz
+==> Regenerating CA certificate bundle from keychain, this may take a while...
+🍺  /opt/homebrew/Cellar/ca-certificates/2025-12-02: 4 files, 236.4KB
+==> Installing nmap dependency: openssl@3
+==> Pouring openssl@3--3.6.0.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/openssl@3/3.6.0: 7,609 files, 37.7MB
+==> Installing nmap dependency: libssh2
+==> Pouring libssh2--1.11.1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/libssh2/1.11.1: 201 files, 1.3MB
+==> Installing nmap dependency: lua
+==> Pouring lua--5.4.8.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/lua/5.4.8: 30 files, 819.4KB
+==> Installing nmap dependency: pcre2
+==> Pouring pcre2--10.47.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/pcre2/10.47: 244 files, 7.3MB
+==> Installing nmap dependency: mpdecimal
+==> Pouring mpdecimal--4.0.1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/mpdecimal/4.0.1: 22 files, 660.9KB
+==> Installing nmap dependency: readline
+==> Pouring readline--8.3.3.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/readline/8.3.3: 56 files, 2.7MB
+==> Installing nmap dependency: sqlite
+==> Pouring sqlite--3.51.2.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/sqlite/3.51.2: 13 files, 5.2MB
+==> Installing nmap dependency: xz
+==> Pouring xz--5.8.2.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/xz/5.8.2: 96 files, 2.7MB
+==> Installing nmap dependency: lz4
+==> Pouring lz4--1.10.0.arm64_tahoe.bottle.1.tar.gz
+🍺  /opt/homebrew/Cellar/lz4/1.10.0: 24 files, 768.9KB
+==> Installing nmap dependency: zstd
+==> Pouring zstd--1.5.7.arm64_tahoe.bottle.1.tar.gz
+🍺  /opt/homebrew/Cellar/zstd/1.5.7: 32 files, 2.3MB
+==> Installing nmap dependency: python@3.14
+==> Pouring python@3.14--3.14.2.arm64_tahoe.bottle.1.tar.gz
+🍺  /opt/homebrew/Cellar/python@3.14/3.14.2: 3,772 files, 73.2MB
+==> Installing nmap
+==> Pouring nmap--7.98.arm64_tahoe.bottle.2.tar.gz
+🍺  /opt/homebrew/Cellar/nmap/7.98: 844 files, 30.2MB
+==> Running `brew cleanup nmap`...
+Disable this behaviour by setting `HOMEBREW_NO_INSTALL_CLEANUP=1`.
+Hide these hints with `HOMEBREW_NO_ENV_HINTS=1` (see `man brew`).
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>nmap --version</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>nmap --version</strong>
+
+Nmap version 7.98 ( https://nmap.org )
+Platform: arm-apple-darwin25.0.0
+Compiled with: liblua-5.4.8 openssl-3.6.0 libssh2-1.11.1 libz-1.2.12 libpcre2-10.47 nmap-libpcap-(libpcap version ) nmap-libdnet-1.18.0 ipv6
+Compiled without:
+Available nsock engines: kqueue poll select
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Basic Nmap Scan</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>nmap www.pacewisdom.com</strong>
+
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 14:18 +0530
+Stats: 0:00:21 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+Connect Scan Timing: About 46.15% done; ETC: 14:19 (0:00:25 remaining)
+Nmap scan report for www.pacewisdom.com (198.202.211.1)
+Host is up (0.040s latency).
+Other addresses for www.pacewisdom.com (not scanned): 2620:cb:2000::1
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8080/tcp open  http-proxy
+8443/tcp open  https-alt
+
+Nmap done: 1 IP address (1 host up) scanned in 44.05 seconds
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>nmap -v (Verbose Output)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>nmap -v  www.pacewisdom.com</strong>
+
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 14:25 +0530
+Initiating Parallel DNS resolution of 1 host. at 14:25
+Completed Parallel DNS resolution of 1 host. at 14:25, 0.07s elapsed
+Initiating Ping Scan at 14:25
+Scanning www.pacewisdom.com (198.202.211.1) [2 ports]
+Completed Ping Scan at 14:25, 0.04s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 14:25
+Completed Parallel DNS resolution of 1 host. at 14:25, 0.50s elapsed
+Initiating Connect Scan at 14:25
+Scanning www.pacewisdom.com (198.202.211.1) [1000 ports]
+Discovered open port 8080/tcp on 198.202.211.1
+Discovered open port 443/tcp on 198.202.211.1
+Discovered open port 80/tcp on 198.202.211.1
+Stats: 0:00:15 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+Connect Scan Timing: About 32.75% done; ETC: 14:26 (0:00:31 remaining)
+Discovered open port 8443/tcp on 198.202.211.1
+Completed Connect Scan at 14:26, 43.26s elapsed (1000 total ports)
+Nmap scan report for www.pacewisdom.com (198.202.211.1)
+Host is up (0.042s latency).
+Other addresses for www.pacewisdom.com (not scanned): 2620:cb:2000::1
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8080/tcp open  http-proxy
+8443/tcp open  https-alt
+
+Read data files from: /opt/homebrew/bin/../share/nmap
+Nmap done: 1 IP address (1 host up) scanned in 43.89 seconds
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>nmap -p (Port Specification)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>nmap -p  www.pacewisdom.com</strong>
+
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 14:31 +0530
+Found no matches for the service mask 'www.pacewisdom.com' and your specified protocols
+QUITTING!
+apple@Apples-MacBook-Pro ~ % <strong>nmap -p 8,8443  www.pacewisdom.com</strong>
+
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 14:32 +0530
+Nmap scan report for www.pacewisdom.com (198.202.211.1)
+Host is up (0.050s latency).
+Other addresses for www.pacewisdom.com (not scanned): 2620:cb:2000::1
+
+PORT     STATE    SERVICE
+8/tcp    filtered unknown
+8443/tcp open     https-alt
+
+Nmap done: 1 IP address (1 host up) scanned in 3.18 seconds
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>nmap -sn (Ping Scan)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>nmap -sn  www.pacewisdom.com</strong>
+
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 14:35 +0530
+Nmap scan report for www.pacewisdom.com (198.202.211.1)
+Host is up (0.028s latency).
+Other addresses for www.pacewisdom.com (not scanned): 2620:cb:2000::1
+Nmap done: 1 IP address (1 host up) scanned in 0.61 seconds
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>nmap -sS (SYN Stealth Scan)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>nmap -sS  www.pacewisdom.com</strong>
+
+You requested a scan type which requires root privileges.
+QUITTING!
+apple@Apples-MacBook-Pro ~ % <strong>sudo nmap -sS  www.pacewisdom.com</strong>
+
+Password:
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 14:36 +0530
+Nmap scan report for www.pacewisdom.com (198.202.211.1)
+Host is up (0.037s latency).
+Other addresses for www.pacewisdom.com (not scanned): 2620:cb:2000::1
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8080/tcp open  http-proxy
+8443/tcp open  https-alt
+
+Nmap done: 1 IP address (1 host up) scanned in 5.58 seconds
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>sudo nmap -sV (Service Version Detection)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>sudo nmap -sV  www.pacewisdom.com</strong>
+
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 14:37 +0530
+Stats: 0:00:41 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 75.00% done; ETC: 14:37 (0:00:00 remaining)
+Nmap scan report for www.pacewisdom.com (198.202.211.1)
+Host is up (0.047s latency).
+Other addresses for www.pacewisdom.com (not scanned): 2620:cb:2000::1
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE  VERSION
+80/tcp   open  http     Cloudflare http proxy
+443/tcp  open  ssl/http Cloudflare http proxy
+8080/tcp open  http     Cloudflare http proxy
+8443/tcp open  ssl/http Cloudflare http proxy
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 41.79 seconds
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>nmap -sV (Without Sudo)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong> nmap -sV  www.pacewisdom.com</strong> 
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 14:38 +0530
+Stats: 0:00:13 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
+Connect Scan Timing: About 27.75% done; ETC: 14:39 (0:00:34 remaining)
+Stats: 0:01:03 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
+Service scan Timing: About 0.00% done
+Nmap scan report for www.pacewisdom.com (198.202.211.1)
+Host is up (0.048s latency).
+Other addresses for www.pacewisdom.com (not scanned): 2620:cb:2000::1
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE  VERSION
+80/tcp   open  http     Cloudflare http proxy
+443/tcp  open  ssl/http Cloudflare http proxy
+8080/tcp open  http     Cloudflare http proxy
+8443/tcp open  ssl/http Cloudflare http proxy
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 86.95 seconds
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>sudo nmap -O (OS Detection)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>sudo   nmap -O  www.pacewisdom.com</strong>
+Password:
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 15:32 +0530
+Nmap scan report for www.pacewisdom.com (198.202.211.1)
+Host is up (0.043s latency).
+Other addresses for www.pacewisdom.com (not scanned): 2620:cb:2000::1
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8080/tcp open  http-proxy
+8443/tcp open  https-alt
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+No OS matches for host
+
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 15.21 seconds
+apple@Apples-MacBook-Pro ~ % <strong>sudo   nmap -O  www.pacewisdom.com</strong>
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 15:32 +0530
+Nmap scan report for www.pacewisdom.com (198.202.211.1)
+Host is up (0.074s latency).
+Other addresses for www.pacewisdom.com (not scanned): 2620:cb:2000::1
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8080/tcp open  http-proxy
+8443/tcp open  https-alt
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+No OS matches for host
+
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 12.56 seconds
+apple@Apples-MacBook-Pro ~ % 
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>sudo nmap -A (Aggressive Scan)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>sudo   nmap -A  www.pacewisdom.com</strong>
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-01-23 15:33 +0530
+Stats: 0:00:05 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 48.90% done; ETC: 15:33 (0:00:04 remaining)
+Stats: 0:00:19 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
+Service scan Timing: About 0.00% done
+Stats: 0:00:33 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 86.99% done; ETC: 15:34 (0:00:00 remaining)
+Stats: 0:00:35 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 94.20% done; ETC: 15:34 (0:00:00 remaining)
+Stats: 0:00:42 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 99.65% done; ETC: 15:34 (0:00:00 remaining)
+Stats: 0:00:45 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 99.65% done; ETC: 15:34 (0:00:00 remaining)
+Nmap scan report for www.pacewisdom.com (198.202.211.1)
+Host is up (0.056s latency).
+Other addresses for www.pacewisdom.com (not scanned): 2620:cb:2000::1
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE  VERSION
+80/tcp   open  http     Cloudflare http proxy
+|_http-title: Did not follow redirect to https://www.pacewisdom.com/
+|_http-server-header: cloudflare
+443/tcp  open  ssl/http Cloudflare http proxy
+|_http-server-header: cloudflare
+| ssl-cert: Subject: commonName=www.pacewisdom.com
+| Subject Alternative Name: DNS:www.pacewisdom.com
+| Not valid before: 2026-01-06T16:50:08
+|_Not valid after:  2026-04-06T17:50:02
+|_http-title: 406 - Not Acceptable
+8080/tcp open  http     Cloudflare http proxy
+|_http-title: Did not follow redirect to https://www.pacewisdom.com/
+|_http-server-header: cloudflare
+8443/tcp open  ssl/http Cloudflare http proxy
+|_http-server-header: cloudflare
+|_http-title: 406 - Not Acceptable
+| ssl-cert: Subject: commonName=www.pacewisdom.com
+| Subject Alternative Name: DNS:www.pacewisdom.com
+| Not valid before: 2026-01-06T16:50:08
+|_Not valid after:  2026-04-06T17:50:02
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+No OS matches for host
+Network Distance: 6 hops
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT       ADDRESS
+1   9.78 ms   192.168.0.1
+2   164.91 ms 223.190.228.1
+3   58.06 ms  125.17.254.213
+4   63.49 ms  116.119.109.244
+5   43.33 ms  182.79.164.25
+6   83.15 ms  198.202.211.1
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 54.56 seconds
+apple@Apples-MacBook-Pro ~ %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Output to File Attempts</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro ~ % <strong>cd /Users/apple/Documents/DevOps</strong>  
+apple@Apples-MacBook-Pro DevOps % <strong>nmap -SS  www.pacewisdom.com -oG pacewisdom_scan.txt</strong> 
+Failed to resolve/decode supposed IPv4 source address "S": nodename nor servname provided, or not known
+QUITTING!
+apple@Apples-MacBook-Pro DevOps % <strong>nmap -sS  www.pacewisdom.com -oG pacewisdom_scan.txt</strong>
+You requested a scan type which requires root privileges.
+QUITTING!
+apple@Apples-MacBook-Pro DevOps % <strong>cat pacewisdom_scan.txt</strong>
+cat: pacewisdom_scan.txt: No such file or directory
+apple@Apples-MacBook-Pro DevOps % <strong>touch  pacewisdom_scan.txt</strong>                       
+apple@Apples-MacBook-Pro DevOps % <strong>nmap -sS  www.pacewisdom.com -oG pacewisdom_scan.txt</strong>
+You requested a scan type which requires root privileges.
+QUITTING!
+apple@Apples-MacBook-Pro DevOps % <strong>cat pacewisdom_scan.txt</strong>                          
+apple@Apples-MacBook-Pro DevOps %</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>nmap -h (Help Output - Part 1)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>apple@Apples-MacBook-Pro DevOps % <strong>nmap -h</strong>
+Nmap 7.98 ( https://nmap.org )
+Usage: nmap [Scan Type(s)] [Options] {target specification}
+TARGET SPECIFICATION:
+  Can pass hostnames, IP addresses, networks, etc.
+  Ex: scanme.nmap.org, microsoft.com/24, 192.168.0.1; 10.0.0-255.1-254
+  -iL &lt;inputfilename&gt;: Input from list of hosts/networks
+  -iR &lt;num hosts&gt;: Choose random targets
+  --exclude &lt;host1[,host2][,host3],...&gt;: Exclude hosts/networks
+  --excludefile &lt;exclude_file&gt;: Exclude list from file
+HOST DISCOVERY:
+  -sL: List Scan - simply list targets to scan
+  -sn: Ping Scan - disable port scan
+  -Pn: Treat all hosts as online -- skip host discovery
+  -PS/PA/PU/PY[portlist]: TCP SYN, TCP ACK, UDP or SCTP discovery to given ports
+  -PE/PP/PM: ICMP echo, timestamp, and netmask request discovery probes
+  -PO[protocol list]: IP Protocol Ping
+  -n/-R: Never do DNS resolution/Always resolve [default: sometimes]
+  --dns-servers &lt;serv1[,serv2],...&gt;: Specify custom DNS servers
+  --system-dns: Use OS's DNS resolver
+  --traceroute: Trace hop path to each host
+SCAN TECHNIQUES:
+  -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
+  -sU: UDP Scan
+  -sN/sF/sX: TCP Null, FIN, and Xmas scans
+  --scanflags &lt;flags&gt;: Customize TCP scan flags
+  -sI &lt;zombie host[:probeport]&gt;: Idle scan
+  -sY/sZ: SCTP INIT/COOKIE-ECHO scans
+  -sO: IP protocol scan
+  -b &lt;FTP relay host&gt;: FTP bounce scan
+PORT SPECIFICATION AND SCAN ORDER:
+  -p &lt;port ranges&gt;: Only scan specified ports
+    Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9
+  --exclude-ports &lt;port ranges&gt;: Exclude the specified ports from scanning
+  -F: Fast mode - Scan fewer ports than the default scan
+  -r: Scan ports sequentially - don't randomize
+  --top-ports &lt;number&gt;: Scan &lt;number&gt; most common ports
+  --port-ratio &lt;ratio&gt;: Scan ports more common than &lt;ratio&gt;</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>nmap -h (Help Output - Part 2)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>SERVICE/VERSION DETECTION:
+  -sV: Probe open ports to determine service/version info
+  --version-intensity &lt;level&gt;: Set from 0 (light) to 9 (try all probes)
+  --version-light: Limit to most likely probes (intensity 2)
+  --version-all: Try every single probe (intensity 9)
+  --version-trace: Show detailed version scan activity (for debugging)
+SCRIPT SCAN:
+  -sC: equivalent to --script=default
+  --script=&lt;Lua scripts&gt;: &lt;Lua scripts&gt; is a comma separated list of
+           directories, script-files or script-categories
+  --script-args=&lt;n1=v1,[n2=v2,...]&gt;: provide arguments to scripts
+  --script-args-file=filename: provide NSE script args in a file
+  --script-trace: Show all data sent and received
+  --script-updatedb: Update the script database.
+  --script-help=&lt;Lua scripts&gt;: Show help about scripts.
+           &lt;Lua scripts&gt; is a comma-separated list of script-files or
+           script-categories.
+OS DETECTION:
+  -O: Enable OS detection
+  --osscan-limit: Limit OS detection to promising targets
+  --osscan-guess: Guess OS more aggressively
+TIMING AND PERFORMANCE:
+  Options which take &lt;time&gt; are in seconds, or append 'ms' (milliseconds),
+  's' (seconds), 'm' (minutes), or 'h' (hours) to the value (e.g. 30m).
+  -T&lt;0-5&gt;: Set timing template (higher is faster)
+  --min-hostgroup/max-hostgroup &lt;size&gt;: Parallel host scan group sizes
+  --min-parallelism/max-parallelism &lt;numprobes&gt;: Probe parallelization
+  --min-rtt-timeout/max-rtt-timeout/initial-rtt-timeout &lt;time&gt;: Specifies
+      probe round trip time.
+  --max-retries &lt;tries&gt;: Caps number of port scan probe retransmissions.
+  --host-timeout &lt;time&gt;: Give up on target after this long
+  --scan-delay/--max-scan-delay &lt;time&gt;: Adjust delay between probes
+  --min-rate &lt;number&gt;: Send packets no slower than &lt;number&gt; per second
+  --max-rate &lt;number&gt;: Send packets no faster than &lt;number&gt; per second</pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>nmap -h (Help Output - Part 3)</h2>
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>FIREWALL/IDS EVASION AND SPOOFING:
+  -f; --mtu &lt;val&gt;: fragment packets (optionally w/given MTU)
+  -D &lt;decoy1,decoy2[,ME],...&gt;: Cloak a scan with decoys
+  -S &lt;IP_Address&gt;: Spoof source address
+  -e &lt;iface&gt;: Use specified interface
+  -g/--source-port &lt;portnum&gt;: Use given port number
+  --proxies &lt;url1,[url2],...&gt;: Relay connections through HTTP/SOCKS4 proxies
+  --data &lt;hex string&gt;: Append a custom payload to sent packets
+  --data-string &lt;string&gt;: Append a custom ASCII string to sent packets
+  --data-length &lt;num&gt;: Append random data to sent packets
+  --ip-options &lt;options&gt;: Send packets with specified ip options
+  --ttl &lt;val&gt;: Set IP time-to-live field
+  --spoof-mac &lt;mac address/prefix/vendor name&gt;: Spoof your MAC address
+  --badsum: Send packets with a bogus TCP/UDP/SCTP checksum
+OUTPUT:
+  -oN/-oX/-oS/-oG &lt;file&gt;: Output scan in normal, XML, s|&lt;rIpt kIddi3,
+     and Grepable format, respectively, to the given filename.
+  -oA &lt;basename&gt;: Output in the three major formats at once
+  -v: Increase verbosity level (use -vv or more for greater effect)
+  -d: Increase debugging level (use -dd or more for greater effect)
+  --reason: Display the reason a port is in a particular state
+  --open: Only show open (or possibly open) ports
+  --packet-trace: Show all packets sent and received
+  --iflist: Print host interfaces and routes (for debugging)
+  --append-output: Append to rather than clobber specified output files
+  --resume &lt;filename&gt;: Resume an aborted scan
+  --noninteractive: Disable runtime interactions via keyboard
+  --stylesheet &lt;path/URL&gt;: XSL stylesheet to transform XML output to HTML
+  --webxml: Reference stylesheet from Nmap.Org for more portable XML
+  --no-stylesheet: Prevent associating of XSL stylesheet w/XML output
+MISC:
+  -6: Enable IPv6 scanning
+  -A: Enable OS detection, version detection, script scanning, and traceroute
+  --datadir &lt;dirname&gt;: Specify custom Nmap data file location
+  --send-eth/--send-ip: Send using raw ethernet frames or IP packets
+  --privileged: Assume that the user is fully privileged
+  --unprivileged: Assume the user lacks raw socket privileges
+  -V: Print version number
+  -h: Print this help summary page.
+EXAMPLES:
+  nmap -v -A scanme.nmap.org
+  nmap -v -sn 192.168.0.0/16 10.0.0.0/8
+  nmap -v -iR 10000 -Pn -p 80
+SEE THE MAN PAGE (https://nmap.org/book/man.html) FOR MORE OPTIONS AND EXAMPLES
+apple@Apples-MacBook-Pro DevOps % </pre>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 DevOps Training Documentation</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

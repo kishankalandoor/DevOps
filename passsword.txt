@@ -1,0 +1,234 @@
+================================================================================
+                    NETSTAT COMMAND CHEAT SHEET
+                 Network Monitoring for System Admins
+================================================================================
+
+📌 WHAT IS NETSTAT?
+   A command-line network utility tool for monitoring:
+   • Active network connections
+   • Routing tables
+   • Network interfaces
+   • Protocol statistics
+
+⚠️  IMPORTANT FOR MAC USERS:
+   • netstat works but may be slower on newer macOS versions
+   • Alternative: lsof -i -P (shows programs using your internet)
+   • Remember: flags need a command! Use "netstat -a" not just "-a"
+
+================================================================================
+                        1. BASIC FLAG REFERENCE
+================================================================================
+
+Think of flags as "instructions" you attach to the netstat command.
+You can COMBINE them (e.g., netstat -atp)
+
+FLAG    WHAT IT DOES
+----    ------------------------------------------------------------
+-a      ALL connections (active + listening)
+-t      TCP only (Transmission Control Protocol)
+-u      UDP only (User Datagram Protocol - connectionless)
+-n      NUMERIC addresses (shows IPs instead of names - faster!)
+-p      PROGRAM/Process ID (which app is using this connection)
+-l      LISTENING ports only (services waiting for connections)
+-r      ROUTING table (shows where packets go)
+-i/-ie  INTERFACES (network cards info)
+-c      CONTINUOUS output (live feed until you stop it)
+-s      STATISTICS for each protocol
+
+================================================================================
+                    2. ESSENTIAL COMMANDS YOU'LL USE
+================================================================================
+
+🔹 VIEW NETWORK INTERFACES (like ifconfig)
+   netstat -ie
+   → Shows all your network cards (Ethernet, Wi-Fi, Loopback)
+
+🔹 SEE ROUTING TABLE (where does your internet go?)
+   netstat -r
+   → Shows Gateway (usually your router like 192.168.1.1)
+
+🔹 LIVE MONITORING (real-time connections)
+   netstat -c
+   → Keeps updating until you press Ctrl+C
+
+🔹 ALL CONNECTIONS (active + listening)
+   netstat -a
+   → Everything your computer is doing network-wise
+
+================================================================================
+                   3. FILTERING BY PROTOCOL (TCP vs UDP)
+================================================================================
+
+🔹 TCP CONNECTIONS ONLY
+   netstat -at
+   → Shows only TCP traffic (web browsing, SSH, etc.)
+
+🔹 UDP CONNECTIONS ONLY
+   netstat -au
+   → Shows UDP traffic (DNS, video streaming, gaming)
+   → Note: UDP has no "state" because it's connectionless
+
+🔹 NUMERIC TCP CONNECTIONS (fastest)
+   netstat -nt
+   → Shows active TCP connections with IP addresses
+
+================================================================================
+                  4. FINDING LISTENING SERVICES
+================================================================================
+
+These commands show "open doors" waiting for someone to connect:
+
+🔹 LISTENING TCP PORTS
+   netstat -lt
+   → Shows services in LISTEN state (web servers, SSH, etc.)
+
+🔹 LISTENING UDP PORTS
+   netstat -lu
+   → Shows active UDP services
+
+🔹 ALL LISTENING PORTS (numeric, fast)
+   netstat -ltn
+   → Perfect for checking if your server is running on port 8080!
+
+🔹 MAC-SPECIFIC LISTENING PORTS
+   netstat -anL
+   → Better for macOS
+
+================================================================================
+                   5. IDENTIFYING PROGRAMS/PROCESSES
+================================================================================
+
+🔹 SHOW WHICH PROGRAM IS USING EACH CONNECTION
+   netstat -p
+   → Adds PID (Process ID) and program name column
+
+🔹 ALL TCP CONNECTIONS WITH PROGRAM NAMES
+   netstat -atp
+   → See which apps (Firefox, SSH, Chrome) are connected
+
+🔹 COMBINED: All info at once
+   netstat -tulpn
+   → TCP + UDP + Listening + Program + Numeric
+   → (Linux - may need sudo)
+
+================================================================================
+                    6. SEARCHING FOR SPECIFIC PORTS
+================================================================================
+
+Use "grep" to filter the list:
+
+🔹 FIND PORT 80 (HTTP web traffic)
+   netstat -an | grep :80
+
+🔹 CHECK IF SSH IS RUNNING (port 22)
+   netstat -nlp | grep 22
+
+🔹 FIND ALL CONNECTIONS TO A SPECIFIC IP
+   netstat -an | grep 192.168.1.100
+
+================================================================================
+                   7. UNDERSTANDING THE OUTPUT
+================================================================================
+
+COLUMN          WHAT IT MEANS
+------          -------------
+Local Address   Your computer's IP:PORT
+Foreign Address Remote server's IP:PORT (who you're talking to)
+State           Connection status (see below)
+
+CONNECTION STATES:
+------------------
+ESTABLISHED     ✅ Active connection, data is flowing
+LISTEN          🔊 Port is open, waiting for connections
+CLOSE_WAIT      ⏳ Remote side closed, your side waiting to close
+TIME_WAIT       ⏲️  Connection closed, waiting for late packets
+SYN_SENT        📤 Your computer is trying to connect
+SYN_RECEIVED    📥 Someone is trying to connect to you
+
+================================================================================
+                    8. PRACTICAL EXERCISES
+================================================================================
+
+📝 Try these on your MacBook:
+
+1. See all connections:
+   netstat -an
+
+2. Open a web browser, visit any website, then run:
+   netstat -nt
+   → You'll see new ESTABLISHED connections to the website's IP!
+
+3. Check what's listening on your computer:
+   netstat -anL
+
+4. Get protocol statistics:
+   netstat -s
+
+5. Use the modern alternative:
+   lsof -i -P
+   → Shows which programs are using your internet
+
+================================================================================
+                    9. COMMON USE CASES
+================================================================================
+
+✅ CHECK IF YOUR SERVER IS RUNNING
+   netstat -ltn | grep 8080
+   → If building a web app on port 8080
+
+✅ FIND SUSPICIOUS CONNECTIONS
+   netstat -atp
+   → See what programs are connected to the internet
+
+✅ DEBUG NETWORK ISSUES
+   netstat -r
+   → Check if your routing table is correct
+
+✅ MONITOR ACTIVE SESSIONS
+   netstat -c
+   → Watch connections in real-time
+
+✅ VERIFY A SERVICE STARTED
+   netstat -nlp | grep ssh
+   → After starting SSH server
+
+================================================================================
+                      10. QUICK REFERENCE
+================================================================================
+
+Most Used Commands:
+-------------------
+netstat -an          → All connections, numeric
+netstat -ltn         → Listening TCP ports
+netstat -atp         → All TCP with program names
+netstat -r           → Routing table
+netstat -s           → Statistics
+lsof -i -P           → Mac alternative (shows programs)
+
+Troubleshooting:
+----------------
+• Always use "netstat" first, then the flags
+• On Mac, use -anL for listening ports (not -lt)
+• Add "sudo" before command if you get permission errors
+• Pipe to grep to filter: netstat -an | grep :80
+
+================================================================================
+                          STUDY TIPS
+================================================================================
+
+1. Start with: netstat -an
+   → This shows everything, get familiar with the output
+
+2. Learn the states: ESTABLISHED, LISTEN, CLOSE_WAIT
+   → These tell you what's actually happening
+
+3. Practice filtering: Use -t, -u, -l to narrow down results
+
+4. Combine flags: netstat -tulpn gives you maximum info
+
+5. Use grep: When the list is too long, search for specific ports
+
+================================================================================
+Source: HackerSploit YouTube Tutorial
+"Netstat Commands - Network Administration Tutorial"
+================================================================================

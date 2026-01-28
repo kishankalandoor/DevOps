@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soft Link (Symbolic Link) Command Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            background: white;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            color: #1d1d1f;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            color: #1d1d1f;
+            border-bottom: 2px solid #1d1d1f;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            color: #333;
+        }
+
+        .terminal {
+            background: #1d1d1f;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-body {
+            color: #f8f8f2;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .terminal-body strong {
+            color: #66d9ef;
+            font-weight: 600;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        footer {
+            background: #f9f9fb;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 24px; }
+            .content { padding: 20px; }
+            header { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Soft Link (Symbolic Link)</h1>
+        <p class="subtitle">Creating symbolic links in Linux/macOS</p>
+    </header>
+
+    <div class="content">
+        <section>
+            <h2>Terminal Session: Creating Symbolic Links</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot" style="background: #ff5f57;"></span>
+                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro gopal % <strong>cd /Users/apple/Documents/DevOps</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>mkdir var</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>cd var</strong>
+apple@Apples-MacBook-Pro var % <strong>mkdir www</strong>
+apple@Apples-MacBook-Pro var % <strong>touch a1.txt b2.txt</strong>
+apple@Apples-MacBook-Pro var % <strong>ls</strong>
+a1.txt	b2.txt	www
+apple@Apples-MacBook-Pro var % <strong>..</strong>
+zsh: permission denied: ..
+apple@Apples-MacBook-Pro var % <strong>cd ..</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>mkdir home</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>cd var</strong>
+apple@Apples-MacBook-Pro var % <strong>mv a1.txt b2.txt www/</strong>
+apple@Apples-MacBook-Pro var % <strong>cd www</strong>
+apple@Apples-MacBook-Pro www % <strong>-l</strong>
+zsh: command not found: -l
+apple@Apples-MacBook-Pro www % <strong>ls</strong>
+a1.txt	b2.txt
+apple@Apples-MacBook-Pro www % <strong>cd ..</strong>
+apple@Apples-MacBook-Pro var % <strong>cd ..</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>cd www</strong>
+cd: no such file or directory: www
+apple@Apples-MacBook-Pro DevOps % <strong>cd home</strong>
+apple@Apples-MacBook-Pro home % <strong>ln -s /Users/apple/Documents/DevOps/var/www/a1.txt</strong>
+apple@Apples-MacBook-Pro home % <strong>ln -s /Users/apple/Documents/DevOps/var/www/b2.txt</strong>
+apple@Apples-MacBook-Pro home % </pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        </footer>
+</body>
+</html>

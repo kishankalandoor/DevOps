@@ -1,0 +1,6 @@
+{
+    "livePreview.defaultPreviewPath": "/progress-tracker/index.html",
+    "chat.tools.terminal.autoApprove": {
+        "git init": true
+    }
+}

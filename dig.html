@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIG Command Terminal Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+            background: #ffffff;
+            color: #1d1d1f;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #1d1d1f !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: none;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 22px;
+            color: #ffffff !important;
+        }
+
+        .nav-link {
+            font-weight: 400;
+            color: #f5f5f7 !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            background: #ffffff;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .page-header h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1.5px;
+            color: #1d1d1f;
+        }
+
+        .page-header .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            font-weight: 400;
+        }
+
+        .terminal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .terminal-window {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+            transition: all 0.3s ease;
+        }
+
+        .terminal-window:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border-color: #d2d2d7;
+        }
+
+        .terminal-titlebar {
+            background: #f5f5f7;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: #1d1d1f;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            background: #1d1d1f;
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #3d3d3f;
+            border-radius: 4px;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: #66d9ef;
+        }
+
+        .section-header {
+            background: #ffffff;
+            border: none;
+            color: #1d1d1f;
+            padding: 20px 0;
+            border-radius: 0;
+            margin: 50px 0 30px 0;
+            font-weight: 700;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: none;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .section-header i {
+            font-size: 32px;
+        }
+
+        footer {
+            background: #f5f5f7;
+            padding: 40px;
+            text-align: center;
+            color: #86868b;
+            border-radius: 0;
+            border-top: 1px solid #e5e5e7;
+            margin-top: 50px;
+            box-shadow: none;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1d1d1f;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-custom {
+            background: #1d1d1f;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 32px; }
+            .page-header { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="bi bi-terminal"></i> DIG Command Reference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#help"><i class="bi bi-question-circle"></i> Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#basic"><i class="bi bi-play-circle"></i> Basic Queries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#protocol"><i class="bi bi-hdd-network"></i> Protocol</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#display"><i class="bi bi-eye"></i> Display</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#records"><i class="bi bi-file-text"></i> Records</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="bi bi-terminal-fill"></i> DIG Command Terminal Reference</h1>
+            <p class="subtitle">Complete DNS Query Examples & Command Options</p>
+        </div>
+
+        <!-- Help Commands Section -->
+        <div class="section-header" id="help">
+            <i class="bi bi-question-circle"></i>
+            <span>Help Commands</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig --help (Invalid Option)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig --help
+Invalid option: --help
+Usage:  dig [@global-server] [domain] [q-type] [q-class] {q-opt}
+            {global-d-opt} host [@local-server] {local-d-opt}
+            [ host [@local-server] {local-d-opt} [...]]
+
+Use "dig -h" (or "dig -h | more") for complete list of options</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig -h (Complete Help)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig -h
+Usage:  dig [@global-server] [domain] [q-type] [q-class] {q-opt}
+            {global-d-opt} host [@local-server] {local-d-opt}
+            [ host [@local-server] {local-d-opt} [...]]
+Where:  domain	  is in the Domain Name System
+        q-class  is one of (in,hs,ch,...) [default: in]
+        q-type   is one of (a,any,mx,ns,soa,hinfo,axfr,txt,...) [default:a]
+                 (Use ixfr=version for type ixfr)
+        q-opt    is one of:
+                 -4                  (use IPv4 query transport only)
+                 -6                  (use IPv6 query transport only)
+                 -b address[#port]   (bind to source address/port)
+                 -c class            (specify query class)
+                 -f filename         (batch mode)
+                 -i                  (use IP6.INT for IPv6 reverse lookups)
+                 -k keyfile          (specify tsig key file)
+                 -m                  (enable memory usage debugging)
+                 -p port             (specify port number)
+                 -q name             (specify query name)
+                 -t type             (specify query type)
+                 -u                  (display times in usec instead of msec)
+                 -x dot-notation     (shortcut for reverse lookups)
+                 -y [hmac:]name:key  (specify named base64 tsig key)
+        d-opt    is of the form +keyword[=value], where keyword is:
+                 +[no]aaonly         (Set AA flag in query (+[no]aaflag))
+                 +[no]additional     (Control display of additional section)
+                 +[no]adflag         (Set AD flag in query (default on))
+                 +[no]all            (Set or clear all display flags)
+                 +[no]answer         (Control display of answer section)
+                 +[no]authority      (Control display of authority section)
+                 +[no]besteffort     (Try to parse even illegal messages)
+                 +bufsize=###        (Set EDNS0 Max UDP packet size)
+                 +[no]cdflag         (Set checking disabled flag in query)
+                 +[no]cl             (Control display of class in records)
+                 +[no]cmd            (Control display of command line)
+                 +[no]comments       (Control display of comment lines)
+                 +[no]crypto         (Control display of cryptographic fields in records)
+                 +[no]defname        (Use search list (+[no]search))
+                 +[no]dnssec         (Request DNSSEC records)
+                 +domain=###         (Set default domainname)
+                 +[no]edns[=###]     (Set EDNS version) [0]
+                 +ednsflags=###      (Set EDNS flag bits)
+                 +[no]ednsnegotiation (Set EDNS version negotiation)
+                 +ednsopt=###[:value] (Send specified EDNS option)
+                 +noednsopt          (Clear list of +ednsopt options)
+                 +[no]expire         (Request time to expire)
+                 +[no]fail           (Don't try next server on SERVFAIL)
+                 +[no]identify       (ID responders in short answers)
+                 +[no]idnout         (convert IDN response)
+                 +[no]ignore         (Don't revert to TCP for TC responses.)
+                 +[no]keepopen       (Keep the TCP socket open between queries)
+                 +[no]multiline      (Print records in an expanded format)
+                 +ndots=###          (Set search NDOTS value)
+                 +[no]nsid           (Request Name Server ID)
+                 +[no]nssearch       (Search all authoritative nameservers)
+                 +[no]onesoa         (AXFR prints only one soa record)
+                 +[no]opcode=###     (Set the opcode of the request)
+                 +[no]qr             (Print question before sending)
+                 +[no]question       (Control display of question section)
+                 +[no]recurse        (Recursive mode)
+                 +retry=###          (Set number of UDP retries) [2]
+                 +[no]rrcomments     (Control display of per-record comments)
+                 +[no]search         (Set whether to use searchlist)
+                 +[no]short          (Display nothing except short form of answer)
+                 +[no]showsearch     (Search with intermediate results)
+                 +[no]split=##       (Split hex/base64 fields into chunks)
+                 +[no]stats          (Control display of statistics)
+                 +subnet=addr        (Set edns-client-subnet option)
+                 +[no]tcp            (TCP mode (+[no]vc))
+                 +time=###           (Set query timeout) [5]
+                 +[no]trace          (Trace delegation down from root [+dnssec])
+                 +tries=###          (Set number of UDP attempts) [3]
+                 +[no]ttlid          (Control display of ttls in records)
+                 +[no]vc             (TCP mode (+[no]tcp))
+        global d-opts and servers (before host name) affect all queries.
+        local d-opts and servers (after host name) affect only that lookup.
+        -h                           (print help and exit)
+        -v                           (print version and exit)</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Basic Queries Section -->
+        <div class="section-header" id="basic">
+            <i class="bi bi-play-circle"></i>
+            <span>Basic DIG Queries</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig pacewisdom.com +short</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig pacewisdom.com +short
+198.202.211.1</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig pacewisdom.com +long (Error)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig pacewisdom.com +long
+Invalid option: +long
+Usage:  dig [@global-server] [domain] [q-type] [q-class] {q-opt}
+            {global-d-opt} host [@local-server] {local-d-opt}
+            [ host [@local-server] {local-d-opt} [...]]
+
+Use "dig -h" (or "dig -h | more") for complete list of options</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig pacewisdom.com (Full Output)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig pacewisdom.com
+
+; <<>> DiG 9.10.6 <<>> pacewisdom.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 22179
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;pacewisdom.com.			IN	A
+
+;; ANSWER SECTION:
+pacewisdom.com.		300	IN	A	198.202.211.1
+
+;; Query time: 122 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Tue Jan 27 12:32:02 IST 2026
+;; MSG SIZE  rcvd: 59</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Protocol Tests Section -->
+        <div class="section-header" id="protocol">
+            <i class="bi bi-hdd-network"></i>
+            <span>IPv4/IPv6 Protocol Tests</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig -4 pacewisdom.com (IPv4 Only)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig -4 pacewisdom.com
+
+; <<>> DiG 9.10.6 <<>> -4 pacewisdom.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 29938
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;pacewisdom.com.			IN	A
+
+;; ANSWER SECTION:
+pacewisdom.com.		300	IN	A	198.202.211.1
+
+;; Query time: 58 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Tue Jan 27 12:32:28 IST 2026
+;; MSG SIZE  rcvd: 59</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig -6 pacewisdom.com (IPv6 Timeout)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig -6 pacewisdom.com
+
+; <<>> DiG 9.10.6 <<>> -6 pacewisdom.com
+;; global options: +cmd
+;; connection timed out; no servers could be reached</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig 8.8.8.8 pacewisdom.com (Two Queries)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig 8.8.8.8 pacewisdom.com
+
+; <<>> DiG 9.10.6 <<>> 8.8.8.8 pacewisdom.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 35764
+;; flags: qr rd ra ad; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;8.8.8.8.			IN	A
+
+;; AUTHORITY SECTION:
+.			86387	IN	SOA	a.root-servers.net. nstld.verisign-grs.com. 2026012700 1800 900 604800 86400
+
+;; Query time: 38 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Tue Jan 27 12:33:10 IST 2026
+;; MSG SIZE  rcvd: 111
+
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 53999
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;pacewisdom.com.			IN	A
+
+;; ANSWER SECTION:
+pacewisdom.com.		300	IN	A	198.202.211.1
+
+;; Query time: 58 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Tue Jan 27 12:33:10 IST 2026
+;; MSG SIZE  rcvd: 59</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig pacewisdom.com @8.8.8.8 (Specify DNS Server)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig pacewisdom.com @8.8.8.8
+
+; <<>> DiG 9.10.6 <<>> pacewisdom.com @8.8.8.8
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 46115
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;pacewisdom.com.			IN	A
+
+;; ANSWER SECTION:
+pacewisdom.com.		300	IN	A	198.202.211.1
+
+;; Query time: 62 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Tue Jan 27 12:35:39 IST 2026
+;; MSG SIZE  rcvd: 59</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Display Options Section -->
+        <div class="section-header" id="display">
+            <i class="bi bi-eye"></i>
+            <span>Display Output Options</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig pacewisdom.com +nocomments</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig pacewisdom.com +nocomments
+
+; <<>> DiG 9.10.6 <<>> pacewisdom.com +nocomments
+;; global options: +cmd
+;pacewisdom.com.			IN	A
+pacewisdom.com.		300	IN	A	198.202.211.1
+;; Query time: 52 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Tue Jan 27 12:34:33 IST 2026
+;; MSG SIZE  rcvd: 59</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig pacewisdom.com +noall</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig pacewisdom.com +noall
+
+; <<>> DiG 9.10.6 <<>> pacewisdom.com +noall
+;; global options: +cmd</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig pacewisdom.com +noall +answer</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig pacewisdom.com +noall +answer
+
+; <<>> DiG 9.10.6 <<>> pacewisdom.com +noall +answer
+;; global options: +cmd
+pacewisdom.com.		132	IN	A	198.202.211.1</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Record Types Section -->
+        <div class="section-header" id="records">
+            <i class="bi bi-file-text"></i>
+            <span>Record Types & Queries</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig pacewisdom.com ANY</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig pacewisdom.com ANY
+
+; <<>> DiG 9.10.6 <<>> pacewisdom.com ANY
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 42630
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;pacewisdom.com.			IN	ANY
+
+;; ANSWER SECTION:
+pacewisdom.com.		3600	IN	HINFO	"RFC8482" ""
+
+;; Query time: 52 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Tue Jan 27 12:36:53 IST 2026
+;; MSG SIZE  rcvd: 64</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig pacewisdom.com ANY +noall +answer</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig pacewisdom.com ANY +noall +answer
+
+; <<>> DiG 9.10.6 <<>> pacewisdom.com ANY +noall +answer
+;; global options: +cmd
+pacewisdom.com.		335	IN	HINFO	"RFC8482" ""</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">dig pacewisdom.com MX</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % dig pacewisdom.com MX
+
+; <<>> DiG 9.10.6 <<>> pacewisdom.com MX
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 41738
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;pacewisdom.com.			IN	MX
+
+;; ANSWER SECTION:
+pacewisdom.com.		300	IN	MX	0 pacewisdom-com.mail.protection.outlook.com.
+
+;; Query time: 66 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Tue Jan 27 12:37:17 IST 2026
+;; MSG SIZE  rcvd: 98</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Miscellaneous Section -->
+        <div class="section-header">
+            <i class="bi bi-collection"></i>
+            <span>Curl & Host Commands</span>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">curl pacewisdom.com</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % curl pacewisdom.com
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;301 Moved Permanently&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;center&gt;&lt;h1&gt;301 Moved Permanently&lt;/h1&gt;&lt;/center&gt;
+&lt;hr&gt;&lt;center&gt;openresty&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">host -c IN pacewisdom.com & host 192.168.0.1</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % host -c IN pacewisdom.com
+pacewisdom.com has address 198.202.211.1
+
+apple@Apples-MacBook-Pro DevOps % host 192.168.0.1
+Host 1.0.168.192.in-addr.arpa. not found: 3(NXDOMAIN)</pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><i class="bi bi-c-circle"></i> 2026 DevOps Training Documentation</p>
+        <p class="mt-2" style="font-size: 14px; color: #86868b;">Terminal Session Log - DIG Command Reference</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

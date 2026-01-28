@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kishan K - DevOps Trainee Intern Digital Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            background: white;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            color: #1d1d1f;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 5px;
+        }
+
+        .intern-name {
+            font-size: 24px;
+            color: #1d1d1f;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin: 40px 0 30px 0;
+            color: #1d1d1f;
+            border-bottom: 2px solid #1d1d1f;
+            padding-bottom: 10px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .report-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            display: block;
+        }
+
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            border-color: #1d1d1f;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: #1d1d1f;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 24px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .card-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #e3f2fd;
+            color: #0277bd;
+        }
+
+        .card-date {
+            font-size: 13px;
+            color: #888;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-filename {
+            font-size: 12px;
+            color: #999;
+            margin-top: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        footer {
+            background: #f9f9fb;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: #1d1d1f;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 24px; }
+            .content { padding: 20px; }
+            header { padding: 40px 20px; }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DevOps </h1>
+            <p class="subtitle">Digital Report</p>
+            <p class="intern-name">Kishan K</p>
+        </header>
+
+        <div class="content">
+            <section>
+                <h2>Repository Content</h2>
+                <div class="stats-section">
+                    <div class="stat-card">
+                        <div class="stat-number" id="htmlCount">0</div>
+                        <div class="stat-label">HTML Files</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="txtCount">0</div>
+                        <div class="stat-label">Text Files</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalCount">0</div>
+                        <div class="stat-label">Total Files</div>
+                    </div>
+                </div>
+                
+                <h2>HTML Files (Sorted by Date)</h2>
+                <div class="card-grid" id="htmlFiles"></div>
+
+                <h2>Text Files (Sorted by Date)</h2>
+                <div class="card-grid" id="txtFiles"></div>
+            </section>
+        </div>
+
+        <footer>
+            <p>DevOps Repository Dashboard - Last Updated: <span id="lastUpdate"></span></p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Repository files data with topics and dates (HTML and Text files only)
+        const repoFiles = [
+            { name: 'password.html', topic: 'Password & File Management', type: 'html', icon: 'bi-shield-lock', date: 'Wed Jan 21 17:34:45 2026' },
+            { name: 'inode.html', topic: 'Inode & Grep Commands', type: 'html', icon: 'bi-hdd', date: 'Thu Jan 22 12:00:24 2026' },
+            { name: 'nmap.html', topic: 'Network Mapping - NMAP', type: 'html', icon: 'bi-radar', date: 'Fri Jan 23 12:02:08 2026' },
+            { name: 'nginx.html', topic: 'NGINX Web Server', type: 'html', icon: 'bi-globe', date: 'Mon Jan 27 16:03:37 2026' },
+            { name: 'logs and journalctl.html', topic: 'System Logs & Journalctl', type: 'html', icon: 'bi-journal-text', date: 'Tue Jan 28 10:25:07 2026' },
+            { name: 'date_time_file_creation.html', topic: 'Date & Time File Creation', type: 'html', icon: 'bi-calendar-check', date: 'Tue Jan 28 12:27:36 2026' },
+            { name: 'dig.html', topic: 'DNS Lookup - DIG Command', type: 'html', icon: 'bi-search', date: 'Jan 20 2026' },
+            { name: 'host-commands.html', topic: 'Host Commands Reference', type: 'html', icon: 'bi-hdd-network', date: 'Jan 20 2026' },
+            { name: 'netstat-guide.html', topic: 'Netstat Command Reference', type: 'html', icon: 'bi-diagram-3', date: 'Jan 20 2026' },
+            { name: 'softlink.html', topic: 'Symbolic Links & Hard Links', type: 'html', icon: 'bi-link-45deg', date: 'Jan 20 2026' },
+            { name: 'traceroute Ping.html', topic: 'Traceroute & Ping Diagnostics', type: 'html', icon: 'bi-arrow-repeat', date: 'Jan 20 2026' },
+            { name: 'ufw.html', topic: 'Netstat , UFW Firewall Configuration', type: 'html', icon: 'bi-shield-check', date: 'Jan 20 2026' },
+            { name: 'a.txt', topic: 'Sample Text File A', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'b.txt', topic: 'Sample Text File B', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'hello.txt', topic: 'Hello World Example', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'innodedemo.txt', topic: 'Inode Demonstration', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'logs_raw_content.txt', topic: 'Raw Log Content', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'missing.txt', topic: 'Missing Files Reference', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'netstat.txt', topic: 'Netstat Output Log', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'pacewisdom_scan.txt', topic: 'Pacewisdom Scan Results', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'passsword.txt', topic: 'Password Configuration', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'pattern.txt', topic: 'Pattern Matching Examples', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'pinglogs.txt', topic: 'Ping Diagnostics Logs', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' },
+            { name: 'traceroutelog1.txt', topic: 'Traceroute Log Output', type: 'txt', icon: 'bi-file-text', date: 'Jan 20 2026' }
+        ];
+
+        // Function to parse date string
+        function parseDate(dateStr) {
+            // Try to parse the date string
+            const date = new Date(dateStr);
+            if (!isNaN(date.getTime())) {
+                return date;
+            }
+            return new Date();
+        }
+
+        // Function to format date
+        function formatDate(date) {
+            const options = { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        // Function to create card
+        function createCard(file, date) {
+            return `
+                <a href="${file.name}" class="report-card">
+                    <div class="card-icon">
+                        <i class="${file.icon}"></i>
+                    </div>
+                    <div class="card-title">${file.topic}</div>
+                    <div class="card-filename">${file.name}</div>
+                    <div class="card-date">
+                        <i class="bi bi-clock"></i>
+                        ${formatDate(date)}
+                    </div>
+                </a>
+            `;
+        }
+
+        // Load files and create cards
+        function loadFiles() {
+            const htmlFiles = document.getElementById('htmlFiles');
+            const txtFiles = document.getElementById('txtFiles');
+
+            // Parse dates for all files
+            const filesWithDates = repoFiles.map(file => ({
+                ...file,
+                parsedDate: parseDate(file.date)
+            }));
+
+            // Sort by date (newest first)
+            const htmlFilesData = filesWithDates.filter(f => f.type === 'html').sort((a, b) => b.parsedDate - a.parsedDate);
+            const txtFilesData = filesWithDates.filter(f => f.type === 'txt').sort((a, b) => b.parsedDate - a.parsedDate);
+
+            // Create cards for HTML files
+            htmlFilesData.forEach(file => {
+                htmlFiles.innerHTML += createCard(file, file.parsedDate);
+            });
+
+            // Create cards for Text files
+            txtFilesData.forEach(file => {
+                txtFiles.innerHTML += createCard(file, file.parsedDate);
+            });
+
+            // Update stats
+            document.getElementById('htmlCount').textContent = htmlFilesData.length;
+            document.getElementById('txtCount').textContent = txtFilesData.length;
+            document.getElementById('totalCount').textContent = filesWithDates.length;
+            document.getElementById('lastUpdate').textContent = formatDate(new Date());
+        }
+
+        // Load files on page load
+        document.addEventListener('DOMContentLoaded', loadFiles);
+    </script>
+</body>
+</html>
