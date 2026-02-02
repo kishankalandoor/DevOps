@@ -589,6 +589,285 @@ apple@kishankalandoor DevOps % </pre>
             </div>
         </div>
 
+        <div class="section-header">
+            <i class="bi bi-arrow-repeat"></i>
+            More grep & Redirect Examples
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — cat demo.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat demo.txt
+
+iunix is great os. unix is opensource. unix is free os.
+learn operating system.
+unix linux which one you choose.
+unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — cat | grep learn</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat demo.txt | grep learn
+learn operating system.
+unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — cat | grep "learn"</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat demo.txt | grep "learn"
+learn operating system.
+unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — grep > learn.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % grep "learn" demo.txt > learn.txt
+
+apple@kishankalandoor DevOps % cat learn.txt
+
+learn operating system.
+unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <i class="bi bi-calculator"></i>
+            tee with wc -l Count
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — tee | wc -l Output</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat demo.txt | grep -i "unix" | tee unix.txt | wc -l
+
+       3</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — rm learn.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % rm learn.txt
+
+apple@kishankalandoor DevOps % cat learn.txt
+
+cat: learn.txt: No such file or directory</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — Recreate learn.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % grep "learn" demo.txt > learn.txt
+
+apple@kishankalandoor DevOps % cat learn.txt
+learn operating system.
+unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — cat | grep > learn.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat demo.txt | grep "learn" > learn.txt</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <i class="bi bi-arrow-left-right"></i>
+            Input Redirection with tee
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — grep < file | tee > file</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % grep "unix" < demo.txt | tee unix.txt > count.txt</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — cat < file | grep | tee > file</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat < demo.txt | grep -i "learn" | tee learn_lines.txt > final.txt</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — cat learn_lines.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat learn_lines.txt
+
+learn operating system.
+unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — cat final.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat final.txt
+
+learn operating system.
+unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — cat unix.txt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat unix.txt
+
+iunix is great os. unix is opensource. unix is free os.
+unix linux which one you choose.
+unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <i class="bi bi-layers"></i>
+            Multiple tee Commands
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — cat < file | grep | tee</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat < demo.txt | grep -i "learn" | tee learn_lines.txt
+
+learn operating system.
+unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.</pre>
+                </div>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Terminal — cat < file | grep | tee | tee</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % cat < demo.txt | grep -i "learn" | tee learn_lines.txt | tee final.txt
+
+learn operating system.
+unix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.
+apple@kishankalandoor DevOps % </pre>
+                </div>
+            </div>
+        </div>
+
         <footer>
             <p>&copy; 2026 DevOps Reference Guide</p>
         </footer>
