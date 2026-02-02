@@ -256,7 +256,7 @@
                         <a class="nav-link" href="#varlog"><i class="bi bi-folder"></i> /var/log</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#syslog"><i class="bi bi-file-text"></i> Syslog</a>
+                        <a class="nav-link" href="#tail"><i class="bi bi-arrow-repeat"></i> Tail</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#journalctl"><i class="bi bi-journal-text"></i> Journalctl</a>
@@ -318,10 +318,10 @@ boot.log          cups                   dmesg.2.gz    hp              openvpn  
             </div>
         </div>
 
-        <!-- Syslog Section -->
-        <div class="section-header" id="syslog">
-            <i class="bi bi-file-text"></i>
-            <span>Syslog Commands</span>
+        <!-- Tail Commands Section -->
+        <div class="section-header" id="tail">
+            <i class="bi bi-arrow-repeat"></i>
+            <span>Tail Command Examples</span>
         </div>
 
         <div class="terminal-grid">
@@ -332,35 +332,12 @@ boot.log          cups                   dmesg.2.gz    hp              openvpn  
                         <div class="terminal-dot yellow"></div>
                         <div class="terminal-dot green"></div>
                     </div>
-                    <div class="terminal-title">View Syslog - cat /var/log/syslog</div>
+                    <div class="terminal-title">tail /var/log/syslog - Last 10 Lines</div>
                 </div>
                 <div class="terminal-body">
-                    <pre>gopala@gopala-VMware20-1:~$ cat /var/log/syslog
+                    <pre>gopala@gopala-VMware20-1:~$ tail /var/log/syslog
 
-2026-01-27T17:21:22.979241+05:30 gopala-VMware20-1 gnome-initial-setup[3497]: libEGL warning: failed to get driver name for fd -1
-2026-01-27T17:21:22.979900+05:30 gopala-VMware20-1 gnome-initial-setup[3497]: libEGL warning: MESA-LOADER: failed to retrieve device information
-2026-01-27T17:21:22.979996+05:30 gopala-VMware20-1 gnome-initial-setup[3497]: libEGL warning: failed to get driver name for fd -1
-2026-01-27T17:21:22.981024+05:30 gopala-VMware20-1 dbus-daemon[2641]: [session uid=1001 pid=2641 pidfd=5] Activating service name='org.gnome.Settings.GlobalShortcutsProvider' requested by ':1.93' (uid=1001 pid=3769 comm="/usr/libexec/xdg-desktop-portal-gnome" label="unconfined")
-2026-01-27T17:21:23.004627+05:30 gopala-VMware20-1 gnome-initial-setup[3497]: MESA: error: ZINK: failed to choose pdev
-2026-01-27T17:21:23.006691+05:30 gopala-VMware20-1 gnome-initial-setup[3497]: libEGL warning: egl: failed to create dri2 screen
-2026-01-27T17:21:23.007916+05:30 gopala-VMware20-1 dbus-daemon[2641]: [session uid=1001 pid=2641 pidfd=5] Successfully activated service 'org.gnome.Settings.GlobalShortcutsProvider'
-2026-01-27T17:21:23.040035+05:30 gopala-VMware20-1 gnome-shell[2863]: DING: DBus interface for Gvfs daemon (org.gtk.vfs.Metadata) is now available.
-2026-01-27T17:21:23.040101+05:30 gopala-VMware20-1 gnome-shell[2863]: DING: DBus interface for Switcheroo control (net.hadess.SwitcherooControl) is now available.
-2026-01-27T17:21:23.058247+05:30 gopala-VMware20-1 gnome-shell[2863]: DING: ** Message: 17:21:23.042: Connecting to org.freedesktop.Tracker3.Miner.Files
-        <!-- System Logs Section -->
-        <div class="section-header">tail /var/log/syslog - Last 10 Lines</div>
-        
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-buttons">
-                    <span class="terminal-button terminal-close"></span>
-                    <span class="terminal-button terminal-minimize"></span>
-                    <span class="terminal-button terminal-maximize"></span>
-                </div>
-                <div class="terminal-title">gopala@gopala-VMware20-1: tail /var/log/syslog</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-28T10:25:07.141454+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18500]: libEGL warning: egl: failed to create dri2 screen
+2026-01-28T10:25:07.141454+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18500]: libEGL warning: egl: failed to create dri2 screen
 2026-01-28T10:25:07.171153+05:30 gopala-VMware20-1 systemd[2588]: Started ptyxis-spawn-75edd18c-c4b3-4c74-ad1e-6eb66c3568b0.scope - [systemd-run] /usr/bin/bash.
 2026-01-28T10:25:38.135760+05:30 gopala-VMware20-1 dbus-daemon[2610]: [session uid=1000 pid=2610 pidfd=5] Activating service name='org.gnome.Ptyxis' requested by ':1.24' (uid=1000 pid=2792 comm="/usr/bin/gnome-shell" label="unconfined")
 2026-01-28T10:25:38.196853+05:30 gopala-VMware20-1 dbus-daemon[2610]: [session uid=1000 pid=2610 pidfd=5] Successfully activated service 'org.gnome.Ptyxis'
@@ -370,23 +347,22 @@ boot.log          cups                   dmesg.2.gz    hp              openvpn  
 2026-01-28T10:25:38.372565+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18582]: MESA: error: ZINK: failed to choose pdev
 2026-01-28T10:25:38.372621+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18582]: libEGL warning: egl: failed to create dri2 screen
 2026-01-28T10:25:38.405207+05:30 gopala-VMware20-1 systemd[2588]: Started ptyxis-spawn-a615e6e0-8237-4e3f-815d-aedf1fc66132.scope - [systemd-run] /usr/bin/bash.</pre>
-            </div>
-        </div>
-
-        <!-- tail -f /var/log/syslog Section -->
-        <div class="section-header">tail -f /var/log/syslog - Follow Mode</div>
-        
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-buttons">
-                    <span class="terminal-button terminal-close"></span>
-                    <span class="terminal-button terminal-minimize"></span>
-                    <span class="terminal-button terminal-maximize"></span>
                 </div>
-                <div class="terminal-title">gopala@gopala-VMware20-1: tail -f /var/log/syslog</div>
             </div>
-            <div class="terminal-body">
-                <pre>2026-01-28T10:25:07.141454+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18500]: libEGL warning: egl: failed to create dri2 screen
+
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">tail -f /var/log/syslog - Follow Mode (Live Updates)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~$ tail -f /var/log/syslog
+
+2026-01-28T10:25:07.141454+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18500]: libEGL warning: egl: failed to create dri2 screen
 2026-01-28T10:25:07.171153+05:30 gopala-VMware20-1 systemd[2588]: Started ptyxis-spawn-75edd18c-c4b3-4c74-ad1e-6eb66c3568b0.scope - [systemd-run] /usr/bin/bash.
 2026-01-28T10:25:38.135760+05:30 gopala-VMware20-1 dbus-daemon[2610]: [session uid=1000 pid=2610 pidfd=5] Activating service name='org.gnome.Ptyxis' requested by ':1.24' (uid=1000 pid=2792 comm="/usr/bin/gnome-shell" label="unconfined")
 2026-01-28T10:25:38.196853+05:30 gopala-VMware20-1 dbus-daemon[2610]: [session uid=1000 pid=2610 pidfd=5] Successfully activated service 'org.gnome.Ptyxis'
@@ -406,14 +382,17 @@ boot.log          cups                   dmesg.2.gz    hp              openvpn  
         </div>
 
         <!-- journalctl Section -->
-        <div class="section-header">journalctl - System Journal</div>
+        <div class="section-header" id="journalctl">
+            <i class="bi bi-journal-text"></i>
+            <span>journalctl - System Journal</span>
+        </div>
         
         <div class="terminal-window">
             <div class="terminal-titlebar">
-                <div class="terminal-buttons">
-                    <span class="terminal-button terminal-close"></span>
-                    <span class="terminal-button terminal-minimize"></span>
-                    <span class="terminal-button terminal-maximize"></span>
+                <div class="terminal-dots">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
                 </div>
                 <div class="terminal-title">gopala@gopala-VMware20-1: journalctl</div>
             </div>
@@ -432,14 +411,17 @@ Jan 27 14:57:37 localhost.localdomain kernel: ACPI: FACP 0x000000021C060000 0001
         </div>
 
         <!-- journalctl -h Section -->
-        <div class="section-header">journalctl Help (-h)</div>
+        <div class="section-header">
+            <i class="bi bi-question-circle"></i>
+            <span>journalctl Help (-h)</span>
+        </div>
         
         <div class="terminal-window">
             <div class="terminal-titlebar">
-                <div class="terminal-buttons">
-                    <span class="terminal-button terminal-close"></span>
-                    <span class="terminal-button terminal-minimize"></span>
-                    <span class="terminal-button terminal-maximize"></span>
+                <div class="terminal-dots">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
                 </div>
                 <div class="terminal-title">gopala@gopala-VMware20-1: journalctl -h</div>
             </div>
@@ -482,14 +464,17 @@ Output Control Options:
         </div>
 
         <!-- journalctl -n Commands Section -->
-        <div class="section-header">journalctl -n - Limit Output Lines</div>
+        <div class="section-header">
+            <i class="bi bi-list-ol"></i>
+            <span>journalctl -n - Limit Output Lines</span>
+        </div>
         
         <div class="terminal-window">
             <div class="terminal-titlebar">
-                <div class="terminal-buttons">
-                    <span class="terminal-button terminal-close"></span>
-                    <span class="terminal-button terminal-minimize"></span>
-                    <span class="terminal-button terminal-maximize"></span>
+                <div class="terminal-dots">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
                 </div>
                 <div class="terminal-title">gopala@gopala-VMware20-1: journalctl -n 3</div>
             </div>
@@ -502,10 +487,10 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 
         <div class="terminal-window">
             <div class="terminal-titlebar">
-                <div class="terminal-buttons">
-                    <span class="terminal-button terminal-close"></span>
-                    <span class="terminal-button terminal-minimize"></span>
-                    <span class="terminal-button terminal-maximize"></span>
+                <div class="terminal-dots">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
                 </div>
                 <div class="terminal-title">gopala@gopala-VMware20-1: journalctl -n 6</div>
             </div>
@@ -520,14 +505,22 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
         </div>
 
         <!-- journalctl JSON Output Section -->
-        <div class="section-header">journalctl -o json - JSON Format Output</div>
+        <div class="section-header" id="journalctl">
+            <i class="bi bi-journal-text"></i>
+            <span>journalctl - System Journal</span>
+        </div>
+
+        <div class="section-header">
+            <i class="bi bi-braces"></i>
+            <span>journalctl -o json - JSON Format Output</span>
+        </div>
         
         <div class="terminal-window">
             <div class="terminal-titlebar">
-                <div class="terminal-buttons">
-                    <span class="terminal-button terminal-close"></span>
-                    <span class="terminal-button terminal-minimize"></span>
-                    <span class="terminal-button terminal-maximize"></span>
+                <div class="terminal-dots">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
                 </div>
                 <div class="terminal-title">gopala@gopala-VMware20-1: journalctl -o json</div>
             </div>
@@ -541,10 +534,7 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
             </div>
         </div>
 
-        
-        
-        
-        <!-- System Logs Part 1 of 60 -->
+        <!-- Additional System Logs Terminal -->
         <div class="terminal-window">
             <div class="terminal-titlebar">
                 <div class="terminal-dots">
@@ -552,7 +542,7 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
                     <div class="terminal-dot yellow"></div>
                     <div class="terminal-dot green"></div>
                 </div>
-                <div class="terminal-title">System Logs - Part 1 of 60</div>
+                <div class="terminal-title">System Logs - Detailed Output</div>
             </div>
             <div class="terminal-body">
                 <pre>2026-01-27T17:21:23.369550+05:30 gopala-VMware20-1 dbus-daemon[2641]: [session uid=1001 pid=2641 pidfd=5] Successfully activated service 'org.freedesktop.portal.Desktop'
@@ -579,22 +569,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:23.549772+05:30 gopala-VMware20-1 systemd[1]: session-c1.scope: Deactivated successfully.
 2026-01-27T17:21:23.550605+05:30 gopala-VMware20-1 systemd[2055]: Stopped pipewire.service - PipeWire Multimedia Service.
 2026-01-27T17:21:23.642632+05:30 gopala-VMware20-1 gdm3: Gdm: Child process -2116 was already dead.
-2026-01-27T17:21:23.647944+05:30 gopala-VMware20-1 update-notifier[3191]: libayatana-appindicator is deprecated. Please use libayatana-appindicator-glib in newly written code.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 2 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 2 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:23.845878+05:30 gopala-VMware20-1 systemd[2619]: snap.snapd-desktop-integration.snapd-desktop-integration.service: Scheduled restart job, restart counter is at 1.
+2026-01-27T17:21:23.647944+05:30 gopala-VMware20-1 update-notifier[3191]: libayatana-appindicator is deprecated. Please use libayatana-appindicator-glib in newly written code.
+2026-01-27T17:21:23.845878+05:30 gopala-VMware20-1 systemd[2619]: snap.snapd-desktop-integration.snapd-desktop-integration.service: Scheduled restart job, restart counter is at 1.
 2026-01-27T17:21:23.846636+05:30 gopala-VMware20-1 systemd[2619]: Started snap.snapd-desktop-integration.snapd-desktop-integration.service - Service for snap application snapd-desktop-integration.snapd-desktop-integration.
 2026-01-27T17:21:23.961215+05:30 gopala-VMware20-1 snapd-desktop-i[3964]: New theme: gtk=Yaru icon=Yaru cursor=Yaru, sound=Yaru
 2026-01-27T17:21:23.962513+05:30 gopala-VMware20-1 snapd-desktop-i[3964]: All available theme snaps installed
@@ -618,22 +594,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:31.990708+05:30 gopala-VMware20-1 systemd[1]: apt-daily.timer: Deactivated successfully.
 2026-01-27T17:21:31.990730+05:30 gopala-VMware20-1 systemd[1]: Stopped apt-daily.timer - Daily apt download activities.
 2026-01-27T17:21:31.990745+05:30 gopala-VMware20-1 systemd[1]: dpkg-db-backup.timer: Deactivated successfully.
-2026-01-27T17:21:31.990854+05:30 gopala-VMware20-1 systemd[1]: Stopped dpkg-db-backup.timer - Daily dpkg database backup timer.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 3 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 3 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:31.990922+05:30 gopala-VMware20-1 systemd[1]: e2scrub_all.timer: Deactivated successfully.
+2026-01-27T17:21:31.990854+05:30 gopala-VMware20-1 systemd[1]: Stopped dpkg-db-backup.timer - Daily dpkg database backup timer.
+2026-01-27T17:21:31.990922+05:30 gopala-VMware20-1 systemd[1]: e2scrub_all.timer: Deactivated successfully.
 2026-01-27T17:21:31.990975+05:30 gopala-VMware20-1 systemd[1]: Stopped e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
 2026-01-27T17:21:31.991009+05:30 gopala-VMware20-1 systemd[1]: fstrim.timer: Deactivated successfully.
 2026-01-27T17:21:31.991030+05:30 gopala-VMware20-1 systemd[1]: Stopped fstrim.timer - Discard unused filesystem blocks once a week.
@@ -657,22 +619,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:31.993261+05:30 gopala-VMware20-1 systemd[1]: Stopped update-notifier-download.timer - Download data for packages that failed at package install time.
 2026-01-27T17:21:31.993282+05:30 gopala-VMware20-1 systemd[1]: update-notifier-motd.timer: Deactivated successfully.
 2026-01-27T17:21:31.993305+05:30 gopala-VMware20-1 systemd[1]: Stopped update-notifier-motd.timer - Check to see whether there is a new version of Ubuntu available.
-2026-01-27T17:21:31.993334+05:30 gopala-VMware20-1 systemd[1]: systemd-rfkill.socket: Deactivated successfully.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 4 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 4 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:31.993522+05:30 gopala-VMware20-1 systemd[1]: Closed systemd-rfkill.socket - Load/Save RF Kill Switch Status /dev/rfkill Watch.
+2026-01-27T17:21:31.993334+05:30 gopala-VMware20-1 systemd[1]: systemd-rfkill.socket: Deactivated successfully.
+2026-01-27T17:21:31.993522+05:30 gopala-VMware20-1 systemd[1]: Closed systemd-rfkill.socket - Load/Save RF Kill Switch Status /dev/rfkill Watch.
 2026-01-27T17:21:31.993541+05:30 gopala-VMware20-1 systemd[1]: Stopping accounts-daemon.service - Accounts Service...
 2026-01-27T17:21:31.994449+05:30 gopala-VMware20-1 systemd[1]: Stopping alsa-restore.service - Save/Restore Sound Card State...
 2026-01-27T17:21:31.997340+05:30 gopala-VMware20-1 systemd[1]: Stopping colord.service - Manage, Install and Generate Color Profiles...
@@ -696,22 +644,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:32.010229+05:30 gopala-VMware20-1 systemd[1]: Stopping user@60578.service - User Manager for UID 60578...
 2026-01-27T17:21:32.012840+05:30 gopala-VMware20-1 systemd[2619]: Stopped app-gnome-im\x2dlaunch-3174.scope - Application launched by gnome-session-service.
 2026-01-27T17:21:32.013000+05:30 gopala-VMware20-1 systemd[2619]: Stopping app-gnome-org.gnome.Evolution\x2dalarm\x2dnotify-3194.scope - Application launched by gnome-session-service...
-2026-01-27T17:21:32.013265+05:30 gopala-VMware20-1 systemd[2619]: Stopping app-gnome-org.gnome.SettingsDaemon.DiskUtilityNotify-3184.scope - Application launched by gnome-session-service...</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 5 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 5 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:32.013575+05:30 gopala-VMware20-1 systemd[2619]: Stopping app-gnome-update\x2dnotifier-3191.scope - Application launched by gnome-session-service...
+2026-01-27T17:21:32.013265+05:30 gopala-VMware20-1 systemd[2619]: Stopping app-gnome-org.gnome.SettingsDaemon.DiskUtilityNotify-3184.scope - Application launched by gnome-session-service...
+2026-01-27T17:21:32.013575+05:30 gopala-VMware20-1 systemd[2619]: Stopping app-gnome-update\x2dnotifier-3191.scope - Application launched by gnome-session-service...
 2026-01-27T17:21:32.013738+05:30 gopala-VMware20-1 systemd[2055]: Activating special unit exit.target...
 2026-01-27T17:21:32.013881+05:30 gopala-VMware20-1 systemd[2055]: Removed slice app-gnome\x2dsession\x2dmanager.slice - Slice /app/gnome-session-manager.
 2026-01-27T17:21:32.013954+05:30 gopala-VMware20-1 systemd[2055]: Removed slice background.slice - User Background Tasks Slice.
@@ -735,22 +669,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:32.016634+05:30 gopala-VMware20-1 systemd[2619]: Stopping xdg-desktop-portal.service - Portal service...
 2026-01-27T17:21:32.016659+05:30 gopala-VMware20-1 systemd[2619]: xdg-document-portal.service: Failed to kill control group /user.slice/user-1001.slice/user@1001.service/session.slice/xdg-document-portal.service, ignoring: Operation not permitted
 2026-01-27T17:21:32.016689+05:30 gopala-VMware20-1 systemd[2619]: Stopping xdg-document-portal.service - flatpak document portal service...
-2026-01-27T17:21:32.016705+05:30 gopala-VMware20-1 systemd[2619]: Stopping xdg-permission-store.service - sandboxed app permission store...</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 6 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 6 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:32.020381+05:30 gopala-VMware20-1 systemd[2055]: Stopped gcr-ssh-agent.service - GCR ssh-agent wrapper.
+2026-01-27T17:21:32.016705+05:30 gopala-VMware20-1 systemd[2619]: Stopping xdg-permission-store.service - sandboxed app permission store...
+2026-01-27T17:21:32.020381+05:30 gopala-VMware20-1 systemd[2055]: Stopped gcr-ssh-agent.service - GCR ssh-agent wrapper.
 2026-01-27T17:21:32.020483+05:30 gopala-VMware20-1 systemd[2055]: Stopped pipewire-pulse.service - PipeWire PulseAudio.
 2026-01-27T17:21:32.020563+05:30 gopala-VMware20-1 systemd[1]: open-vm-tools.service: Deactivated successfully.
 2026-01-27T17:21:32.020855+05:30 gopala-VMware20-1 systemd[1]: Stopped open-vm-tools.service - Service for virtual machines hosted on VMware.
@@ -774,22 +694,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:32.025205+05:30 gopala-VMware20-1 systemd[1]: Unmounted run-user-1001-gvfs.mount - /run/user/1001/gvfs.
 2026-01-27T17:21:32.025446+05:30 gopala-VMware20-1 systemd[2055]: Removed slice session.slice - User Core Session Slice.
 2026-01-27T17:21:32.025910+05:30 gopala-VMware20-1 systemd[2055]: session.slice: Consumed 3.741s CPU time, 371M memory peak.
-2026-01-27T17:21:32.025988+05:30 gopala-VMware20-1 systemd[2055]: Stopped target basic.target - Basic System.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 7 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 7 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:32.026043+05:30 gopala-VMware20-1 systemd[2055]: Stopped target paths.target - Paths.
+2026-01-27T17:21:32.025988+05:30 gopala-VMware20-1 systemd[2055]: Stopped target basic.target - Basic System.
+2026-01-27T17:21:32.026043+05:30 gopala-VMware20-1 systemd[2055]: Stopped target paths.target - Paths.
 2026-01-27T17:21:32.029424+05:30 gopala-VMware20-1 localsearch-3[3498]: Owner of volume monitor org.gtk.vfs.GPhoto2VolumeMonitor disconnected from the bus; removing drives/volumes/mounts
 2026-01-27T17:21:32.029704+05:30 gopala-VMware20-1 systemd[2619]: xdg-document-portal.service: Failed to kill control group /user.slice/user-1001.slice/user@1001.service/session.slice/xdg-document-portal.service, ignoring: Operation not permitted
 2026-01-27T17:21:32.029732+05:30 gopala-VMware20-1 systemd[2619]: xdg-document-portal.service: Killing process 2748 (fusermount3) with signal SIGKILL.
@@ -813,22 +719,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:32.030272+05:30 gopala-VMware20-1 systemd[2055]: Closed gnome-keyring-daemon.socket - GNOME Keyring daemon.
 2026-01-27T17:21:32.030294+05:30 gopala-VMware20-1 systemd[2055]: Closed gpg-agent-browser.socket - GnuPG cryptographic agent and passphrase cache (access for web browsers).
 2026-01-27T17:21:32.030312+05:30 gopala-VMware20-1 systemd[1]: run-user-1001-doc.mount: Deactivated successfully.
-2026-01-27T17:21:32.030377+05:30 gopala-VMware20-1 systemd[1]: Unmounted run-user-1001-doc.mount - /run/user/1001/doc.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 8 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 8 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:32.030403+05:30 gopala-VMware20-1 systemd[2055]: Closed gpg-agent-extra.socket - GnuPG cryptographic agent and passphrase cache (restricted).
+2026-01-27T17:21:32.030377+05:30 gopala-VMware20-1 systemd[1]: Unmounted run-user-1001-doc.mount - /run/user/1001/doc.
+2026-01-27T17:21:32.030403+05:30 gopala-VMware20-1 systemd[2055]: Closed gpg-agent-extra.socket - GnuPG cryptographic agent and passphrase cache (restricted).
 2026-01-27T17:21:32.030426+05:30 gopala-VMware20-1 systemd[2619]: Stopped gvfs-mtp-volume-monitor.service - Virtual filesystem service - Media Transfer Protocol monitor.
 2026-01-27T17:21:32.030450+05:30 gopala-VMware20-1 systemd[2619]: Stopped gvfs-gphoto2-volume-monitor.service - Virtual filesystem service - digital camera monitor.
 2026-01-27T17:21:32.031028+05:30 gopala-VMware20-1 localsearch-3[3498]: Owner of volume monitor org.gtk.vfs.MTPVolumeMonitor disconnected from the bus; removing drives/volumes/mounts
@@ -852,22 +744,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:32.036614+05:30 gopala-VMware20-1 systemd[2619]: Stopped gvfs-udisks2-volume-monitor.service - Virtual filesystem service - disk device monitor.
 2026-01-27T17:21:32.036683+05:30 gopala-VMware20-1 systemd[1]: Stopped udisks2.service - Disk Manager.
 2026-01-27T17:21:32.036814+05:30 gopala-VMware20-1 systemd[2619]: Stopped gvfs-afc-volume-monitor.service - Virtual filesystem service - Apple File Conduit monitor.
-2026-01-27T17:21:32.036913+05:30 gopala-VMware20-1 systemd[2055]: Closed pipewire-pulse.socket - PipeWire PulseAudio.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 9 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 9 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:32.036989+05:30 gopala-VMware20-1 systemd[2619]: Stopped gvfs-metadata.service - Virtual filesystem metadata service.
+2026-01-27T17:21:32.036913+05:30 gopala-VMware20-1 systemd[2055]: Closed pipewire-pulse.socket - PipeWire PulseAudio.
+2026-01-27T17:21:32.036989+05:30 gopala-VMware20-1 systemd[2619]: Stopped gvfs-metadata.service - Virtual filesystem metadata service.
 2026-01-27T17:21:32.037256+05:30 gopala-VMware20-1 systemd[2055]: Closed pipewire.socket - PipeWire Multimedia System Sockets.
 2026-01-27T17:21:32.037526+05:30 gopala-VMware20-1 systemd[1]: rtkit-daemon.service: Deactivated successfully.
 2026-01-27T17:21:32.037571+05:30 gopala-VMware20-1 systemd[2619]: Stopped xdg-desktop-portal-gnome.service - Portal service (GNOME implementation).
@@ -891,22 +769,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:32.045151+05:30 gopala-VMware20-1 systemd[2619]: gnome-initial-setup-first-login.service: Failed with result 'signal'.
 2026-01-27T17:21:32.045227+05:30 gopala-VMware20-1 systemd[1]: power-profiles-daemon.service: Deactivated successfully.
 2026-01-27T17:21:32.045324+05:30 gopala-VMware20-1 systemd[1]: Stopped power-profiles-daemon.service - Power Profiles daemon.
-2026-01-27T17:21:32.045346+05:30 gopala-VMware20-1 systemd[2619]: Stopped gnome-initial-setup-first-login.service - GNOME Initial Setup.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 10 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 10 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:32.045373+05:30 gopala-VMware20-1 systemd[2619]: gnome-initial-setup-first-login.service: Consumed 1.190s CPU time, 194.9M memory peak.
+2026-01-27T17:21:32.045346+05:30 gopala-VMware20-1 systemd[2619]: Stopped gnome-initial-setup-first-login.service - GNOME Initial Setup.
+2026-01-27T17:21:32.045373+05:30 gopala-VMware20-1 systemd[2619]: gnome-initial-setup-first-login.service: Consumed 1.190s CPU time, 194.9M memory peak.
 2026-01-27T17:21:32.045400+05:30 gopala-VMware20-1 systemd[2619]: Stopped xdg-desktop-portal.service - Portal service.
 2026-01-27T17:21:32.045423+05:30 gopala-VMware20-1 systemd[1]: systemd-localed.service: Deactivated successfully.
 2026-01-27T17:21:32.045434+05:30 gopala-VMware20-1 systemd[1]: Stopped systemd-localed.service - Locale Service.
@@ -930,22 +794,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:32.049955+05:30 gopala-VMware20-1 systemd[1]: dracut-shutdown.service: Deactivated successfully.
 2026-01-27T17:21:32.049999+05:30 gopala-VMware20-1 systemd[2055]: Reached target exit.target - Exit the Session.
 2026-01-27T17:21:32.050048+05:30 gopala-VMware20-1 systemd[1]: Stopped dracut-shutdown.service - Restore /run/initramfs on shutdown.
-2026-01-27T17:21:32.050099+05:30 gopala-VMware20-1 systemd[2619]: Stopped update-notifier-crash.path - Path trigger for Apport crash notifications.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 11 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 11 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:32.050142+05:30 gopala-VMware20-1 systemd[1]: systemd-random-seed.service: Deactivated successfully.
+2026-01-27T17:21:32.050099+05:30 gopala-VMware20-1 systemd[2619]: Stopped update-notifier-crash.path - Path trigger for Apport crash notifications.
+2026-01-27T17:21:32.050142+05:30 gopala-VMware20-1 systemd[1]: systemd-random-seed.service: Deactivated successfully.
 2026-01-27T17:21:32.050165+05:30 gopala-VMware20-1 systemd[1]: Stopped systemd-random-seed.service - Load/Save OS Random Seed.
 2026-01-27T17:21:32.051036+05:30 gopala-VMware20-1 gnome-shell[2863]: Owner of volume monitor org.gtk.vfs.UDisks2VolumeMonitor disconnected from the bus; removing drives/volumes/mounts
 2026-01-27T17:21:32.051421+05:30 gopala-VMware20-1 gnome-shell[2863]: DING: (gjs:3677): GVFS-RemoteVolumeMonitor-WARNING **: 17:21:32.035: Owner of volume monitor org.gtk.vfs.GPhoto2VolumeMonitor disconnected from the bus; removing drives/volumes/mounts
@@ -969,22 +819,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:32.055144+05:30 gopala-VMware20-1 systemd[2619]: Stopped target org.gnome.SettingsDaemon.Power.target - GNOME power management target.
 2026-01-27T17:21:32.055181+05:30 gopala-VMware20-1 systemd[2619]: Stopped target org.gnome.SettingsDaemon.PrintNotifications.target - GNOME printer notifications target.
 2026-01-27T17:21:32.055218+05:30 gopala-VMware20-1 systemd[2619]: Stopped target org.gnome.SettingsDaemon.Rfkill.target - GNOME RFKill support target.
-2026-01-27T17:21:32.055236+05:30 gopala-VMware20-1 systemd[2619]: Stopped target org.gnome.SettingsDaemon.ScreensaverProxy.target - GNOME FreeDesktop screensaver target.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 12 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 12 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:32.055253+05:30 gopala-VMware20-1 systemd[2619]: Stopped target org.gnome.SettingsDaemon.Sharing.target - GNOME file sharing target.
+2026-01-27T17:21:32.055236+05:30 gopala-VMware20-1 systemd[2619]: Stopped target org.gnome.SettingsDaemon.ScreensaverProxy.target - GNOME FreeDesktop screensaver target.
+2026-01-27T17:21:32.055253+05:30 gopala-VMware20-1 systemd[2619]: Stopped target org.gnome.SettingsDaemon.Sharing.target - GNOME file sharing target.
 2026-01-27T17:21:32.055270+05:30 gopala-VMware20-1 systemd[2619]: Stopped target org.gnome.SettingsDaemon.Smartcard.target - GNOME smartcard target.
 2026-01-27T17:21:32.055286+05:30 gopala-VMware20-1 systemd[2619]: Stopped target org.gnome.SettingsDaemon.Sound.target - GNOME sound sample caching target.
 2026-01-27T17:21:32.055300+05:30 gopala-VMware20-1 systemd[2619]: Stopped target org.gnome.SettingsDaemon.UsbProtection.target - GNOME USB protection target.
@@ -1008,22 +844,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:32.070220+05:30 gopala-VMware20-1 gdm3: Gdm: Failed to contact accountsservice: Error calling StartServiceByName for org.freedesktop.Accounts: Transaction for accounts-daemon.service/start is destructive (cryptsetup.target has 'stop' job queued, but 'start' is included in transaction).
 2026-01-27T17:21:32.071025+05:30 gopala-VMware20-1 systemd[1]: gdm.service: Main process exited, code=exited, status=1/FAILURE
 2026-01-27T17:21:32.071302+05:30 gopala-VMware20-1 systemd[1]: gdm.service: Failed with result 'exit-code'.
-2026-01-27T17:21:32.071327+05:30 gopala-VMware20-1 systemd[1]: Stopped gdm.service - GNOME Display Manager.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 13 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 13 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T17:21:32.071348+05:30 gopala-VMware20-1 systemd[1]: gdm.service: Triggering OnFailure= dependencies.
+2026-01-27T17:21:32.071327+05:30 gopala-VMware20-1 systemd[1]: Stopped gdm.service - GNOME Display Manager.
+2026-01-27T17:21:32.071348+05:30 gopala-VMware20-1 systemd[1]: gdm.service: Triggering OnFailure= dependencies.
 2026-01-27T17:21:32.071584+05:30 gopala-VMware20-1 systemd[1]: Requested transaction contradicts existing jobs: Transaction for plymouth-quit.service/start is destructive (systemd-tmpfiles-setup.service has 'stop' job queued, but 'start' is included in transaction).
 2026-01-27T17:21:32.071618+05:30 gopala-VMware20-1 systemd[1]: gdm.service: Failed to enqueue OnFailure=plymouth-quit.service job, ignoring: Transaction for plymouth-quit.service/start is destructive (systemd-tmpfiles-setup.service has 'stop' job queued, but 'start' is included in transaction).
 2026-01-27T17:21:32.072472+05:30 gopala-VMware20-1 systemd[1]: Stopped target multi-user.target - Multi-User System.
@@ -1047,22 +869,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T17:21:32.076894+05:30 gopala-VMware20-1 systemd[1]: plymouth-quit-wait.service: Deactivated successfully.
 2026-01-27T17:21:32.076927+05:30 gopala-VMware20-1 systemd[1]: Stopped plymouth-quit-wait.service - Hold until boot process finishes up.
 2026-01-27T22:52:54.309053+05:30 gopala-VMware20-1 systemd[1]: Queued start job for default target graphical.target.
-2026-01-27T22:52:54.309295+05:30 gopala-VMware20-1 systemd[1]: systemd-journald.service: Deactivated successfully.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 14 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 14 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309301+05:30 gopala-VMware20-1 systemd-modules-load[536]: Module 'i2c_dev' is built in
+2026-01-27T22:52:54.309295+05:30 gopala-VMware20-1 systemd[1]: systemd-journald.service: Deactivated successfully.
+2026-01-27T22:52:54.309301+05:30 gopala-VMware20-1 systemd-modules-load[536]: Module 'i2c_dev' is built in
 2026-01-27T22:52:54.309303+05:30 gopala-VMware20-1 systemd-modules-load[536]: Module 'fuse' is built in
 2026-01-27T22:52:54.309305+05:30 gopala-VMware20-1 systemd[1]: Finished systemd-remount-fs.service - Remount Root and Kernel File Systems.
 2026-01-27T22:52:54.309306+05:30 gopala-VMware20-1 systemd[1]: Finished systemd-udev-load-credentials.service - Load udev Rules from Credentials.
@@ -1086,22 +894,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309350+05:30 gopala-VMware20-1 systemd-modules-load[536]: Inserted module 'vmwgfx'
 2026-01-27T22:52:54.309352+05:30 gopala-VMware20-1 systemd[1]: Finished systemd-modules-load.service - Load Kernel Modules.
 2026-01-27T22:52:54.309353+05:30 gopala-VMware20-1 systemd[1]: Starting systemd-sysctl.service - Apply Kernel Variables...
-2026-01-27T22:52:54.309355+05:30 gopala-VMware20-1 systemd[1]: Finished systemd-journal-flush.service - Flush Journal to Persistent Storage.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 15 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 15 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309356+05:30 gopala-VMware20-1 systemd[1]: Started systemd-oomd.service - Userspace Out-Of-Memory (OOM) Killer.
+2026-01-27T22:52:54.309355+05:30 gopala-VMware20-1 systemd[1]: Finished systemd-journal-flush.service - Flush Journal to Persistent Storage.
+2026-01-27T22:52:54.309356+05:30 gopala-VMware20-1 systemd[1]: Started systemd-oomd.service - Userspace Out-Of-Memory (OOM) Killer.
 2026-01-27T22:52:54.309358+05:30 gopala-VMware20-1 systemd[1]: Finished systemd-sysctl.service - Apply Kernel Variables.
 2026-01-27T22:52:54.309361+05:30 gopala-VMware20-1 systemd-udevd[576]: Using default interface naming scheme 'v257'.
 2026-01-27T22:52:54.309364+05:30 gopala-VMware20-1 systemd[1]: Starting systemd-resolved.service - Network Name Resolution...
@@ -1125,22 +919,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309405+05:30 gopala-VMware20-1 systemd[1]: Starting systemd-fsck@dev-disk-by\x2duuid-B14D\x2dC388.service - File System Check on /dev/disk/by-uuid/B14D-C388...
 2026-01-27T22:52:54.309407+05:30 gopala-VMware20-1 mtp-probe: checking bus 2, device 6: "/sys/devices/pci0000:00/0000:00:16.0/0000:0a:00.0/usb2/2-3/2-3.1"
 2026-01-27T22:52:54.309409+05:30 gopala-VMware20-1 mtp-probe: bus: 2, device: 6 was not an MTP device
-2026-01-27T22:52:54.309415+05:30 gopala-VMware20-1 mtp-probe: checking bus 2, device 3: "/sys/devices/pci0000:00/0000:00:16.0/0000:0a:00.0/usb2/2-2"</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 16 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 16 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309418+05:30 gopala-VMware20-1 mtp-probe: bus: 2, device: 3 was not an MTP device
+2026-01-27T22:52:54.309415+05:30 gopala-VMware20-1 mtp-probe: checking bus 2, device 3: "/sys/devices/pci0000:00/0000:00:16.0/0000:0a:00.0/usb2/2-2"
+2026-01-27T22:52:54.309418+05:30 gopala-VMware20-1 mtp-probe: bus: 2, device: 3 was not an MTP device
 2026-01-27T22:52:54.309421+05:30 gopala-VMware20-1 systemd-fsck[831]: fsck.fat 4.2 (2021-01-31)
 2026-01-27T22:52:54.309422+05:30 gopala-VMware20-1 systemd-fsck[831]: /dev/nvme0n1p1: 11 files, 1667/243488 clusters
 2026-01-27T22:52:54.309425+05:30 gopala-VMware20-1 systemd[1]: Finished systemd-fsck@dev-disk-by\x2duuid-B14D\x2dC388.service - File System Check on /dev/disk/by-uuid/B14D-C388.
@@ -1164,22 +944,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309457+05:30 gopala-VMware20-1 systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
 2026-01-27T22:52:54.309458+05:30 gopala-VMware20-1 systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
 2026-01-27T22:52:54.309460+05:30 gopala-VMware20-1 systemd[1]: systemd-pstore.service - Platform Persistent Storage Archival was skipped because of an unmet condition check (ConditionDirectoryNotEmpty=/sys/fs/pstore).
-2026-01-27T22:52:54.309462+05:30 gopala-VMware20-1 systemd[1]: Mounting boot-efi.mount - /boot/efi...</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 17 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 17 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309463+05:30 gopala-VMware20-1 systemd[1]: Mounting snap-bare-5.mount - Mount unit for bare, revision 5...
+2026-01-27T22:52:54.309462+05:30 gopala-VMware20-1 systemd[1]: Mounting boot-efi.mount - /boot/efi...
+2026-01-27T22:52:54.309463+05:30 gopala-VMware20-1 systemd[1]: Mounting snap-bare-5.mount - Mount unit for bare, revision 5...
 2026-01-27T22:52:54.309464+05:30 gopala-VMware20-1 systemd[1]: Mounting snap-core22-2134.mount - Mount unit for core22, revision 2134...
 2026-01-27T22:52:54.309465+05:30 gopala-VMware20-1 systemd[1]: Mounting snap-desktop\x2dsecurity\x2dcenter-60.mount - Mount unit for desktop-security-center, revision 60...
 2026-01-27T22:52:54.309471+05:30 gopala-VMware20-1 systemd[1]: Mounting snap-firefox-6961.mount - Mount unit for firefox, revision 6961...
@@ -1203,22 +969,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309531+05:30 gopala-VMware20-1 kernel: ACPI: MCFG 0x000000021C040000 00003C (v01 VMWARE VMWVBSA! 20201221 VMW  00000001)
 2026-01-27T22:52:54.309532+05:30 gopala-VMware20-1 kernel: ACPI: APIC 0x000000021C000000 00024C (v04 VMWARE VMWVBSA! 20201221 VMW  00000001)
 2026-01-27T22:52:54.309532+05:30 gopala-VMware20-1 kernel: ACPI: SSDT 0x000000021BFE0000 0000EB (v02 VMWARE VMWVBSA! 20201221 VMW  00000001)
-2026-01-27T22:52:54.309533+05:30 gopala-VMware20-1 kernel: ACPI: PPTT 0x000000021BFC0000 000128 (v02 VMWARE VMWVBSA! 20201221 VMW  00000001)</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 18 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 18 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309533+05:30 gopala-VMware20-1 kernel: ACPI: Use ACPI SPCR as default console: Yes
+2026-01-27T22:52:54.309533+05:30 gopala-VMware20-1 kernel: ACPI: PPTT 0x000000021BFC0000 000128 (v02 VMWARE VMWVBSA! 20201221 VMW  00000001)
+2026-01-27T22:52:54.309533+05:30 gopala-VMware20-1 kernel: ACPI: Use ACPI SPCR as default console: Yes
 2026-01-27T22:52:54.309534+05:30 gopala-VMware20-1 kernel: NUMA: Faking a node at [mem 0x0000000080000000-0x000000021fffffff]
 2026-01-27T22:52:54.309534+05:30 gopala-VMware20-1 kernel: NODE_DATA(0) allocated [mem 0x21f257440-0x21f25cfff]
 2026-01-27T22:52:54.309535+05:30 gopala-VMware20-1 kernel: Zone ranges:
@@ -1242,22 +994,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309544+05:30 gopala-VMware20-1 kernel:   node   0: [mem 0x000000021f5b0000-0x000000021f5cffff]
 2026-01-27T22:52:54.309545+05:30 gopala-VMware20-1 kernel:   node   0: [mem 0x000000021f5d0000-0x000000021fffffff]
 2026-01-27T22:52:54.309545+05:30 gopala-VMware20-1 kernel: Initmem setup node 0 [mem 0x0000000080000000-0x000000021fffffff]
-2026-01-27T22:52:54.309546+05:30 gopala-VMware20-1 kernel: cma: Reserved 32 MiB at 0x00000000fdc00000</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 19 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 19 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309546+05:30 gopala-VMware20-1 kernel: crashkernel reserved: 0x00000000ddc00000 - 0x00000000fdc00000 (512 MB)
+2026-01-27T22:52:54.309546+05:30 gopala-VMware20-1 kernel: cma: Reserved 32 MiB at 0x00000000fdc00000
+2026-01-27T22:52:54.309546+05:30 gopala-VMware20-1 kernel: crashkernel reserved: 0x00000000ddc00000 - 0x00000000fdc00000 (512 MB)
 2026-01-27T22:52:54.309546+05:30 gopala-VMware20-1 kernel: psci: probing for conduit method from ACPI.
 2026-01-27T22:52:54.309547+05:30 gopala-VMware20-1 kernel: psci: PSCIv0.2 detected in firmware.
 2026-01-27T22:52:54.309547+05:30 gopala-VMware20-1 kernel: psci: Using standard PSCI v0.2 function IDs
@@ -1281,22 +1019,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309556+05:30 gopala-VMware20-1 kernel: Fallback order for Node 0: 0
 2026-01-27T22:52:54.309556+05:30 gopala-VMware20-1 kernel: Built 1 zonelists, mobility grouping on.  Total pages: 1703936
 2026-01-27T22:52:54.309557+05:30 gopala-VMware20-1 kernel: Policy zone: Normal
-2026-01-27T22:52:54.309557+05:30 gopala-VMware20-1 kernel: mem auto-init: stack:all(zero), heap alloc:on, heap free:off</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 20 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 20 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309558+05:30 gopala-VMware20-1 kernel: SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=6, Nodes=1
+2026-01-27T22:52:54.309557+05:30 gopala-VMware20-1 kernel: mem auto-init: stack:all(zero), heap alloc:on, heap free:off
+2026-01-27T22:52:54.309558+05:30 gopala-VMware20-1 kernel: SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=6, Nodes=1
 2026-01-27T22:52:54.309558+05:30 gopala-VMware20-1 kernel: ftrace: allocating 67959 entries in 266 pages
 2026-01-27T22:52:54.309558+05:30 gopala-VMware20-1 kernel: ftrace: allocated 266 pages with 3 groups
 2026-01-27T22:52:54.309559+05:30 gopala-VMware20-1 kernel: Dynamic Preempt: voluntary
@@ -1320,22 +1044,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309568+05:30 gopala-VMware20-1 kernel: Root IRQ handler: gic_handle_irq
 2026-01-27T22:52:54.309568+05:30 gopala-VMware20-1 systemd[1]: Mounted snap-bare-5.mount - Mount unit for bare, revision 5.
 2026-01-27T22:52:54.309568+05:30 gopala-VMware20-1 kernel: GICv3: GICv3 features: 16 PPIs
-2026-01-27T22:52:54.309569+05:30 gopala-VMware20-1 kernel: GICv3: GICD_CTLR.DS=0, SCR_EL3.FIQ=1</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 21 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 21 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309569+05:30 gopala-VMware20-1 kernel: GICv3: CPU0: found redistributor 0 region 0:0x000000002c100000
+2026-01-27T22:52:54.309569+05:30 gopala-VMware20-1 kernel: GICv3: GICD_CTLR.DS=0, SCR_EL3.FIQ=1
+2026-01-27T22:52:54.309569+05:30 gopala-VMware20-1 kernel: GICv3: CPU0: found redistributor 0 region 0:0x000000002c100000
 2026-01-27T22:52:54.309569+05:30 gopala-VMware20-1 systemd[1]: Mounted snap-core22-2134.mount - Mount unit for core22, revision 2134.
 2026-01-27T22:52:54.309574+05:30 gopala-VMware20-1 systemd[1]: Mounted snap-desktop\x2dsecurity\x2dcenter-60.mount - Mount unit for desktop-security-center, revision 60.
 2026-01-27T22:52:54.309576+05:30 gopala-VMware20-1 systemd[1]: Mounted snap-firefox-6961.mount - Mount unit for firefox, revision 6961.
@@ -1359,22 +1069,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309591+05:30 gopala-VMware20-1 systemd[1]: Reached target snapd.mounts.target - Mounted snaps.
 2026-01-27T22:52:54.309592+05:30 gopala-VMware20-1 kernel: pid_max: default: 32768 minimum: 301
 2026-01-27T22:52:54.309593+05:30 gopala-VMware20-1 kernel: LSM: initializing lsm=lockdown,capability,landlock,yama,apparmor,ima,evm
-2026-01-27T22:52:54.309593+05:30 gopala-VMware20-1 kernel: landlock: Up and running.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 22 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 22 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309593+05:30 gopala-VMware20-1 kernel: Yama: becoming mindful.
+2026-01-27T22:52:54.309593+05:30 gopala-VMware20-1 kernel: landlock: Up and running.
+2026-01-27T22:52:54.309593+05:30 gopala-VMware20-1 kernel: Yama: becoming mindful.
 2026-01-27T22:52:54.309593+05:30 gopala-VMware20-1 systemd[1]: Reached target local-fs.target - Local File Systems.
 2026-01-27T22:52:54.309594+05:30 gopala-VMware20-1 kernel: AppArmor: AppArmor initialized
 2026-01-27T22:52:54.309594+05:30 gopala-VMware20-1 kernel: Mount-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
@@ -1398,22 +1094,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309618+05:30 gopala-VMware20-1 kernel: smp: Bringing up secondary CPUs ...
 2026-01-27T22:52:54.309618+05:30 gopala-VMware20-1 systemd[1]: Received SIGRTMIN+20 from PID 331 (plymouthd).
 2026-01-27T22:52:54.309619+05:30 gopala-VMware20-1 kernel: Detected PIPT I-cache on CPU1
-2026-01-27T22:52:54.309620+05:30 gopala-VMware20-1 kernel: GICv3: CPU1: found redistributor 1 region 0:0x000000002c120000</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 23 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 23 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309620+05:30 gopala-VMware20-1 kernel: CPU1: Booted secondary processor 0x0000000001 [0x610f0000]
+2026-01-27T22:52:54.309620+05:30 gopala-VMware20-1 kernel: GICv3: CPU1: found redistributor 1 region 0:0x000000002c120000
+2026-01-27T22:52:54.309620+05:30 gopala-VMware20-1 kernel: CPU1: Booted secondary processor 0x0000000001 [0x610f0000]
 2026-01-27T22:52:54.309620+05:30 gopala-VMware20-1 apparmor.systemd[1125]: Reloading AppArmor profiles
 2026-01-27T22:52:54.309621+05:30 gopala-VMware20-1 kernel: Detected PIPT I-cache on CPU2
 2026-01-27T22:52:54.309622+05:30 gopala-VMware20-1 kernel: GICv3: CPU2: found redistributor 2 region 0:0x000000002c140000
@@ -1437,22 +1119,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309632+05:30 gopala-VMware20-1 systemd[1]: ldconfig.service - Rebuild Dynamic Linker Cache was skipped because no trigger condition checks were met.
 2026-01-27T22:52:54.309634+05:30 gopala-VMware20-1 kernel: CPU features: detected: Common not Private translations
 2026-01-27T22:52:54.309634+05:30 gopala-VMware20-1 systemd[1]: systemd-firstboot.service - First Boot Wizard was skipped because of an unmet condition check (ConditionFirstBoot=yes).
-2026-01-27T22:52:54.309636+05:30 gopala-VMware20-1 kernel: CPU features: detected: CRC32 instructions</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 24 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 24 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309637+05:30 gopala-VMware20-1 kernel: CPU features: detected: Data cache clean to Point of Deep Persistence
+2026-01-27T22:52:54.309636+05:30 gopala-VMware20-1 kernel: CPU features: detected: CRC32 instructions
+2026-01-27T22:52:54.309637+05:30 gopala-VMware20-1 kernel: CPU features: detected: Data cache clean to Point of Deep Persistence
 2026-01-27T22:52:54.309636+05:30 gopala-VMware20-1 systemd[1]: first-boot-complete.target - First Boot Complete was skipped because of an unmet condition check (ConditionFirstBoot=yes).
 2026-01-27T22:52:54.309637+05:30 gopala-VMware20-1 kernel: CPU features: detected: Data cache clean to Point of Persistence
 2026-01-27T22:52:54.309638+05:30 gopala-VMware20-1 kernel: CPU features: detected: Data independent timing control (DIT)
@@ -1476,22 +1144,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309655+05:30 gopala-VMware20-1 systemd[1]: Started vgauth.service - Authentication service for virtual machines hosted on VMware.
 2026-01-27T22:52:54.309643+05:30 gopala-VMware20-1 kernel: alternatives: applying system-wide alternatives
 2026-01-27T22:52:54.309656+05:30 gopala-VMware20-1 systemd[1]: Starting open-vm-tools.service - Service for virtual machines hosted on VMware...
-2026-01-27T22:52:54.309657+05:30 gopala-VMware20-1 kernel: Memory: 5921024K/6815744K available (26048K kernel code, 6218K rwdata, 19172K rodata, 14592K init, 1190K bss, 851964K reserved, 32768K cma-reserved)</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 25 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 25 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309657+05:30 gopala-VMware20-1 kernel: devtmpfs: initialized
+2026-01-27T22:52:54.309657+05:30 gopala-VMware20-1 kernel: Memory: 5921024K/6815744K available (26048K kernel code, 6218K rwdata, 19172K rodata, 14592K init, 1190K bss, 851964K reserved, 32768K cma-reserved)
+2026-01-27T22:52:54.309657+05:30 gopala-VMware20-1 kernel: devtmpfs: initialized
 2026-01-27T22:52:54.309658+05:30 gopala-VMware20-1 kernel: setend instruction emulation is not supported on this system
 2026-01-27T22:52:54.309658+05:30 gopala-VMware20-1 systemd[1]: Started open-vm-tools.service - Service for virtual machines hosted on VMware.
 2026-01-27T22:52:54.309659+05:30 gopala-VMware20-1 kernel: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
@@ -1515,22 +1169,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309669+05:30 gopala-VMware20-1 VGAuthService[1371]: LoadCatalogAndSchema: Using '/etc/vmware-tools/vgauth/schemas' for SAML schemas
 2026-01-27T22:52:54.309670+05:30 gopala-VMware20-1 kernel: DMA: preallocated 1024 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
 2026-01-27T22:52:54.309671+05:30 gopala-VMware20-1 kernel: audit: initializing netlink subsys (disabled)
-2026-01-27T22:52:54.309672+05:30 gopala-VMware20-1 kernel: audit: type=2000 audit(0.018:1): state=initialized audit_enabled=0 res=1</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 26 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 26 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309672+05:30 gopala-VMware20-1 kernel: thermal_sys: Registered thermal governor 'fair_share'
+2026-01-27T22:52:54.309672+05:30 gopala-VMware20-1 kernel: audit: type=2000 audit(0.018:1): state=initialized audit_enabled=0 res=1
+2026-01-27T22:52:54.309672+05:30 gopala-VMware20-1 kernel: thermal_sys: Registered thermal governor 'fair_share'
 2026-01-27T22:52:54.309671+05:30 gopala-VMware20-1 VGAuthService[1371]: LoadPrefs: Allowing 300 of clock skew for SAML date validation
 2026-01-27T22:52:54.309672+05:30 gopala-VMware20-1 kernel: thermal_sys: Registered thermal governor 'bang_bang'
 2026-01-27T22:52:54.309673+05:30 gopala-VMware20-1 kernel: thermal_sys: Registered thermal governor 'step_wise'
@@ -1554,22 +1194,8 @@ Jan 28 10:45:48 gopala-VMware20-1 rtkit-daemon[2128]: Supervising 8 threads of 5
 2026-01-27T22:52:54.309689+05:30 gopala-VMware20-1 kernel: HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
 2026-01-27T22:52:54.309693+05:30 gopala-VMware20-1 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 1.00 GiB page
 2026-01-27T22:52:54.309694+05:30 gopala-VMware20-1 kernel: HugeTLB: registered 32.0 MiB page size, pre-allocated 0 pages
-2026-01-27T22:52:54.309694+05:30 gopala-VMware20-1 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 32.0 MiB page</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 27 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 27 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-27T22:52:54.309694+05:30 gopala-VMware20-1 systemd[1]: Finished snapd.apparmor.service - Load AppArmor profiles managed internally by snapd.
+2026-01-27T22:52:54.309694+05:30 gopala-VMware20-1 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 32.0 MiB page
+2026-01-27T22:52:54.309694+05:30 gopala-VMware20-1 systemd[1]: Finished snapd.apparmor.service - Load AppArmor profiles managed internally by snapd.
 2026-01-27T22:52:54.309695+05:30 gopala-VMware20-1 kernel: HugeTLB:
 	
 
@@ -1593,22 +1219,8 @@ Kalandoor Xyz
 	
 	
 to me
-gopala@gopala-VMware20-1:~$ tail /var/log/syslog</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 28 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 28 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-28T10:25:07.141454+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18500]: libEGL warning: egl: failed to create dri2 screen
+gopala@gopala-VMware20-1:~$ tail /var/log/syslog
+2026-01-28T10:25:07.141454+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18500]: libEGL warning: egl: failed to create dri2 screen
 2026-01-28T10:25:07.171153+05:30 gopala-VMware20-1 systemd[2588]: Started ptyxis-spawn-75edd18c-c4b3-4c74-ad1e-6eb66c3568b0.scope - [systemd-run] /usr/bin/bash.
 2026-01-28T10:25:38.135760+05:30 gopala-VMware20-1 dbus-daemon[2610]: [session uid=1000 pid=2610 pidfd=5] Activating service name='org.gnome.Ptyxis' requested by ':1.24' (uid=1000 pid=2792 comm="/usr/bin/gnome-shell" label="unconfined")
 2026-01-28T10:25:38.196853+05:30 gopala-VMware20-1 dbus-daemon[2610]: [session uid=1000 pid=2610 pidfd=5] Successfully activated service 'org.gnome.Ptyxis'
@@ -1632,22 +1244,9 @@ gopala@gopala-VMware20-1:~$ tail -f /var/log/syslog
 2026-01-28T10:25:38.372621+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18582]: libEGL warning: egl: failed to create dri2 screen
 2026-01-28T10:25:38.405207+05:30 gopala-VMware20-1 systemd[2588]: Started ptyxis-spawn-a615e6e0-8237-4e3f-815d-aedf1fc66132.scope - [systemd-run] /usr/bin/bash.
 2026-01-28T10:26:53.742867+05:30 gopala-VMware20-1 PackageKit: daemon quit
-2026-01-28T10:26:53.754729+05:30 gopala-VMware20-1 systemd[1]: packagekit.service: Deactivated successfully.</pre>
-            </div>
-        </div>
+2026-01-28T10:26:53.754729+05:30 gopala-VMware20-1 systemd[1]: packagekit.service: Deactivated successfully.
 
-        <!-- System Logs Part 29 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 29 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>:q
+:q
 2026-01-28T10:27:01.121139+05:30 gopala-VMware20-1 dbus-daemon[2610]: [session uid=1000 pid=2610 pidfd=5] Activating service name='org.gnome.Settings.SearchProvider' requested by ':1.24' (uid=1000 pid=2792 comm="/usr/bin/gnome-shell" label="unconfined")
 2026-01-28T10:27:01.121755+05:30 gopala-VMware20-1 dbus-daemon[2610]: [session uid=1000 pid=2610 pidfd=5] Activating service name='org.gnome.Nautilus' requested by ':1.24' (uid=1000 pid=2792 comm="/usr/bin/gnome-shell" label="unconfined")
 2026-01-28T10:27:01.122035+05:30 gopala-VMware20-1 dbus-daemon[2610]: [session uid=1000 pid=2610 pidfd=5] Activating service name='org.gnome.Calculator.SearchProvider' requested by ':1.24' (uid=1000 pid=2792 comm="/usr/bin/gnome-shell" label="unconfined")
@@ -1671,22 +1270,8 @@ gopala@gopala-VMware20-1:~$ tail -f /var/log/syslog
 gopala@gopala-VMware20-1:~$
 
 
-...</pre>
-            </div>
-        </div>
+...
 
-        <!-- System Logs Part 30 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 30 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>
 [Message clipped]  View entire message
 Kalandoor Xyz
 	
@@ -1710,22 +1295,8 @@ to me
 2026-01-28T10:25:38.196853+05:30 gopala-VMware20-1 dbus-daemon[2610]: [session uid=1000 pid=2610 pidfd=5] Successfully activated service 'org.gnome.Ptyxis'
 2026-01-28T10:25:38.358140+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18582]: libEGL warning: failed to get driver name for fd -1
 2026-01-28T10:25:38.358346+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18582]: libEGL warning: MESA-LOADER: failed to retrieve device information
-2026-01-28T10:25:38.358368+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18582]: libEGL warning: failed to get driver name for fd -1</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 31 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 31 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-28T10:25:38.372565+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18582]: MESA: error: ZINK: failed to choose pdev
+2026-01-28T10:25:38.358368+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18582]: libEGL warning: failed to get driver name for fd -1
+2026-01-28T10:25:38.372565+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18582]: MESA: error: ZINK: failed to choose pdev
 2026-01-28T10:25:38.372621+05:30 gopala-VMware20-1 org.gnome.Ptyxis[18582]: libEGL warning: egl: failed to create dri2 screen
 2026-01-28T10:25:38.405207+05:30 gopala-VMware20-1 systemd[2588]: Started ptyxis-spawn-a615e6e0-8237-4e3f-815d-aedf1fc66132.scope - [systemd-run] /usr/bin/bash.
 2026-01-28T10:26:53.742867+05:30 gopala-VMware20-1 PackageKit: daemon quit
@@ -1749,22 +1320,8 @@ to me
 2026-01-28T10:27:01.295347+05:30 gopala-VMware20-1 org.gnome.Characters[18682]: libEGL warning: failed to get driver name for fd -1
 2026-01-28T10:27:01.295803+05:30 gopala-VMware20-1 org.gnome.Characters[18682]: libEGL warning: MESA-LOADER: failed to retrieve device information
 2026-01-28T10:27:01.295827+05:30 gopala-VMware20-1 org.gnome.Characters[18682]: libEGL warning: failed to get driver name for fd -1
-2026-01-28T10:27:01.306914+05:30 gopala-VMware20-1 org.gnome.Characters[18682]: MESA: error: ZINK: failed to choose pdev</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 32 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 32 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>2026-01-28T10:27:01.306996+05:30 gopala-VMware20-1 org.gnome.Characters[18682]: libEGL warning: egl: failed to create dri2 screen
+2026-01-28T10:27:01.306914+05:30 gopala-VMware20-1 org.gnome.Characters[18682]: MESA: error: ZINK: failed to choose pdev
+2026-01-28T10:27:01.306996+05:30 gopala-VMware20-1 org.gnome.Characters[18682]: libEGL warning: egl: failed to create dri2 screen
 ^C
 gopala@gopala-VMware20-1:~$ ls /var/log/journctl
 ls: cannot access '/var/log/journctl': No such file or directory
@@ -1787,22 +1344,8 @@ Jan 27 14:57:37 localhost.localdomain kernel: ACPI: XSDT 0x000000021C070000 0000
 Jan 27 14:57:37 localhost.localdomain kernel: ACPI: FACP 0x000000021C060000 000114 (v06 VMWARE VMWVBSA! 20201221 VMW  00000001)
 Jan 27 14:57:37 localhost.localdomain kernel: ACPI: DSDT 0x000000021C030000 000ED4 (v01 VMWARE VMWVBSA! 01343F06 INTL 20130823)
 Jan 27 14:57:37 localhost.localdomain kernel: ACPI: GTDT 0x000000021C050000 000068 (v03 VMWARE VMWVBSA! 20201221 VMW  00000001)
-Jan 27 14:57:37 localhost.localdomain kernel: ACPI: MCFG 0x000000021C040000 00003C (v01 VMWARE VMWVBSA! 20201221 VMW  00000001)</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 33 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 33 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Jan 27 14:57:37 localhost.localdomain kernel: ACPI: APIC 0x000000021C000000 00024C (v04 VMWARE VMWVBSA! 20201221 VMW  00000001)
+Jan 27 14:57:37 localhost.localdomain kernel: ACPI: MCFG 0x000000021C040000 00003C (v01 VMWARE VMWVBSA! 20201221 VMW  00000001)
+Jan 27 14:57:37 localhost.localdomain kernel: ACPI: APIC 0x000000021C000000 00024C (v04 VMWARE VMWVBSA! 20201221 VMW  00000001)
 Jan 27 14:57:37 localhost.localdomain kernel: ACPI: SSDT 0x000000021BFE0000 0000EB (v02 VMWARE VMWVBSA! 20201221 VMW  00000001)
 Jan 27 14:57:37 localhost.localdomain kernel: ACPI: PPTT 0x000000021BFC0000 000128 (v02 VMWARE VMWVBSA! 20201221 VMW  00000001)
 Jan 27 14:57:37 localhost.localdomain kernel: ACPI: Use ACPI SPCR as default console: Yes
@@ -1826,22 +1369,8 @@ Jan 27 14:57:37 localhost.localdomain kernel:   node   0: [mem 0x000000021c09000
 Jan 27 14:57:37 localhost.localdomain kernel:   node   0: [mem 0x000000021c130000-0x000000021f40ffff]
 Jan 27 14:57:37 localhost.localdomain kernel:   node   0: [mem 0x000000021f410000-0x000000021f49ffff]
 Jan 27 14:57:37 localhost.localdomain kernel:   node   0: [mem 0x000000021f4a0000-0x000000021f5affff]
-Jan 27 14:57:37 localhost.localdomain kernel:   node   0: [mem 0x000000021f5b0000-0x000000021f5cffff]</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 34 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 34 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Jan 27 14:57:37 localhost.localdomain kernel:   node   0: [mem 0x000000021f5d0000-0x000000021fffffff]
+Jan 27 14:57:37 localhost.localdomain kernel:   node   0: [mem 0x000000021f5b0000-0x000000021f5cffff]
+Jan 27 14:57:37 localhost.localdomain kernel:   node   0: [mem 0x000000021f5d0000-0x000000021fffffff]
 Jan 27 14:57:37 localhost.localdomain kernel: Initmem setup node 0 [mem 0x0000000080000000-0x000000021fffffff]
 Jan 27 14:57:37 localhost.localdomain kernel: cma: Reserved 32 MiB at 0x00000000fda00000
 Jan 27 14:57:37 localhost.localdomain kernel: crashkernel reserved: 0x00000000dda00000 - 0x00000000fda00000 (512 MB)
@@ -1864,22 +1393,9 @@ Jan 27 14:57:37 localhost.localdomain kernel: Unknown kernel command line parame
 gopala@gopala-VMware20-1:~$ journalctl -h
 journalctl [OPTIONS...] [MATCHES...]
 
-Query the journal.</pre>
-            </div>
-        </div>
+Query the journal.
 
-        <!-- System Logs Part 35 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 35 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Source Options:
+Source Options:
      --system                Show the system journal
      --user                  Show the user journal for the current user
   -M --machine=CONTAINER     Operate on local container
@@ -1903,22 +1419,8 @@ Filtering Options:
      --invocation=ID         Show logs from the matching invocation ID
   -I                         Show logs from the latest invocation of unit
   -t --identifier=STRING     Show entries with the specified syslog identifier
-  -T --exclude-identifier=STRING</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 36 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 36 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>                             Hide entries with the specified syslog identifier
+  -T --exclude-identifier=STRING
+                             Hide entries with the specified syslog identifier
   -p --priority=RANGE        Show entries within the specified priority range
      --facility=FACILITY...  Show entries with the specified facilities
   -g --grep=PATTERN          Show entries with MESSAGE matching PATTERN
@@ -1942,22 +1444,8 @@ Output Control Options:
   -a --all                   Show all fields, including long and unprintable
   -f --follow                Follow the journal
      --no-tail               Show all lines, even in follow mode
-     --truncate-newline      Truncate entries by first newline character</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 37 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 37 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>-q --quiet                 Do not show info messages and privilege warning
+     --truncate-newline      Truncate entries by first newline character
+  -q --quiet                 Do not show info messages and privilege warning
 
 
 gopala@gopala-VMware20-1:~$ journalctl -o 4
@@ -1981,22 +1469,8 @@ gopala@gopala-VMware20-1:~$ journalctl -o json
 {"__MONOTONIC_TIMESTAMP":"274286","PRIORITY":"6","_HOSTNAME":"localhost.localdomain","__REALTIME_TIMESTAMP":"1769506057674528","_SOURCE_BOOTTIME_TIMESTAMP":"0","_SOURCE_MONOTONIC_TIMESTAMP":"0","_RUNTIME_SCOPE":"in>
 {"_SOURCE_BOOTTIME_TIMESTAMP":"0","__REALTIME_TIMESTAMP":"1769506057674544","_MACHINE_ID":"0d5cd7d7bdfa4401862c2f43c1e3a710","__SEQNUM":"2","_RUNTIME_SCOPE":"initrd","SYSLOG_FACILITY":"0","MESSAGE":"Linux version 6>
 {"SYSLOG_IDENTIFIER":"kernel","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=3;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=42f85;t=6495b3bfedf37;x=52863e7e5b5bad73","SYSLOG_>
-{"__SEQNUM":"4","__REALTIME_TIMESTAMP":"1769506057674557","_MACHINE_ID":"0d5cd7d7bdfa4401862c2f43c1e3a710","_RUNTIME_SCOPE":"initrd","_SOURCE_MONOTONIC_TIMESTAMP":"0","MESSAGE":"efi: EFI v2.7 by EDK II","__MONOTONI></pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 38 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 38 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>{"_RUNTIME_SCOPE":"initrd","__SEQNUM":"5","MESSAGE":"efi: ACPI 2.0=0x21c080000 SMBIOS 3.0=0x21c020000 MEMATTR=0x21e6b0a98 MOKvar=0x21f5b0000 INITRD=0x21c133598 MEMRESERVE=0x21c131b18 ","__MONOTONIC_TIMESTAMP":"2743>
+{"__SEQNUM":"4","__REALTIME_TIMESTAMP":"1769506057674557","_MACHINE_ID":"0d5cd7d7bdfa4401862c2f43c1e3a710","_RUNTIME_SCOPE":"initrd","_SOURCE_MONOTONIC_TIMESTAMP":"0","MESSAGE":"efi: EFI v2.7 by EDK II","__MONOTONI>
+{"_RUNTIME_SCOPE":"initrd","__SEQNUM":"5","MESSAGE":"efi: ACPI 2.0=0x21c080000 SMBIOS 3.0=0x21c020000 MEMATTR=0x21e6b0a98 MOKvar=0x21f5b0000 INITRD=0x21c133598 MEMRESERVE=0x21c131b18 ","__MONOTONIC_TIMESTAMP":"2743>
 {"PRIORITY":"6","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","__MONOTONIC_TIMESTAMP":"274324","_TRANSPORT":"kernel","SYSLOG_IDENTIFIER":"kernel","_MACHINE_ID":"0d5cd7d7bdfa4401862c2f43c1e3a710","_HOSTNAME":"localh>
 {"_SOURCE_BOOTTIME_TIMESTAMP":"0","_RUNTIME_SCOPE":"initrd","MESSAGE":"ACPI: Early table checksum verification disabled","PRIORITY":"6","__SEQNUM":"7","_MACHINE_ID":"0d5cd7d7bdfa4401862c2f43c1e3a710","__SEQNUM_ID":>
 {"_RUNTIME_SCOPE":"initrd","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=8;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=42f9e;t=6495b3bfedf50;x=1619341c3a76b4f7","SYSLOG_FACILITY":"0","_TRANSPORT":"kernel","__MONOTONIC_>
@@ -2020,22 +1494,8 @@ gopala@gopala-VMware20-1:~$ journalctl -o json
 {"SYSLOG_IDENTIFIER":"kernel","__REALTIME_TIMESTAMP":"1769506057674648","_HOSTNAME":"localhost.localdomain","_SOURCE_MONOTONIC_TIMESTAMP":"0","_TRANSPORT":"kernel","__MONOTONIC_TIMESTAMP":"274406","SYSLOG_FACILITY">
 {"__SEQNUM":"27","SYSLOG_FACILITY":"0","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","MESSAGE":"  node   0: [mem 0x0000000080000000-0x00000000ffafefff]","__MONOTONIC_TIMESTAMP":"274410","_SOURCE_BOOTTIME_TIMESTAMP">
 {"_SOURCE_BOOTTIME_TIMESTAMP":"0","__SEQNUM_ID":"a54dcb382f214e53989e0e0fe62eb657","_TRANSPORT":"kernel","_MACHINE_ID":"0d5cd7d7bdfa4401862c2f43c1e3a710","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","__SEQNUM":"28>
-{"__REALTIME_TIMESTAMP":"1769506057674659","__MONOTONIC_TIMESTAMP":"274417","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=1d;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=42f></pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 39 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 39 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>{"_TRANSPORT":"kernel","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=1e;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=42ff4;t=6495b3bfedfa6;x=d583a2c14982d5e3","MESSAGE":"  node   0: [mem 0x000000021bf00000-0x000000021bf>
+{"__REALTIME_TIMESTAMP":"1769506057674659","__MONOTONIC_TIMESTAMP":"274417","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=1d;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=42f>
+{"_TRANSPORT":"kernel","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=1e;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=42ff4;t=6495b3bfedfa6;x=d583a2c14982d5e3","MESSAGE":"  node   0: [mem 0x000000021bf00000-0x000000021bf>
 {"_RUNTIME_SCOPE":"initrd","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=1f;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=42ff7;t=6495b3bfedfa9;x=cc456391789b6367","PRIORITY":"6","__REALTIME_TIMESTAMP":"1769506057674665">
 {"__REALTIME_TIMESTAMP":"1769506057674669","_SOURCE_BOOTTIME_TIMESTAMP":"0","__MONOTONIC_TIMESTAMP":"274427","_SOURCE_MONOTONIC_TIMESTAMP":"0","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=20;b=7f8aeb1b65b04d1ab>
 {"__SEQNUM_ID":"a54dcb382f214e53989e0e0fe62eb657","_MACHINE_ID":"0d5cd7d7bdfa4401862c2f43c1e3a710","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","_RUNTIME_SCOPE":"initrd","_TRANSPORT":"kernel","__CURSOR":"s=a54dcb3>
@@ -2059,22 +1519,8 @@ gopala@gopala-VMware20-1:~$ journalctl -o json
 {"__SEQNUM_ID":"a54dcb382f214e53989e0e0fe62eb657","_TRANSPORT":"kernel","__MONOTONIC_TIMESTAMP":"274493","_SOURCE_BOOTTIME_TIMESTAMP":"0","MESSAGE":"CPU features: detected: Address authentication (IMP DEF algorithm>
 {"_TRANSPORT":"kernel","PRIORITY":"6","_SOURCE_MONOTONIC_TIMESTAMP":"0","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=34;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=43041;t=6495b3bfedff2;x=cc94a817fe5625c6","__SEQNUM_I>
 {"__SEQNUM_ID":"a54dcb382f214e53989e0e0fe62eb657","__MONOTONIC_TIMESTAMP":"274500","SYSLOG_FACILITY":"0","SYSLOG_IDENTIFIER":"kernel","_RUNTIME_SCOPE":"initrd","_HOSTNAME":"localhost.localdomain","_SOURCE_BOOTTIME_>
-{"SYSLOG_IDENTIFIER":"kernel","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=36;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=43047;t=6495b3bfedff9;x=1c9491579985671b","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","_RUNTI></pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 40 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 40 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>{"SYSLOG_FACILITY":"0","MESSAGE":"alternatives: applying boot alternatives","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=37;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=430>
+{"SYSLOG_IDENTIFIER":"kernel","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=36;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=43047;t=6495b3bfedff9;x=1c9491579985671b","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","_RUNTI>
+{"SYSLOG_FACILITY":"0","MESSAGE":"alternatives: applying boot alternatives","_BOOT_ID":"7f8aeb1b65b04d1abadb7dd4341b0ca0","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=37;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=430>
 {"_RUNTIME_SCOPE":"initrd","SYSLOG_FACILITY":"0","__REALTIME_TIMESTAMP":"1769506057674753","__CURSOR":"s=a54dcb382f214e53989e0e0fe62eb657;i=38;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=4304f;t=6495b3bfee001;x=1b4726e69d>
 
 gopala@gopala-VMware20-1:~$ journalctl -a
@@ -2098,22 +1544,8 @@ Jan 27 14:57:37 localhost.localdomain kernel: ACPI: Use ACPI SPCR as default con
 Jan 27 14:57:37 localhost.localdomain kernel: NUMA: Faking a node at [mem 0x0000000080000000-0x000000021fffffff]
 Jan 27 14:57:37 localhost.localdomain kernel: NODE_DATA(0) allocated [mem 0x21f258440-0x21f25dfff]
 Jan 27 14:57:37 localhost.localdomain kernel: Zone ranges:
-Jan 27 14:57:37 localhost.localdomain kernel:   DMA      [mem 0x0000000080000000-0x00000000ffffffff]</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 41 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 41 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Jan 27 14:57:37 localhost.localdomain kernel:   DMA32    empty
+Jan 27 14:57:37 localhost.localdomain kernel:   DMA      [mem 0x0000000080000000-0x00000000ffffffff]
+Jan 27 14:57:37 localhost.localdomain kernel:   DMA32    empty
 Jan 27 14:57:37 localhost.localdomain kernel:   Normal   [mem 0x0000000100000000-0x000000021fffffff]
 Jan 27 14:57:37 localhost.localdomain kernel:   Device   empty
 Jan 27 14:57:37 localhost.localdomain kernel: Movable zone start for each node
@@ -2137,22 +1569,8 @@ Jan 27 14:57:37 localhost.localdomain kernel: crashkernel reserved: 0x00000000dd
 Jan 27 14:57:37 localhost.localdomain kernel: psci: probing for conduit method from ACPI.
 Jan 27 14:57:37 localhost.localdomain kernel: psci: PSCIv0.2 detected in firmware.
 Jan 27 14:57:37 localhost.localdomain kernel: psci: Using standard PSCI v0.2 function IDs
-Jan 27 14:57:37 localhost.localdomain kernel: psci: Trusted OS migration not required</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 42 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 42 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Jan 27 14:57:37 localhost.localdomain kernel: percpu: Embedded 57 pages/cpu s107992 r8192 d117288 u233472
+Jan 27 14:57:37 localhost.localdomain kernel: psci: Trusted OS migration not required
+Jan 27 14:57:37 localhost.localdomain kernel: percpu: Embedded 57 pages/cpu s107992 r8192 d117288 u233472
 Jan 27 14:57:37 localhost.localdomain kernel: pcpu-alloc: s107992 r8192 d117288 u233472 alloc=57*4096
 Jan 27 14:57:37 localhost.localdomain kernel: pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 [0] 4 [0] 5
 Jan 27 14:57:37 localhost.localdomain kernel: Detected PIPT I-cache on CPU0
@@ -2176,22 +1594,8 @@ gopala@gopala-VMware20-1:~$ journalctl -u ssn
 gopala@gopala-VMware20-1:~$ journalctl | centaur
 centaur: command not found
 gopala@gopala-VMware20-1:~$ journalctl | Centaur
-Centaur: command not found</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 43 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 43 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>gopala@gopala-VMware20-1:~$ journalctl | grep Centaur
+Centaur: command not found
+gopala@gopala-VMware20-1:~$ journalctl | grep Centaur
 gopala@gopala-VMware20-1:~$ sudo journalctl -u apache
 [sudo: authenticate] Password:
 -- No entries --
@@ -2215,22 +1619,8 @@ Tue 2026-01-27 14:57:37.674528 IST [s=a54dcb382f214e53989e0e0fe62eb657;i=1;b=7f8
     PRIORITY=6
     SYSLOG_FACILITY=0
     SYSLOG_IDENTIFIER=kernel
-    MESSAGE=Booting Linux on physical CPU 0x0000000000 [0x610f0000]</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 44 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 44 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>    _BOOT_ID=7f8aeb1b65b04d1abadb7dd4341b0ca0
+    MESSAGE=Booting Linux on physical CPU 0x0000000000 [0x610f0000]
+    _BOOT_ID=7f8aeb1b65b04d1abadb7dd4341b0ca0
     _MACHINE_ID=0d5cd7d7bdfa4401862c2f43c1e3a710
     _HOSTNAME=localhost.localdomain
     _RUNTIME_SCOPE=initrd
@@ -2254,22 +1644,8 @@ Tue 2026-01-27 14:57:37.674551 IST [s=a54dcb382f214e53989e0e0fe62eb657;i=3;b=7f8
     SYSLOG_IDENTIFIER=kernel
     _BOOT_ID=7f8aeb1b65b04d1abadb7dd4341b0ca0
     _MACHINE_ID=0d5cd7d7bdfa4401862c2f43c1e3a710
-    _HOSTNAME=localhost.localdomain</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 45 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 45 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>_RUNTIME_SCOPE=initrd
+    _HOSTNAME=localhost.localdomain
+    _RUNTIME_SCOPE=initrd
     PRIORITY=4
     MESSAGE=KASLR disabled due to lack of seed
 Tue 2026-01-27 14:57:37.674557 IST [s=a54dcb382f214e53989e0e0fe62eb657;i=4;b=7f8aeb1b65b04d1abadb7dd4341b0ca0;m=42f8b;t=6495b3bfedf3d;x=c8ef139a27729203]
@@ -2293,22 +1669,8 @@ Tue 2026-01-27 14:57:37.674561 IST [s=a54dcb382f214e53989e0e0fe62eb657;i=5;b=7f8
     SYSLOG_IDENTIFIER=kernel
     _BOOT_ID=7f8aeb1b65b04d1abadb7dd4341b0ca0
 
-gopala@gopala-VMware20-1:~$ journalctl  -p warning</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 46 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 46 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Jan 27 14:57:37 localhost.localdomain kernel: KASLR disabled due to lack of seed
+gopala@gopala-VMware20-1:~$ journalctl  -p warning
+Jan 27 14:57:37 localhost.localdomain kernel: KASLR disabled due to lack of seed
 Jan 27 14:57:37 localhost.localdomain kernel: PCI: OF: of_root node is NULL, cannot create PCI host bridge node
 Jan 27 14:57:37 localhost.localdomain kernel: uhci_hcd 0000:01:00.0: init 0000:01:00.0 fail, -16
 Jan 27 14:57:37 localhost.localdomain kernel: uhci_hcd 0000:01:00.0: probe with driver uhci_hcd failed with error -16
@@ -2332,22 +1694,8 @@ Jan 27 14:57:39 gopala-VMware20-1 kernel: usb 1-1: Failed to query (GET_INFO) UV
 Jan 27 14:57:39 gopala-VMware20-1 kernel: snd_hda_intel 0000:01:01.0: CORB reset timeout#1, CORBRP = 0
 Jan 27 14:57:39 gopala-VMware20-1 (udev-worker)[593]: controlC0: Process '/usr/sbin/alsactl -E HOME=/run/alsa -E XDG_RUNTIME_DIR=/run/alsa/runtime restore 0' failed with exit code 99.
 Jan 27 14:57:42 gopala-VMware20-1 kernel: kauditd_printk_skb: 192 callbacks suppressed
-Jan 27 14:57:43 gopala-VMware20-1 systemd[1]: Dependency failed for sssd-nss.socket - SSSD NSS Service responder socket.</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 47 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 47 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Jan 27 14:57:43 gopala-VMware20-1 systemd[1]: Dependency failed for sssd-autofs.socket - SSSD AutoFS Service responder socket.
+Jan 27 14:57:43 gopala-VMware20-1 systemd[1]: Dependency failed for sssd-nss.socket - SSSD NSS Service responder socket.
+Jan 27 14:57:43 gopala-VMware20-1 systemd[1]: Dependency failed for sssd-autofs.socket - SSSD AutoFS Service responder socket.
 Jan 27 14:57:43 gopala-VMware20-1 systemd[1]: Dependency failed for sssd-pac.socket - SSSD PAC Service responder socket.
 Jan 27 14:57:43 gopala-VMware20-1 systemd[1]: Dependency failed for sssd-pam.socket - SSSD PAM Service responder socket.
 Jan 27 14:57:43 gopala-VMware20-1 systemd[1]: Dependency failed for sssd-ssh.socket - SSSD SSH Service responder socket.
@@ -2371,22 +1719,8 @@ Jan 27 14:57:47 gopala-VMware20-1 pipewire[1889]: spa.v4l2: '/dev/video0' VIDIOC
 Jan 27 14:57:47 gopala-VMware20-1 kernel: uvc_query_ctrl: 8 callbacks suppressed
 Jan 27 14:57:47 gopala-VMware20-1 kernel: usb 1-1: Failed to query (GET_DEF) UVC error code control 20 on unit 1: -32 (exp. 1).
 Jan 27 14:57:47 gopala-VMware20-1 kernel: usb 1-1: UVC non compliance: permanently disabling control 981ae2 (Region of Interest Auto Ctrls), due to error -32
-Jan 27 14:57:47 gopala-VMware20-1 kernel: usb 1-1: Failed to query (GET_DEF) UVC error code control 2 on unit 1: -32 (exp. 1).</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 48 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 48 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Jan 27 14:57:47 gopala-VMware20-1 kernel: usb 1-1: UVC non compliance: permanently disabling control 9a0901 (Auto Exposure), due to error -32
+Jan 27 14:57:47 gopala-VMware20-1 kernel: usb 1-1: Failed to query (GET_DEF) UVC error code control 2 on unit 1: -32 (exp. 1).
+Jan 27 14:57:47 gopala-VMware20-1 kernel: usb 1-1: UVC non compliance: permanently disabling control 9a0901 (Auto Exposure), due to error -32
 Jan 27 14:57:47 gopala-VMware20-1 kernel: usb 1-1: Failed to query (GET_CUR) UVC error code control 2 on unit 1: -32 (exp. 1).
 Jan 27 14:57:47 gopala-VMware20-1 kernel: usb 1-1: Failed to query (GET_DEF) UVC error code control 20 on unit 1: -32 (exp. 1).
 Jan 27 14:57:47 gopala-VMware20-1 kernel: usb 1-1: Failed to query (GET_DEF) UVC error code control 2 on unit 1: -32 (exp. 1).
@@ -2410,22 +1744,8 @@ Jan 27 22:52:50 localhost.localdomain kernel: ACPI: DSDT 0x000000021C030000 000E
 Jan 27 22:52:50 localhost.localdomain kernel: ACPI: GTDT 0x000000021C050000 000068 (v03 VMWARE VMWVBSA! 20201221 VMW  00000001)
 Jan 27 22:52:50 localhost.localdomain kernel: ACPI: MCFG 0x000000021C040000 00003C (v01 VMWARE VMWVBSA! 20201221 VMW  00000001)
 Jan 27 22:52:50 localhost.localdomain kernel: ACPI: APIC 0x000000021C000000 00024C (v04 VMWARE VMWVBSA! 20201221 VMW  00000001)
-Jan 27 22:52:50 localhost.localdomain kernel: ACPI: SSDT 0x000000021BFE0000 0000EB (v02 VMWARE VMWVBSA! 20201221 VMW  00000001)</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 49 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 49 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Jan 27 22:52:50 localhost.localdomain kernel: ACPI: PPTT 0x000000021BFC0000 000128 (v02 VMWARE VMWVBSA! 20201221 VMW  00000001)
+Jan 27 22:52:50 localhost.localdomain kernel: ACPI: SSDT 0x000000021BFE0000 0000EB (v02 VMWARE VMWVBSA! 20201221 VMW  00000001)
+Jan 27 22:52:50 localhost.localdomain kernel: ACPI: PPTT 0x000000021BFC0000 000128 (v02 VMWARE VMWVBSA! 20201221 VMW  00000001)
 Jan 27 22:52:50 localhost.localdomain kernel: ACPI: Use ACPI SPCR as default console: Yes
 Jan 27 22:52:50 localhost.localdomain kernel: NUMA: Faking a node at [mem 0x0000000080000000-0x000000021fffffff]
 Jan 27 22:52:50 localhost.localdomain kernel: NODE_DATA(0) allocated [mem 0x21f257440-0x21f25cfff]
@@ -2449,22 +1769,8 @@ Jan 27 22:52:50 localhost.localdomain kernel:   node   0: [mem 0x000000021f41000
 Jan 27 22:52:50 localhost.localdomain kernel:   node   0: [mem 0x000000021f4a0000-0x000000021f5affff]
 Jan 27 22:52:50 localhost.localdomain kernel:   node   0: [mem 0x000000021f5b0000-0x000000021f5cffff]
 Jan 27 22:52:50 localhost.localdomain kernel:   node   0: [mem 0x000000021f5d0000-0x000000021fffffff]
-Jan 27 22:52:50 localhost.localdomain kernel: Initmem setup node 0 [mem 0x0000000080000000-0x000000021fffffff]</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 50 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 50 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Jan 27 22:52:50 localhost.localdomain kernel: cma: Reserved 32 MiB at 0x00000000fdc00000
+Jan 27 22:52:50 localhost.localdomain kernel: Initmem setup node 0 [mem 0x0000000080000000-0x000000021fffffff]
+Jan 27 22:52:50 localhost.localdomain kernel: cma: Reserved 32 MiB at 0x00000000fdc00000
 Jan 27 22:52:50 localhost.localdomain kernel: crashkernel reserved: 0x00000000ddc00000 - 0x00000000fdc00000 (512 MB)
 Jan 27 22:52:50 localhost.localdomain kernel: psci: probing for conduit method from ACPI.
 Jan 27 22:52:50 localhost.localdomain kernel: psci: PSCIv0.2 detected in firmware.
@@ -2488,22 +1794,8 @@ Wed Jan 28 10:58:50 IST 2026
 gopala@gopala-VMware20-1:~$ time
 
 real 0m0.000s
-user 0m0.000s</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 51 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 51 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>sys 0m0.000s
+user 0m0.000s
+sys 0m0.000s
 gopala@gopala-VMware20-1:~$ datetimectl
 datetimectl: command not found
 gopala@gopala-VMware20-1:~$ timedatecctl
@@ -2527,22 +1819,8 @@ gopala@gopala-VMware20-1:~$ timedatectl status
                 Time zone: Asia/Kolkata (IST, +0530)
 System clock synchronized: yes
               NTP service: active
-          RTC in local TZ: no</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 52 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 52 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>gopala@gopala-VMware20-1:~$ sudo timedatectl set-ntp false
+          RTC in local TZ: no
+gopala@gopala-VMware20-1:~$ sudo timedatectl set-ntp false
 gopala@gopala-VMware20-1:~$ sudo timedatectl set-time '2025-01-01 23:01:10'
 gopala@gopala-VMware20-1:~$ sudo timedatectl set-time '2025-01-01 23:02:10'
 gopala@gopala-VMware20-1:~$ timedatectl status
@@ -2566,22 +1844,8 @@ sudo-rs: 'hwclock': command not found
 gopala@gopala-VMware20-1:~$ sudo apt update
 sudo apt install util-linux
 Ign:1 file:/cdrom questing InRelease
-Err:2 file:/cdrom questing Release</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 53 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 53 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>File not found - /cdrom/dists/questing/Release (2: No such file or directory)
+Err:2 file:/cdrom questing Release
+  File not found - /cdrom/dists/questing/Release (2: No such file or directory)
 Hit:3 http://ports.ubuntu.com/ubuntu-ports questing InRelease
 Get:4 http://ports.ubuntu.com/ubuntu-ports questing-updates InRelease [136 kB]
 Get:5 http://ports.ubuntu.com/ubuntu-ports questing-backports InRelease [133 kB]
@@ -2605,22 +1869,8 @@ Get:22 http://ports.ubuntu.com/ubuntu-ports questing-security/main arm64 Compone
 Get:23 http://ports.ubuntu.com/ubuntu-ports questing-security/main arm64 c-n-f Metadata [4,184 B]                                                                                                                    
 Get:24 http://ports.ubuntu.com/ubuntu-ports questing-security/restricted arm64 Components [212 B]                                                                                                                    
 Get:25 http://ports.ubuntu.com/ubuntu-ports questing-security/universe arm64 Packages [91.3 kB]                                                                                                                      
-Get:26 http://ports.ubuntu.com/ubuntu-ports questing-security/universe Translation-en [31.5 kB]                                                                                                                      </pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 54 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 54 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Get:27 http://ports.ubuntu.com/ubuntu-ports questing-security/universe arm64 Components [10.1 kB]                                                                                                                    
+Get:26 http://ports.ubuntu.com/ubuntu-ports questing-security/universe Translation-en [31.5 kB]                                                                                                                      
+Get:27 http://ports.ubuntu.com/ubuntu-ports questing-security/universe arm64 Components [10.1 kB]                                                                                                                    
 Get:28 http://ports.ubuntu.com/ubuntu-ports questing-security/universe arm64 c-n-f Metadata [2,772 B]                                                                                                                
 Get:29 http://ports.ubuntu.com/ubuntu-ports questing-security/multiverse arm64 Components [212 B]                                                                                                                    
 Error: The repository 'file:/cdrom questing Release' no longer has a Release file.                                                                                                                                    
@@ -2644,22 +1894,8 @@ Get:4 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 libfdisk1
 Get:5 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 fdisk arm64 2.41-4ubuntu4.1 [145 kB]                                                                                                          
 Get:6 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 libblkid1 arm64 2.41-4ubuntu4.1 [131 kB]                                                                                                      
 Get:7 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 libmount1 arm64 2.41-4ubuntu4.1 [163 kB]                                                                                                      
-Get:8 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 libsmartcols1 arm64 2.41-4ubuntu4.1 [91.0 kB]</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 55 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 55 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Get:9 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 mount arm64 2.41-4ubuntu4.1 [141 kB]                                                                                                          
+Get:8 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 libsmartcols1 arm64 2.41-4ubuntu4.1 [91.0 kB]                                                                                                  
+Get:9 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 mount arm64 2.41-4ubuntu4.1 [141 kB]                                                                                                          
 Get:10 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 liblastlog2-2 arm64 2.41-4ubuntu4.1 [34.3 kB]                                                                                                
 Get:11 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 libuuid1 arm64 2.41-4ubuntu4.1 [43.5 kB]                                                                                                      
 Get:12 http://ports.ubuntu.com/ubuntu-ports questing-updates/main arm64 util-linux arm64 2.41-4ubuntu4.1 [1,120 kB]                                                                                                  
@@ -2683,22 +1919,8 @@ Setting up libblkid1:arm64 (2.41-4ubuntu4.1) ...
 Preparing to unpack .../libmount1_2.41-4ubuntu4.1_arm64.deb ...
 Unpacking libmount1:arm64 (2.41-4ubuntu4.1) over (2.41-4ubuntu4) ...
 Setting up libmount1:arm64 (2.41-4ubuntu4.1) ...
-(Reading database ... 147908 files and directories currently installed.)</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 56 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 56 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Preparing to unpack .../libsmartcols1_2.41-4ubuntu4.1_arm64.deb ...
+(Reading database ... 147908 files and directories currently installed.)
+Preparing to unpack .../libsmartcols1_2.41-4ubuntu4.1_arm64.deb ...
 Unpacking libsmartcols1:arm64 (2.41-4ubuntu4.1) over (2.41-4ubuntu4) ...
 Setting up libsmartcols1:arm64 (2.41-4ubuntu4.1) ...
 (Reading database ... 147908 files and directories currently installed.)
@@ -2722,22 +1944,8 @@ Preparing to unpack .../uuid-runtime_2.41-4ubuntu4.1_arm64.deb ...
 Unpacking uuid-runtime (2.41-4ubuntu4.1) over (2.41-4ubuntu4) ...
 Setting up bsdextrautils (2.41-4ubuntu4.1) ...
 Setting up eject (2.41-4ubuntu4.1) ...
-Setting up rfkill (2.41-4ubuntu4.1) ...</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 57 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 57 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Setting up libfdisk1:arm64 (2.41-4ubuntu4.1) ...
+Setting up rfkill (2.41-4ubuntu4.1) ...
+Setting up libfdisk1:arm64 (2.41-4ubuntu4.1) ...
 Setting up mount (2.41-4ubuntu4.1) ...
 Setting up uuid-runtime (2.41-4ubuntu4.1) ...
 invoke-rc.d: policy-rc.d denied execution of restart.
@@ -2761,22 +1969,8 @@ gopala@gopala-VMware20-1:~$ sudo apt update
 sudo apt install util-linux
 Ign:1 file:/cdrom questing InRelease
 Err:2 file:/cdrom questing Release
-  File not found - /cdrom/dists/questing/Release (2: No such file or directory)</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 58 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 58 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>Hit:3 http://ports.ubuntu.com/ubuntu-ports questing InRelease
+  File not found - /cdrom/dists/questing/Release (2: No such file or directory)
+Hit:3 http://ports.ubuntu.com/ubuntu-ports questing InRelease
 Hit:4 http://ports.ubuntu.com/ubuntu-ports questing-updates InRelease
 Hit:5 http://ports.ubuntu.com/ubuntu-ports questing-backports InRelease
 Hit:6 http://ports.ubuntu.com/ubuntu-ports questing-security InRelease
@@ -2800,22 +1994,8 @@ gopala@gopala-VMware20-1:~$ timedatectl status
                  RTC time: Wed 2025-01-01 23:02:21
                 Time zone: Asia/Kolkata (IST, +0530)
 System clock synchronized: no
-              NTP service: inactive</pre>
-            </div>
-        </div>
-
-        <!-- System Logs Part 59 of 60 -->
-        <div class="terminal-window">
-            <div class="terminal-titlebar">
-                <div class="terminal-dots">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                </div>
-                <div class="terminal-title">System Logs - Part 59 of 60</div>
-            </div>
-            <div class="terminal-body">
-                <pre>RTC in local TZ: yes
+              NTP service: inactive
+          RTC in local TZ: yes
  
 Warning: The system is configured to read the RTC time in the local time zone.
          This mode cannot be fully supported. It will create various problems
@@ -2823,25 +2003,44 @@ Warning: The system is configured to read the RTC time in the local time zone.
          time is never updated, it relies on external facilities to maintain it.
          If at all possible, use RTC in UTC by calling
          'timedatectl set-local-rtc 0'.
-gopala@gopala-VMware20-1:~$
-
-</html></pre>
+gopala@gopala-VMware20-1:~$</pre>
+                </div>
             </div>
         </div>
-
-
-
-<!-- Footer -->
-        <div class="footer">
-            <p>&copy; 2026 Linux System Logs & journalctl Tutorial</p>
-            <p>Last Updated: January 28, 2026</p>
-        </div>
-
-        <!-- Scroll to Top Button -->
-        <button class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" title="Scroll to top">
-            ↑
-        </button>
-
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Linux Logs & Journalctl Reference. All rights reserved.</p>
+        <p>Last updated: January 28, 2026</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Scroll to Top Script -->
+    <script>
+        const scrollTop = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+        
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
 </html>

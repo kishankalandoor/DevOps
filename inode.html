@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,8 +73,8 @@
             color: #333;
         }
 
-        .info-box {1d1d1f
-            background: #f9f9fb;
+        .info-box {
+            1d1d1f background: #f9f9fb;
             border-left: 4px solid #667eea;
             padding: 20px;
             margin: 20px 0;
@@ -101,10 +102,29 @@
 
         .terminal-header {
             display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
             border-bottom: 1px solid #333;
+            background: #2d2d2d;
+            border-radius: 12px 12px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-title {
+            color: #9ca3af;
+            font-size: 13px;
+            font-family: -apple-system, system-ui, sans-serif;
+            font-weight: 500;
+            flex-grow: 1;
+            text-align: center;
+            margin-right: 50px;
+            /* Balance the dots on the left */
         }
 
         .terminal-dot {
@@ -129,9 +149,17 @@
             font-weight: 600;
         }
 
-        .dot-red { background: #ff5f56; }
-        .dot-yellow { background: #ffbd2e; }
-        .dot-green { background: #27c93f; }
+        .dot-red {
+            background: #ff5f56;
+        }
+
+        .dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .dot-green {
+            background: #27c93f;
+        }
 
         .terminal-prompt {
             color: #a6e22e;
@@ -171,101 +199,112 @@
         }
 
         .command-card h4 {
-            color: #1d1d1f
-        .command-card h4 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
+            color: #1d1d1f .command-card h4 {
+                color: #667eea;
+                margin-bottom: 10px;
+                font-size: 18px;
+            }
 
-        .command-card code {
-            background: #1d1d1f;
-            color: #66d9ef;
-            padding: 8px 12px;
-            border-radius: 6px;
-            display: inline-block;
-            margin: 10px 0;
-            font-family: 'SF Mono', monospace;
-        }
+            .command-card code {
+                background: #1d1d1f;
+                color: #66d9ef;
+                padding: 8px 12px;
+                border-radius: 6px;
+                display: inline-block;
+                margin: 10px 0;
+                font-family: 'SF Mono', monospace;
+            }
 
-        .command-card p {
-            color: #666;
-            font-size: 14px;
-        }
+            .command-card p {
+                color: #666;
+                font-size: 14px;
+            }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+                background: white;
+                border-radius: 8px;
+                overflow: hidden;
+            }
 
-        th {
-            background: #1d1d1f;
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
+            th {
+                background: #1d1d1f;
+                color: white;
+                padding: 15px;
+                text-align: left;
+                font-weight: 600;
+            }
 
-        td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e0e0e0;
-        }
+            td {
+                padding: 12px 15px;
+                border-bottom: 1px solid #e0e0e0;
+            }
 
-        tr:last-child td {
-            border-bottom: none;
-        }
+            tr:last-child td {
+                border-bottom: none;
+            }
 
-        tr:hover {
-            background: #f9f9fb;
-        }
+            tr:hover {
+                background: #f9f9fb;
+            }
 
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin: 5px 5px 5px 0;
-        }
+            .badge {
+                display: inline-block;
+                padding: 4px 12px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: 600;
+                margin: 5px 5px 5px 0;
+            }
 
-        .badge-success {
-            background: #e6f4ea;
-            color: #1e7e34;
-        }
+            .badge-success {
+                background: #e6f4ea;
+                color: #1e7e34;
+            }
 
-        .badge-info {
-            background: #e3f2fd;
-            color: #0277bd;
-        }
+            .badge-info {
+                background: #e3f2fd;
+                color: #0277bd;
+            }
 
-        .badge-warning {
-            background: #fff3e0;
-            color: #e65100;
-        }
+            .badge-warning {
+                background: #fff3e0;
+                color: #e65100;
+            }
 
-        footer {
-            background: #f9f9fb;
-            padding: 30px;
-            text-align: center;
-            color: #666;
-            border-top: 1px solid #e0e0e0;
-        }
+            footer {
+                background: #f9f9fb;
+                padding: 30px;
+                text-align: center;
+                color: #666;
+                border-top: 1px solid #e0e0e0;
+            }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 36px; }
-            h2 { font-size: 24px; }
-            .content { padding: 20px; }
-            header { padding: 40px 20px; }
-        }
+            @media (max-width: 768px) {
+                h1 {
+                    font-size: 36px;
+                }
+
+                h2 {
+                    font-size: 24px;
+                }
+
+                .content {
+                    padding: 20px;
+                }
+
+                header {
+                    padding: 40px 20px;
+                }
+            }
     </style>
 </head>
+
 <body>
     <header>
-        <h1>Inode and grep  Operations</h1>
+        <h1>Inode and grep Operations</h1>
         <p class="subtitle">File system inode management and operations</p>
     </header>
 
@@ -632,9 +671,12 @@ apple@Apples-MacBook-Pro DevOps %</pre>
             </div>
             <div class="terminal">
                 <div class="terminal-header">
-                    <span class="terminal-dot" style="background: #ff5f57;"></span>
-                    <span class="terminal-dot" style="background: #ffbd2e;"></span>
-                    <span class="terminal-dot" style="background: #28ca41;"></span>
+                    <div class="terminal-controls">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-title">File Creation & Basic Search</div>
                 </div>
                 <div class="terminal-body">
                     <pre>Last login: Fri Jan 23 10:34:25 on ttys000
@@ -654,7 +696,80 @@ apple@Apples-MacBook-Pro DevOps % <strong>grep "hallo" hello.txt</strong>
 hallo
 hallo
 apple@Apples-MacBook-Pro DevOps % <strong>grep "hello" hello.txt</strong>
-hello
+hello</pre>
+                </div>
+            </div>
+
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-title">Grep Help & Error Handling</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps %
+Last login: Fri Jan 30 16:28:42 on ttys004
+You have new mail.
+apple@Apples-MacBook-Pro ~ % <strong>grep -h</strong>
+usage: grep [-abcdDEFGHhIiJLlMmnOopqRSsUVvwXxZz] [-A num] [-B num] [-C[num]]
+	[-e pattern] [-f file] [--binary-files=value] [--color=when]
+	[--context[=num]] [--directories=action] [--label] [--line-buffered]
+	[--null] [pattern] [file ...]
+apple@Apples-MacBook-Pro ~ % <strong>grep -m</strong>    
+grep: option requires an argument -- m
+usage: grep [-abcdDEFGHhIiJLlMmnOopqRSsUVvwXxZz] [-A num] [-B num] [-C[num]]
+	[-e pattern] [-f file] [--binary-files=value] [--color=when]
+	[--context[=num]] [--directories=action] [--label] [--line-buffered]
+	[--null] [pattern] [file ...]
+apple@Apples-MacBook-Pro ~ % <strong>grep --m</strong>
+grep: option `--m' is ambiguous
+usage: grep [-abcdDEFGHhIiJLlMmnOopqRSsUVvwXxZz] [-A num] [-B num] [-C[num]]
+	[-e pattern] [-f file] [--binary-files=value] [--color=when]
+	[--context[=num]] [--directories=action] [--label] [--line-buffered]
+	[--null] [pattern] [file ...]</pre>
+                </div>
+            </div>
+
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-title">Root Operations & File Editing</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro ~ % <strong>cd file:///Applications/XAMPP/xamppfiles/htdocs/DevOps/</strong>          
+cd: no such file or directory: file:///Applications/XAMPP/xamppfiles/htdocs/DevOps/
+apple@Apples-MacBook-Pro ~ % <strong>cd /Applications/XAMPP/xamppfiles/htdocs/DevOps</strong> 
+apple@Apples-MacBook-Pro DevOps % <strong>sudo touch demo.txt</strong>                                    
+Password:
+apple@Apples-MacBook-Pro DevOps % <strong>sudo vim demo.txt</strong></pre>
+                </div>
+            </div>
+
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot" style="background: #ff5f57;"></span>
+                        <span class="terminal-dot" style="background: #ffbd2e;"></span>
+                        <span class="terminal-dot" style="background: #28ca41;"></span>
+                    </div>
+                    <div class="terminal-title">Advanced Pattern Search</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep "hello" demo.txt</strong>                                  
+hi hello 
+hello world 
+apple@Apples-MacBook-Pro DevOps % <strong>grep "this" demo.txt</strong>
+this is a text file 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -i "hello" demo.txt</strong>
+hi hello 
+hello world 
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -679,6 +794,9 @@ apple@Apples-MacBook-Pro DevOps % <strong>grep -c  "hello" hello.txt</strong>
 1
 apple@Apples-MacBook-Pro DevOps % <strong>grep -c  "helloi" hello.txt</strong>
 0
+apple@Apples-MacBook-Pro DevOps %
+apple@Apples-MacBook-Pro DevOps % <strong>grep -c "hello" demo.txt</strong>
+\2
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -699,6 +817,9 @@ apple@Apples-MacBook-Pro DevOps %</pre>
                 <div class="terminal-body">
                     <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -l  "hallo" hello.txt</strong>
 hello.txt
+apple@Apples-MacBook-Pro DevOps %
+apple@Apples-MacBook-Pro DevOps % <strong>grep -l "hello" demo.txt</strong>
+demo.txt
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -736,6 +857,10 @@ apple@Apples-MacBook-Pro DevOps % <strong>grep -l  "hallo" hello.txt</strong>
 hello.txt
 apple@Apples-MacBook-Pro DevOps % <strong>grep -c  "hallo" hello.txt</strong>
 2
+apple@Apples-MacBook-Pro DevOps %
+apple@Apples-MacBook-Pro DevOps % <strong>grep -w "hello" demo.txt</strong>
+hi hello 
+hello world 
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -778,6 +903,10 @@ apple@Apples-MacBook-Pro DevOps %</pre>
                     <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -n  "hallo" hello.txt</strong>
 1:hallo, wie geht's ?
 4:hallo
+apple@Apples-MacBook-Pro DevOps %
+apple@Apples-MacBook-Pro DevOps % <strong>grep -n "hello" demo.txt</strong>
+2:hi hello 
+3:hello world 
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -799,6 +928,10 @@ apple@Apples-MacBook-Pro DevOps %</pre>
                     <pre>apple@Apples-MacBook-Pro DevOps % <strong>grep -v  "hallo" hello.txt</strong>
 hi 
 hello
+apple@Apples-MacBook-Pro DevOps %
+apple@Apples-MacBook-Pro DevOps % <strong>grep -v "hello" demo.txt</strong>
+this is a text file 
+world map 
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -823,6 +956,18 @@ hallo, wie geht's ?
 hallo
 apple@Apples-MacBook-Pro DevOps % <strong>grep  "hallo$" hello.txt</strong>
 hallo
+apple@Apples-MacBook-Pro DevOps %
+apple@Apples-MacBook-Pro DevOps % <strong>grep "^hello" demo.txt</strong>
+hello world 
+apple@Apples-MacBook-Pro DevOps % <strong>Match Lines Ending with a String using grep</strong>
+zsh: command not found: Match
+apple@Apples-MacBook-Pro DevOps % <strong>grep "hello$" demo.txt</strong>                    
+apple@Apples-MacBook-Pro DevOps % <strong>grep "o$" demo.txt</strong> 
+apple@Apples-MacBook-Pro DevOps % <strong>grep "i$" demo.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>grep "os$" demo.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>grep "m$" demo.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>grep "p$" demo.txt</strong>
+apple@Apples-MacBook-Pro DevOps % <strong>grep "map$" demo.txt</strong>
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -848,6 +993,18 @@ apple@Apples-MacBook-Pro DevOps % <strong>grep -e  "hallo" -e "hi"  hello.txt</s
 hallo, wie geht's ?
 hi 
 hallo
+apple@Apples-MacBook-Pro DevOps %
+apple@Apples-MacBook-Pro DevOps % <strong>grep -e "hello" -e"hi" demo.txt</strong>           
+this is a text file 
+hi hello 
+hello world 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -e "hello" -e"hello" demo.txt</strong>
+hi hello 
+hello world 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -e "hello" -e"map" demo.txt</strong>
+hi hello 
+hello world 
+world map 
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -873,6 +1030,16 @@ hallo, wie geht's ?
 hi 
 hello
 hallo
+apple@Apples-MacBook-Pro DevOps %
+apple@Apples-MacBook-Pro DevOps % <strong> -f to Read Patterns from a File</strong>
+zsh: command not found: -f
+apple@Apples-MacBook-Pro DevOps % <strong>sudo vim pattern.txt</strong>
+Password:
+apple@Apples-MacBook-Pro DevOps % <strong>grep -f pattern.txt  demo.txt</strong>
+this is a text file 
+hi hello 
+hello world 
+world map 
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -914,6 +1081,32 @@ hallo, wie geht's ?
 hi 
 hello
 hallo
+apple@Apples-MacBook-Pro DevOps %
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A[3] pattern.txt</strong>
+zsh: no matches found: -A[3]
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A["world"] pattern.txt</strong>
+zsh: no matches found: -A[world]
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A"world" pattern.txt</strong> 
+grep: Invalid argument
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A1 "world" pattern.txt</strong>
+hello world
+
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A2 "world" demo.txt</strong>  
+hello world 
+world map 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A3 "world" demo.txt</strong>
+hello world 
+world map 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A1 "hello" demo.txt</strong>
+hi hello 
+hello world 
+world map 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A3 "hello" demo.txt</strong>
+hi hello 
+hello world 
+world map 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A3 pattern.txt demo.txt</strong> 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -A1 pattern.txt demo.txt</strong>
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -939,6 +1132,17 @@ apple@Apples-MacBook-Pro DevOps % <strong>ls</strong>
 a.tx			broken			home			inode.html		netstat.txt		pattern.txt		traceroute Ping.html	var
 a.txt			gopal			index.html		missing.txt		passsword.txt		pinglogs.txt		traceroutelog1.txt
 b.txt			hello.txt		innodedemo.txt		netstat-guide.html	password.html		softlink.html		ufw.html
+apple@Apples-MacBook-Pro DevOps %
+apple@Apples-MacBook-Pro DevOps % <strong>grep -r  "hello" demo.txt</strong> 
+demo.txt:hi hello 
+demo.txt:hello world 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -r  "h" demo.txt</strong>
+demo.txt:this is a text file 
+demo.txt:hi hello 
+demo.txt:hello world 
+apple@Apples-MacBook-Pro DevOps % <strong>grep -r  "i" demo.txt</strong>
+demo.txt:this is a text file 
+demo.txt:hi hello 
 apple@Apples-MacBook-Pro DevOps %</pre>
                 </div>
             </div>
@@ -946,10 +1150,12 @@ apple@Apples-MacBook-Pro DevOps %</pre>
     </div>
 
     <footer>
-           <p style="margin-top: 15px; font-size: 14px;">
+        <p style="margin-top: 15px; font-size: 14px;">
             <strong>References:</strong><br>
-            <a href="https://www.geeksforgeeks.org/operating-systems/inode-in-operating-system/" target="_blank" style="color: #1d1d1f; text-decoration: none;">GeeksforGeeks - Inode in Operating System</a><br>
-            <a href="https://www.geeksforgeeks.org/linux-unix/grep-command-in-unixlinux/" target="_blank" style="color: #1d1d1f; text-decoration: none;">GeeksforGeeks - Grep Command in Unix/Linux</a>
+            <a href="https://www.geeksforgeeks.org/operating-systems/inode-in-operating-system/" target="_blank"
+                style="color: #1d1d1f; text-decoration: none;">GeeksforGeeks - Inode in Operating System</a><br>
+            <a href="https://www.geeksforgeeks.org/linux-unix/grep-command-in-unixlinux/" target="_blank"
+                style="color: #1d1d1f; text-decoration: none;">GeeksforGeeks - Grep Command in Unix/Linux</a>
         </p>
     </footer>
 </body>

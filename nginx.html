@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -116,9 +117,17 @@
             border-radius: 50%;
         }
 
-        .terminal-dot.red { background: #ff5f56; }
-        .terminal-dot.yellow { background: #ffbd2e; }
-        .terminal-dot.green { background: #27c93f; }
+        .terminal-dot.red {
+            background: #ff5f56;
+        }
+
+        .terminal-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .terminal-dot.green {
+            background: #27c93f;
+        }
 
         .terminal-title {
             flex: 1;
@@ -144,6 +153,8 @@
             color: #f8f8f2;
             margin: 0;
             white-space: pre-wrap;
+            word-break: break-word;
+            overflow-wrap: anywhere;
             line-height: 1.6;
         }
 
@@ -237,11 +248,17 @@
         }
 
         @media (max-width: 768px) {
-            .page-header h1 { font-size: 32px; }
-            .page-header { padding: 40px 20px; }
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .page-header {
+                padding: 40px 20px;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
@@ -266,6 +283,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#user"><i class="bi bi-person"></i> User Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#macos"><i class="bi bi-apple"></i> macOS Session</a>
                     </li>
                 </ul>
             </div>
@@ -800,6 +820,632 @@ access.log  error.log</pre>
             </div>
         </div>
 
+        <!-- macOS Session Section -->
+        <div class="section-header" id="macos">
+            <i class="bi bi-apple"></i>
+            <span>macOS Nginx & Docker Experiments</span>
+        </div>
+
+        <div class="terminal-grid">
+
+            <!-- Window 1: Initial Session & Docker Checks -->
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Initial Session & Docker Checks</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>Last login: Fri Jan 30 15:57:04 on ttys004
+You have new mail.
+apple@Apples-MacBook-Pro ~ % open -a Docker
+
+apple@Apples-MacBook-Pro ~ % Jan 30 15:57:04 on ttys004
+You have new mail.
+apple@Apples-MacBook-Pro ~ % open -a Docker
+
+apple@Apples-MacBook-Pro ~ %
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+zsh: command not found: Jan
+zsh: command not found: You
+zsh: command not found: apple@Apples-MacBook-Pro
+zsh: command not found: apple@Apples-MacBook-Pro
+apple@Apples-MacBook-Pro ~ % Jan 30 15:57:04 on ttys004
+You have new mail.
+apple@Apples-MacBook-Pro ~ % open -a Docker
+
+apple@Apples-MacBook-Pro ~ %
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+zsh: command not found: Jan
+zsh: command not found: You
+zsh: command not found: apple@Apples-MacBook-Pro
+zsh: command not found: apple@Apples-MacBook-Pro
+apple@Apples-MacBook-Pro ~ % open -a Docker                    
+
+apple@Apples-MacBook-Pro ~ % docker --version
+docker ps
+
+Docker version 29.1.5, build 0e6fee6
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES</pre>
+                </div>
+            </div>
+
+            <!-- Window 2: Nginx Docker Test & Homebrew Install -->
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Nginx Docker Test & Homebrew Install</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro ~ % docker run -d -p 8080:80 --name nginx-test nginx
+
+Unable to find image 'nginx:latest' locally
+latest: Pulling from library/nginx
+http://localhost:8080
+
+d637807aba98: Pull complete 
+1d5a66120144: Pull complete 
+f54f17cce8f7: Pull complete 
+15a5b76537aa: Pull complete 
+96b249cf17a2: Pull complete 
+f43c327f6738: Pull complete 
+a178f616fffa: Pull complete 
+9ddb646ece5b: Download complete 
+f42115329fce: Download complete 
+Digest: sha256:c881927c4077710ac4b1da63b83aa163937fb47457950c267d92f7e4dedf4aec
+Status: Downloaded newer image for nginx:latest
+0acae9931d6f5cab3bf7d8051e023a6bc3fb1b683eb4b126ea70ad8836b02cb2
+apple@Apples-MacBook-Pro ~ % http://localhost:8080
+zsh: no such file or directory: http://localhost:8080
+apple@Apples-MacBook-Pro ~ % 
+apple@Apples-MacBook-Pro ~ % ls /Applications/XAMPP/xamppfiles/htdocs/DevOps
+
+a.tx									innodedemo.txt								pinglogs.txt
+a.txt									inode.html								rebuild_with_split_terminals.py
+b.txt									linux_user_add.png							remove_old_terminal.py
+broken									logs and journalctl.html						Shell Scripting - Standard Input, Output and Error,pipe basics.html
+check_nesting.py							logs_raw_content.txt							softlink.html
+check_sizes.py								missing.txt								split_into_30.py
+date_time_file_creation.html						netstat-guide.html							split_into_60.py
+dig.html								netstat.txt								split_large_terminal.py
+find_large_terminals.py							nginx									split_terminals.py
+fix_terminal_nesting.py							nginx.html								traceroute Ping.html
+gopal									nmap.html								traceroutelog1.txt
+hello.txt								pacewisdom_scan.txt							ufw.html
+home									passsword.txt								var
+host-commands.html							password.html
+index.html								pattern.txt
+apple@Apples-MacBook-Pro ~ % nano /Applications/XAMPP/xamppfiles/htdocs/DevOps/index.html
+
+apple@Apples-MacBook-Pro ~ % nano /opt/homebrew/etc/nginx/nginx.conf
+
+apple@Apples-MacBook-Pro ~ % sudo chown -R apple:staff /Applications/XAMPP/xamppfiles/htdocs/DevOps
+sudo chmod -R 755 /Applications/XAMPP/xamppfiles/htdocs/DevOps
+
+Password:
+apple@Apples-MacBook-Pro ~ % nginx -t
+
+zsh: command not found: nginx
+apple@Apples-MacBook-Pro ~ % brew install nginx
+
+✔︎ JSON API cask.jws.json                                                                                                                                                                                                        Downloaded   15.3MB/ 15.3MB
+✔︎ JSON API formula.jws.json                                                                                                                                                                                                     Downloaded   32.0MB/ 32.0MB
+==> Fetching downloads for: nginx
+✔︎ Bottle Manifest nginx (1.29.4)                                                                                                                                                                                                Downloaded   11.2KB/ 11.2KB
+✔︎ Bottle nginx (1.29.4)                                                                                                                                                                                                         Downloaded    1.5MB/  1.5MB
+==> Pouring nginx--1.29.4.arm64_tahoe.bottle.tar.gz
+==> Caveats
+Docroot is: /opt/homebrew/var/www
+
+The default port has been set in /opt/homebrew/etc/nginx/nginx.conf to 8080 so that
+nginx can run without sudo.
+
+nginx will load all files in /opt/homebrew/etc/nginx/servers/.
+
+To start nginx now and restart at login:
+  brew services start nginx
+Or, if you don't want/need a background service you can just run:
+  /opt/homebrew/opt/nginx/bin/nginx -g daemon\ off\;
+==> Summary
+🍺  /opt/homebrew/Cellar/nginx/1.29.4: 27 files, 2.6MB
+==> Running `brew cleanup nginx`...
+Disable this behaviour by setting `HOMEBREW_NO_INSTALL_CLEANUP=1`.
+Hide these hints with `HOMEBREW_NO_ENV_HINTS=1` (see `man brew`).
+apple@Apples-MacBook-Pro ~ % brew list | grep nginx
+
+nginx
+apple@Apples-MacBook-Pro ~ % which nginx
+
+/opt/homebrew/bin/nginx
+apple@Apples-MacBook-Pro ~ % /opt/homebrew/bin/nginx
+
+nginx: [emerg] bind() to 0.0.0.0:8080 failed (48: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8080 failed (48: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8080 failed (48: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8080 failed (48: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8080 failed (48: Address already in use)
+nginx: [emerg] still could not bind()</pre>
+                </div>
+            </div>
+
+            <!-- Window 3: Port Conflict Troubleshooting -->
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Port Conflict Troubleshooting</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro ~ % docker run -d -p 3000  --name nginx-test nginx             
+
+docker: Error response from daemon: Conflict. The container name "/nginx-test" is already in use by container "0acae9931d6f5cab3bf7d8051e023a6bc3fb1b683eb4b126ea70ad8836b02cb2". You have to remove (or rename) that container to be able to reuse that name.
+
+Run 'docker run --help' for more information
+apple@Apples-MacBook-Pro ~ % docker run -d -p 3000:80  --name nginx-test nginx
+docker: Error response from daemon: Conflict. The container name "/nginx-test" is already in use by container "0acae9931d6f5cab3bf7d8051e023a6bc3fb1b683eb4b126ea70ad8836b02cb2". You have to remove (or rename) that container to be able to reuse that name.
+
+Run 'docker run --help' for more information
+apple@Apples-MacBook-Pro ~ % docker run -d -p 3000:80  --name nginx-test1 nginx
+b91e5dcf86ed2455c01baabf37031b88cc29a5ef478b737c8179ed3a57b8b7d4
+apple@Apples-MacBook-Pro ~ % http://localhost:3000                                               
+zsh: no such file or directory: http://localhost:3000
+apple@Apples-MacBook-Pro ~ % curl http://localhost:3000
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href="http://nginx.org/"&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href="http://nginx.com/"&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+apple@Apples-MacBook-Pro ~ % vim  /opt/homebrew/etc/nginx/nginx.conf       
+
+apple@Apples-MacBook-Pro ~ % docker run -d -p 8081:80  --name nginx-test2  nginx
+e9843352e697ff43ca504aa63f6e8290b465a28d76271b0c77a547aad18f069f
+apple@Apples-MacBook-Pro ~ % curl http://localhost:8081                         
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href="http://nginx.org/"&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href="http://nginx.com/"&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+apple@Apples-MacBook-Pro ~ % http://localhost:8081                             
+zsh: no such file or directory: http://localhost:8081
+apple@Apples-MacBook-Pro ~ % nginx -t
+
+nginx: the configuration file /opt/homebrew/etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /opt/homebrew/etc/nginx/nginx.conf test is successful
+apple@Apples-MacBook-Pro ~ % nginx
+
+nginx: [emerg] bind() to 0.0.0.0:8081 failed (48: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8081 failed (48: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8081 failed (48: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8081 failed (48: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8081 failed (48: Address already in use)
+nginx: [emerg] still could not bind()</pre>
+                </div>
+            </div>
+
+            <!-- Window 4: Logs, Process Check & Verification -->
+            <div class="terminal-window">
+                <div class="terminal-titlebar">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Logs, Process Check & Verification</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@Apples-MacBook-Pro ~ % http://localhost:8081
+
+zsh: no such file or directory: http://localhost:8081
+apple@Apples-MacBook-Pro ~ % curl http://localhost:8081
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+&lt;style&gt;
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+&lt;p&gt;If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.&lt;/p&gt;
+
+&lt;p&gt;For online documentation and support please refer to
+&lt;a href="http://nginx.org/"&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+Commercial support is available at
+&lt;a href="http://nginx.com/"&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+apple@Apples-MacBook-Pro ~ % docker ps
+docker stop nginx-test2
+
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS              PORTS                                     NAMES
+e9843352e697   nginx     "/docker-entrypoint.…"   About a minute ago   Up About a minute   0.0.0.0:8081->80/tcp, [::]:8081->80/tcp   nginx-test2
+b91e5dcf86ed   nginx     "/docker-entrypoint.…"   7 minutes ago        Up 7 minutes        0.0.0.0:3000->80/tcp, [::]:3000->80/tcp   nginx-test1
+0acae9931d6f   nginx     "/docker-entrypoint.…"   18 minutes ago       Up 18 minutes       0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   nginx-test
+nginx-test2
+apple@Apples-MacBook-Pro ~ % vim /opt/homebrew/etc/nginx/nginx.conf
+
+apple@Apples-MacBook-Pro ~ % nginx -t                              
+
+nginx: [emerg] "server" directive is not allowed here in /opt/homebrew/etc/nginx/nginx.conf:1
+nginx: configuration file /opt/homebrew/etc/nginx/nginx.conf test failed
+apple@Apples-MacBook-Pro ~ % vim /opt/homebrew/etc/nginx/nginx.conf
+
+apple@Apples-MacBook-Pro ~ % nginx -t
+
+nginx: the configuration file /opt/homebrew/etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /opt/homebrew/etc/nginx/nginx.conf test is successful
+apple@Apples-MacBook-Pro ~ % nginx
+
+apple@Apples-MacBook-Pro ~ % http://localhost:8081
+
+zsh: no such file or directory: http://localhost:8081
+apple@Apples-MacBook-Pro ~ % curl http://localhost:8081
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Kishan K - DevOps Trainee Intern Digital Report&lt;/title&gt;
+    &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"&gt;
+    &lt;style&gt;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        /* ... (styles truncated for brevity in display, but effectively showing the report structure) ... */
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 24px; }
+            .content { padding: 20px; }
+            header { padding: 40px 20px; }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;header&gt;
+            &lt;h1&gt;DevOps &lt;/h1&gt;
+            &lt;p class="subtitle"&gt;Digital Report&lt;/p&gt;
+            &lt;p class="intern-name"&gt;Kishan K&lt;/p&gt;
+        &lt;/header&gt;
+
+        &lt;div class="content"&gt;
+            &lt;section&gt;
+                &lt;h2&gt;Repository Content&lt;/h2&gt;
+                &lt;div class="stats-section"&gt;
+                    &lt;div class="stat-card"&gt;
+                        &lt;div class="stat-number" id="htmlCount"&gt;0&lt;/div&gt;
+                        &lt;div class="stat-label"&gt;HTML Files&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="stat-card"&gt;
+                        &lt;div class="stat-number" id="txtCount"&gt;0&lt;/div&gt;
+                        &lt;div class="stat-label"&gt;Text Files&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="stat-card"&gt;
+                        &lt;div class="stat-number" id="totalCount"&gt;0&lt;/div&gt;
+                        &lt;div class="stat-label"&gt;Total Files&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;h2&gt;HTML Files (Sorted by Date)&lt;/h2&gt;
+                &lt;div class="card-grid" id="htmlFiles"&gt;&lt;/div&gt;
+
+                &lt;h2&gt;Text Files (Sorted by Date)&lt;/h2&gt;
+                &lt;div class="card-grid" id="txtFiles"&gt;&lt;/div&gt;
+            &lt;/section&gt;
+        &lt;/div&gt;
+
+        &lt;footer&gt;
+            &lt;p&gt;DevOps Repository Dashboard - Last Updated: &lt;span id="lastUpdate"&gt;&lt;/span&gt;&lt;/p&gt;
+        &lt;/footer&gt;
+    &lt;/div&gt;
+
+    &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // Repository files data with topics and dates (HTML and Text files only)
+        const repoFiles = [
+            { name: 'password.html', topic: 'Password & File Management', type: 'html', icon: 'bi-shield-lock', date: 'Wed Jan 21 17:34:45 2026' },
+            { name: 'inode.html', topic: 'Inode & Grep Commands', type: 'html', icon: 'bi-hdd', date: 'Thu Jan 22 12:00:24 2026' },
+            /* ... (script content) ... */
+        ];
+        // ... (rest of script) ...
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;%
+apple@Apples-MacBook-Pro ~ % tail -f /opt/homebrew/var/log/nginx/access.log
+
+127.0.0.1 - - [30/Jan/2026:16:46:51 +0530] "GET / HTTP/1.1" 200 12705 "-" "curl/8.7.1"
+
+^C        
+apple@Apples-MacBook-Pro ~ % tail -f /opt/homebrew/var/log/nginx/error.log
+
+2026/01/30 16:29:57 [emerg] 52997#0: bind() to 0.0.0.0:8080 failed (48: Address already in use)
+2026/01/30 16:29:57 [emerg] 52997#0: still could not bind()
+2026/01/30 16:38:01 [emerg] 53395#0: bind() to 0.0.0.0:8081 failed (48: Address already in use)
+2026/01/30 16:38:01 [emerg] 53395#0: still could not bind()
+2026/01/30 16:45:07 [emerg] 53733#0: "server" directive is not allowed here in /opt/homebrew/etc/nginx/nginx.conf:1
+^C
+apple@Apples-MacBook-Pro ~ % ps aux | grep nginx                                                                                            
+
+apple            54184   0.0  0.0 435300224   1376 s000  S+    4:54PM   0:00.01 grep nginx
+apple            53805   0.0  0.0 435316176   1760   ??  S     4:46PM   0:00.00 nginx: worker process
+apple            53804   0.0  0.0 435312080    512   ??  Ss    4:46PM   0:00.00 nginx: master process nginx
+apple@Apples-MacBook-Pro ~ % docker ps
+docker stop nginx-test nginx-test1 nginx-test2
+docker rm nginx-test nginx-test1 nginx-test2
+
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                     NAMES
+b91e5dcf86ed   nginx     "/docker-entrypoint.…"   22 minutes ago   Up 22 minutes   0.0.0.0:3000->80/tcp, [::]:3000->80/tcp   nginx-test1
+0acae9931d6f   nginx     "/docker-entrypoint.…"   34 minutes ago   Up 34 minutes   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   nginx-test
+nginx-test
+nginx-test1
+nginx-test2
+nginx-test
+nginx-test1
+nginx-test2
+apple@Apples-MacBook-Pro ~ % curl http://localhost:8081
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Kishan K - DevOps Trainee Intern Digital Report&lt;/title&gt;
+    &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"&gt;
+    &lt;style&gt;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        /* ... (styles truncated for brevity in display, but effectively showing the report structure) ... */
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            h2 { font-size: 24px; }
+            .content { padding: 20px; }
+            header { padding: 40px 20px; }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;header&gt;
+            &lt;h1&gt;DevOps &lt;/h1&gt;
+            &lt;p class="subtitle"&gt;Digital Report&lt;/p&gt;
+            &lt;p class="intern-name"&gt;Kishan K&lt;/p&gt;
+        &lt;/header&gt;
+
+        &lt;div class="content"&gt;
+            &lt;section&gt;
+                &lt;h2&gt;Repository Content&lt;/h2&gt;
+                &lt;div class="stats-section"&gt;
+                    &lt;div class="stat-card"&gt;
+                        &lt;div class="stat-number" id="htmlCount"&gt;0&lt;/div&gt;
+                        &lt;div class="stat-label"&gt;HTML Files&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="stat-card"&gt;
+                        &lt;div class="stat-number" id="txtCount"&gt;0&lt;/div&gt;
+                        &lt;div class="stat-label"&gt;Text Files&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="stat-card"&gt;
+                        &lt;div class="stat-number" id="totalCount"&gt;0&lt;/div&gt;
+                        &lt;div class="stat-label"&gt;Total Files&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;h2&gt;HTML Files (Sorted by Date)&lt;/h2&gt;
+                &lt;div class="card-grid" id="htmlFiles"&gt;&lt;/div&gt;
+
+                &lt;h2&gt;Text Files (Sorted by Date)&lt;/h2&gt;
+                &lt;div class="card-grid" id="txtFiles"&gt;&lt;/div&gt;
+            &lt;/section&gt;
+        &lt;/div&gt;
+
+        &lt;footer&gt;
+            &lt;p&gt;DevOps Repository Dashboard - Last Updated: &lt;span id="lastUpdate"&gt;&lt;/span&gt;&lt;/p&gt;
+        &lt;/footer&gt;
+    &lt;/div&gt;
+
+    &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // Repository files data with topics and dates (HTML and Text files only)
+        const repoFiles = [
+            { name: 'password.html', topic: 'Password & File Management', type: 'html', icon: 'bi-shield-lock', date: 'Wed Jan 21 17:34:45 2026' },
+            { name: 'inode.html', topic: 'Inode & Grep Commands', type: 'html', icon: 'bi-hdd', date: 'Thu Jan 22 12:00:24 2026' },
+            /* ... (script content) ... */
+        ];
+        // ... (rest of script) ...
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;%
+apple@Apples-MacBook-Pro ~ % cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+apple@Apples-MacBook-Pro DevOps % FILENAME="$(date '+%d-%m-%Y-%H-%M-%S').txt"
+echo "This file was created on $(date '+%d-%m-%Y %H:%M:%S')" > "$FILENAME"
+apple@Apples-MacBook-Pro DevOps % ls -l | grep "$FILENAME"
+-rw-r--r--  1 apple  staff      45 30 Jan 16:54 30-01-2026-16-54-54.txt
+apple@Apples-MacBook-Pro DevOps % vim /opt/homebrew/etc/nginx/nginx.conf
+
+apple@Apples-MacBook-Pro DevOps % nginx -t
+
+nginx: the configuration file /opt/homebrew/etc/nginx/nginx.conf syntax is ok
+nginx: [emerg] no "events" section in configuration
+nginx: configuration file /opt/homebrew/etc/nginx/nginx.conf test failed
+apple@Apples-MacBook-Pro DevOps % nginx -s reload
+nginx: [emerg] no "events" section in configuration
+apple@Apples-MacBook-Pro DevOps % http://localhost:8081
+
+zsh: no such file or directory: http://localhost:8081
+apple@Apples-MacBook-Pro DevOps % 
+apple@Apples-MacBook-Pro DevOps % open http://localhost:8081
+
+apple@Apples-MacBook-Pro DevOps % curl http://localhost:8081/"$FILENAME"
+
+This file was created on 30-01-2026 16:54:54
+apple@Apples-MacBook-Pro DevOps % cat 30-01-2026-16-54-54.txt
+This file was created on 30-01-2026 16:54:54
+apple@Apples-MacBook-Pro DevOps % Cron job: Use the echo command to write the current date and time to filename called pwscron.txt.
+1. Every day at 12:00 AM.
+2. Every Sunday at 9 AM.
+3. Trigger a cron hourly(once in every hour).
+4. From Monday - Friday every day at 10 PM trigger a cron job
+5. Trigger a cron at minute 15 past every 3rd hour from 0 through 20.
+6. Trigger a cron at minute 0 past hour 0 and 12 on day-of-month 1 in every 2nd month.
+zsh: killed     Cron job: Use the echo command to write the current date and time to filename
+zsh: command not found: 1.
+zsh: command not found: 2.
+zsh: no matches found: hourly(once in every hour).
+zsh: command not found: 4.
+zsh: command not found: 5.
+zsh: command not found: 6.
+apple@Apples-MacBook-Pro DevOps % crontab -e
+
+crontab: no crontab for apple - using an empty one
+crontab: installing new crontab
+apple@Apples-MacBook-Pro DevOps % crontab -e
+
+crontab: installing new crontab
+apple@Apples-MacBook-Pro DevOps % crontab -l
+9 17 * * * echo "$(date '+%d-%m-%Y %H:%M:%S')" > ~/pwscron.txt
+
+
+apple@Apples-MacBook-Pro DevOps % 
+</pre>
+                </div>
+            </div>
+        </div>
         <!-- File Management Section -->
         <div class="section-header">
             <i class="bi bi-folder"></i>
@@ -863,7 +1509,8 @@ Is the information correct? [Y/n] y</pre>
             </div>
 
             <div style="text-align: center; margin: 20px 0;">
-                <img src="linux_user_add.png" alt="Linux User Addition" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <img src="linux_user_add.png" alt="Linux User Addition"
+                    style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             </div>
 
             <div class="terminal-window">
@@ -940,7 +1587,8 @@ text.txt</pre>
     <!-- Footer -->
     <footer>
         <p><i class="bi bi-c-circle"></i> 2026 DevOps Training Documentation</p>
-        <p class="mt-2" style="font-size: 14px; color: #86868b;">Terminal Session Log - Nginx Configuration & Management</p>
+        <p class="mt-2" style="font-size: 14px; color: #86868b;">Terminal Session Log - Nginx Configuration & Management
+        </p>
     </footer>
 
     <!-- Scroll to Top Button -->
@@ -952,7 +1600,7 @@ text.txt</pre>
     <script>
         // Scroll to top functionality
         const scrollTopBtn = document.getElementById('scrollTop');
-        
+
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
                 scrollTopBtn.classList.add('visible');
@@ -960,7 +1608,7 @@ text.txt</pre>
                 scrollTopBtn.classList.remove('visible');
             }
         });
-        
+
         scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
@@ -982,5 +1630,8 @@ text.txt</pre>
             });
         });
     </script>
+
+
 </body>
+
 </html>

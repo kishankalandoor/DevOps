@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Digital Report & Roadmap</title>
+    <!-- Using CDN for Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        :root {
+            --bg-body: #f5f5f7;
+            --bg-card: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --border-color: #e0e0e0;
+            --accent: #0071e3;
+            --success: #34c759;
+            --warning: #ff9500;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.47059;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            background: var(--bg-card);
+            padding: 60px 40px;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        h1 {
+            font-size: 48px;
+            line-height: 1.08;
+            font-weight: 700;
+            letter-spacing: -0.003em;
+            margin: 0 0 10px 0;
+            color: var(--text-primary);
+        }
+        
+        p.subtitle {
+            font-size: 24px;
+            line-height: 1.33;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+        
+        .intern-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 20px;
+            color: var(--text-primary);
+        }
+
+        /* Stats Grid */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #1d1d1f 0%, #434344 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 60px 0 30px;
+            color: var(--text-primary);
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Roadmap Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin-top: 40px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 20px;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--border-color);
+        }
+
+        .task-card {
+            background-color: var(--bg-card);
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+        
+        .task-card:hover {
+            transform: scale(1.01);
+            box-shadow: var(--hover-shadow);
+            border-color: var(--text-primary);
+        }
+        
+        /* Different styling for connected tasks to highlight integration */
+        .task-card.has-file {
+            border-left: 5px solid var(--accent);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -57px;
+            top: 35px;
+            width: 14px;
+            height: 14px;
+            background-color: var(--bg-card);
+            border: 3px solid var(--text-secondary);
+            border-radius: 50%;
+            z-index: 10;
+        }
+        
+        .task-card.has-file .timeline-dot {
+            border-color: var(--accent);
+            background-color: var(--accent);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .task-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .status-done {
+            background-color: #e8f5e9;
+            color: #1b5e20;
+        }
+        
+        .status-submitted {
+            background-color: #e3f2fd;
+            color: #0277bd;
+        }
+        
+        .status-pending {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+
+        .resources-box {
+            background: #fbfbfd;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .resources-box a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .resources-box a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Linked File Card inside Task */
+        .linked-file {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #f5f5f7;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-decoration: none;
+            color: var(--text-primary);
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .linked-file:hover {
+            background: #e8e8ed;
+            border-color: var(--border-color);
+        }
+        
+        .linked-file-icon {
+            font-size: 24px;
+            color: var(--text-secondary);
+        }
+        
+        .linked-file-info {
+            flex: 1;
+        }
+        
+        .linked-file-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .linked-file-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 32px; }
+            .timeline { padding-left: 30px; }
+            .timeline::before { left: 8px; }
+            .timeline-dot { left: -42px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DevOps Digital Report</h1>
+            <p class="subtitle">Trajectory & Repository Dashboard</p>
+            <p class="intern-name">Kishan K</p>
+        </header>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number">14</div>
+                <div class="stat-label">HTML Files</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">13</div>
+                <div class="stat-label">Text Files</div>
+            </div>
+             <div class="stat-card">
+                <div class="stat-number">124</div>
+                <div class="stat-label">Total Tasks</div>
+            </div>
+        </div>
+
+        <!-- Timeline Section -->
+        <h2 class="section-title"><i class="bi bi-signpost-2"></i> Learning Roadmap</h2>
+        <div class="timeline">
+
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore these commands: Nmap, netstat, ifconfig, ufw, host, dig, find, locate, awk, sed, grep, cut, ping.</div>
+                    <div>
+                        <span class="status-badge status-done">Explored and executed , made a report on my progress of  the  netstat, ifconfig, ufw, grep , ping</span>
+                        <span class="status-badge" style="background:#f5f5f7; color:#666">21/01/2026;22/01/2025;23/01/2026; 27/01/1026</span>
+                    </div>
+                </div>
+        
+            <a href="netstat.txt" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-file-text"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: netstat.txt</div>
+                     <div class="linked-file-meta">Modified: Jan 21 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            <div class="resources-box"><div style="margin-bottom:8px;">netstat:</div><div style="margin-bottom:8px;"><a href="https://www.youtube.com/watch?v=bxFwpm4IobU" target="_blank">https://www.youtube.com/watch?v=bxFwpm4IobU</a></div><div style="margin-bottom:8px;"><a href="https://www.tutorialspoint.com/unix_commands/netstat.htm" target="_blank">https://www.tutorialspoint.com/unix_commands/netstat.htm</a></div><div style="margin-bottom:8px;">ufw:</div><div style="margin-bottom:8px;"><a href="https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands" target="_blank">https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands</a></div><div style="margin-bottom:8px;">dig:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/dig-command-in-linux-with-examples/" target="_blank">https://www.geeksforgeeks.org/dig-command-in-linux-with-examples/</a></div><div style="margin-bottom:8px;">host:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/host-command-in-linux-with-examples/" target="_blank">https://www.geeksforgeeks.org/host-command-in-linux-with-examples/</a></div><div style="margin-bottom:8px;">traceroute:</div><div style="margin-bottom:8px;"><a href="https://linuxhint.com/run_traceroute_linux/" target="_blank">https://linuxhint.com/run_traceroute_linux/</a></div><div style="margin-bottom:8px;">awk:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/awk-command-unixlinux-examples/" target="_blank">https://www.geeksforgeeks.org/awk-command-unixlinux-examples/</a></div><div style="margin-bottom:8px;">sed:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/" target="_blank">https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/</a></div><div style="margin-bottom:8px;">grep:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/grep-command-in-unixlinux/" target="_blank">https://www.geeksforgeeks.org/grep-command-in-unixlinux/</a></div><div style="margin-bottom:8px;"><a href="https://bencane.com/2012/10/22/cheat-sheet-cutting-text-with-cut/" target="_blank">https://bencane.com/2012/10/22/cheat-sheet-cutting-text-with-cut/</a></div><div style="margin-bottom:8px;">ping:</div><div style="margin-bottom:8px;"><a href="https://linuxize.com/post/linux-ping-command/" target="_blank">https://linuxize.com/post/linux-ping-command/</a></div></div></div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore inode in the Linux file system.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        <span class="status-badge" style="background:#f5f5f7; color:#666">2026-01-23</span>
+                    </div>
+                </div>
+        
+            <a href="date_time_file_creation.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-calendar-check"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: date_time_file_creation.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore the linux file system hierarchy, try to understand each directory’s purpose. (ex: /etc /var ... )</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        <span class="status-badge" style="background:#f5f5f7; color:#666">2026-01-22</span>
+                    </div>
+                </div>
+        
+            <a href="date_time_file_creation.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-calendar-check"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: date_time_file_creation.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            <div class="resources-box"><div style="margin-bottom:8px;">ls -a -la -cd -mkdir touch , cat ,</div></div></div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Change the password of the current user using the terminal.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="password.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-shield-lock"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: password.html</div>
+                     <div class="linked-file-meta">Modified: Jan 21 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            <div class="resources-box"><div style="margin-bottom:8px;">done</div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create a new user called testadmin using terminal and provide restricted access to one folder (/home/testadmin).</div>
+                    <div>
+                        
+                        <span class="status-badge" style="background:#f5f5f7; color:#666">2026-01-27</span>
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;">done in VM</div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Find all the listening ports of TCT/UDP in the system.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;">done</div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Change the system hostname to pwsops using the terminal.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Compress the folder /var/log with a high compression ratio.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create 2 files called a1.txt, b2.txt respectively under /var/www folder. Create a soft link to a1.txt and a hard link to b2.txt in /home folder. Understand the difference.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="softlink.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: softlink.html</div>
+                     <div class="linked-file-meta">Modified: Jan 22 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            <div class="resources-box"><div style="margin-bottom:8px;">completed</div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore cronjob, systemd and timer.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;">cronjob:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/linux-systemd-and-its-components/" target="_blank">https://www.geeksforgeeks.org/linux-systemd-and-its-components/</a></div><div style="margin-bottom:8px;">systemd:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/linux-systemd-and-its-components/" target="_blank">https://www.geeksforgeeks.org/linux-systemd-and-its-components/</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore Log files, system log, and journctl logs.</div>
+                    <div>
+                        <span class="status-badge status-pending">{tail -f,cat,less} /var/log{syslog,}  is directory ; syslog = system log</span>
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;">/var/log is directory ; <a href="https://www.geeksforgeeks.org/linux-unix/journalctl-command-in-linux-with-examples/" target="_blank">https://www.geeksforgeeks.org/linux-unix/journalctl-command-in-linux-with-examples/</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore Commands: tail, head, date, curl, wget, telnet.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;">telnet:</div><div style="margin-bottom:8px;"><a href="https://www.digitalocean.com/community/tutorials/telnet-command-linux-unix" target="_blank">https://www.digitalocean.com/community/tutorials/telnet-command-linux-unix</a></div><div style="margin-bottom:8px;">tail:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/tail-command-linux-examples/" target="_blank">https://www.geeksforgeeks.org/tail-command-linux-examples/</a></div><div style="margin-bottom:8px;">head:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/head-command-linux-examples/" target="_blank">https://www.geeksforgeeks.org/head-command-linux-examples/</a></div><div style="margin-bottom:8px;">curl:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/curl-command-in-linux-with-examples/" target="_blank">https://www.geeksforgeeks.org/curl-command-in-linux-with-examples/</a></div><div style="margin-bottom:8px;">wget:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/wget-command-in-linux-unix/" target="_blank">https://www.geeksforgeeks.org/wget-command-in-linux-unix/</a></div><div style="margin-bottom:8px;">date:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/date-command-linux-examples/" target="_blank">https://www.geeksforgeeks.org/date-command-linux-examples/</a></div></div></div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Configure Nginx in the local system and access the http://localhost url. Check the access log and error log for the same.</div>
+                    <div>
+                        <span class="status-badge status-done">webserver fetches pages ; Nginix is a server that uses master slave architecture works simmilar to xampp server but includes only Only NGINX (Apache, MySQL, PHP, Perl saperate installation)High perfomance,good for load balancing and good scalable .Installed VMware fusion ubuntu ;  Done local host acceseed url in browser with welcome message ; found error and log  files in /var/log/nginx/ (default path of nginx in ubuntu os)</span>
+                        <span class="status-badge" style="background:#f5f5f7; color:#666">2026-06-27</span>
+                    </div>
+                </div>
+        
+            <a href="nginx.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-globe"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: nginx.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://www.youtube.com/watch?v=1ndlRiaYiWQ" target="_blank">https://www.youtube.com/watch?v=1ndlRiaYiWQ</a> <a href="https://ubuntu.com/tutorials/install-and-configure-nginx#1-overview" target="_blank">https://ubuntu.com/tutorials/install-and-configure-nginx#1-overview</a></div></div></div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create a file, filename should be current date and time ends with .txt extension. [ex: 03-09-2020-09-36-18.txt]</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="date_time_file_creation.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-calendar-check"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: date_time_file_creation.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Cron job: Use the echo command to write the current date and time to filename called pwscron.txt.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="date_time_file_creation.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-calendar-check"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: date_time_file_creation.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">1. Every day at 12:00 AM.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">2. Every Sunday at 9 AM.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">3. Trigger a cron hourly(once in every hour).</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">4. From Monday - Friday every day at 10 PM trigger a cron job</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">5. Trigger a cron at minute 15 past every 3rd hour from 0 through 20.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">6. Trigger a cron at minute 0 past hour 0 and 12 on day-of-month 1 in every 2nd month.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore vi editor and start using the vi editor here onwards.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/getting-started-with-vim-editor-in-linux/" target="_blank">https://www.geeksforgeeks.org/getting-started-with-vim-editor-in-linux/</a></div></div></div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Read on standard streams (stdin, stdout, stderr )</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore on Linux environment variables:</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">1. Print all env variables to stdout</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">2. Set and unset env variables</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">3. Persist env variables</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">4. Read any env variable you have set</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Read on Pipe operator ( | )</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/piping-in-unix-or-linux/" target="_blank">https://www.geeksforgeeks.org/piping-in-unix-or-linux/</a></div></div></div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Bash filters for effective file operations - sort, uniq, wc, sed egrep, rsync</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="date_time_file_creation.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-calendar-check"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: date_time_file_creation.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Set default access mode as 0750 for all newly created files.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Display all block devices of the system.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Understand kernel, system libraries and shell</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Check the swap memory in your system, if the swap is not set allocate 2G for SWAP.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://www.devopsschool.com/blog/what-is-swap-in-linux-and-useful-commands-to-work-with-swap-space-in-linux/" target="_blank">https://www.devopsschool.com/blog/what-is-swap-in-linux-and-useful-commands-to-work-with-swap-space-in-linux/</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore systemctl and set a service to start on reboot.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Get your Linux distribution details using the appropriate command. Understand other popular Linux and Unix distributions and learn their differences.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore SELinux.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore iptables, allow 22,80 &amp; 443 ports.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Learn the basics of git. Install git on your system and update the first repository by registering a free account on github.com</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://www.atlassian.com/git/tutorials" target="_blank">https://www.atlassian.com/git/tutorials</a></div><div style="margin-bottom:8px;"><a href="https://developer.ibm.com/tutorials/d-learn-workings-git/" target="_blank">https://developer.ibm.com/tutorials/d-learn-workings-git/</a></div></div></div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Bash scripting</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://www.tutorialkart.com/bash-shell-scripting/bash-tutorial/" target="_blank">https://www.tutorialkart.com/bash-shell-scripting/bash-tutorial/</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Get familiar with the .bashrc and .bash_history files.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Look at more and less commands.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;">less:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/less-command-linux-examples/" target="_blank">https://www.geeksforgeeks.org/less-command-linux-examples/</a></div><div style="margin-bottom:8px;">more:</div><div style="margin-bottom:8px;"><a href="https://www.geeksforgeeks.org/more-command-in-linux-with-examples/" target="_blank">https://www.geeksforgeeks.org/more-command-in-linux-with-examples/</a></div></div></div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to print “Hello from Google!” on the screen.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to Modify the shell script from above exercise to include a variable. The variable will hold the contents of the message “Hello from Pacewisdom!”variav</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to print an environment variable</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to store the output of the command “whoami” in a variable. Display “This script is run by  _.” where “_” is the output of the “whoami” command.echo</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to check if “/home/&lt;username&gt;/file” exists. If it does, print “File &lt;filename&gt; exist”.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to find files older than 3 days in /var/log.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Get familiar with the .bashrc and .bash_history files.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script, using for loop, display all the files from any directory which has more than 5 files in it.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to take any file from the home directory, and count the number of lines and display it.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="date_time_file_creation.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-calendar-check"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: date_time_file_creation.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script that displays “hello”,”test”,”wisdom”,”welcome”,”home”,and “freshers” on the screen with each appearing on a separate line.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script that prompts the user for a name of a file or directory and reports if it is a regular file, a directory, or another type of file.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="date_time_file_creation.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-calendar-check"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: date_time_file_creation.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Modify the previous script to accept an unlimited number of files and directories as arguments.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script that displays, “My script will exit with 0 exit status.” Be sure that the script does indeed exit with a 0 exit status.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script that consists of a function that displays the number of files in the present working directory.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to take input value(digit) and check if the input value is greater than 20 and also check the input value is odd or even.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to compress a folder and copy it to another folder.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script on the daily backup of a folder with high compression rate.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script that creates a new user and password.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to start and stop the service (take nginx service).</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="nginx.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-globe"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: nginx.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to display half the pyramid and inverted half pyramid.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to find the process id of the running service(Nginx)</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to display the reverse of the string, take a string as the input value.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to display all existing users and groups of the system.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to find the IP address of the system.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to read a file and find a matching pattern string. Pattern string to be taken as an input parameter.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">using bash script,run a cron job.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to send email to your email id with the subject “PWS Training Program”. Message body as “Hello from (your name)”</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script which will pause the execution for the 20s before executing the next line of code.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to fetch RAM, CPU, and Disk space usage of the system in percentage, and If any of the above reaches 60% trigger a mail to your email id.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to display the longest and shortest user-names on the system.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script which uses pipes or redirection to create an infinite feedback loop.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Install PostgreSQL, create a new user, enable remote connection to the user.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create a database allowing all privileges to newly created users.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create tables, add some dummy data, and perform some basic query operations(select, alter, update).</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="Shell Scripting - Standard Input, Output and Error,pipe basics.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: Shell Scripting - Standard Input, Output and Error,pipe basics.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create a database dump.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Write a bash script to take daily database backup(compressed) with proper date format in the filename.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="date_time_file_creation.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-calendar-check"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: date_time_file_creation.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Change the timezone to IST in Postgres.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create a read-only user for the database.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create a new user with an RSA key.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Enable internal firewall, allow 22, 80, 443.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore SCP, Transfer file from local to server, and vice versa.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="date_time_file_creation.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-calendar-check"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: date_time_file_creation.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create a server alias locally. Give the name as a dev server.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore web server and application server.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Install python3, pip3, Nginx on the server.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="nginx.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-globe"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: nginx.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create a virtual env.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore on DNS,Nameservers,Types of records,TTL.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://www.cloudflare.com/en-gb/learning/dns/what-is-dns/" target="_blank">https://www.cloudflare.com/en-gb/learning/dns/what-is-dns/</a></div><div style="margin-bottom:8px;"><a href="https://www.youtube.com/watch?v=7lxgpKh_fRY" target="_blank">https://www.youtube.com/watch?v=7lxgpKh_fRY</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">How domain name works, What ICANN do, Domain name providers (godaddy, google, namecheap etc)</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore on TLS and SSL.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;">SSL:</div><div style="margin-bottom:8px;"><a href="https://www.cloudflare.com/learning/ssl/what-is-ssl/" target="_blank">https://www.cloudflare.com/learning/ssl/what-is-ssl/</a></div><div style="margin-bottom:8px;">TLS:</div><div style="margin-bottom:8px;"><a href="https://www.cloudflare.com/en-gb/learning/ssl/transport-layer-security-tls/" target="_blank">https://www.cloudflare.com/en-gb/learning/ssl/transport-layer-security-tls/</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create an account on freenom and register a free domain.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Deploy angular application to a subdomain registered on the previous task, repo link: https://git.pacewisdom.com/internship/frontend-devops-trianing</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Integrate ssl for the same( try both letsencrypt and self signed ssl)</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore on Cloud computing, AWS regions, Availability Zones, IAM, EC2, Security groups, Elastic IP, EC2 instance launch type, AMI, RDS, VPC, Subnets, Route 53, Cloudwatch</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="traceroute Ping.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-arrow-repeat"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: traceroute Ping.html</div>
+                     <div class="linked-file-meta">Modified: Jan 22 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Launch configuration, Launch Template and ALB</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore on AWS services: Snapshots, IAM user/role(policy), ELB, ASG, Cloudfront.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">S3 : create a bucket and give permission to the IAM user to access buckets.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create a VPC and launch your instance in a private subnet and RDS in a private subnet and host a sample application on ec2. Use ALB to route traffic.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="host-commands.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: host-commands.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Setting cloudwatch alarm based on cpu load of your ec2 machine.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">EXplore  AWS lambda.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Host level Deployment- Laravel application. Host it under subdomain on freenom.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="host-commands.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: host-commands.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://github.com/laravel/laravel" target="_blank">https://github.com/laravel/laravel</a></div><div style="margin-bottom:8px;">php version: 7.4</div><div style="margin-bottom:8px;">mysql version: 5.7</div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore on Containerization and Docker</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://docs.docker.com/get-started/overview/" target="_blank">https://docs.docker.com/get-started/overview/</a></div></div></div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore more on docker commands like create,start,run,ls,inspect,logs,stop,rm,kill</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="host-commands.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: host-commands.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore on topics like Docker Volumes, Docker Networking, Dockerfile,Docker-compose</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Build and Deploy a python application to a docker container.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://python.land/deployment/containerize-your-project" target="_blank">https://python.land/deployment/containerize-your-project</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Build and Deploy a nodejs application to a docker container.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://nodejs.org/en/docs/guides/nodejs-docker-webapp" target="_blank">https://nodejs.org/en/docs/guides/nodejs-docker-webapp</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Build and Deploy the laravel php application shared in the previous day task to a docker container.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Build and Deploy a Java application to a docker container.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://developers.redhat.com/blog/2017/11/17/deploy-java-application-docker" target="_blank">https://developers.redhat.com/blog/2017/11/17/deploy-java-application-docker</a></div></div></div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Deploy Nginx as a reverse proxy in a docker container serving traffic to all the 4 applications mentioned above simultaneously.</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="nginx.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-globe"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: nginx.html</div>
+                     <div class="linked-file-meta">Modified: Jan 28 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore on continuous integration(CI) and continuous deployment(CD). Understand the difference</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore GitLab CI/CD</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore GitHub Actions</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore Jenkins.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Spin up Jenkins using docker locally and setup CI/CD, try jenkins using docker compose.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">On Jenkins setup some ci test cases, explore role based access,  Create different users with restrictions to jobs.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore Terraform and Cloudformation</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;">Terraform:</div><div style="margin-bottom:8px;"><a href="https://developer.hashicorp.com/terraform/tutorials" target="_blank">https://developer.hashicorp.com/terraform/tutorials</a></div><div style="margin-bottom:8px;">CloudFormation:</div><div style="margin-bottom:8px;"><a href="https://aws.amazon.com/cloudformation/getting-started/" target="_blank">https://aws.amazon.com/cloudformation/getting-started/</a></div><div style="margin-bottom:8px;"><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html" target="_blank">https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore Boto3, create an ec2 instance, a RDS instance using the same.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create an EC2 instance, a VPC, a RDS instance, an ALB and an ASG using terraform.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Create reusable modules for each component in terraform for the above task.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore on VPN (wireguard).</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://www.cyberciti.biz/faq/ubuntu-20-04-set-up-wireguard-vpn-server/" target="_blank">https://www.cyberciti.biz/faq/ubuntu-20-04-set-up-wireguard-vpn-server/</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore Docker Swarm.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Explore on Hashicorp Vault.</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        </div>
+            <div class="task-card has-file">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Host Vault on remote server, try with Secrets Engines, token,userpass, policy ,access, vault database</div>
+                    <div>
+                        <span class="status-badge status-submitted">Submitted</span>
+                        
+                    </div>
+                </div>
+        
+            <a href="host-commands.html" class="linked-file" target="_blank">
+                <div class="linked-file-icon"><i class="bi bi-filetype-html"></i></div>
+                <div class="linked-file-info">
+                     <div class="linked-file-name">View Work: host-commands.html</div>
+                     <div class="linked-file-meta">Modified: Jan 27 2026</div>
+                </div>
+                <div><i class="bi bi-arrow-right-short" style="font-size:20px;"></i></div>
+            </a>
+            <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://developer.hashicorp.com/vault/docs?product_intent=vault" target="_blank">https://developer.hashicorp.com/vault/docs?product_intent=vault</a></div></div></div>
+            <div class="task-card ">
+                <div class="timeline-dot"></div>
+                <div class="task-header">
+                    <div class="task-title">Using Vault generate otp SSH Credentials to a remote server</div>
+                    <div>
+                        
+                        
+                    </div>
+                </div>
+        <div class="resources-box"><div style="margin-bottom:8px;"><a href="https://faun.pub/generating-ssh-one-time-passwords-with-vault-7aa7fab0032" target="_blank">https://faun.pub/generating-ssh-one-time-passwords-with-vault-7aa7fab0032</a></div></div></div>
+        </div>
+
+        <footer>
+            <p>Generated on 2026-02-01 23:08</p>
+        </footer>
+    </div>
+</body>
+</html>

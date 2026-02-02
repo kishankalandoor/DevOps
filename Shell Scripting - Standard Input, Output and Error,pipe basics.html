@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Command Terminal Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: #1d1d1f !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #66d9ef !important;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #1d1d1f 0%, #2d2d2f 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header .subtitle {
+            font-size: 20px;
+            color: #ccc;
+            font-weight: 400;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, #1d1d1f 0%, #2d2d2f 100%);
+            color: white;
+            padding: 20px 30px;
+            font-weight: 600;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card-header-custom:hover {
+            background: linear-gradient(135deg, #2d2d2f 0%, #3d3d3f 100%);
+        }
+
+        .card-header-custom i {
+            font-size: 24px;
+        }
+
+        .card-body-custom {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #66d9ef;
+            display: inline-block;
+        }
+
+        .terminal {
+            background: #1d1d1f;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+
+        .terminal-body {
+            color: #f8f8f2;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .badge-custom {
+            background: #66d9ef;
+            color: #1d1d1f;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        footer {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+            border-radius: 18px;
+            margin-top: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .quick-nav {
+            position: sticky;
+            top: 80px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .quick-nav h5 {
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1d1d1f;
+        }
+
+        .quick-nav a {
+            display: block;
+            padding: 8px 12px;
+            color: #666;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .quick-nav a:hover {
+            background: #f5f5f7;
+            color: #1d1d1f;
+            padding-left: 20px;
+        }
+
+        .quick-nav a i {
+            margin-right: 8px;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1d1d1f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: #2d2d2f;
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 32px; }
+            .page-header { padding: 40px 20px; }
+            .card-body-custom { padding: 20px; }
+            .quick-nav { position: relative; top: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="bi bi-terminal"></i> Terminal Reference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#overview"><i class="bi bi-house"></i> Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#navigation"><i class="bi bi-folder"></i> Navigation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#host-commands"><i class="bi bi-hdd-network"></i> Host Commands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ping-tests"><i class="bi bi-arrow-repeat"></i> Ping Tests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dns-queries"><i class="bi bi-globe"></i> DNS Queries</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="bi bi-terminal-fill"></i> Shell Scripting - Standard I/O & Pipes</h1>
+            <p class="subtitle">Standard Input, Output, Error & Pipe Basics</p>
+        </div>
+
+        <div class="row">
+            <!-- Quick Navigation Sidebar -->
+            <div class="col-lg-3">
+                <div class="quick-nav">
+                    <h5><i class="bi bi-list-ul"></i> Quick Jump</h5>
+                    <a href="#filesystem"><i class="bi bi-folder"></i> File System Navigation</a>
+                    <a href="#stdout"><i class="bi bi-arrow-right-square"></i> Standard Output</a>
+                    <a href="#stdin"><i class="bi bi-arrow-left-square"></i> Standard Input</a>
+                    <a href="#permissions"><i class="bi bi-shield-lock"></i> File Permissions</a>
+                    <a href="#nginx-install"><i class="bi bi-download"></i> Nginx Installation</a>
+                    <a href="#nginx-config"><i class="bi bi-gear"></i> Nginx Configuration</a>
+                    <a href="#ufw"><i class="bi bi-shield-check"></i> UFW Firewall</a>
+                    <a href="#systemctl"><i class="bi bi-play-circle"></i> Systemctl</a>
+                    <a href="#logs"><i class="bi bi-journal-text"></i> Log Files</a>
+                    <a href="#pipes"><i class="bi bi-arrow-left-right"></i> Pipes & Filters</a>
+                    <a href="#sort-grep"><i class="bi bi-filter"></i> Sort, Grep & Tee</a>
+                    <a href="#head-tail"><i class="bi bi-list-ol"></i> Head, Tail & Uniq</a>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+
+                <!-- File System Navigation -->
+                <div class="content-card" id="filesystem">
+                    <div class="card-header-custom">
+                        <i class="bi bi-folder"></i>
+                        <span>File System Navigation</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">pwd, ls, cd Commands</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ pwd
+/
+gopala@gopala-VMware20-1:/$ ls
+bin   cdrom    dev  home  lost+found  mnt             opt   root  sbin  srv       sys  usr
+boot  crontab  etc  lib   media       nginx_file.txt  proc  run   snap  swap.img  tmp  var
+gopala@gopala-VMware20-1:/$ cd bin
+gopala@gopala-VMware20-1:/bin$ ls
+GET      HEAD     POST     cat      chmod    cp       date     echo     grep     ls       mkdir    mv       pwd      rm       sed      sh       tar      touch    vi
+...</pre></div>
+                        </div>
+                        <p class="section-title">Returning to Root Directory</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/bin$ cd ..
+gopala@gopala-VMware20-1:/$ ls
+bin   cdrom    dev  home  lost+found  mnt             opt   root  sbin  srv       sys  usr
+boot  crontab  etc  lib   media       nginx_file.txt  proc  run   snap  swap.img  tmp  var</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Standard Output Redirection -->
+                <div class="content-card" id="stdout">
+                    <div class="card-header-custom">
+                        <i class="bi bi-arrow-right-square"></i>
+                        <span>Standard Output Redirection</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">Redirecting Output to File</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls > /temp/log
+bash: /temp/log: No such file or directory
+gopala@gopala-VMware20-1:/$ cat /temp/log
+cat: /temp/log: No such file or directory (os error 2)
+gopala@gopala-VMware20-1:/$ touch /temp/log
+touch: cannot touch '/temp/log': No such file or directory</pre></div>
+                        </div>
+                        <p class="section-title">Correct Usage with /tmp Directory</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls > /tmp/log
+cat /tmp/log
+bin
+boot
+cdrom
+crontab
+dev
+etc
+home
+lib
+lost+found
+media
+mnt
+nginx_file.txt
+opt
+proc
+root
+run
+sbin
+snap
+srv
+swap.img
+sys
+tmp
+usr
+var</pre></div>
+                        </div>
+                        <p class="section-title">Standard Error - Non-Existent Path</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls /not/existed_path > /tmp/log
+ls: cannot access '/not/existed_path': No such file or directory</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Standard Input -->
+                <div class="content-card" id="stdin">
+                    <div class="card-header-custom">
+                        <i class="bi bi-arrow-left-square"></i>
+                        <span>Standard Input</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">cat Command with Input Redirection</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ cat file.txt
+cat: file.txt: No such file or directory (os error 2)
+gopala@gopala-VMware20-1:/$ cat &lt;file.txt
+gopala@gopala-VMware20-1:/$ ls | cat
+bin
+boot
+cdrom
+crontab
+dev
+etc
+file.txt
+home
+lib
+lost+found
+media
+mnt
+nginx_file.txt
+opt
+proc
+root
+run
+sbin
+snap
+srv
+swap.img
+sys
+tmp
+usr
+var</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Permissions -->
+                <div class="content-card" id="permissions">
+                    <div class="card-header-custom">
+                        <i class="bi bi-shield-lock"></i>
+                        <span>File Permissions & sudo</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">Permission Denied Errors</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ touch file.txt
+touch: cannot touch 'file.txt': Permission denied
+gopala@gopala-VMware20-1:/$ sudo cat file.txt
+[sudo: authenticate] Password:
+cat: file.txt: No such file or directory (os error 2)
+gopala@gopala-VMware20-1:/$ sudo touch file.txt</pre></div>
+                        </div>
+                        <p class="section-title">Creating Files with sudo</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ sudo touch file2.txt
+gopala@gopala-VMware20-1:/$ sudo vim file2.txt
+gopala@gopala-VMware20-1:/$ cat &lt; file.txt  file2.txt
+hi hello  , namaskara</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nginx Installation -->
+                <div class="content-card" id="nginx-install">
+                    <div class="card-header-custom">
+                        <i class="bi bi-download"></i>
+                        <span>Nginx Installation</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">Enable Firewall & Install Nginx</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:~$ sudo ufw enable
+[sudo: authenticate] Password:
+Firewall is active and enabled on system startup</pre></div>
+                        </div>
+                        <p class="section-title">apt update and install nginx</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:~$ sudo apt update
+sudo apt install nginx
+Hit:3 http://ports.ubuntu.com/ubuntu-ports questing InRelease
+...
+Installing:
+  nginx
+
+Installing dependencies:
+  nginx-common
+
+Summary:
+  Upgrading: 0, Installing: 2, Removing: 0, Not Upgrading: 184
+  Download size: 659 kB
+  Space needed: 1,881 kB / 8,738 MB available
+
+Continue? [Y/n] y
+...
+Setting up nginx-common (1.28.0-6ubuntu1) ...
+Created symlink '/etc/systemd/system/multi-user.target.wants/nginx.service'
+Setting up nginx (1.28.0-6ubuntu1) ...
+Processing triggers for man-db (2.13.1-1) ...
+Processing triggers for ufw (0.36.2-9) ...</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nginx Configuration -->
+                <div class="content-card" id="nginx-config">
+                    <div class="card-header-custom">
+                        <i class="bi bi-gear"></i>
+                        <span>Nginx Configuration</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">Create Web Directory</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:~$ cd /var/www
+sudo mkdir tutorial
+cd tutorial
+sudo "${EDITOR:-vi}" index.html</pre></div>
+                        </div>
+                        <p class="section-title">Configure sites-enabled</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ echo "server { listen 81; listen [::]:81; server_name example.ubuntu.com; root /var/www/tutorial; index index.html; location / { try_files \$uri \$uri/ =404; } }" | sudo tee /etc/nginx/sites-available/tutorial && sudo ln -s /etc/nginx/sites-available/tutorial /etc/nginx/sites-enabled/ && sudo nginx -t && sudo systemctl restart nginx
+server { listen 81; listen [::]:81; server_name example.ubuntu.com; root /var/www/tutorial; index index.html; location / { try_files $uri $uri/ =404; } }
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful</pre></div>
+                        </div>
+                        <p class="section-title">Nginx Help Options</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ nginx -h
+nginx version: nginx/1.28.0 (Ubuntu)
+Usage: nginx [-?hvVtTq] [-s signal] [-p prefix]
+             [-e filename] [-c filename] [-g directives]
+
+Options:
+  -?,-h         : this help
+  -v            : show version and exit
+  -V            : show version and configure options then exit
+  -t            : test configuration and exit
+  -T            : test configuration, dump it and exit
+  -q            : suppress non-error messages during configuration testing
+  -s signal     : send signal to a master process: stop, quit, reopen, reload
+  -p prefix     : set prefix path (default: /usr/share/nginx/)
+  -e filename   : set error log file (default: stderr)
+  -c filename   : set configuration file (default: /etc/nginx/nginx.conf)
+  -g directives : set global directives out of configuration file
+
+gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ nginx -v
+nginx version: nginx/1.28.0 (Ubuntu)</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UFW Firewall -->
+                <div class="content-card" id="ufw">
+                    <div class="card-header-custom">
+                        <i class="bi bi-shield-check"></i>
+                        <span>UFW Firewall Configuration</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">List Available Applications</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw app list
+Available applications:
+  CUPS
+  Nginx Full
+  Nginx HTTP
+  Nginx HTTPS
+  Nginx QUIC
+  Wsdd</pre></div>
+                        </div>
+                        <p class="section-title">Allow Nginx Rules</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw allow 'Nginx Full'
+Rule added
+Rule added (v6)
+gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw allow 'Nginx HTTP'
+Rule added
+Rule added (v6)
+gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw allow 'Nginx HTTPS'
+Rule added
+Rule added (v6)
+gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw allow 'Nginx QUIC'
+Rule added
+Rule added (v6)</pre></div>
+                        </div>
+                        <p class="section-title">Check Firewall Status</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+Nginx Full                 ALLOW       Anywhere                  
+Nginx HTTP                 ALLOW       Anywhere                  
+Nginx HTTPS                ALLOW       Anywhere                  
+Nginx QUIC                 ALLOW       Anywhere                  
+Nginx Full (v6)            ALLOW       Anywhere (v6)            
+Nginx HTTP (v6)            ALLOW       Anywhere (v6)            
+Nginx HTTPS (v6)           ALLOW       Anywhere (v6)            
+Nginx QUIC (v6)            ALLOW       Anywhere (v6)</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Systemctl -->
+                <div class="content-card" id="systemctl">
+                    <div class="card-header-custom">
+                        <i class="bi bi-play-circle"></i>
+                        <span>Systemctl Service Management</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">Check Nginx Service Status</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ sudo systemctl status nginx
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: en>
+     Active: active (running) since Tue 2026-01-27 16:03:37 IST; 10min ago
+ Invocation: 5b7ad10f05c744bea123072bce376090
+       Docs: man:nginx(8)
+    Process: 8871 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_proce>
+    Process: 8873 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (c>
+   Main PID: 8874 (nginx)
+      Tasks: 7 (limit: 6955)
+     Memory: 5.8M (peak: 6.9M)
+        CPU: 14ms
+     CGroup: /system.slice/nginx.service
+             ├─8874 "nginx: master process /usr/sbin/nginx -g daemon on; master>
+             ├─8875 "nginx: worker process"
+             ├─8876 "nginx: worker process"
+             └─...</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Log Files -->
+                <div class="content-card" id="logs">
+                    <div class="card-header-custom">
+                        <i class="bi bi-journal-text"></i>
+                        <span>Nginx Log Files</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">Navigate to Log Directory</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/etc/nginx/sites-enabled$ cd /var/log/nginx/
+gopala@gopala-VMware20-1:/var/log/nginx$ ls
+access.log  error.log
+gopala@gopala-VMware20-1:/var/log/nginx$ nano access.log
+gopala@gopala-VMware20-1:/var/log/nginx$ nano error.log</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pipes -->
+                <div class="content-card" id="pipes">
+                    <div class="card-header-custom">
+                        <i class="bi bi-arrow-left-right"></i>
+                        <span>Pipes & Output Redirection</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">Using Pipes with ls and cat</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls | cat
+bin
+boot
+cdrom
+crontab
+dev
+etc
+file.txt
+file2.txt
+home
+lib
+lost+found
+media
+mnt
+nginx_file.txt
+opt
+proc
+root
+run
+sbin
+snap
+srv
+swap.img
+sys
+tmp
+usr
+var</pre></div>
+                        </div>
+                        <p class="section-title">Using tee for Output</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls | sudo tee /out.txt
+bin
+boot
+cdrom
+...
+gopala@gopala-VMware20-1:/$ ls | sudo tee /text.txt
+bin
+boot
+cdrom
+...</pre></div>
+                        </div>
+                        <p class="section-title">Pipe with more Command</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls -l | more
+total 3311732
+lrwxrwxrwx   1 root root          7 Oct  3 20:05 bin -> usr/bin
+drwxr-xr-x   4 root root       4096 Jan 30 10:06 boot
+dr-xr-xr-x   2 root root       4096 Oct  7 09:27 cdrom
+-rw-r--r--   1 root root        983 Jan 28 14:44 crontab
+drwxr-xr-x  19 root root       4220 Jan 30 10:05 dev
+drwxr-xr-x 142 root root      12288 Jan 30 10:06 etc
+-rw-r--r--   1 root root          0 Jan 30 10:26 file.txt
+-rw-r--r--   1 root root         22 Jan 30 10:40 file2.txt
+drwxr-xr-x   4 root root       4096 Jan 27 17:15 home
+...</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sort, Grep & Tee -->
+                <div class="content-card" id="sort-grep">
+                    <div class="card-header-custom">
+                        <i class="bi bi-filter"></i>
+                        <span>Sort, Grep & Tee Commands</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">grep - Filter Output</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls | grep file.txt
+file.txt
+nginx_file.txt</pre></div>
+                        </div>
+                        <p class="section-title">alias Command</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls | l
+bin@   cdrom/   dev/  file.txt   home/  lost+found/  mnt/            opt/     proc/  run/   snap/  swap.img  text.txt  usr/
+boot/  crontab  etc/  file2.txt  lib@   media/       nginx_file.txt  out.txt  root/  sbin@  srv/   sys/      tmp/      var/
+gopala@gopala-VMware20-1:/$ alias l
+alias l='ls -CF'</pre></div>
+                        </div>
+                        <p class="section-title">sort with tee</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls -l | sudo tee temp
+total 3311732
+lrwxrwxrwx   1 root root          7 Oct  3 20:05 bin -> usr/bin
+drwxr-xr-x   4 root root       4096 Jan 30 10:06 boot
+...</pre></div>
+                        </div>
+                        <p class="section-title">sort -k (Sort by Column)</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls -l | sort -k 10
+-rw-------   1 root root 3391094784 Jan 27 14:23 swap.img
+-rw-r--r--   1 root root          0 Jan 30 10:26 file.txt
+-rw-r--r--   1 root root         22 Jan 30 10:40 file2.txt
+-rw-r--r--   1 root root        152 Jan 30 11:30 out.txt
+-rw-r--r--   1 root root        160 Jan 30 11:37 text.txt
+-rw-r--r--   1 root root        983 Jan 28 14:44 crontab
+-rw-r--r--   1 root root       1589 Jan 30 12:20 temp
+-rw-r--r--   1 root root      21040 Jan 27 16:55 nginx_file.txt
+...</pre></div>
+                        </div>
+                        <p class="section-title">Pipeline: sort, tee to File</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ ls -l | sort -k 10 | sudo tee /sorted_ls.txt
+-rw-------   1 root root 3391094784 Jan 27 14:23 swap.img
+-rw-r--r--   1 root root          0 Jan 30 10:26 file.txt
+...
+gopala@gopala-VMware20-1:/$ cat /sorted_ls.txt
+-rw-------   1 root root 3391094784 Jan 27 14:23 swap.img
+...</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Head, Tail & Uniq -->
+                <div class="content-card" id="head-tail">
+                    <div class="card-header-custom">
+                        <i class="bi bi-list-ol"></i>
+                        <span>Head, Tail, Uniq & wc Commands</span>
+                    </div>
+                    <div class="card-body-custom">
+                        <p class="section-title">sort with uniq</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ sort sorted_ls.txt | uniq
+-rw-------   1 root root 3391094784 Jan 27 14:23 swap.img
+-rw-r--r--   1 root root          0 Jan 30 10:26 file.txt
+-rw-r--r--   1 root root         22 Jan 30 10:40 file2.txt
+-rw-r--r--   1 root root        152 Jan 30 11:30 out.txt
+-rw-r--r--   1 root root        160 Jan 30 11:37 text.txt
+...</pre></div>
+                        </div>
+                        <p class="section-title">head and tail Commands</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ cat sorted_ls.txt | head -7 | tail -5
+-rw-r--r--   1 root root         22 Jan 30 10:40 file2.txt
+-rw-r--r--   1 root root        152 Jan 30 11:30 out.txt
+-rw-r--r--   1 root root        160 Jan 30 11:37 text.txt
+-rw-r--r--   1 root root        983 Jan 28 14:44 crontab
+-rw-r--r--   1 root root       1589 Jan 30 12:20 temp</pre></div>
+                        </div>
+                        <p class="section-title">grep, tee, and wc Pipeline</p>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-body"><pre>gopala@gopala-VMware20-1:/$ cat sorted_ls.txt | grep "22 Jan 30 10:40 file2.txt" | sudo tee demo.txt| wc -l
+1
+gopala@gopala-VMware20-1:/$ cat demo.txt
+-rw-r--r--   1 root root         22 Jan 30 10:40 file2.txt</pre></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><i class="bi bi-c-circle"></i> 
+        <p class="mt-2" style="font-size: 14px; color: #999;">T</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

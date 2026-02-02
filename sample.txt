@@ -1,0 +1,11 @@
+Amit DevOps Engineer January 70000
+Neha Cloud Engineer January 65000
+Rohit Linux Administrator January 60000
+Pooja SiteReliabilityEngineer January 82000
+Anil Junior DevOps January 52000
+Suresh Platform Engineer January 88000
+Meena Cloud Architect January 105000
+Vikas DevSecOps Engineer January 95000
+Nitin Infrastructure Engineer January 78000
+Kavya Automation Engineer January 72000
+
