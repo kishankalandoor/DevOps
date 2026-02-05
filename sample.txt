@@ -1,3 +1,63 @@
+1  Feb 04 10:01:01 server01 systemd[1]: Starting Daily Cleanup of Temporary Directories...
+2  Feb 04 10:01:02 server01 systemd[1]: Started Daily Cleanup of Temporary Directories.
+3  Feb 04 10:01:05 server01 cron[1023]: (root) CMD (/usr/bin/updatedb)
+4  Feb 04 10:01:08 server01 kernel: EXT4-fs (sda1): re-mounted. Opts: errors=remount-ro
+5  Feb 04 10:01:10 server01 sshd[1050]: Server listening on 0.0.0.0 port 22.
+6  Feb 04 10:01:10 server01 sshd[1050]: Server listening on :: port 22.
+7  Feb 04 10:02:15 server01 sshd[1102]: Accepted password for user1 from 192.168.1.10 port 54321 ssh2
+8  Feb 04 10:02:16 server01 sshd[1102]: pam_unix(sshd:session): session opened for user user1
+9  Feb 04 10:02:30 server01 sudo[1120]: user1 : TTY=pts/0 ; COMMAND=/bin/ls
+10 Feb 04 10:02:45 server01 sudo[1125]: user1 : TTY=pts/0 ; COMMAND=/bin/systemctl status ssh
+11 Feb 04 10:03:01 server01 kernel: CPU0: Core temperature above threshold
+12 Feb 04 10:03:02 server01 kernel: CPU0: Core temperature back to normal
+13 Feb 04 10:03:15 server01 systemd[1]: Starting Rotate log files...
+14 Feb 04 10:03:18 server01 systemd[1]: Finished Rotate log files.
+15 Feb 04 10:04:01 server01 sshd[1150]: Failed password for invalid user admin from 203.0.113.45 port 49822 ssh2
+16 Feb 04 10:04:03 server01 sshd[1150]: Failed password for invalid user admin from 203.0.113.45 port 49822 ssh2
+17 Feb 04 10:04:05 server01 sshd[1150]: Connection closed by invalid user admin 203.0.113.45
+18 Feb 04 10:05:00 server01 CRON[1200]: (root) CMD (/usr/local/bin/backup.sh)
+19 Feb 04 10:05:10 server01 backup.sh[1201]: Backup started successfully
+20 Feb 04 10:05:45 server01 backup.sh[1201]: Backup completed successfully
+21 Feb 04 10:06:01 server01 systemd[1]: Starting Network Manager...
+22 Feb 04 10:06:03 server01 systemd[1]: Started Network Manager.
+23 Feb 04 10:06:20 server01 NetworkManager[1225]: Network connectivity changed: CONNECTED
+24 Feb 04 10:07:01 server01 kernel: eth0: link down
+25 Feb 04 10:07:05 server01 kernel: eth0: link up, 1000 Mbps, full duplex
+26 Feb 04 10:07:30 server01 NetworkManager[1225]: Device eth0 successfully activated
+27 Feb 04 10:08:00 server01 systemd[1]: Starting Apache Web Server...
+28 Feb 04 10:08:02 server01 apache2[1300]: AH00558: apache2: Could not reliably determine the server's hostname
+29 Feb 04 10:08:03 server01 systemd[1]: Started Apache Web Server.
+30 Feb 04 10:08:20 server01 apache2[1305]: GET /index.html 200
+31 Feb 04 10:09:01 server01 apache2[1306]: GET /login.php 403
+32 Feb 04 10:09:15 server01 apache2[1307]: POST /login.php 401
+33 Feb 04 10:10:01 server01 systemd[1]: Starting MySQL Server...
+34 Feb 04 10:10:04 server01 mysqld[1350]: Database started successfully
+35 Feb 04 10:10:05 server01 systemd[1]: Started MySQL Server.
+36 Feb 04 10:11:01 server01 mysqld[1350]: Warning: Using a password on the command line interface
+37 Feb 04 10:11:30 server01 mysqld[1350]: Connection accepted from 127.0.0.1
+38 Feb 04 10:12:00 server01 kernel: Out of memory: Kill process 1400 (node) score 850
+39 Feb 04 10:12:01 server01 kernel: Killed process 1400 (node) total-vm:2048000kB
+40 Feb 04 10:12:05 server01 systemd[1]: node.service: Failed with result 'oom-kill'
+41 Feb 04 10:12:30 server01 systemd[1]: node.service: Service restart scheduled
+42 Feb 04 10:12:35 server01 systemd[1]: Started Node.js Application.
+43 Feb 04 10:13:00 server01 sshd[1450]: Accepted publickey for deploy from 192.168.1.50 port 60234 ssh2
+44 Feb 04 10:13:01 server01 sshd[1450]: pam_unix(sshd:session): session opened for user deploy
+45 Feb 04 10:13:20 server01 deploy[1455]: Application deployment started
+46 Feb 04 10:13:50 server01 deploy[1455]: Application deployment successful
+47 Feb 04 10:14:01 server01 systemd[1]: Reloading Apache Web Server...
+48 Feb 04 10:14:03 server01 systemd[1]: Reloaded Apache Web Server.
+49 Feb 04 10:15:00 server01 CRON[1500]: (root) CMD (/usr/bin/logrotate)
+50 Feb 04 10:15:02 server01 logrotate[1501]: Logs rotated successfully
+51 Feb 04 10:16:01 server01 kernel: USB device disconnected
+52 Feb 04 10:16:10 server01 kernel: USB device connected
+53 Feb 04 10:17:00 server01 systemd[1]: Starting Cleanup of Old Sessions...
+54 Feb 04 10:17:02 server01 systemd[1]: Finished Cleanup of Old Sessions.
+55 Feb 04 10:18:01 server01 sshd[1550]: pam_unix(sshd:session): session closed for user user1
+56 Feb 04 10:18:30 server01 sshd[1555]: pam_unix(sshd:session): session closed for user deploy
+57 Feb 04 10:19:00 server01 systemd[1]: Shutting down user sessions...
+58 Feb 04 10:19:05 server01 systemd[1]: All user sessions terminated
+59 Feb 04 10:19:30 server01 systemd[1]: Reached target Multi-User System
+60 Feb 04 10:20:00 server01 systemd[1]: System running normally
 Amit DevOps Engineer January 70000
 Neha Cloud Engineer January 65000
 Rohit Linux Administrator January 60000

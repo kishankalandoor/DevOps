@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environment Variables Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+            background: #ffffff;
+            color: #1d1d1f;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #1d1d1f !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: none;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 22px;
+            color: #ffffff !important;
+        }
+
+        .nav-link {
+            font-weight: 400;
+            color: #f5f5f7 !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            background: #ffffff;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .page-header h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1.5px;
+            color: #1d1d1f;
+        }
+
+        .page-header .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            font-weight: 400;
+        }
+
+        .terminal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .terminal-window {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+            transition: all 0.3s ease;
+        }
+
+        .terminal-window:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border-color: #d2d2d7;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e5e5e7;
+            background: #f5f5f7;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red {
+            background: #ff5f56;
+        }
+
+        .terminal-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .terminal-dot.green {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: #1d1d1f;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-right: 50px;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            background: #1d1d1f;
+            max-height: 600px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #3d3d3f;
+            border-radius: 4px;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: #66d9ef;
+        }
+
+        .section-header {
+            background: #ffffff;
+            border: none;
+            color: #1d1d1f;
+            padding: 20px 0;
+            border-radius: 0;
+            margin: 50px 0 30px 0;
+            font-weight: 700;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: none;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .section-header i {
+            font-size: 28px;
+        }
+
+        footer {
+            background: #f5f5f7;
+            padding: 40px;
+            text-align: center;
+            color: #86868b;
+            border-radius: 0;
+            border-top: 1px solid #e5e5e7;
+            margin-top: 50px;
+            box-shadow: none;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1d1d1f;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-custom {
+            background: #1d1d1f;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .page-header {
+                padding: 40px 20px;
+            }
+        }
+        .image-container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .image-caption {
+            text-align: center;
+            margin-top: 12px;
+            color: #86868b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><i class="bi bi-terminal-fill me-2"></i>DevOps Reference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#compression-types">Compression Types</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#extraction">Extraction</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>File Compression</h1>
+        <p class="subtitle">Complete guide to tar, gzip, bzip2, xz, zstd, lz4, and 7z compression</p>
+    </div>
+
+    <div class="main-container">
+        <!-- Terminal 1 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Creating tar.gz Archive</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/systemd-216$ tar -zcf archive.tar.gz /home/gopala/Downloads/vscode
+tar: Removing leading `/' from member names
+gopala@gopala-VMware20-1:~/systemd-216$ tar -tf archive.tar.gz
+home/gopala/Downloads/vscode/
+home/gopala/Downloads/vscode/code_1.108.2-1769004815_amd64.deb
+gopala@gopala-VMware20-1:~/systemd-216$ cd /home/gopala/Downloads    
+gopala@gopala-VMware20-1:~/Downloads$ tar -zcf archive.tar.gz /home/gopala/Downloads/vscode
+tar: Removing leading `/' from member names
+gopala@gopala-VMware20-1:~/Downloads$ tar -zcf vscode.tar.gz /home/gopala/Downloads/vscode
+tar: Removing leading `/' from member names
+gopala@gopala-VMware20-1:~/Downloads$ rm archive.tar.gz</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 2 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Installing bzip2</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ tar -jcf vscode.tar.bz2 /home/gopala/Downloads/vscode
+tar: Removing leading `/' from member names
+/bin/sh: 1: bzip2: not found
+tar: vscode.tar.bz2: Wrote only 4096 of 10240 bytes
+tar: Child returned status 127
+tar: Error is not recoverable: exiting now
+gopala@gopala-VMware20-1:~/Downloads$ sudo apt update
+sudo apt install bzip2
+[sudo: authenticate] Password:
+Ign:1 file:/cdrom questing InRelease
+Err:2 file:/cdrom questing Release
+  File not found - /cdrom/dists/questing/Release (2: No such file or directory)
+Hit:3 http://ports.ubuntu.com/ubuntu-ports questing InRelease                            
+Hit:4 http://ports.ubuntu.com/ubuntu-ports questing-updates InRelease                    
+Hit:5 http://ports.ubuntu.com/ubuntu-ports questing-backports InRelease
+Hit:6 http://ports.ubuntu.com/ubuntu-ports questing-security InRelease
+Get:7 https://packages.microsoft.com/repos/code stable InRelease [3,590 B]
+Err:7 https://packages.microsoft.com/repos/code stable InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY EB3E94ADBE1229CF
+Error: The repository 'file:/cdrom questing Release' no longer has a Release file.
+Notice: Updating from such a repository can't be done securely, and is therefore disabled by default.
+Notice: See apt-secure(8) manpage for repository creation and user configuration details.
+Warning: OpenPGP signature verification failed: https://packages.microsoft.com/repos/code stable InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY EB3E94ADBE1229CF
+Error: The repository 'https://packages.microsoft.com/repos/code stable InRelease' is not signed.
+Notice: Updating from such a repository can't be done securely, and is therefore disabled by default.
+Notice: See apt-secure(8) manpage for repository creation and user configuration details.
+Notice: Some sources can be modernized. Run 'apt modernize-sources' to do so.
+Installing:                    
+  bzip2
+
+Suggested packages:
+  bzip2-doc
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 93
+  Download size: 34.8 kB
+  Space needed: 191 kB / 7,087 MB available
+
+Get:1 http://ports.ubuntu.com/ubuntu-ports questing/main arm64 bzip2 arm64 1.0.8-6build1 [34.8 kB]
+Fetched 34.8 kB in 1s (32.7 kB/s)
+Selecting previously unselected package bzip2.
+(Reading database ... 153379 files and directories currently installed.)
+Preparing to unpack .../bzip2_1.0.8-6build1_arm64.deb ...
+Unpacking bzip2 (1.0.8-6build1) ...
+Setting up bzip2 (1.0.8-6build1) ...
+Processing triggers for man-db (2.13.1-1) ...</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 3 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Creating bzip2, xz, zstd Archives</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ tar -jcf vscode.tar.bz2 /home/gopala/Downloads/vscode
+tar: Removing leading `/' from member names
+gopala@gopala-VMware20-1:~/Downloads$ tar -Jcf vscode.tar.xz  /home/gopala/Downloads/vscode
+tar: Removing leading `/' from member names
+gopala@gopala-VMware20-1:~/Downloads$ tar --zstd -cf vscode.tar.zstd  /home/gopala/Downloads/vscode
+tar: Removing leading `/' from member names
+gopala@gopala-VMware20-1:~/Downloads$ tar --zip -cf vscode.zip  /home/gopala/Downloads/vscode
+tar: unrecognized option '--zip'
+Try 'tar --help' or 'tar --usage' for more information.
+gopala@gopala-VMware20-1:~/Downloads$ tar -zip -cf vscode.zip  /home/gopala/Downloads/vscode
+tar: Removing leading `/' from member names
+gopala@gopala-VMware20-1:~/Downloads$ tar -xz -cf vscode.xz  /home/gopala/Downloads/vscode
+tar: You may not specify more than one '-Acdtrux', '--delete' or  '--test-label' option
+Try 'tar --help' or 'tar --usage' for more information.
+gopala@gopala-VMware20-1:~/Downloads$ xz -cf vscode.xz  /home/gopala/Downloads/vscode
+xz: Compressed data cannot be written to a terminal
+xz: Try 'xz --help' for more information.
+gopala@gopala-VMware20-1:~/Downloads$ tar -cf vscode.tar  /home/gopala/Downloads/vscode
+tar: Removing leading `/' from member names
+gopala@gopala-VMware20-1:~/Downloads$ xz vscode.tar.xz
+xz: vscode.tar.xz: File already has '.xz' suffix, skipping</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 4 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Installing lz4</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ sudo apt install lz4
+[sudo: authenticate] Password:
+Installing:                    
+  lz4
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 93
+  Download size: 49.1 kB
+  Space needed: 162 kB / 6,506 MB available
+
+Get:1 http://ports.ubuntu.com/ubuntu-ports questing/universe arm64 lz4 arm64 1.10.0-4build1 [49.1 kB]
+Fetched 49.1 kB in 1s (39.2 kB/s)
+Selecting previously unselected package lz4.
+(Reading database ... 153406 files and directories currently installed.)
+Preparing to unpack .../lz4_1.10.0-4build1_arm64.deb ...
+Unpacking lz4 (1.10.0-4build1) ...
+Setting up lz4 (1.10.0-4build1) ...
+Processing triggers for man-db (2.13.1-1) ...
+gopala@gopala-VMware20-1:~/Downloads$ tar -cf vscode1.tar.lz4  /home/gopala/Downloads/vscode | lz4 > vscode.tar.lz4
+tar: Removing leading `/' from member names
+gopala@gopala-VMware20-1:~/Downloads$ tar -cf vscode1.tar.zstd  /home/gopala/Downloads/vscode | lz4 > vscode1.tar.zstd
+tar: Removing leading `/' from member names</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 5 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Listing & Comparing File Sizes</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ ls -lh
+total 875M
+drwxrwxr-x 2 gopala gopala 4.0K Feb  4 10:35 vscode
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:41 vscode.tar
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:43 vscode.tar.bz2
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:41 vscode.tar.gz
+-rw-rw-r-- 1 gopala gopala   15 Feb  4 11:45 vscode.tar.lz4
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:46 vscode.tar.xz
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:46 vscode.tar.zstd
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:07 vscode.zip
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:45 vscode1.tar.lz4
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:47 vscode1.tar.zstd
+gopala@gopala-VMware20-1:~/Downloads$ du -h --max-depth=1 /home/gopala/Downloads | sort -hr
+984M /home/gopala/Downloads
+110M /home/gopala/Downloads/vscode
+gopala@gopala-VMware20-1:~/Downloads$ ls -lhS /home/gopala/Downloads
+total 875M
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:43 vscode.tar.bz2
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:41 vscode.tar.gz
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:07 vscode.zip
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:41 vscode.tar
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:45 vscode1.tar.lz4
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:47 vscode1.tar.zstd
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:46 vscode.tar.xz
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:46 vscode.tar.zstd
+drwxrwxr-x 2 gopala gopala 4.0K Feb  4 10:35 vscode
+-rw-rw-r-- 1 gopala gopala   15 Feb  4 11:45 vscode.tar.lz4</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 6 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Installing p7zip-full</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ sudo apt install p7zip-full
+Installing:                    
+  p7zip-full
+
+Installing dependencies:
+  7zip
+
+Suggested packages:
+  7zip-standalone  7zip-rar
+
+Summary:
+  Upgrading: 0, Installing: 2, Removing: 0, Not Upgrading: 93
+  Download size: 2,015 kB
+  Space needed: 7,248 kB / 6,273 MB available
+
+Continue? [Y/n] y
+Get:1 http://ports.ubuntu.com/ubuntu-ports questing/universe arm64 7zip arm64 25.01+dfsg-2 [2,012 kB]
+Get:2 http://ports.ubuntu.com/ubuntu-ports questing/universe arm64 p7zip-full all 16.02+transitional.1 [2,500 B]
+Fetched 2,015 kB in 4s (510 kB/s)      
+Selecting previously unselected package 7zip.
+(Reading database ... 153417 files and directories currently installed.)
+Preparing to unpack .../7zip_25.01+dfsg-2_arm64.deb ...
+Unpacking 7zip (25.01+dfsg-2) ...
+Selecting previously unselected package p7zip-full.
+Preparing to unpack .../p7zip-full_16.02+transitional.1_all.deb ...
+Unpacking p7zip-full (16.02+transitional.1) ...
+Setting up 7zip (25.01+dfsg-2) ...
+Setting up p7zip-full (16.02+transitional.1) ...
+Processing triggers for man-db (2.13.1-1) ...</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 7 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Creating 7z Archive</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ 7z a vscode.7z /home/gopala/Downloads/vscode
+
+7-Zip 25.01 (arm64) : Copyright (c) 1999-2025 Igor Pavlov : 2025-08-03
+ 64-bit arm_v:8-A locale=en_US.UTF-8 Threads:6 OPEN_MAX:1024, ASM
+
+Scanning the drive:
+1 folder, 1 file, 114493978 bytes (110 MiB)
+
+Creating archive: vscode.7z
+
+Add new data to archive: 1 folder, 1 file, 114493978 bytes (110 MiB)
+
+                                               
+Files read from disk: 1
+Archive size: 114501280 bytes (110 MiB)
+Everything is Ok
+gopala@gopala-VMware20-1:~/Downloads$ ls -lhS /home/gopala/Downloads
+total 984M
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:43 vscode.tar.bz2
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:41 vscode.tar.gz
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:07 vscode.zip
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:41 vscode.tar
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:45 vscode1.tar.lz4
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:47 vscode1.tar.zstd
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 11:55 vscode.7z
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:46 vscode.tar.xz
+-rw-rw-r-- 1 gopala gopala 110M Feb  4 10:46 vscode.tar.zstd
+drwxrwxr-x 2 gopala gopala 4.0K Feb  4 10:35 vscode
+-rw-rw-r-- 1 gopala gopala   15 Feb  4 11:45 vscode.tar.lz4</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 8 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Byte-Level Size Comparison</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ ls -lS --block-size=1
+total 1031049216
+-rw-rw-r-- 1 gopala gopala 114997314 Feb  4 10:43 vscode.tar.bz2
+-rw-rw-r-- 1 gopala gopala 114509459 Feb  4 10:41 vscode.tar.gz
+-rw-rw-r-- 1 gopala gopala 114509459 Feb  4 11:07 vscode.zip
+-rw-rw-r-- 1 gopala gopala 114503680 Feb  4 11:41 vscode.tar
+-rw-rw-r-- 1 gopala gopala 114503680 Feb  4 11:45 vscode1.tar.lz4
+-rw-rw-r-- 1 gopala gopala 114503680 Feb  4 11:47 vscode1.tar.zstd
+-rw-rw-r-- 1 gopala gopala 114501280 Feb  4 11:55 vscode.7z
+-rw-rw-r-- 1 gopala gopala 114500392 Feb  4 10:46 vscode.tar.xz
+-rw-rw-r-- 1 gopala gopala 114497917 Feb  4 10:46 vscode.tar.zstd
+drwxrwxr-x 2 gopala gopala      4096 Feb  4 10:35 vscode
+-rw-rw-r-- 1 gopala gopala        15 Feb  4 11:45 vscode.tar.lz4
+gopala@gopala-VMware20-1:~/Downloads$ 7z a -t7z -mx=9 -m0=lzma2 -mfb=273 -md=256m -ms=on maxcompressvscode.7z /home/gopala/Downloads/vscode
+
+7-Zip 25.01 (arm64) : Copyright (c) 1999-2025 Igor Pavlov : 2025-08-03
+ 64-bit arm_v:8-A locale=en_US.UTF-8 Threads:6 OPEN_MAX:1024, ASM
+
+Scanning the drive:
+1 folder, 1 file, 114493978 bytes (110 MiB)
+
+Creating archive: maxcompressvscode.7z
+
+Add new data to archive: 1 folder, 1 file, 114493978 bytes (110 MiB)
+
+                                               
+Files read from disk: 1
+Archive size: 114501280 bytes (110 MiB)
+Everything is Ok</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 9 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Maximum Compression with 7z</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ ls -lS --block-size=1
+total 1145552896
+-rw-rw-r-- 1 gopala gopala 114997314 Feb  4 10:43 vscode.tar.bz2
+-rw-rw-r-- 1 gopala gopala 114509459 Feb  4 10:41 vscode.tar.gz
+-rw-rw-r-- 1 gopala gopala 114509459 Feb  4 11:07 vscode.zip
+-rw-rw-r-- 1 gopala gopala 114503680 Feb  4 11:41 vscode.tar
+-rw-rw-r-- 1 gopala gopala 114503680 Feb  4 11:45 vscode1.tar.lz4
+-rw-rw-r-- 1 gopala gopala 114503680 Feb  4 11:47 vscode1.tar.zstd
+-rw-rw-r-- 1 gopala gopala 114501280 Feb  4 11:55 vscode.7z
+-rw-rw-r-- 1 gopala gopala 114501280 Feb  4 12:01 maxcompressvscode.7z
+-rw-rw-r-- 1 gopala gopala 114500392 Feb  4 10:46 vscode.tar.xz
+-rw-rw-r-- 1 gopala gopala 114497917 Feb  4 10:46 vscode.tar.zstd
+drwxrwxr-x 2 gopala gopala      4096 Feb  4 10:35 vscode
+-rw-rw-r-- 1 gopala gopala        15 Feb  4 11:45 vscode.tar.lz4
+gopala@gopala-VMware20-1:~/Downloads$ tar -cf - vscode | xz -9e --lzma2=dict=256MiB > maxcompressvscode1.tar.xz
+
+ls -l --block-size=1 maxcompressvscode.tar.xz
+       
+^C</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 10 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Installing pv (Pipe Viewer)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ tar -cf - vscode | pv | xz -9e --lzma2=dict=256MiB > maxcompressvscode1.tar.xz
+Command 'pv' not found, but can be installed with:
+sudo apt install pv
+gopala@gopala-VMware20-1:~/Downloads$ sudo apt install pv
+Installing:                    
+  pv
+
+Suggested packages:
+  doc-base
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 93
+  Download size: 99.9 kB
+  Space needed: 242 kB / 6,033 MB available
+
+Get:1 http://ports.ubuntu.com/ubuntu-ports questing/main arm64 pv arm64 1.9.31-1ubuntu2 [99.9 kB]
+Fetched 99.9 kB in 2s (58.6 kB/s)
+Selecting previously unselected package pv.
+(Reading database ... 153444 files and directories currently installed.)
+Preparing to unpack .../pv_1.9.31-1ubuntu2_arm64.deb ...
+Unpacking pv (1.9.31-1ubuntu2) ...
+Setting up pv (1.9.31-1ubuntu2) ...
+Processing triggers for man-db (2.13.1-1) ...
+gopala@gopala-VMware20-1:~/Downloads$ tar -cf - vscode | pv | xz -9e --lzma2=dict=256MiB > maxcompressvscode1.tar.xz
+ 109MiB 0:00:00 [ 749MiB/s] [ <=>                                                                  ]
+
+^C
+gopala@gopala-VMware20-1:~/Downloads$ ls -l --block-size=1 maxcompressvscode1.tar.xz
+-rw-rw-r-- 1 gopala gopala 0 Feb  4 12:05 maxcompressvscode1.tar.xz
+gopala@gopala-VMware20-1:~/Downloads$ tar -cf - vscode | pv | xz -9e --lzma2=dict=256MiB > maxcompressvscode1.tar.xz
+ 109MiB 0:00:00 [ 713MiB/s] [ <=>                                                                  ]
+^[c^C
+gopala@gopala-VMware20-1:~/Downloads$ tar -cf - vscode | xz -9e --lzma2=dict=256MiB > maxcompressvscode1.tar.xz
+top
+
+xz  100% CPU
+^C</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 11 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Extracting lz4 Archives</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ tar -xzf vscode.tar.lz4
+
+gzip: stdin: not in gzip format
+tar: Child returned status 1
+tar: Error is not recoverable: exiting now
+gopala@gopala-VMware20-1:~/Downloads$ sudo apt install lz4
+[sudo: authenticate] Password:
+sudo: Authentication failed, try again.
+[sudo: authenticate] Password:
+lz4 is already the newest version (1.10.0-4build1).
+Summary:                    
+  Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 93
+gopala@gopala-VMware20-1:~/Downloads$ tar --lz4 -xf vscode.tar.lz4
+tar: unrecognized option '--lz4'
+Try 'tar --help' or 'tar --usage' for more information.
+gopala@gopala-VMware20-1:~/Downloads$ tar -I lz4 -xf vscode.tar.lz4</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal 12 -->
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-title">Extracting Various Archives</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>gopala@gopala-VMware20-1:~/Downloads$ tar -xf vscode.tar
+gopala@gopala-VMware20-1:~/Downloads$ tar -xf vscode.tar | unzip vscode.tar
+Archive:  vscode.tar
+  End-of-central-directory signature not found.  Either this file is not
+  a zipfile, or it constitutes one disk of a multi-part archive.  In the
+  latter case the central directory and zipfile comment will be found on
+  the last disk(s) of this archive.
+unzip:  cannot find zipfile directory in one of vscode.tar or
+        vscode.tar.zip, and cannot find vscode.tar.ZIP, period.
+gopala@gopala-VMware20-1:~/Downloads$ tar -xf vscode.tar
+gopala@gopala-VMware20-1:~/Downloads$ tar -xzf vscode.tar.gz
+gopala@gopala-VMware20-1:~/Downloads$ tar -xjf vscode.tar.bz2
+gopala@gopala-VMware20-1:~/Downloads$ tar -xJf vscode.tar.xz
+gopala@gopala-VMware20-1:~/Downloads$ unzip vscode.zip
+Archive:  vscode.zip
+  End-of-central-directory signature not found.  Either this file is not
+  a zipfile, or it constitutes one disk of a multi-part archive.  In the
+  latter case the central directory and zipfile comment will be found on
+  the last disk(s) of this archive.
+unzip:  cannot find zipfile directory in one of vscode.zip or
+        vscode.zip.zip, and cannot find vscode.zip.ZIP, period.
+gopala@gopala-VMware20-1:~/Downloads$ tar -I -xf vscode1.tar.lz4
+tar: You must specify one of the '-Acdtrux', '--delete' or '--test-label' options
+Try 'tar --help' or 'tar --usage' for more information.
+gopala@gopala-VMware20-1:~/Downloads$ tar -I lz4  -xf vscode1.tar.lz4
+Error 44 : Unrecognized header : file cannot be decoded
+tar: Child returned status 44
+tar: Error is not recoverable: exiting now
+gopala@gopala-VMware20-1:~/Downloads$ tar -I lz4  -xf vscode.tar.lz4
+gopala@gopala-VMware20-1:~/Downloads$ tar -I zstd  -xf vscode.tar.zstd
+gopala@gopala-VMware20-1:~/Downloads$</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Images Section -->
+        <div class="terminal-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="image-container">
+                <img src="compression.png" alt="Compression Overview">
+            </div>
+            <div class="image-container">
+                <img src="compress.png" alt="Compress Commands">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 DevOps Reference Guide. File compression and archiving commands.</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Scroll to top button visibility
+        window.addEventListener('scroll', function () {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+
+</html>

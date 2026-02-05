@@ -1,0 +1,5 @@
+Feb 02 10:10:01 server sshd[123]: Failed password for root from 10.0.0.1
+Feb 02 10:10:05 server sshd[124]: Accepted password for kishan from 10.0.0.2
+Feb 02 10:11:01 server nginx[200]: 404 GET /index.html
+Feb 02 10:11:05 server nginx[201]: 200 GET /home
+
