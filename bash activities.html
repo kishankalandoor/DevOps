@@ -1,0 +1,3063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bash Activities - Terminal History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+        }
+
+        .page-header {
+            background: #ffffff;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-header .subtitle {
+            font-size: 18px;
+            color: #6e6e73;
+        }
+
+        .section-header {
+            color: #1d1d1f;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 50px 0 25px 0;
+            padding: 15px 20px;
+            background: #ffffff;
+            border-left: 4px solid #0071e3;
+            border-radius: 6px;
+        }
+
+        .terminal-window {
+            background: #2d2d2d;
+            border-radius: 8px;
+            border: 1px solid #404040;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: #1e1e1e;
+            border-bottom: 1px solid #404040;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red {
+            background: #ff5f56;
+        }
+
+        .terminal-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .terminal-dot.green {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: #d4d4d4;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 40px;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 13px;
+            color: #ffffff;
+            background: #000000;
+            max-height: 500px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .terminal-body pre {
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #404040;
+            border-radius: 5px;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: #555555;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #0071e3;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 113, 227, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-header">
+        <h1>Bash Activities Terminal History</h1>
+        <p class="subtitle">Complete DevOps Terminal Sessions - Divided by Topic</p>
+    </div>
+
+    <div class="container">
+
+        <h2 class="section-header">Terminal Session 1: Bash Scripting and Environment Setup</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Bash Scripting and Environment Setup</div>
+            </div>
+            <div class="terminal-body">
+                <pre>Last login: Tue Feb  3 15:06:40 on ttys000
+You have new mail.
+apple@kishankalandoor ~ % cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+apple@kishankalandoor DevOps % mkdir bash
+apple@kishankalandoor DevOps % cd bash
+apple@kishankalandoor bash % sudo vim bash_script.sh
+apple@kishankalandoor bash % chmod +x bash_script.sh
+chmod: Unable to change file mode on bash_script.sh: Operation not permitted
+apple@kishankalandoor bash %
+sudo chmod +x bash_script.sh
+apple@kishankalandoor bash % ./bash_script.sh
+You cannot vote
+apple@kishankalandoor bash % sudo vim bash_script.sh                        
+apple@kishankalandoor bash % ./bash_script.sh      
+You can vote
+apple@kishankalandoor bash % sudo vim bash_script.sh
+apple@kishankalandoor bash % ./bash_script.sh      
+Enter your age: 50
+You are 50 years old. You can vote!
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 1
+You are only 1. You cannot vote yet.
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 17.99
+./bash_script.sh: line 7: [: 17.99: integer expression expected
+You are only 17.99. You cannot vote yet.
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 18 - 6 + 18 - 9 -9 +6
+./bash_script.sh: line 7: [: 18 - 6 + 18 - 9 -9 +6: integer expression expected
+You are only 18 - 6 + 18 - 9 -9 +6. You cannot vote yet.
+apple@kishankalandoor bash % bash --version
+GNU bash, version 3.2.57(1)-release (arm64-apple-darwin25)
+Copyright (C) 2007 Free Software Foundation, Inc.
+apple@kishankalandoor bash % ls -l
+total 8
+-rwxr-xr-x  1 root  staff  260  4 Feb 15:25 bash_script.sh
+apple@kishankalandoor bash % ls -R
+bash_script.sh
+apple@kishankalandoor bash % echo &quot;hello &quot;
+hello
+apple@kishankalandoor bash % echo &quot; hello \n worls &quot;
+ hello
+ worls
+apple@kishankalandoor bash % echo -E &quot; hello \n worls &quot;
+ hello \n worls
+apple@kishankalandoor bash % echo -e &quot; hello \n worls &quot;
+ hello
+ worls
+apple@kishankalandoor bash % echo -e &quot; hello \n worls &quot;
+ hello
+ worls
+apple@kishankalandoor bash % cat ~/.bash_history
+echo $MYVAR
+unset MYVAR
+echo $MYVAR
+q
+cd ..
+export MYVAR=hello
+export MYVAR=hello
+echo $MYVAR
+unset MYVAR
+echo $MYVAR
+.zshrc/
+/.zshrc
+.zshrc
+~/.zshrc
+sudo ~/.zshrc
+echo $APP_ENV
+apple@kishankalandoor bash % vim ~/.bash_profile
+apple@kishankalandoor bash % source ~/.bash_profile
+apple@kishankalandoor bash % gotodev
+apple@kishankalandoor DevOps % gotodev
+apple@kishankalandoor DevOps % gotodev
+apple@kishankalandoor DevOps % vim ~/.zshrc
+apple@kishankalandoor DevOps % source ~/.zshrc
+apple@kishankalandoor DevOps % export APP_ENV=development
+apple@kishankalandoor DevOps % echo $SHELL
+/bin/zsh
+apple@kishankalandoor DevOps % alias
+gotodev=&#x27;cd /Applications/XAMPP/xamppfiles/htdocs/DevOps&#x27;
+run-help=man
+uninstall-spyder=/Users/apple/Library/spyder-6/uninstall-spyder.sh
+which-command=whence
+apple@kishankalandoor DevOps % gotodev                
+apple@kishankalandoor DevOps % source
+source: not enough arguments
+apple@kishankalandoor DevOps % PROMPT=&#x27;%1d %#&#x27;
+DevOps %abadb
+zsh: command not found: abadb
+DevOps %tmte
+zsh: command not found: tmte
+DevOps %apple@kishankalandoo
+zsh: command not found: apple@kishankalandoo
+DevOps %apple@kishankalandoor
+zsh: command not found: apple@kishankalandoor
+DevOps %source ~/.zshrc
+DevOps %vim ~/.zshrc          
+DevOps %source ~/.zshrc          
+DevOps %export APP_ENV=development
+DevOps %echo $SHELL              
+/bin/zsh
+DevOps %vim ~/.zshrc
+]%                                                                                                                                                                                                                                                         DevOps %source ~/.zshrc
+apple@kishankalandoor DevOps % PROMPT=&#x27;%n@%m %1c %#&#x27;
+apple@kishankalandoor DevOps %~/.zsh_history
+zsh: permission denied: /Users/apple/.zsh_history
+apple@kishankalandoor DevOps %cat ~/.zsh_history
+sudo /Applications/XAMPP/xamppfiles/xampp start
+tail -20 /Applications/XAMPP/xamppfiles/logs/error_log
+rm /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/.htaccess
+mv /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index.html /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index_old.html &amp;&amp; mv /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index_enhanced.html /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index.html
+tail -30 /Applications/XAMPP/xamppfiles/logs/php_error_log
+tail -50 /Applications/XAMPP/xamppfiles/logs/php_error_log | grep -A 5 &quot;JANAUSHADHICADF&quot;
+php setup_simple.php &gt; /tmp/setup_output.txt 2&gt;&amp;1 &amp;&amp; cat /tmp/setup_output.txt
+open &quot;http://localhost/JANAUSHADHICADF/report.html&quot;
+open &quot;http://localhost/JANAUSHADHICADF/report.html&quot;
+open &quot;http://localhost/JANAUSHADHICADF/report.html&quot;
+open &quot;http://localhost/JANAUSHADHICADF/report.html&quot;
+open &quot;http://localhost/JANAUSHADHICADF/report.html&quot;
+open &quot;http://localhost/JANAUSHADHICADF/report.html&quot;
+open &quot;http://localhost/JANAUSHADHICADF/report.html&quot;
+open &quot;http://localhost/JANAUSHADHICADF/report.html&quot;
+cd /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/Documentation &amp;&amp; python3 -c &quot;\
+import matplotlib.pyplot as plt\
+import matplotlib.patches as mpatches\
+from matplotlib.patches import FancyBboxPatch, FancyArrowPatch\
+import matplotlib.lines as mlines\
+\
+# Passport size: 2x2 inches at 300 DPI = 600x600 pixels\
+fig, ax = plt.subplots(figsize=(2, 2), dpi=300)\
+ax.set_xlim(0, 10)\
+ax.set_ylim(0, 10)\
+ax.axis(&#x27;off&#x27;)\
+\
+# Title\
+ax.text(5, 9.5, &#x27;Jan Aushadhi CADF&#x27;, ha=&#x27;center&#x27;, va=&#x27;top&#x27;, fontsize=7, weight=&#x27;bold&#x27;)\
+\
+# Layer 1: Presentation (Top)\
+box1 = FancyBboxPatch((0.5, 7.5), 9, 1.5, boxstyle=&#x27;round,pad=0.05&#x27;, \
+                      edgecolor=&#x27;#2C3E50&#x27;, facecolor=&#x27;#3498DB&#x27;, linewidth=1)\
+ax.add_patch(box1)\
+ax.text(5, 8.25, &#x27;Web Interface&#x27;, ha=&#x27;center&#x27;, va=&#x27;center&#x27;, fontsize=5, color=&#x27;white&#x27;, weight=&#x27;bold&#x27;)\
+\
+# Layer 2: Application Logic\
+box2 = FancyBboxPatch((0.5, 5.5), 9, 1.5, boxstyle=&#x27;round,pad=0.05&#x27;,\
+                      edgecolor=&#x27;#2C3E50&#x27;, facecolor=&#x27;#2ECC71&#x27;, linewidth=1)\
+ax.add_patch(box2)\
+ax.text(5, 6.25, &#x27;PHP Backend + API&#x27;, ha=&#x27;center&#x27;, va=&#x27;center&#x27;, fontsize=5, color=&#x27;white&#x27;, weight=&#x27;bold&#x27;)\
+\
+# Layer 3: Federated Learning\
+box3 = FancyBboxPatch((0.5, 3.5), 9, 1.5, boxstyle=&#x27;round,pad=0.05&#x27;,\
+                      edgecolor=&#x27;#2C3E50&#x27;, facecolor=&#x27;#E74C3C&#x27;, linewidth=1)\
+ax.add_patch(box3)\
+ax.text(5, 4.25, &#x27;FL Engine (PyTorch)&#x27;, ha=&#x27;center&#x27;, va=&#x27;center&#x27;, fontsize=5, color=&#x27;white&#x27;, weight=&#x27;bold&#x27;)\
+\
+# Layer 4: Data Storage\
+box4 = FancyBboxPatch((0.5, 1.5), 9, 1.5, boxstyle=&#x27;round,pad=0.05&#x27;,\
+                      edgecolor=&#x27;#2C3E50&#x27;, facecolor=&#x27;#9B59B6&#x27;, linewidth=1)\
+ax.add_patch(box4)\
+ax.text(5, 2.25, &#x27;MySQL Database&#x27;, ha=&#x27;center&#x27;, va=&#x27;center&#x27;, fontsize=5, color=&#x27;white&#x27;, weight=&#x27;bold&#x27;)\
+\
+# Arrows connecting layers\
+arrow_props = dict(arrowstyle=&#x27;-&gt;&#x27;, lw=1.5, color=&#x27;#34495E&#x27;)\
+ax.annotate(&#x27;&#x27;, xy=(5, 7.5), xytext=(5, 7), arrowprops=arrow_props)\
+ax.annotate(&#x27;&#x27;, xy=(5, 5.5), xytext=(5, 5), arrowprops=arrow_props)\
+ax.annotate(&#x27;&#x27;, xy=(5, 3.5), xytext=(5, 3), arrowprops=arrow_props)\
+\
+# Users (bottom)\
+ax.text(2, 0.7, &#x27;Doctor&#x27;, ha=&#x27;center&#x27;, fontsize=4, weight=&#x27;bold&#x27;, color=&#x27;#2C3E50&#x27;)\
+ax.text(5, 0.7, &#x27;Volunteer&#x27;, ha=&#x27;center&#x27;, fontsize=4, weight=&#x27;bold&#x27;, color=&#x27;#2C3E50&#x27;)\
+ax.text(8, 0.7, &#x27;Kendra&#x27;, ha=&#x27;center&#x27;, fontsize=4, weight=&#x27;bold&#x27;, color=&#x27;#2C3E50&#x27;)\
+\
+plt.tight_layout(pad=0.1)\
+plt.savefig(&#x27;System Architecture.png&#x27;, dpi=300, bbox_inches=&#x27;tight&#x27;, facecolor=&#x27;white&#x27;)\
+print(&#x27;System Architecture.png created successfully!&#x27;)\
+&quot;
+cd /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/Documentation &amp;&amp; python3 -c &quot;\</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Terminal Session 2: Bash Scripting and Environment Setup</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Bash Scripting and Environment Setup</div>
+            </div>
+            <div class="terminal-body">
+                <pre>import matplotlib.pyplot as plt\
+import matplotlib.patches as mpatches\
+from matplotlib.patches import FancyBboxPatch, Rectangle, Circle\
+import numpy as np\
+\
+# Passport size with higher resolution for clarity\
+fig, ax = plt.subplots(figsize=(3, 3), dpi=400)\
+ax.set_xlim(0, 12)\
+ax.set_ylim(0, 12)\
+ax.axis(&#x27;off&#x27;)\
+\
+# Title with background\
+title_box = Rectangle((0, 11), 12, 1, facecolor=&#x27;#1a1a1a&#x27;, edgecolor=&#x27;none&#x27;)\
+ax.add_patch(title_box)\
+ax.text(6, 11.5, &#x27;JAN AUSHADHI CADF SYSTEM&#x27;, ha=&#x27;center&#x27;, va=&#x27;center&#x27;, \
+        fontsize=8, color=&#x27;white&#x27;, weight=&#x27;bold&#x27;, family=&#x27;sans-serif&#x27;)\
+\
+# Client Layer\
+client_bg = Rectangle((0.3, 9), 11.4, 1.5, facecolor=&#x27;#E8F5E9&#x27;, edgecolor=&#x27;#4CAF50&#x27;, linewidth=2)\
+ax.add_patch(client_bg)\
+ax.text(6, 10.2, &#x27;CLIENT LAYER&#x27;, ha=&#x27;center&#x27;, fontsize=6, weight=&#x27;bold&#x27;, color=&#x27;#2E7D32&#x27;)\
+\
+# Three user types\
+users = [\
+    (&#x27;Doctor\nDashboard&#x27;, 2.5, &#x27;#1976D2&#x27;),\
+    (&#x27;Volunteer\nKiosk&#x27;, 6, &#x27;#F57C00&#x27;),\
+    (&#x27;Kendra\nManagement&#x27;, 9.5, &#x27;#7B1FA2&#x27;)\
+]\
+for label, x, color in users:\
+    circle = Circle((x, 9.5), 0.4, facecolor=color, edgecolor=&#x27;white&#x27;, linewidth=2)\
+    ax.add_patch(circle)\
+    ax.text(x, 9.5, &#x27;??????&#x27;, ha=&#x27;center&#x27;, va=&#x27;center&#x27;, fontsize=8, color=&#x27;white&#x27;)\
+    ax.text(x, 8.7, label, ha=&#x27;center&#x27;, fontsize=4.5, color=&#x27;#333&#x27;, weight=&#x27;bold&#x27;)\
+\
+# Presentation Layer\
+pres_box = FancyBboxPatch((0.5, 6.8), 11, 1.3, boxstyle=&#x27;round,pad=0.05&#x27;,\
+                          edgecolor=&#x27;#0277BD&#x27;, facecolor=&#x27;#03A9F4&#x27;, linewidth=2)\
+ax.add_patch(pres_box)\
+ax.text(6, 7.7, &#x27;WEB INTERFACE&#x27;, ha=&#x27;center&#x27;, fontsize=6, weight=&#x27;bold&#x27;, color=&#x27;white&#x27;)\
+ax.text(6, 7.2, &#x27;HTML5  ? Bootstrap  ? JavaScript&#x27;, ha=&#x27;center&#x27;, fontsize=4, color=&#x27;white&#x27;, style=&#x27;italic&#x27;)\
+\
+# Application Layer\
+app_box = FancyBboxPatch((0.5, 5), 11, 1.3, boxstyle=&#x27;round,pad=0.05&#x27;,\
+                         edgecolor=&#x27;#388E3C&#x27;, facecolor=&#x27;#4CAF50&#x27;, linewidth=2)\
+ax.add_patch(app_box)\
+ax.text(6, 5.9, &#x27;APPLICATION LAYER&#x27;, ha=&#x27;center&#x27;, fontsize=6, weight=&#x27;bold&#x27;, color=&#x27;white&#x27;)\
+ax.text(6, 5.4, &#x27;PHP Backend  ? REST API  ? Authentication&#x27;, ha=&#x27;center&#x27;, fontsize=4, color=&#x27;white&#x27;, style=&#x27;italic&#x27;)\
+\
+# FL Engine Layer\
+fl_box = FancyBboxPatch((0.5, 3.2), 11, 1.3, boxstyle=&#x27;round,pad=0.05&#x27;,\
+                        edgecolor=&#x27;#C62828&#x27;, facecolor=&#x27;#F44336&#x27;, linewidth=2)\
+ax.add_patch(fl_box)\
+ax.text(6, 4.1, &#x27;FEDERATED LEARNING ENGINE&#x27;, ha=&#x27;center&#x27;, fontsize=6, weight=&#x27;bold&#x27;, color=&#x27;white&#x27;)\
+ax.text(6, 3.6, &#x27;PyTorch  ? Privacy-Preserving  ? Differential Privacy&#x27;, ha=&#x27;center&#x27;, fontsize=4, color=&#x27;white&#x27;, style=&#x27;italic&#x27;)\
+\
+# Data Layer\
+data_box = FancyBboxPatch((0.5, 1.4), 11, 1.3, boxstyle=&#x27;round,pad=0.05&#x27;,\
+                          edgecolor=&#x27;#6A1B9A&#x27;, facecolor=&#x27;#9C27B0&#x27;, linewidth=2)\
+ax.add_patch(data_box)\
+ax.text(6, 2.3, &#x27;DATA STORAGE LAYER&#x27;, ha=&#x27;center&#x27;, fontsize=6, weight=&#x27;bold&#x27;, color=&#x27;white&#x27;)\
+ax.text(6, 1.8, &#x27;MySQL  ? ECG Data  ? Patient Records  ? Training Logs&#x27;, ha=&#x27;center&#x27;, fontsize=4, color=&#x27;white&#x27;, style=&#x27;italic&#x27;)\
+\
+# External Services\
+ext_box = Rectangle((0.5, 0.2), 5, 0.9, facecolor=&#x27;#FFF3E0&#x27;, edgecolor=&#x27;#FF6F00&#x27;, linewidth=1.5)\
+ax.add_patch(ext_box)\
+ax.text(3, 0.8, &#x27;External Services&#x27;, ha=&#x27;center&#x27;, fontsize=5, weight=&#x27;bold&#x27;, color=&#x27;#E65100&#x27;)\
+ax.text(3, 0.4, &#x27;Ambulance  ? Hospitals&#x27;, ha=&#x27;center&#x27;, fontsize=4, color=&#x27;#E65100&#x27;)\
+\
+# Security\
+sec_box = Rectangle((6.5, 0.2), 5, 0.9, facecolor=&#x27;#FFEBEE&#x27;, edgecolor=&#x27;#D32F2F&#x27;, linewidth=1.5)\
+ax.add_patch(sec_box)\
+ax.text(9, 0.8, &#x27;Security Layer&#x27;, ha=&#x27;center&#x27;, fontsize=5, weight=&#x27;bold&#x27;, color=&#x27;#C62828&#x27;)\
+ax.text(9, 0.4, &#x27;Role-Based Access  ? Encryption&#x27;, ha=&#x27;center&#x27;, fontsize=4, color=&#x27;#C62828&#x27;)\
+\
+# Arrows with better styling\
+arrow_style = dict(arrowstyle=&#x27;-&gt;&#x27;, lw=2, color=&#x27;#37474F&#x27;, connectionstyle=&#x27;arc3,rad=0&#x27;)\
+\
+# Vertical flow arrows\
+for y_start, y_end in [(8.7, 6.8), (6.8, 5), (5, 3.2), (3.2, 1.4)]:\
+    ax.annotate(&#x27;&#x27;, xy=(6, y_end), xytext=(6, y_start), arrowprops=arrow_style)\
+\
+# Side connections\
+ax.annotate(&#x27;&#x27;, xy=(3, 1.4), xytext=(3, 1.1), arrowprops=dict(arrowstyle=&#x27;-&gt;&#x27;, lw=1.5, color=&#x27;#FF6F00&#x27;))\
+ax.annotate(&#x27;&#x27;, xy=(9, 1.4), xytext=(9, 1.1), arrowprops=dict(arrowstyle=&#x27;&lt;-&gt;&#x27;, lw=1.5, color=&#x27;#D32F2F&#x27;))\
+\
+# Add small icons/indicators on the right\
+ax.text(11.5, 7.45, &#x27;??????&#x27;, ha=&#x27;center&#x27;, fontsize=6)\
+ax.text(11.5, 5.65, &#x27;⃺??︃?&#x27;, ha=&#x27;center&#x27;, fontsize=6)\
+ax.text(11.5, 3.85, &#x27;??????&#x27;, ha=&#x27;center&#x27;, fontsize=6)\
+ax.text(11.5, 2.05, &#x27;??????&#x27;, ha=&#x27;center&#x27;, fontsize=6)\
+\
+plt.tight_layout(pad=0.2)\
+plt.savefig(&#x27;System Architecture.png&#x27;, dpi=400, bbox_inches=&#x27;tight&#x27;, facecolor=&#x27;white&#x27;, edgecolor=&#x27;none&#x27;)\
+print(&#x27;Enhanced System Architecture.png created!&#x27;)\
+&quot;
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/homeopathy/setup.sh
+grep -n &quot;??????\|???????\|??????\|⃺??︃?\|???????\|???????\|??????\|??????\|???????\|??????\|��\|??????\|⃺??\|??????\|???????\|⃺??︃?\|??????\|??????\|???????\|??????\|⃺??︃?\|??????\|???????\|???????\|???????\|???????\|???????\|???????\|???????︃?\|⃸?︃?\|???????\|???????\|??????\|??????\|???????\|��\|???????\|?????\|??????\|??????\|???????\|???????\|⃼??\|⃯?︃?\|???????\|??????\|?????\|??????\|??????\|??????\|???????\|??????\|??????\|⃻??︃?\|???????&quot; report.html | head -50
+grep -n &quot;??????\|???????\|??????\|⃺??︃?\|???????\|???????\|??????\|??????\|???????\|??????\|��\|??????\|⃺??\|??????\|???????\|⃺??︃?\|??????\|??????\|???????\|??????\|⃺??︃?\|??????\|???????\|???????\|???????\|???????\|???????\|???????\|???????︃?\|⃸?︃?\|???????\|???????\|??????\|??????\|???????\|��\|???????\|?????\|??????\|??????\|???????\|???????\|⃼??\|⃯?︃?\|???????\|??????\|?????\|??????\|??????\|???????\|??????\|??????\|⃻??︃?\|???????\|???????\|???????\|???????︃?\|???????︃?\|??????\|??????\|???????\|???????&quot; report.html
+grep -c &quot;??????\|???????\|??????\|⃺??︃?\|???????\|???????\|??????\|??????\|???????\|??????\|��\|??????\|⃺??\|??????\|???????\|⃺??︃?\|??????\|??????\|???????\|??????\|⃺??︃?\|??????\|???????\|???????\|???????\|???????\|???????\|???????\|???????︃?\|⃸?︃?\|???????\|???????\|??????\|??????\|???????\|��\|???????\|?????\|??????\|??????\|???????\|???????\|⃼??\|⃯?︃?\|???????\|??????\|?????\|??????\|??????\|???????\|??????\|??????\|⃻??︃?\|???????\|???????\|???????\|???????︃?\|???????︃?\|??????\|??????\|???????\|???????\|???????︃?\|??????\|???????\|???????&quot; report.html
+grep -n &quot;??????\|???????\|??????\|⃺??︃?\|???????\|???????\|??????\|??????\|???????\|??????\|��\|??????\|⃺??\|??????\|???????\|⃺??︃?\|??????\|??????\|???????\|??????\|⃺??︃?\|??????\|???????\|???????\|???????\|???????\|???????\|???????\|???????︃?\|⃸?︃?\|???????\|???????\|??????\|??????\|???????\|��\|???????\|?????\|??????\|??????\|???????\|???????\|⃼??\|⃯?︃?\|???????\|??????\|?????\|??????\|??????\|???????\|??????\|??????\|⃻??︃?\|???????\|???????\|???????\|???????︃?\|???????︃?\|??????\|???????\|???????\|???????︃?\|??????&quot; report.html
+mysql -u root -e &quot;SHOW DATABASES LIKE &#x27;homeopathy_ai&#x27;;&quot; 2&gt;&amp;1
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e &quot;SHOW DATABASES LIKE &#x27;homeopathy_ai&#x27;;&quot;
+/Applications/XAMPP/xamppfiles/bin/mysql -u root &lt; /Applications/XAMPP/xamppfiles/htdocs/homeopathy/setup_database.sql
+php setup_db.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/setup_db.php
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e &quot;SHOW TABLES;&quot;
+grep -n &quot;\.formula-grid&quot; report.html | head -20
+grep -n &#x27;class=&quot;formula-grid&quot;&#x27; report.html
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/add_sample_data.php
+curl -s http://localhost/homeopathy/api/get_stats.php | python3 -m json.tool
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e &quot;DELETE FROM symptoms_master WHERE id &gt; 0; DELETE FROM extracted_symptoms WHERE id &gt; 0;&quot;
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e &quot;TRUNCATE TABLE symptoms_master;&quot;
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e &quot;SELECT COUNT(*) as count FROM patients;&quot;
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e &quot;SELECT MIN(id) as min_id, MAX(id) as max_id FROM patients;&quot;
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+curl -s http://localhost/homeopathy/api/get_stats.php | python3 -m json.tool
+php -v
+ps aux | grep -i mysql | grep -v grep
+ps aux | grep -i httpd | grep -v grep | head -1
+/Applications/XAMPP/xamppfiles/bin/php -v
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/dashboard.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/stock_adjustment.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/stock_report.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/index.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/electric_fence_calculator.php &amp;&amp; /Applications/XAMPP/xamppfiles/bin/php -l quotations/fence_roughwork.php
+/Applications/XAMPP/xamppfiles/bin/php -l index.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php &amp;&amp; /Applications/XAMPP/xamppfiles/bin/php -l quotations/save_quotation.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/electric_fence_auto.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/api/save_auto_quotation.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/index.php
+node --check quotations/js/fence_calculator_engine.js 2&gt;&amp;1 || echo &quot;JS check completed&quot;
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/electric_fence_auto.php &amp;&amp; echo &quot;⃼?? Main file syntax OK&quot;
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/api/save_auto_quotation.php &amp;&amp; echo &quot;⃼?? API file syntax OK&quot;
+node -e &quot;const fs = require(&#x27;fs&#x27;); const code = fs.readFileSync(&#x27;quotations/js/fence_calculator_engine.js&#x27;, &#x27;utf8&#x27;); console.log(&#x27;⃼?? JS file loaded:&#x27;, code.length, &#x27;chars&#x27;); console.log(&#x27;⃼?? Functions found:&#x27;, (code.match(/function /g) || []).length);&quot;
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e &quot;USE hitech_power; SHOW TABLES LIKE &#x27;quotation%&#x27;;&quot; 2&gt;&amp;1 | head -20
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e &quot;USE hitech_power; DESCRIBE quotations;&quot; 2&gt;&amp;1
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e &quot;USE hitech_power; DESCRIBE quotation_items;&quot; 2&gt;&amp;1
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/api/save_auto_quotation.php &amp;&amp; echo &quot;⃼?? API file syntax verified&quot;
+cat &lt;&lt; &#x27;EOF&#x27;\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+⃵??     ⃼?? ELECTRIC FENCE CALCULATOR - VERIFICATION COMPLETE     ⃵??\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+\
+??????? VERIFICATION SUMMARY:\
+\
+⃼?? PHP Syntax:         PASS - No errors\
+⃼?? JavaScript:         PASS - 22 functions, 31,839 chars\
+⃼?? Database Schema:    FIXED - Now compatible\
+⃼?? API Integration:    UPDATED - Matches actual tables\
+⃼?? Calculations:       VERIFIED - All formulas working\
+⃼?? Product Database:   COMPLETE - 70+ items\
+⃼?? Documentation:      COMPLETE - 1,800+ lines\
+\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+\
+?????? HOW TO TEST:\
+\
+1︃?⃣?  AUTOMATED TESTS (Recommended First):\
+   URL: http://localhost/Hitech/quotations/test_calculator.html\
+   Action: Click &quot;Run All Tests&quot;\
+   Expected: 23/23 tests passing\
+\
+2︃?⃣?  LIVE CALCULATOR TEST:\
+   URL: http://localhost/Hitech/quotations/electric_fence_auto.php\
+   \
+   Sample Input:\
+   - Fence Length: 500\
+   - Corners: 4\
+   - Gates: 2\
+   - Terrain: Flat\
+   - Fence Height: 8\
+   - Post Spacing: 3\
+   - Live Wires: 6\
+   - Power Source: Solar\
+   - Application: Cattle\
+   - Backup Days: 3\
+   \
+   Expected Output:\
+   ⃼?? H900 Charger\
+   ⃼?? Tubular 150Ah Battery\
+   ⃼?? 100W Solar Panel\
+   ⃼?? 28 Main Poles\
+   ⃼?? 167 Supporting Poles\
+   ⃼?? 3,210m Wire\
+   ⃼?? 1,062 Insulators\
+   ⃼?? Complete BOQ with prices\
+\
+3︃?⃣?  DATABASE SAVE TEST:\
+   - Fill calculator form\
+   - Click &quot;Auto Calculate&quot;\
+   - Review BOQ\
+   - Click &quot;Save Quotation&quot;\
+   - Enter customer name\
+   - Verify success message\
+\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+\
+?????? FILES CREATED:\
+\
+Core System (3 files):\
+  ⃼?? quotations/electric_fence_auto.php\
+  ⃼?? quotations/js/fence_calculator_engine.js\
+  ⃼?? quotations/api/save_auto_quotation.php\
+\
+Testing:\
+  ⃼?? quotations/test_calculator.html\
+\
+Documentation (5 files):\
+  ⃼?? ELECTRIC_FENCE_QUICK_START.md\
+  ⃼?? ELECTRIC_FENCE_CALCULATOR_DOCUMENTATION.md\
+  ⃼?? ELECTRIC_FENCE_IMPLEMENTATION_SUMMARY.md\
+  ⃼?? ELECTRIC_FENCE_VISUAL_FLOW.md\
+  ⃼?? README_ELECTRIC_FENCE.md\
+  ⃼?? TEST_VERIFICATION_REPORT.md\
+\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+\
+?????? KEY FIXES APPLIED TODAY:\
+\
+⃼?? Database Integration:\
+   - Updated API to use actual &#x27;quotations&#x27; table\
+   - Fixed column names (QuotationNumber, CustomerID, etc.)\
+   - Added customer lookup/creation logic\
+   - Fixed quotation_items schema (ItemName, GSTRate)\
+   - Auto-generates quotation numbers\
+\
+⃼?? All Syntax Verified:\
+   - PHP files: No errors\
+   - JavaScript: Valid code\
+   - SQL: Prepared statements\
+\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+\
+??????? STATUS: PRODUCTION READY\
+\
+The system is fully tested and ready to use!\
+\
+Start here: http://localhost/Hitech/quotations/electric_fence_auto.php\
+\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+EOF
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e &quot;USE hitech_power; SHOW TABLES LIKE &#x27;%staff%&#x27; OR SHOW TABLES LIKE &#x27;%employee%&#x27;;&quot; 2&gt;&amp;1
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e &quot;USE hitech_power; SHOW TABLES;&quot; 2&gt;&amp;1 | grep -i -E &#x27;staff|employee&#x27;</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Terminal Session 3: Grep and Pattern Matching</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Grep and Pattern Matching</div>
+            </div>
+            <div class="terminal-body">
+                <pre>/Applications/XAMPP/xamppfiles/bin/mysql -u root -e &quot;USE hitech_power; DESCRIBE staff;&quot; 2&gt;&amp;1
+/Applications/XAMPP/xamppfiles/bin/php -l staff/index.php &amp;&amp; /Applications/XAMPP/xamppfiles/bin/php -l staff/add.php &amp;&amp; /Applications/XAMPP/xamppfiles/bin/php -l staff/pay_salary.php &amp;&amp; echo &quot;⃼?? All staff files syntax OK&quot;
+/Applications/XAMPP/xamppfiles/bin/php -l staff/edit.php
+/Applications/XAMPP/xamppfiles/bin/php -l products/index.php &amp;&amp; /Applications/XAMPP/xamppfiles/bin/php -l products/add.php &amp;&amp; /Applications/XAMPP/xamppfiles/bin/php -l products/edit.php
+/Applications/XAMPP/xamppfiles/bin/php -l products/edit.php
+wc -l /Applications/XAMPP/xamppfiles/htdocs/Hitech/inventory/seed_all_products.php
+/Applications/XAMPP/xamppfiles/bin/php -r &quot;require &#x27;database/db_config.php&#x27;; \$result = \$pdo-&gt;query(&#x27;SELECT COUNT(*) as count FROM products&#x27;); echo &#x27;Current products in database: &#x27; . \$result-&gt;fetch()[&#x27;count&#x27;] . PHP_EOL;&quot;
+find /Applications/XAMPP/xamppfiles/htdocs/Hitech -type f \( -name &quot;*.csv&quot; -o -name &quot;*.xlsx&quot; -o -name &quot;*.xls&quot; -o -name &quot;*products*&quot; -o -name &quot;*items*&quot; \) 2&gt;/dev/null | head -20
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/seed_110_products.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/api/get_products.php &amp;&amp; echo &quot;⃼?? API syntax OK&quot;
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/index.php
+grep -n &quot;^function &quot; quotations/js/fence_calculator_engine.js | head -30
+node --check quotations/js/fence_calculator_engine.js 2&gt;&amp;1 || echo &quot;If node not found, JS syntax should be manually checked in browser&quot;
+curl -s &quot;http://localhost/Hitech/quotations/api/get_products.php&quot; | head -50
+ps aux | grep -i &quot;httpd\|mysql&quot; | grep -v grep
+/Applications/XAMPP/xamppfiles/xampp start
+sudo /Applications/XAMPP/xamppfiles/xampp start
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e &quot;SHOW DATABASES LIKE &#x27;hitech_power&#x27;;&quot;
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e &quot;SHOW TABLES LIKE &#x27;users&#x27;;&quot;
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e &quot;DESCRIBE users;&quot;
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e &quot;SELECT Username, FullName, Role FROM users LIMIT 5;&quot;
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e &quot;UPDATE users SET Password = &#x27;\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi&#x27; WHERE Username = &#x27;admin&#x27;;&quot;
+php -r &quot;echo password_hash(&#x27;Gopala&#x27;, PASSWORD_DEFAULT);&quot;
+/Applications/XAMPP/xamppfiles/bin/php -r &quot;echo password_hash(&#x27;Gopala&#x27;, PASSWORD_DEFAULT);&quot;
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e &quot;UPDATE users SET Username = &#x27;Kalandoor&#x27;, Password = &#x27;\$2y\$10\$tp1HNVAR/Nzb5JN7NcwhpegABa.Eu9EPWHcfDVO4ZehEBzoxwBiFu&#x27; WHERE Username = &#x27;admin&#x27;;&quot;
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e &quot;SELECT Username, FullName, Role FROM users;&quot;
+rm /Applications/XAMPP/xamppfiles/htdocs/Hitech/login.php
+rm /Applications/XAMPP/xamppfiles/htdocs/Hitech/index.html &amp;&amp; echo &quot;File removed&quot;
+cat &amp;lt;&amp;lt; &#x27;EOF&#x27; | /Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power
+CREATE TABLE IF NOT EXISTS consultations (\
+  ConsultationID INT AUTO_INCREMENT PRIMARY KEY,\
+  FullName VARCHAR(255) NOT NULL,\
+  Phone VARCHAR(20) NOT NULL,\
+  Email VARCHAR(150),\
+  Location VARCHAR(255) NOT NULL,\
+  FenceType VARCHAR(100) NOT NULL,\
+  AreaAcres DECIMAL(10,2),\
+  AreaCents DECIMAL(10,2),\
+  Message TEXT,\
+  Status ENUM(&#x27;New&#x27;, &#x27;Contacted&#x27;, &#x27;Completed&#x27;, &#x27;Cancelled&#x27;) DEFAULT &#x27;New&#x27;,\
+  IsRead BOOLEAN DEFAULT FALSE,\
+  IsFlagged BOOLEAN DEFAULT FALSE,\
+  CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\
+  UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\
+  INDEX idx_status (Status),\
+  INDEX idx_created (CreatedAt)\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+EOF
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e &quot;CREATE TABLE IF NOT EXISTS consultations (\
+  ConsultationID INT AUTO_INCREMENT PRIMARY KEY,\
+  FullName VARCHAR(255) NOT NULL,\
+  Phone VARCHAR(20) NOT NULL,\
+  Email VARCHAR(150),\
+  Location VARCHAR(255) NOT NULL,\
+  FenceType VARCHAR(100) NOT NULL,\
+  AreaAcres DECIMAL(10,2),\
+  AreaCents DECIMAL(10,2),\
+  Message TEXT,\
+  Status ENUM(&#x27;New&#x27;, &#x27;Contacted&#x27;, &#x27;Completed&#x27;, &#x27;Cancelled&#x27;) DEFAULT &#x27;New&#x27;,\
+  IsRead BOOLEAN DEFAULT FALSE,\
+  IsFlagged BOOLEAN DEFAULT FALSE,\
+  CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\
+  UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\
+  INDEX idx_status (Status),\
+  INDEX idx_created (CreatedAt)\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;&quot;
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e &quot;ALTER TABLE consultations ADD COLUMN Budget DECIMAL(12,2) AFTER AreaCents;&quot;
+ipconfig getifaddr en0 || ipconfig getifaddr en1
+grep -n &quot;Require local&quot; /Applications/XAMPP/xamppfiles/etc/httpd.conf | head -5
+open -a TextEdit /Applications/XAMPP/xamppfiles/etc/httpd.conf
+cd &quot;/Users/apple/Downloads/tata ai&quot; &amp;&amp; &quot;/Users/apple/Downloads/tata ai/.venv/bin/python&quot; convert_to_word.py
+cd &quot;/Users/apple/Downloads/tata ai/Task 2&quot; &amp;&amp; &quot;/Users/apple/Downloads/tata ai/.venv/bin/python&quot; create_task2_report.py
+cd &quot;/Users/apple/Downloads/tata ai/Task 3&quot; &amp;&amp; &quot;/Users/apple/Downloads/tata ai/.venv/bin/python&quot; create_task3_report.py
+cd &quot;/Users/apple/Downloads/tata ai/Task 4&quot; &amp;&amp; &quot;/Users/apple/Downloads/tata ai/.venv/bin/python&quot; create_task4_presentation.py
+cd &quot;/Users/apple/Downloads/milma bill&quot; &amp;&amp; python3 generate_receipts_pdf.py
+cd &quot;/Users/apple/Downloads/milma bill&quot; &amp;&amp; python3 generate_receipts_pdf.py
+cd &quot;/Users/apple/Downloads/milma bill&quot; &amp;&amp; python3 generate_receipts_pdf.py
+chmod +x setup.sh check_installation.sh verify_system.py
+tree -L 3 -I &#x27;venv|__pycache__|*.pyc&#x27; &gt; project_structure.txt 2&gt;/dev/null || find . -type f -not -path &quot;./venv/*&quot; -not -path &quot;./__pycache__/*&quot; | head -30
+ls -lah
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/heartbeat/install.sh
+cat &gt;&gt; /Applications/XAMPP/xamppfiles/htdocs/heartbeat/assets/css/style.css &lt;&lt; &#x27;EOF&#x27;\
+\
+/* Stress Level Badges */\
+.badge-stress-low {\
+    background: linear-gradient(135deg, #2E7D32, #4CAF50);\
+    color: white;\
+}\
+\
+.badge-stress-moderate {\
+    background: linear-gradient(135deg, #F9A825, #FDD835);\
+    color: #333;\
+}\
+\
+.badge-stress-high {\
+    background: linear-gradient(135deg, #F57C00, #FFB74D);\
+    color: white;\
+}\
+\
+.badge-stress-very-high {\
+    background: linear-gradient(135deg, #D32F2F, #F44336);\
+    color: white;\
+    animation: pulse-badge 2s infinite;\
+}\
+\
+@keyframes pulse-badge {\
+    0%, 100% { opacity: 1; }\
+    50% { opacity: 0.7; }\
+}\
+\
+/* Stat Card Variants */\
+.stat-card.danger {\
+    background: linear-gradient(135deg, #D32F2F, #F44336);\
+}\
+\
+.stat-card.success {\
+    background: linear-gradient(135deg, #2E7D32, #4CAF50);\
+}\
+\
+/* Print Styles */\
+@media print {\
+    .navbar, .btn, .alert, .modal { \
+        display: none !important; \
+    }\
+    .card { \
+        page-break-inside: avoid;\
+        box-shadow: none;\
+        border: 1px solid #ddd;\
+    }\
+    body { \
+        background: white !important; \
+    }\
+    .container {\
+        max-width: 100%;\
+        padding: 0;\
+    }\
+}\
+EOF
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/heartbeat/verify.sh
+chmod +x verify.sh &amp;&amp; ls -la *.sh
+find . -type f -name &quot;*.php&quot; | wc -l &amp;&amp; find . -type f \( -name &quot;*.php&quot; -o -name &quot;*.js&quot; -o -name &quot;*.css&quot; -o -name &quot;*.sql&quot; \) -exec wc -l {} + | tail -1
+ls -1 *.php *.md *.sh | wc -l &amp;&amp; du -sh .
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/heartbeat/test.sh &amp;&amp; /Applications/XAMPP/xamppfiles/htdocs/heartbeat/test.sh
+./test.sh
+./test.sh
+ls -1 | grep -E &#x27;\.(php|md|sh)$&#x27; | sort &amp;&amp; echo &quot;---&quot; &amp;&amp; echo &quot;Total files: $(find . -type f | wc -l | xargs)&quot; &amp;&amp; echo &quot;Code files: $(find . -type f \( -name &quot;*.php&quot; -o -name &quot;*.js&quot; -o -name &quot;*.css&quot; -o -name &quot;*.sql&quot; \) | wc -l | xargs)&quot; &amp;&amp; echo &quot;Lines of code: $(find . -type f \( -name &quot;*.php&quot; -o -name &quot;*.js&quot; -o -name &quot;*.css&quot; -o -name &quot;*.sql&quot; \) -exec wc -l {} + 2&gt;/dev/null | tail -1 | awk &#x27;{print $1}&#x27;)&quot;
+cat /Applications/XAMPP/xamppfiles/htdocs/heartbeat/FINAL_DELIVERY.txt
+./install.sh
+./verify.sh
+cat &gt; /Applications/XAMPP/xamppfiles/htdocs/heartbeat/login.php &lt;&lt; &#x27;EOF&#x27;\
+&lt;?php\
+session_start();\
+\
+// Auto-login (no authentication required)\
+if (!isset($_SESSION[&#x27;user_id&#x27;])) {\
+    $_SESSION[&#x27;user_id&#x27;] = 1;\
+    $_SESSION[&#x27;username&#x27;] = &#x27;admin&#x27;;\
+    $_SESSION[&#x27;full_name&#x27;] = &#x27;Administrator&#x27;;\
+    $_SESSION[&#x27;role&#x27;] = &#x27;admin&#x27;;\
+}\
+\
+header(&#x27;Location: index.php&#x27;);\
+exit;\
+EOF
+cat &gt; /Applications/XAMPP/xamppfiles/htdocs/heartbeat/test_camera.html &lt;&lt; &#x27;EOF&#x27;\
+&lt;!DOCTYPE html&gt;\
+&lt;html&gt;\
+&lt;head&gt;\
+    &lt;title&gt;Camera Test&lt;/title&gt;\
+    &lt;style&gt;\
+        body { font-family: Arial, sans-serif; padding: 20px; }\
+        video { border: 2px solid #4CAF50; max-width: 640px; }\
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }\
+        .error { background: #ffebee; color: #c62828; }\
+        .success { background: #e8f5e9; color: #2e7d32; }\
+        .info { background: #e3f2fd; color: #1565c0; }\
+    &lt;/style&gt;\
+&lt;/head&gt;\
+&lt;body&gt;\
+    &lt;h1&gt;?????? Camera Access Test&lt;/h1&gt;\
+    &lt;div id=&quot;status&quot; class=&quot;status info&quot;&gt;Click the button to test camera...&lt;/div&gt;\
+    &lt;button onclick=&quot;testCamera()&quot; style=&quot;padding: 10px 20px; font-size: 16px; margin: 10px 0;&quot;&gt;Test Camera&lt;/button&gt;\
+    &lt;br&gt;\
+    &lt;video id=&quot;video&quot; autoplay playsinline&gt;&lt;/video&gt;\
+    \
+    &lt;script&gt;\
+    async function testCamera() {\
+        const video = document.getElementById(&#x27;video&#x27;);\
+        const status = document.getElementById(&#x27;status&#x27;);\
+        \
+        status.textContent = &#x27;Requesting camera access...&#x27;;\
+        status.className = &#x27;status info&#x27;;\
+        \
+        try {\
+            const stream = await navigator.mediaDevices.getUserMedia({\
+                video: { facingMode: &#x27;user&#x27; },\
+                audio: false\
+            });\
+            \
+            video.srcObject = stream;\
+            \
+            status.textContent = &#x27;⃼?? Camera working! You should see yourself above.&#x27;;\
+            status.className = &#x27;status success&#x27;;\
+            \
+        } catch (error) {\
+            let message = &#x27;⃽?? Camera Error: &#x27;;\
+            \
+            if (error.name === &#x27;NotAllowedError&#x27; || error.name === &#x27;PermissionDeniedError&#x27;) {\
+                message += &#x27;Permission denied. Please allow camera access.&#x27;;\
+            } else if (error.name === &#x27;NotFoundError&#x27;) {\
+                message += &#x27;No camera found on this device.&#x27;;\
+            } else if (error.name === &#x27;NotReadableError&#x27;) {\
+                message += &#x27;Camera is already in use by another application.&#x27;;\
+            } else {\
+                message += error.message;\
+            }\
+            \
+            status.textContent = message;\
+            status.className = &#x27;status error&#x27;;\
+            \
+            console.error(&#x27;Camera error:&#x27;, error);\
+        }\
+    }\
+    &lt;/script&gt;\
+&lt;/body&gt;\
+&lt;/html&gt;\
+EOF
+echo &quot;Test page created: http://localhost/heartbeat/test_camera.html&quot;
+cat &gt; /Applications/XAMPP/xamppfiles/htdocs/heartbeat/test_hrv.html &lt;&lt; &#x27;EOF&#x27;\
+&lt;!DOCTYPE html&gt;\
+&lt;html&gt;\
+&lt;head&gt;\
+    &lt;title&gt;HRV Test&lt;/title&gt;\
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;assets/css/style.css&quot;&gt;\
+&lt;/head&gt;\
+&lt;body style=&quot;padding: 20px;&quot;&gt;\
+    &lt;h1&gt;HRV Monitor Test&lt;/h1&gt;\
+    \
+    &lt;div class=&quot;card&quot;&gt;\
+        &lt;div class=&quot;card-body&quot;&gt;\
+            &lt;h3&gt;Live Metrics&lt;/h3&gt;\
+            &lt;div style=&quot;font-size: 2rem; margin: 20px 0;&quot;&gt;\
+                &lt;div&gt;&lt;strong id=&quot;hrDisplay&quot;&gt;--&lt;/strong&gt; Heart Rate (BPM)&lt;/div&gt;\
+                &lt;div&gt;&lt;strong id=&quot;sdnnDisplay&quot;&gt;--&lt;/strong&gt; SDNN (ms)&lt;/div&gt;\
+                &lt;div&gt;&lt;strong id=&quot;rmssdDisplay&quot;&gt;--&lt;/strong&gt; RMSSD (ms)&lt;/div&gt;\
+                &lt;div&gt;&lt;strong id=&quot;qualityDisplay&quot;&gt;--&lt;/strong&gt; Data Quality&lt;/div&gt;\
+            &lt;/div&gt;\
+            &lt;button onclick=&quot;startTest()&quot; class=&quot;btn btn-primary&quot;&gt;Start Test&lt;/button&gt;\
+            &lt;button onclick=&quot;stopTest()&quot; class=&quot;btn btn-danger&quot;&gt;Stop Test&lt;/button&gt;\
+        &lt;/div&gt;\
+    &lt;/div&gt;\
+    \
+    &lt;script&gt;\
+    let testInterval = null;\
+    \
+    function startTest() {\
+        let counter = 0;\
+        testInterval = setInterval(() =&gt; {\
+            counter++;\
+            // Simulate realistic values\
+            const hr = 60 + Math.floor(Math.random() * 40); // 60-100 BPM\
+            const sdnn = 30 + Math.random() * 50; // 30-80 ms\
+            const rmssd = 25 + Math.random() * 45; // 25-70 ms\
+            const quality = Math.random(); // 0-1\
+            \
+            document.getElementById(&#x27;hrDisplay&#x27;).textContent = hr;\
+            document.getElementById(&#x27;sdnnDisplay&#x27;).textContent = sdnn.toFixed(1);\
+            document.getElementById(&#x27;rmssdDisplay&#x27;).textContent = rmssd.toFixed(1);\
+            document.getElementById(&#x27;qualityDisplay&#x27;).textContent = (quality * 100).toFixed(0) + &#x27;%&#x27;;\
+            \
+            console.log(&#x27;Test update:&#x27;, {hr, sdnn, rmssd, quality});\
+        }, 1000);\
+        \
+        alert(&#x27;Test started - metrics should update every second&#x27;);\
+    }\
+    \
+    function stopTest() {\
+        if (testInterval) {\
+            clearInterval(testInterval);\
+            testInterval = null;\
+            alert(&#x27;Test stopped&#x27;);\
+        }\
+    }\
+    &lt;/script&gt;\
+&lt;/body&gt;\
+&lt;/html&gt;\
+EOF
+echo &quot;⃼?? Test file created&quot;
+netstat -r
+netstat -a
+-a
+-g
+netstat -g
+netstat -i
+netstat -M
+netstat -s
+netstat -v
+-W
+netstat -W
+netstat -n
+netstat -hosts
+-hosts
+sudo newaliases
+sudo newaliases
+Echo&quot;Test Email&quot; | mail -s &quot;Test&quot; info  
+echo&quot;Test Email&quot; | mail -s &quot;Test&quot; info  
+echo &quot;Test Email&quot; | mail -s &quot;Test&quot; info  
+sudo ufw --badname
+sudo newusers --badname users_badname.txt
+echo &quot;neville:password123:1001:1002:Neville Smith:/home/neville:/bin/bash&quot; &gt; users.txt
+/etc/aliases\
+
+sudo nano /etc/aliases\
+
+sudo newaliases\
+
+sudo postfix start\
+
+sudo postfix status\
+
+echo &quot;Test Email from macOS&quot; | mail -s &quot;Test Support Alias&quot; support\
+
+[200~q
+~
+q\
+
+q
+-q
+mail\
+
+root:kishanbvn@gmail.com
+sudo nano /etc/aliases\
+
+sudo newaliases\
+
+sudo postfix start\
+sudo postfix status\
+
+echo &quot;Test root alias&quot; | mail -s &quot;Root Alias Test&quot; root\
+
+history
+cat ~/.zsh_history\
+
+history 100\
+
+whoami\
+
+sudo -i\
+
+hb
+sudo -i\
+
+sudo newusers users.txt\
+
+sudo -i\
+
+postfix status\
+
+sudo postfix status\
+
+sudo postfix stop\
+
+sudo postfix reload\
+
+sudo postfix status\
+
+sudo postfix start
+sudo postfix status\
+
+echo &quot;Hello&quot; | mail -s &quot;Test&quot; gopal@pacewisdom.com\
+
+sudo nano /etc/postfix/main.cf\
+
+sudo nano /etc/postfix/sasl_passwd\
+
+sudo chmod 600 /etc/postfix/sasl_passwd\
+
+sudo postmap /etc/postfix/sasl_passwd\
+
+sudo postfix reload\
+
+sudo postconf | grep relayhost\</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Terminal Session 4: Grep and Pattern Matching</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Grep and Pattern Matching</div>
+            </div>
+            <div class="terminal-body">
+                <pre>
+ls -l /etc/postfix/sasl_passwd*\
+
+ls -l /etc/postfix/sasl_passwd*\
+
+sudo postfix reload\
+
+sudo postfix stop\
+sudo postfix start\
+
+echo &quot;Postfix relay test $(date)&quot; | mail -s &quot;Postfix Gmail Test&quot; gopal@pacewisdom.com\
+
+mailq\
+
+sudo ufw
+sudo ufw
+sudo ufw status verbose
+sudo ufw status
+sudo ufw enable
+history
+whoami\
+groups\
+
+id\
+
+newgrp kishan\
+
+sudo  ufw enable
+netstat -a
+netstat -netsstat ie
+netstat -netstat ie
+netstat -at
+netstat -au
+netstat -au
+netstat -lt
+man ipconfig
+sudo apt
+sudo apt install -net -tools
+sudo apt install net -tools
+ipconfig -a
+sudo ifconfig ens33 up
+sudo ifconfig show dev ens33 up
+sudo ifconfig ens33 promiscs
+sudo zypper install traeroute
+pwd
+ls
+cd /Users/apple/Documents/DevOps
+ls -a
+ls -la
+mkdir gopal
+cd gopal
+touch gopal.txt
+cd gopal.txt
+-ls
+ls -a
+cat gopal
+cat gopal.txt
+nano gopal.txt
+cd gopal.txt
+passwd
+passwd
+passwd
+ping -c pacewisdom.com
+ping -c 1 pacewisdom.com
+ping -c 1 google.com
+ping -c 1 kalandoor.com
+ping -c 10 kalandoor.com
+ping -I gopal kalandoor.com
+ping -I em2 google.com
+ifconfig
+ping -I en0 google.com\
+
+ping -S
+ping -S xyz kalandoor.com
+ping -S 192.16.8.8.8.8  kalandoor.com
+ping -S 192.168.0.174 google.com\
+
+ping -I em2 linuxize.com
+ifconfig en0\
+
+ping -S 192.168.0.174 pacewisdom.com\
+
+ping -i 2 pacewisdom.com
+ping -W 2 pacewisdom.com
+ping -w 2 pacewisdom.com
+ping -s 2 pacewisdom.com
+ping -q -c 5 pacewisdom.com
+cd /Users/apple/Documents/DevOps
+mkdir var
+cd var
+mkdir www
+touch a1.txt b2.txt
+ls
+..
+cd ..
+mkdir home
+cd var
+mv a1.txt b2.txt www/
+cd www
+-l
+ls
+cd ..
+cd ..
+cd www
+cd home
+ln -s /Users/apple/Documents/DevOps/var/www/a1.txt
+ln -s /Users/apple/Documents/DevOps/var/www/b2.txt
+cd /Users/apple/Documents/DevOps
+ls
+touch innodedemo.txt
+cat innodedemo.txt
+vi  innodedemo.txt
+vi sahdgsq
+ls
+stat  innodedemo.txt
+ls -i
+ls -i /etc
+mkdir inode
+cd inode
+ls -id .
+ls id..
+ls -id..
+cd.
+cd .
+cd ..
+ls
+ls -i
+ln pinglogs.txt traceroutelog1.txt
+mkdir inode
+rm inode
+rmdir inode
+ls
+ls -i
+touch a.txt b.txt
+nano a.txt
+nano b.txt
+stat b.txt\
+
+stat a.txt\
+
+find file using node number :
+ls -i a.txt
+ find /Users/apple/Documents/DevOps -inum 36253699
+du h a.txt
+du -h a.txt
+du -h netstat-guide.html
+df -i
+df -i netstat-guide.html\
+
+Directory inode listing
+ls -i  /Users/apple/Documents/DevOps
+for parent ls -i ..
+ ls -i ..
+echo &quot;Hello&quot; a.txt
+tail -f  a.txt
+echo &quot;Hello&quot; &gt; a.txt
+tail -f  a.txt
+echo &quot;Hello hallo&quot; &gt;&gt; a.txt
+tail -f  a.txt
+ls -s a.txt broken
+ls -l broken
+ls -l missing.txt broken
+ln -s missing.txt broken
+ls -l broken
+ls -l missing.txt broken
+cat broken
+echo &quot;No issues&quot; &gt; missing.txt
+cat broken
+cd /Users/apple/Documents/DevOps
+grep &quot;hallo&quot; hello.txt</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Terminal Session 5: Grep and Pattern Matching</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Grep and Pattern Matching</div>
+            </div>
+            <div class="terminal-body">
+                <pre>touch hello.txt
+grep &quot;hallo&quot; hello.txt
+nano hello.txt
+grep -i  &quot;hallo&quot; hello.txt
+nano hello.txt
+grep -i  &quot;hallo&quot; hello.txt
+grep &quot;hallo&quot; hello.txt
+grep &quot;hello&quot; hello.txt
+grep -c  &quot;hallo&quot; hello.txt
+grep -c  &quot;hello&quot; hello.txt
+grep -c  &quot;helloi&quot; hello.txt
+grep -l  &quot;hallo&quot; hello.txt
+grep -w  &quot;hallo&quot; hello.txt
+grep -w  &quot;hi&quot; hello.txt
+nano hello.txt
+grep -w  &quot;hi&quot; hello.txt
+grep -w  &quot;hello&quot; hello.txt
+grep -l  &quot;hello&quot; hello.txt
+grep -w  &quot;hallo&quot; hello.txt
+grep -l  &quot;hallo&quot; hello.txt
+grep -c  &quot;hallo&quot; hello.txt
+grep -o  &quot;hallo&quot; hello.txt
+grep -n  &quot;hallo&quot; hello.txt
+grep -v  &quot;hallo&quot; hello.txt
+grep  &quot;^hallo&quot; hello.txt
+grep  &quot;hallo$&quot; hello.txt
+grep -e  &quot;hallo&quot; hello.txt
+grep -e  &quot;hallo&quot; -e &quot;hi&quot;  hello.txt
+touch pattern.txt
+nano pattern.txt
+grep -f pattern.txt hello.txt
+grep -[A] pattern.txt
+grep -A[] pattern.txt
+grep -A[n] pattern.txt
+grep -A2  &quot;hello&quot; hello.txt
+grep -B1  &quot;hello&quot; hello.txt
+grep -C1  &quot;hello&quot; hello.txt
+grep -C2  &quot;hello&quot; hello.txt
+grep -r  &quot;hallo&quot;   hello.txt
+ls
+brew install ngrok
+ngrok http 3000
+ngrok http 3000
+ngrok http 3000
+nmap www.pacewisdom.com
+brew --version\
+
+/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;\
+
+brew install nmap\
+
+nmap --version\
+
+nmap www.pacewisdom.com\
+
+nmap -v  www.pacewisdom.com\
+
+nmap -p  www.pacewisdom.com\
+
+nmap -p 8,8443  www.pacewisdom.com\
+
+nmap -sn  www.pacewisdom.com\
+
+nmap -sS  www.pacewisdom.com\
+
+sudo nmap -sS  www.pacewisdom.com\
+
+sudo nmap -sV  www.pacewisdom.com\
+
+ nmap -sV  www.pacewisdom.com
+sudo   nmap -O  www.pacewisdom.com
+sudo   nmap -O  www.pacewisdom.com
+sudo   nmap -A  www.pacewisdom.com
+cd /Users/apple/Documents/DevOps
+nmap -SS  www.pacewisdom.com -oG pacewisdom_scan.txt
+nmap -sS  www.pacewisdom.com -oG pacewisdom_scan.txt
+cat pacewisdom_scan.txt
+touch  pacewisdom_scan.txt
+nmap -sS  www.pacewisdom.com -oG pacewisdom_scan.txt
+cat pacewisdom_scan.txt
+nmap -h
+cd
+cd
+cd /Applications/XAMPP/xamppfiles/htdocs/sheshakuteera
+ls
+code .
+ngrok config add-authtoken 38erxpkXJ87bmIPGgYoaMsM9gnC_5vuFSKrFoAzhSosi5U6co
+man curl
+log
+date
+cd..
+/Applications/XAMPP/xamppfiles/htdocs/DevOps
+cd ...
+cd.
+cd .
+cd ..
+cd DevOps
+date
+host pacewisdom.com
+ping pacewisdom.com
+host 198.202.211.1
+host -a  pacewisdom.com
+host pacewisdom.com\
+
+host -t a  pacewisdom.com\
+
+host -t A  pacewisdom.com
+host 52.25.109.230
+host pacewisdom.com\
+
+host 2620:cb:2000::1
+host man
+curl man host
+man host
+host --help
+host -a pacewisdom.com
+host -c devops
+host -c pacewisdom.com
+ipconfig pacewisdom.com
+info pacewisdom.com
+curl  pacewisdom.com
+ping  pacewisdom.com
+host --help
+host 192.168.0.1
+host -c 192.168.0.1
+host [-aCdilrTvVw] [-c class] [-N ndots] [-t type] [-W time]\
+            [-R number] [-m flag] hostname [server]\
+       -a is equivalent to -v -t ANY\
+       -c specifies query class for non-IN data\
+       -C compares SOA records on authoritative nameservers\
+       -d is equivalent to -v\
+       -i IP6.INT reverse lookups\
+       -l lists all hosts in a domain, using AXFR\
+       -m set memory debugging flag (trace|record|usage)\
+       -N changes the number of dots allowed before root lookup is done\
+       -r disables recursive processing\
+       -R specifies number of retries for UDP packets\
+       -s a SERVFAIL response should stop query\
+       -t specifies the query type\
+       -T enables TCP/IP mode\
+       -v enables verbose output\
+       -V print version number and exit\
+       -w specifies to wait forever for a reply\
+       -W specifies how long to wait for a reply\
+       -4 use IPv4 query transport only\
+       -6 use IPv6 query transport only\
+a
+host -c IN  pacewisdom.com
+host -c OUT  pacewisdom.com
+host -v  pacewisdom.com</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Terminal Session 6: Network Tools - Nmap, Host, Dig</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Network Tools - Nmap, Host, Dig</div>
+            </div>
+            <div class="terminal-body">
+                <pre>host -t AAAA  pacewisdom.com
+host -t A  pacewisdom.com
+host -t MX  pacewisdom.com
+host -v pacewisdom.com
+v -t pacewisdom.com
+-v -t pacewisdom.com
+host -a pacewisdom.com
+host -t TXT  pacewisdom.com
+host -t TXT  viprithinobyte.in
+host -t TXT  sheshakuteera.com
+host -t TXT  sheshakuteera.in
+host -t NS  pacewisdom.com
+host pacewisdom.com 8.8.8.8
+man host
+host --help
+host -R  pacewisdom.com
+host -R pacewisdom.com
+host -R 3  pacewisdom.com
+host -R 10  pacewisdom.com
+host -R 10  pacewisdom.com
+host -R 30 4  pacewisdom.com
+host -R 30   pacewisdom.com
+host -4  pacewisdom.com
+host -6  pacewisdom.com
+host -t A pacewisdom.com
+host -4  pacewisdom.com
+host -W  pacewisdom.com
+host -W 4  pacewisdom.com
+host -m  pacewisdom.com
+host -m 3  pacewisdom.com
+host man
+man host
+host --help
+host  pacewisdom.com
+host -t TXT  pacewisdom.com
+dig --help
+dig -h
+dig --help
+dig pacewisdom.com +short
+dig pacewisdom.com +long
+dig pacewisdom.com +[3]crypto
+dig pacewisdom.com +3 crypto
+dig +[3]crypto pacewisdom.com
+dig pacewisdom.com  +[3]crypto
+dig pacewisdom.com
+dig -4 pacewisdom.com
+dig -6 pacewisdom.com
+q
+dig 8.8.8.8  pacewisdom.com
+dig  pacewisdom.com +short
+dig  pacewisdom.com +nocomments
+dig  pacewisdom.com +noall
+dig  pacewisdom.com +noall +answer
+dig  pacewisdom.com +noall +any
+dig  pacewisdom.com +noall +ANY
+dig  pacewisdom.com +any
+dig  pacewisdom.com +MX
+dig  pacewisdom.com @8.8.8.8
+dig  pacewisdom.com ANY
+dig  pacewisdom.com ANY +noall
+dig  pacewisdom.com ANY +noall +answer
+dig  pacewisdom.com MX
+ufw --help
+ufw -h
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate\
+
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate\
+
+sudo pfctl -s info\
+
+sudo pfctl -e\
+
+sudo apt install ufw\
+ufw --help\
+
+ufw --help\
+zsh: command not found: ufw\
+
+ufw --help
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate\
+
+sudo pfctl -s info\
+
+sudo pfctl -e\
+
+sudo apt install ufw\
+\
+
+sudo apt update\
+sudo apt install ufw\
+ufw --help\
+
+sudo apt update\
+\
+
+sudo apt update\
+sudo apt install ufw\
+ufw --help\
+
+/var/log
+sudo /var/log
+python3 -c &quot;\
+import re\
+with open(&#x27;logs and journalctl.html&#x27;, &#x27;r&#x27;) as f:\
+    content = f.read()\
+matches = re.findall(r&#x27;System Logs - Part (\d+) of (\d+)&#x27;, content)\
+if matches:\
+    print(f&#x27;Found: Part X of {matches[0][1]}&#x27;)\
+    print(f&#x27;Total matches: {len(matches)}&#x27;)\
+&quot;
+echo &quot;Started with PID: $
+q
+code vim  -digitalocean/haproxt-webtf
+/Applications/XAMPP/xamppfiles/htdocs/DevOps
+net user
+resetpassword
+passwd\
+
+sudo apt install docker
+sudo -apt install docker
+/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;\
+
+brew --version\
+
+brew install --cask docker\
+
+docker --version\
+docker ps\
+
+docker --version\
+\
+
+open -a Docker\
+
+brew list --cask | grep docker\
+
+ls /Applications | grep -i docker\
+
+ls ~/Applications | grep -i docker\
+
+ls ~/Applications | grep -i docker\
+
+brew list --cask | grep docker\
+
+open -a Docker\
+
+open -a Docker\
+
+open -a Docker\
+
+Jan 30 15:57:04 on ttys004\
+You have new mail.\
+apple@Apples-MacBook-Pro ~ % open -a Docker\
+\
+apple@Apples-MacBook-Pro ~ % \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+
+Jan 30 15:57:04 on ttys004\
+You have new mail.\
+apple@Apples-MacBook-Pro ~ % open -a Docker\
+\
+apple@Apples-MacBook-Pro ~ % \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+
+open -a Docker\
+
+docker --version\</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Terminal Session 7: Docker and Nginx Configuration</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Docker and Nginx Configuration</div>
+            </div>
+            <div class="terminal-body">
+                <pre>docker ps\
+
+docker run -d -p 8080:80 --name nginx-test nginx\
+
+http://localhost:8080
+ls /Applications/XAMPP/xamppfiles/htdocs/DevOps\
+
+nano /Applications/XAMPP/xamppfiles/htdocs/DevOps/index.html\
+
+nano /opt/homebrew/etc/nginx/nginx.conf\
+
+sudo chown -R apple:staff /Applications/XAMPP/xamppfiles/htdocs/DevOps\
+sudo chmod -R 755 /Applications/XAMPP/xamppfiles/htdocs/DevOps\
+
+nginx -t\
+
+brew install nginx\
+
+brew list | grep nginx\
+
+which nginx\
+
+/opt/homebrew/bin/nginx\
+
+docker run -d -p 3000  --name nginx-test nginx\
+
+docker run -d -p 3000:80  --name nginx-test nginx
+docker run -d -p 3000:80  --name nginx-test1 nginx
+http://localhost:3000
+curl http://localhost:3000
+vim  /opt/homebrew/etc/nginx/nginx.conf\
+
+docker run -d -p 8081:80  --name nginx-test2  nginx
+curl http://localhost:8081
+http://localhost:8081
+nginx -t\
+
+nginx\
+
+http://localhost:8081\
+
+curl http://localhost:8081\
+
+docker ps\
+docker stop nginx-test2\
+
+vim /opt/homebrew/etc/nginx/nginx.conf\
+
+nginx -t\
+
+vim /opt/homebrew/etc/nginx/nginx.conf\
+
+nginx -t\
+
+nginx\
+
+http://localhost:8081\
+
+curl http://localhost:8081\
+
+tail -f /opt/homebrew/var/log/nginx/access.log\
+
+tail -f /opt/homebrew/var/log/nginx/error.log\
+
+open http://localhost:8081\
+
+status  http://localhost:8081\
+
+status  http://localhost:8080\
+
+ps aux | grep nginx\
+
+docker ps\
+docker stop nginx-test nginx-test1 nginx-test2\
+docker rm nginx-test nginx-test1 nginx-test2\
+
+curl http://localhost:8081\
+
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+FILENAME=&quot;$(date &#x27;+%d-%m-%Y-%H-%M-%S&#x27;).txt&quot;\
+echo &quot;This file was created on $(date &#x27;+%d-%m-%Y %H:%M:%S&#x27;)&quot; &gt; &quot;$FILENAME&quot;
+ls -l | grep &quot;$FILENAME&quot;
+vim /opt/homebrew/etc/nginx/nginx.conf\
+
+nginx -t\
+
+nginx -s reload
+http://localhost:8081\
+
+open http://localhost:8081\
+
+curl http://localhost:8081/&quot;$FILENAME&quot;\
+
+cat 30-01-2026-16-54-54.txt
+Cron job: Use the echo command to write the current date and time to filename called pwscron.txt.\
+1. Every day at 12:00 AM.\
+2. Every Sunday at 9 AM.\
+3. Trigger a cron hourly(once in every hour).\
+4. From Monday - Friday every day at 10 PM trigger a cron job\
+5. Trigger a cron at minute 15 past every 3rd hour from 0 through 20.\
+6. Trigger a cron at minute 0 past hour 0 and 12 on day-of-month 1 in every 2nd month.
+crontab -e\
+
+crontab -e\
+
+crontab -l
+grep -h
+grep -m
+grep --m
+cd file:///Applications/XAMPP/xamppfiles/htdocs/DevOps/
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+sudo touch demo.txt
+sudo vim demo.txt
+grep &quot;hello&quot; demo.txt
+grep &quot;this&quot; demo.txt
+grep -i &quot;hello&quot; demo.txt
+grep -c &quot;hello&quot; demo.txt
+grep -l &quot;hello&quot; demo.txt
+grep -w &quot;hello&quot; demo.txt
+grep -n &quot;hello&quot; demo.txt
+grep -v &quot;hello&quot; demo.txt
+grep &quot;^hello&quot; demo.txt
+Match Lines Ending with a String using grep
+grep &quot;hello$&quot; demo.txt
+grep &quot;o$&quot; demo.txt
+grep &quot;i$&quot; demo.txt
+grep &quot;os$&quot; demo.txt
+grep &quot;m$&quot; demo.txt
+grep &quot;p$&quot; demo.txt
+grep &quot;map$&quot; demo.txt
+grep -e &quot;hello&quot; -e&quot;hi&quot; demo.txt
+grep -e &quot;hello&quot; -e&quot;hello&quot; demo.txt
+grep -e &quot;hello&quot; -e&quot;map&quot; demo.txt
+ -f to Read Patterns from a File
+sudo vim pattern.txt
+grep -f pattern.txt  demo.txt
+grep -A[3] pattern.txt
+grep -A[&quot;world&quot;] pattern.txt
+grep -A&quot;world&quot; pattern.txt
+grep -A1 &quot;world&quot; pattern.txt
+grep -A2 &quot;world&quot; demo.txt
+grep -A3 &quot;world&quot; demo.txt
+grep -A1 &quot;hello&quot; demo.txt
+grep -A3 &quot;hello&quot; demo.txt
+grep -A3 pattern.txt demo.txt
+grep -A1 pattern.txt demo.txt
+grep -r  &quot;hello&quot; demo.txt
+grep -r  &quot;h&quot; demo.txt
+grep -r  &quot;i&quot; demo.txt
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Terminal Session 8: Grep and Pattern Matching</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Grep and Pattern Matching</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cat demo.txt
+cut -h
+cut -c 1-5 demo.txt
+cut -c 1-3 demo.txt
+cut -c 1 demo.txt
+cut -f 1,4  demo.txt
+cut -f 1,3  demo.txt
+cut -f &quot; &quot;  1,3  demo.txt
+cut -f &quot;hello&quot;  1,3  demo.txt
+cut -d &quot;hello&quot;  -f 1,3  demo.txt
+cut -d &quot;hello&quot;  -f 1,2  demo.txt
+cut -d &quot;&quot;  -f 1,2  demo.txt
+cut -d &quot;d&quot;  -f 1,2  demo.txt
+cut -d &quot;d&quot;  -f 1,2  demo.txt -&gt; must be &quot; only 1 character in  the sample txt&quot;
+cut -b 1,2,3,4   demo.txt
+cut -b 1,2,3,4,5   demo.txt
+cut -b 1-2,4-,5   demo.txt
+cut 4-5 , 1-2   demo.txt
+cut  1-2,4-5   demo.txt
+cut  1-2,3-4  demo.txt
+cut -b  1-2,3-4  demo.txt
+cut -b   1-2,4-5   demo.txt
+cut -b -3  demo.txt
+cut -b 3  demo.txt
+-6
+cut -b -4  demo.txt
+cut -f 1  demo.txt
+cut -f 4  demo.txt
+cut -d &quot;d&quot;  -f 1-2  demo.txt
+cut -d &quot;&quot;  -f 1-2  demo.txt
+cut -d &quot; &quot;  -f 1-2  demo.txt
+cut-- complement  -d &quot; &quot;  -f 1-2  demo.txt
+cut --complement  -d &quot; &quot;  -f 1-2  demo.txt
+cut --complement  -d &quot; &quot;  -f 1  demo.txt
+cut -d &quot; &quot;  -f 1-2  demo.txt | cut -b -3  demo.txt |  cut -b 1,2,3,4   demo.txt
+cut -d &quot; &quot;  -f 1-2  demo.txt | cut -b -3  demo.txt |  cut -b 1,2,3,4   demo.txt &gt; demo1.txt
+sudo vim demo1.txt
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+sed -h
+sed &#x27;&#x27; demo.txt\
+
+sed &#x27;2d&#x27; demo.txt\
+
+sed &#x27;s/hi/hello&#x27; demo.txt\
+
+sed &#x27;s/hi/hello/&#x27; demo.txt\
+
+sed -n &#x27;2,3p&#x27; demo.txt\
+
+sed -n &#x27;1,3p&#x27; demo.txt\
+
+sed &#x27;&#x27; demo.txt\
+
+edit file in a place
+sed -i &#x27;&#x27; &#x27;s/old/new/g&#x27; demo.txt\
+
+sed &#x27;2,4d&#x27; demo.txt\
+
+sed &#x27;3,4d&#x27; demo.txt\
+
+sed -n &#x27;1,3p&#x27; demo.txt\
+
+sed -i &#x27;&#x27; &#x27;s/hi/hello/g&#x27; demo.txt\
+
+sed &#x27;3 s/hello/hi/&#x27; demo.txt\
+
+sed &#x27;2 s/hello/hi/&#x27; demo.txt\
+
+sed &#x27;4 s/hello/hi/&#x27; demo.txt\
+
+sed &#x27;s/hi/hello/p&#x27; demo.txt\
+
+sed -n &#x27;s/hi/hello/p&#x27; demo.txt\
+
+for deleteing \
+
+sed &#x27;1d&#x27; demo.txt  
+sed &#x27;2d&#x27; demo.txt
+sed &#x27;/hello/d&#x27; demo.txt  # Delete lines containing &quot;hello&quot;
+cat &gt; demo.txt&lt;&lt; EOF\
+hello hello \
+hello world \
+world map unix is great os. unix is opensource. unix is free os.\
+learn operating system.\
+unix linux which one you \
+EOF \
+\
+
+cat demo.txt
+vim demo.txt
+cat geekfile.txt\
+
+cat demo.txt\
+
+sed &#x27;/hello/d&#x27; demo.txt  # Delete lines containing &quot;hello&quot;
+cat demo.txt\
+
+sed &#x27;2i\\
+This is a new line before line 2&#x27; demo.txt
+\
+sed &#x27;2a\\
+This is a new line after line 2&#x27; demo.txt
+sed &#x27;2d&#x27; demo.txt\
+
+sed &#x27;$d&#x27; demo.txt\
+
+sed -i &#x27;ygiygiygvobgbo &#x27; &#x27;$d&#x27; demo.txt\
+
+cat demo.txt
+sed &#x27;$d&#x27; demo.txt\
+
+sed -i &#x27;&#x27; &#x27;/hello/d&#x27; demo.txt\
+
+cat demo.txt
+sed -e &#x27;2,4d&#x27; -e &#x27;/world/d&#x27; demo.txt\
+
+cat demo.txt
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+env
+env -h
+\
+env PROJECT=DevOps env\
+
+\
+env PROJECT=DevOps env\
+echo $PROJECT\
+
+echo $PROJECT\
+
+env ls\
+
+env -u PATH ls\
+
+env -u PATH /bin/ls\
+
+env -i env\
+
+VAR=value\n\
+
+VAR=value\0\
+
+env -v PATH=/bin ls\
+
+env -C /Applications ls\
+
+env | less\
+
+MYVAR=hello\
+
+echo $MYVAR\
+
+export MYVAR=hello\
+
+env | grep MYVAR\</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Terminal Session 9: Grep and Pattern Matching</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Grep and Pattern Matching</div>
+            </div>
+            <div class="terminal-body">
+                <pre>
+env MYVAR=hello bash\
+
+echo $APP_ENV\
+
+printenv APP_ENV\
+
+APP_ENV=production\
+DB_HOST=localhost\
+
+echo $APP_ENV\
+
+printenv APP_ENV\
+
+#/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;\
+\
+echo &quot;Environment: $APP_ENV&quot;\
+
+env -0
+env --version
+env --help
+\
+
+env
+PATH=...\
+HOME=/Users/apple\
+USER=apple\
+PWD=/Applications/XAMPP/xamppfi\les/htdocs/DevOps\
+
+env -0\
+
+env -0\
+
+PATH=HOME=/Users/apple\
+USER=apple\
+PWD=/Applications/XAMPP/xamppfi\les/htdocs/DevOps\
+
+awk -h
+awk --h
+man awk\
+
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+vim sample.txt
+cat sample.txt
+$awk &#x27;{print}&#x27; sample.txt
+$ awk &#x27;{print}&#x27; sample.txt
+awk &#x27;{print}&#x27; sample.txt
+awk --h
+awk -h &#x27;{print}&#x27; sample.txt
+awk -F &#x27;{print}&#x27; sample.txt
+awk -F &#x27;DevOps&#x27; &#x27;{print}&#x27; sample.txt
+awk -F &#x27;DevOps&#x27; &#x27;{print $1,$4}&#x27; sample.txt
+awk -F &#x27;DevOps&#x27; &#x27;{print $1,&quot;Jannuary&quot;,$4}&#x27; sample.txt
+hostname
+sudo  scutil -set HostName  NewHostName
+sudo scutil --set HostName kishankalandoor
+sudo scutil --set ComputerName kishankalandoor
+sudo scutil --set LocalHostName kishankalandoor
+sudo dscacheutil -flushcache
+hostname\
+
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+zip -r compressed_folder.zip compression/\
+
+zip -r -9  compressed_folder.zip compression/\
+
+zip -r -99  compressed_folder.zip compression/\
+
+zip -r -9  compressed_folder.zip env.html\
+
+zip -r   compressed_folder22.zip env.html\
+
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+cat demo.txt
+cat demo.txt | grep &quot;learn&quot;
+cat demo.txt | grep &quot;learn&quot; | grep &quot;unix&quot;
+cat demo.txt | grep &quot;learn&quot; | grep &quot;great&quot;
+grep &quot;learn&quot; demo.txt | grep &quot;unix&quot;
+cat demo.txt | head -3
+cat demo.txt | head -1
+cat demo.txt | head -4
+cat demo.txt | tail -4
+cat demo.txt | head -1 tail -4
+cat demo.txt | head -1 | tail -4
+grep &quot;learn&quot; demo.txt &gt; learn.txt
+cat learn.txt
+cat demo.txt | grep -i &quot;unix&quot; | tee unix.txt | wc -l |rm learn.txt
+cat learn.txt
+cat unix.txt
+cat demo.txt\
+
+cat demo.txt | grep learn
+cat demo.txt | grep &quot;learn&quot;
+grep &quot;learn&quot; demo.txt &gt; learn.txt\
+
+cat learn.txt\
+
+cat demo.txt | grep -i &quot;unix&quot; | tee unix.txt | wc -l\
+
+rm learn.txt\
+
+cat learn.txt\
+
+grep &quot;learn&quot; demo.txt &gt; learn.txt\
+
+cat learn.txt
+cat demo.txt | grep &quot;learn&quot; &gt; learn.txt\
+
+grep &quot;unix&quot; &lt; demo.txt | tee unix.txt &gt; count.txt\
+
+cat &lt; demo.txt | grep -i &quot;learn&quot; | tee learn_lines.txt &gt; final.txt\
+
+cat &lt; demo.txt | grep -i &quot;learn&quot; | tee learn_lines.txt &gt; final.txt\
+
+cat learn_lines.txt\
+
+cat final.txt\
+
+cat unix.txt\
+
+cat &lt; demo.txt | grep -i &quot;learn&quot; | tee learn_lines.txt\
+
+cat &lt; demo.txt | grep -i &quot;learn&quot; | tee learn_lines.txt | tee final.txt\
+
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+vim fruits.txt
+cat fruits.txt
+sort -r fruits.txt
+sort -n fruits.txt
+sort -k 3,2 fruits.txt
+sort -k 2,2 fruits.txt
+sort -k 3,1 fruits.txt
+sort -u fruits.txt
+sort -t &quot;,&quot; -k2,2  -k4,2 fruits.txt
+sort -t &quot;,&quot; -k1,1 -k2,2r fruits.txt
+uniq  fruits.txt
+sort -u fruits.txt
+uniq -d  fruits.txt
+uniq -c fruits.txt
+sort kt.txt | uniq -c | awk &#x27;{print $2 &quot;, &quot; $1}&#x27;
+sort fruits.txt | uniq -c | awk &#x27;{print $2 &quot;, &quot; $1}&#x27;
+uniq -d fruits.txt
+uniq -D fruits.txt
+uniq -f 2  fruits.txt
+uniq -f 1  fruits.txt
+uniq -s 3  fruits.txt
+uniq -s 2  fruits.txt
+cat  fruits.txt
+uniq -w 3  fruits.txt
+uniq -w 3   fruits.txt
+uniq -w 3   fruits.txt is not available on Mac OS
+cut -c1-3 fruits.txt | uniq</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Terminal Session 10: AWK Text Processing</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">AWK Text Processing</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cut -c1-3 fruits.txt | sort | uniq -c\
+
+awk &#x27;{print substr($0,1,3)}&#x27; fruits.txt | uniq\
+
+server.log
+ls server.log
+vim server.log\
+
+ls -l server.log\
+
+grep &quot;Failed&quot; server.log\
+
+egrep &quot;Failed|404&quot; server.log\
+
+grep -o &quot;([0-9]{1,3}\.){3}[0-9]{1,3}&quot; server.log\
+
+grep -E -o &quot;([0-9]{1,3}\.){3}[0-9]{1,3}&quot; server.log\
+
+grep &quot;Failed&quot; server.log
+grep -i &quot;error&quot; server.log
+grep -i &quot;error&quot; server.log
+no output  - - grep -i &quot;error&quot; server.log
+grep -E &quot;error&quot; server.log
+grep -E &quot;Failed|404&quot; server.log
+grep -C &quot;Accepted&quot; server.log
+grep -c &quot;Accepted&quot; server.log
+grep -E -o &quot;([0-9]{1,3}\\.){3}[0-9]{1-3}&quot;  server.log
+grep -E -o &quot;([0-9]{1,3}\\.){3}[0-9]{1,3}&quot; server.log
+wc fruits.txt
+wc demo.txt fruits.txt
+wc -l demo.txt fruits.txt
+wc -w fruits.txt
+wc -w demo.txt
+wc -m demo.txt
+wc -m demo.txt fruits.txt
+wc -m demo.txt | wc -w fruits.txt
+wc -m demo.txt | cut -c1
+wc -w demo.txt | cut -c1&lt;
+...</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Terminal Session 11: Bash Scripting Debugging and Testing</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Bash Scripting Debugging and Testing</div>
+            </div>
+            <div class="terminal-body">
+                <pre>Last login: Thu Feb  5 17:24:01 on ttys009
+You have new mail.
+/Users/apple/.bashrc:2: parse error near `&gt;'
+apple@kishankalandoor apple % cd /Applications/XAMPP/xamppfiles/htdocs/DevOps/sed.html
+cd: not a directory: /Applications/XAMPP/xamppfiles/htdocs/DevOps/sed.html
+apple@kishankalandoor apple % cd Applications/XAMPP/xamppfiles/htdocs/DevOps/sed.html
+cd: no such file or directory: Applications/XAMPP/xamppfiles/htdocs/DevOps/sed.html
+apple@kishankalandoor apple % cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh
+./morethan5files.sh: line 3: BASE_DIR: command not found
+./morethan5files.sh: line 21: syntax error near unexpected token `fi'
+./morethan5files.sh: line 21: `          fi'
+apple@kishankalandoor DevOps % cat  morethan5files.sh                
+#!/usr/bin/env bash
+
+BASE_DIR = &quot;.&quot;
+
+for dir in  &quot;BASE_DIR&quot;/*;  do
+     
+    if [ -d &quot;$dir&quot; ]; then
+
+      file_count=$(fiind &quot;$dir&quot; -maxdepth 1 -typef | wc -l)
+
+         if [&quot;$file_count&quot; -gt 5]; then
+             
+            echo &quot;DIRECTORY: $dir   contains $filecount &quot;
+
+
+         for file in &quot;$dir&quot;/*; do
+                if [-f &quot;file&quot;];then
+                      echo &quot;Basename : $file&quot;
+                fi
+             dome
+          fi
+        fi
+  done
+               
+     
+
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh                    
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+./morethan5files.sh: line 3: BASE_DIR: command not found
+./morethan5files.sh: line 21: syntax error near unexpected token `fi'
+./morethan5files.sh: line 21: `          fi'
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+./morethan5files.sh: line 7: [-d./--dry-run]: No such file or directory
+./morethan5files.sh: line 7: [-d./-avh]: No such file or directory
+./morethan5files.sh: line 7: [-d./30-01-2026-16-54-54.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./3days.sh]: No such file or directory
+./morethan5files.sh: line 7: [-d./a.tx]: No such file or directory
+./morethan5files.sh: line 7: [-d./a.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./b.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./backup]: No such file or directory
+./morethan5files.sh: line 7: [-d./bash]: No such file or directory
+./morethan5files.sh: line 7: [-d./broken]: No such file or directory
+./morethan5files.sh: line 7: [-d./change_hostname.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./check_nesting.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./check_sizes.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./compress.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./compress.png]: No such file or directory
+./morethan5files.sh: line 7: [-d./compressed_folder.zip]: No such file or directory
+./morethan5files.sh: line 7: [-d./compressed_folder22.zip]: No such file or directory
+./morethan5files.sh: line 7: [-d./compression]: No such file or directory
+./morethan5files.sh: line 7: [-d./compression.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./compression.png]: No such file or directory
+./morethan5files.sh: line 7: [-d./count.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./cut.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./date_time_file_creation.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./demo.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./demo.txtygiygiygvobgbo ]: No such file or directory
+./morethan5files.sh: line 7: [-d./demo1.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./devops]: No such file or directory
+./morethan5files.sh: line 7: [-d./DevOps-backup]: No such file or directory
+./morethan5files.sh: line 7: [-d./devops.xlsx]: No such file or directory
+./morethan5files.sh: line 7: [-d./dig.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./env.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./final.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./find_large_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./fix_terminal_nesting.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./fruits.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./generate_roadmap.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./git]: No such file or directory
+./morethan5files.sh: line 7: [-d./gopal]: No such file or directory
+./morethan5files.sh: line 7: [-d./hello.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./hellofromgoogle.sh]: No such file or directory
+./morethan5files.sh: line 7: [-d./hellopws.sh]: No such file or directory
+./morethan5files.sh: line 7: [-d./home]: No such file or directory
+./morethan5files.sh: line 7: [-d./host-commands.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./host.png]: No such file or directory
+./morethan5files.sh: line 7: [-d./index.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./innodedemo.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./inode.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./learn_lines.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./learn.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./linux_user_add.png]: No such file or directory
+./morethan5files.sh: line 7: [-d./logs and journalctl.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./logs_raw_content.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./missing.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./morethan5files.sh]: No such file or directory
+./morethan5files.sh: line 7: [-d./must]: No such file or directory
+./morethan5files.sh: line 7: [-d./netstat-guide.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./netstat.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./nginx]: No such file or directory
+./morethan5files.sh: line 7: [-d./nginx.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./nmap.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./pacewisdom_scan.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./passsword.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./password.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./pathdemo.sh]: No such file or directory
+./morethan5files.sh: line 7: [-d./pattern.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./pinglogs.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./pipe.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./rebuild_with_split_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./remove_old_terminal.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./repos]: No such file or directory
+./morethan5files.sh: line 7: [-d./roadmap.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./rsync]: No such file or directory
+./morethan5files.sh: line 7: [-d./sample.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./sed.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./server.log]: No such file or directory
+./morethan5files.sh: line 7: [-d./Shell Scripting - Standard Input, Output and Error,pipe basics.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./softlink.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./split_into_30.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./split_into_60.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./split_large_terminal.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./split_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./std_in_out_err.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./traceroute Ping.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./traceroutelog1.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./ufw.html]: No such file or directory
+./morethan5files.sh: line 7: [-d./unix.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./usernamefile.sh]: No such file or directory
+./morethan5files.sh: line 7: [-d./validate_html.py]: No such file or directory
+./morethan5files.sh: line 7: [-d./var]: No such file or directory
+./morethan5files.sh: line 7: [-d./waste]: No such file or directory
+./morethan5files.sh: line 7: [-d./whoami.sh]: No such file or directory
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+./morethan5files.sh: line 7: i[-d ./--dry-run]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./-avh]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./30-01-2026-16-54-54.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./3days.sh]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./a.tx]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./a.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./b.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./backup]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./bash]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./broken]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./change_hostname.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./check_nesting.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./check_sizes.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./compress.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./compress.png]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./compressed_folder.zip]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./compressed_folder22.zip]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./compression]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./compression.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./compression.png]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./count.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./cut.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./date_time_file_creation.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./demo.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./demo.txtygiygiygvobgbo ]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./demo1.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./devops]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./DevOps-backup]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./devops.xlsx]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./dig.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./env.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./final.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./find_large_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./fix_terminal_nesting.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./fruits.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./generate_roadmap.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./git]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./gopal]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./hello.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./hellofromgoogle.sh]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./hellopws.sh]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./home]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./host-commands.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./host.png]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./index.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./innodedemo.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./inode.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./learn_lines.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./learn.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./linux_user_add.png]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./logs and journalctl.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./logs_raw_content.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./missing.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./morethan5files.sh]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./must]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./netstat-guide.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./netstat.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./nginx]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./nginx.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./nmap.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./pacewisdom_scan.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./passsword.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./password.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./pathdemo.sh]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./pattern.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./pinglogs.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./pipe.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./rebuild_with_split_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./remove_old_terminal.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./repos]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./roadmap.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./rsync]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./sample.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./sed.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./server.log]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./Shell Scripting - Standard Input, Output and Error,pipe basics.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./softlink.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./split_into_30.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./split_into_60.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./split_large_terminal.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./split_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./std_in_out_err.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./traceroute Ping.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./traceroutelog1.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./ufw.html]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./unix.txt]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./usernamefile.sh]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./validate_html.py]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./var]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./waste]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./whoami.sh]: No such file or directory
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+./morethan5files.sh: line 7: i[ -d ./--dry-run]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./-avh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./30-01-2026-16-54-54.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./3days.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./a.tx]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./a.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./b.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./backup]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./bash]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./broken]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./change_hostname.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./check_nesting.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./check_sizes.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compress.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compress.png]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compressed_folder.zip]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compressed_folder22.zip]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compression]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compression.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compression.png]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./count.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./cut.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./date_time_file_creation.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./demo.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./demo.txtygiygiygvobgbo ]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./demo1.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./devops]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./DevOps-backup]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./devops.xlsx]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./dig.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./env.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./final.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./find_large_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./fix_terminal_nesting.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./fruits.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./generate_roadmap.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./git]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./gopal]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./hello.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./hellofromgoogle.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./hellopws.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./home]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./host-commands.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./host.png]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./index.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./innodedemo.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./inode.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./learn_lines.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./learn.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./linux_user_add.png]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./logs and journalctl.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./logs_raw_content.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./missing.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./morethan5files.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./must]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./netstat-guide.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./netstat.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./nginx]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./nginx.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./nmap.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./pacewisdom_scan.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./passsword.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./password.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./pathdemo.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./pattern.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./pinglogs.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./pipe.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./rebuild_with_split_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./remove_old_terminal.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./repos]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./roadmap.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./rsync]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./sample.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./sed.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./server.log]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./Shell Scripting - Standard Input, Output and Error,pipe basics.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./softlink.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./split_into_30.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./split_into_60.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./split_large_terminal.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./split_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./std_in_out_err.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./traceroute Ping.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./traceroutelog1.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./ufw.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./unix.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./usernamefile.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./validate_html.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./var]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./waste]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./whoami.sh]: No such file or directory
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+./morethan5files.sh: line 7: i[ -d ./--dry-run]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./-avh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./30-01-2026-16-54-54.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./3days.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./a.tx]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./a.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./b.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./backup]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./bash]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./broken]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./change_hostname.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./check_nesting.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./check_sizes.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compress.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compress.png]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compressed_folder.zip]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compressed_folder22.zip]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compression]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compression.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./compression.png]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./count.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./cut.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./date_time_file_creation.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./demo.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./demo.txtygiygiygvobgbo ]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./demo1.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./devops]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./DevOps-backup]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./devops.xlsx]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./dig.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./env.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./final.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./find_large_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./fix_terminal_nesting.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./fruits.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./generate_roadmap.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./git]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./gopal]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./hello.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./hellofromgoogle.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./hellopws.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./home]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./host-commands.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./host.png]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./index.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./innodedemo.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./inode.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./learn_lines.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./learn.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./linux_user_add.png]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./logs and journalctl.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./logs_raw_content.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./missing.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./morethan5files.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./must]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./netstat-guide.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./netstat.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./nginx]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./nginx.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./nmap.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./pacewisdom_scan.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./passsword.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./password.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./pathdemo.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./pattern.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./pinglogs.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./pipe.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./rebuild_with_split_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./remove_old_terminal.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./repos]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./roadmap.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./rsync]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./sample.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./sed.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./server.log]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./Shell Scripting - Standard Input, Output and Error,pipe basics.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./softlink.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./split_into_30.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./split_into_60.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./split_large_terminal.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./split_terminals.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./std_in_out_err.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./traceroute Ping.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./traceroutelog1.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./ufw.html]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./unix.txt]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./usernamefile.sh]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./validate_html.py]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./var]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./waste]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./whoami.sh]: No such file or directory
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+ENter the directory /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste
+./morethan5files.sh: line 13: i[ -d /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste/hellofromgoogle.sh]: No such file or directory
+./morethan5files.sh: line 13: i[ -d /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste/hellopws.sh]: No such file or directory
+./morethan5files.sh: line 13: i[ -d /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste/pathdemo.sh]: No such file or directory
+./morethan5files.sh: line 13: i[ -d /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste/usernamefile.sh]: No such file or directory
+./morethan5files.sh: line 13: i[ -d /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste/waste delete this file.png]: No such file or directory
+./morethan5files.sh: line 13: i[ -d /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste/whoami.sh]: No such file or directory
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+ENter the directory /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % cat  morethan5files.sh
+#!/usr/bin/env bash
+read -p &quot;ENter the directory &quot; BASE_DIR
+
+if [ ! -d &quot;$BASE_DIR&quot; ]; then
+echo &quot; directory not found &quot;
+
+exit 1
+fi
+
+
+for dir in &quot;$BASE_DIR&quot;/*;  do
+     
+    if [ -d &quot;$dir&quot; ]; then
+
+      file_count=$(find &quot;$dir&quot; -maxdepth 1 -type f | wc -l)
+
+         if  [&quot;$file_count&quot; -gt 5 ]; then
+             
+            echo &quot;DIRECTORY: $dir   contains $file_count &quot;
+
+
+         for file in &quot;$dir&quot;/*; do
+                if [ -f &quot;$file&quot; ];then
+                      echo &quot;$(basename :&quot; $file&quot;)&quot;
+                fi
+             done
+                  echo
+          fi
+        fi
+  done
+               
+     
+
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+ENter the directory /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste
+apple@kishankalandoor DevOps %
+apple@kishankalandoor DevOps % cat  morethan5files.sh  
+#!/usr/bin/env bash
+read -p &quot;ENter the directory &quot; BASE_DIR
+
+if [ ! -d &quot;$BASE_DIR&quot; ]; then
+echo &quot; directory not found &quot;
+
+exit 1
+fi
+
+
+for dir in &quot;$BASE_DIR&quot;/*;  do
+     
+    if [ -d &quot;$dir&quot; ]; then
+
+      file_count=$(find &quot;$dir&quot; -maxdepth 1 -type f | wc -l)
+
+         if  [ &quot;$file_count&quot; -gt 5 ]; then
+             
+            echo &quot;DIRECTORY: $dir   contains $file_count &quot;
+
+
+         for file in &quot;$dir&quot;/*; do
+                if [ -f &quot;$file&quot; ];then
+                      echo &quot;$(basename &quot; $file&quot;)&quot;
+                fi
+             done
+                  echo
+          fi
+        fi
+  done
+               
+     
+
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+ENter the directory /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo vim readlines.sh    
+apple@kishankalandoor DevOps % sudo chmod +x  readlines.sh    
+apple@kishankalandoor DevOps % ./readlines.sh    
+path of the file /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5files.sh
+./readlines.sh: line 8: morethan5files.sh: command not found
+./readlines.sh: line 9: filelines: command not found
+file name  =  linesx =  
+apple@kishankalandoor DevOps % cat readlines.sh
+#!/usr/bin/env bash
+
+# Ask user for file name
+read -p  &quot;path of the file &quot; filepath
+
+if [ -f &quot;$filepath&quot; ];then
+
+   filename= $(basename &quot;$filepath&quot;)
+   filelines =$(wc -l &lt;  &quot;$filepath&quot;)
+
+
+echo &quot;file name  = &quot;$filename&quot; linesx = &quot;$filelines&quot; &quot;
+
+else
+echo &quot;error&quot;
+
+fi
+
+
+apple@kishankalandoor DevOps % sudo vim readlines.sh          
+apple@kishankalandoor DevOps % sudo chmod +x  readlines.sh    
+apple@kishankalandoor DevOps % ./readlines.sh          
+path of the file /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5files.sh
+./readlines.sh: line 8: morethan5files.sh: command not found
+file name is  Number of lines    32
+apple@kishankalandoor DevOps % sudo vim readlines.sh          
+apple@kishankalandoor DevOps % sudo chmod +x  readlines.sh    
+apple@kishankalandoor DevOps % ./readlines.sh          
+path of the file  /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5files.sh
+./readlines.sh: line 8: morethan5files.sh: command not found
+file name is  ;  Number of lines    32
+apple@kishankalandoor DevOps % ./readlines.sh    
+path of the file /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5lines.sh
+error
+apple@kishankalandoor DevOps % ./readlines.sh    
+path of the file /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5files.sh
+./readlines.sh: line 8: morethan5files.sh: command not found
+file name is  ;  Number of lines    32
+apple@kishankalandoor DevOps % sudo vim readlines.sh  
+apple@kishankalandoor DevOps % sudo chmod +x  readlines.sh    
+apple@kishankalandoor DevOps % ./readlines.sh          
+path of the file /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5files.sh
+file name is morethan5files.sh ;  Number of lines    32
+apple@kishankalandoor DevOps % sudo vim readlines.sh          
+apple@kishankalandoor DevOps % filetype.sh
+zsh: command not found: filetype.sh
+apple@kishankalandoor DevOps % vim filetype.sh
+apple@kishankalandoor DevOps % sudo chmod -x  filetype.sh
+apple@kishankalandoor DevOps % ./filetype.sh
+zsh: permission denied: ./filetype.sh
+apple@kishankalandoor DevOps % sudo ./filetype.sh
+sudo: ./filetype.sh: command not found
+apple@kishankalandoor DevOps % cat filetype.sh
+#!/usr/bin/bash
+
+read -p &quot;Enter the file name &quot; name
+
+if [ -e &quot;$name&quot; ]; then
+    if [ -f &quot;$name&quot; ]; then
+        echo &quot;$name' is a regular file.&quot;
+    elif [ -d &quot;$name&quot; ]; then
+        echo &quot;$name' is a repository.&quot;
+    else
+        echo &quot;$name' is a other type of file.&quot;
+
+    fi
+else
+echo &quot; file doesn't exist&quot;
+fi
+
+apple@kishankalandoor DevOps % sudo chmod -x filetype.sh
+
+apple@kishankalandoor DevOps % vim filetype.sh          
+apple@kishankalandoor DevOps % sudo chmod -x  filetype.sh
+apple@kishankalandoor DevOps % ./filetype.sh      
+zsh: permission denied: ./filetype.sh
+apple@kishankalandoor DevOps % sudo chmod -x filetype.sh
+
+apple@kishankalandoor DevOps % ./filetype.sh
+zsh: permission denied: ./filetype.sh
+apple@kishankalandoor DevOps % ls -l filetype.sh
+
+-rw-r--r--  1 apple  staff  321  6 Feb 13:54 filetype.sh
+apple@kishankalandoor DevOps % ./filetype.sh    
+
+zsh: permission denied: ./filetype.sh
+apple@kishankalandoor DevOps % cat filetype.sh
+
+#!/usr/bin/env bash
+
+
+read -p &quot;Enter the file name &quot; name
+
+if [ -e &quot;$name&quot; ]; then
+    if [ -f &quot;$name&quot; ]; then
+        echo &quot;$name' is a regular file.&quot;
+    elif [ -d &quot;$name&quot; ]; then
+        echo &quot;$name' is a repository.&quot;
+    else
+        echo &quot;$name' is a other type of file.&quot;
+
+    fi
+else
+echo &quot; file doesn't exist&quot;
+fi
+
+apple@kishankalandoor DevOps % chmod +x filetype.sh
+
+apple@kishankalandoor DevOps % ls -l filetype.sh
+
+-rwxr-xr-x  1 apple  staff  321  6 Feb 13:54 filetype.sh
+apple@kishankalandoor DevOps % vim  filetype.sh
+
+apple@kishankalandoor DevOps % vim  filetype.sh
+
+apple@kishankalandoor DevOps % chmod +x filetype.sh
+
+apple@kishankalandoor DevOps % ./filetype.sh    
+
+Enter the file name cut
+ file doesn't exist
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name cut.html
+cut.html is a regular file.
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name bash
+bash is a repository.
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name gopala.gopala
+ file doesn't exist
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name gopal
+gopal is a repository.
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name gopala
+ file doesn't exist
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name devops.xlsx
+devops.xlsx is a regular file.
+apple@kishankalandoor DevOps % vim  filetype.sh    
+
+apple@kishankalandoor DevOps % cp  filetype.sh filetypeloop.sh
+apple@kishankalandoor DevOps % vim filetypeloop.sh
+apple@kishankalandoor DevOps % sudo chmod +x  filetypeloop.sh
+apple@kishankalandoor DevOps % ./filetypeloop.sh
+./filetypeloop.sh: line 4: syntax error near unexpected token `if'
+./filetypeloop.sh: line 4: `if [ -e &quot;$name&quot; ]; then'
+apple@kishankalandoor DevOps % vim filetypeloop.sh          
+apple@kishankalandoor DevOps % sudo chmod +x  filetypeloop.sh
+apple@kishankalandoor DevOps % ./filetypeloop.sh          
+apple@kishankalandoor DevOps % sudo chmod +x  filetypeloop.sh
+apple@kishankalandoor DevOps % ./filetypeloop.sh            
+apple@kishankalandoor DevOps % ./filetypeloop.sh  gopal gopala filetype.sh
+gopal is a repository.
+ file doesn't exist
+filetype.sh is a regular file.
+apple@kishankalandoor DevOps % vim filetypeloop.sh          
+apple@kishankalandoor DevOps % Write a bash script that displays, &quot;My script will exit with 0 exit status.&quot; Be sure that the script does indeed exit with a 0 exit status.
+usage: write user [tty]
+apple@kishankalandoor DevOps % cp filetype.sh exit0.sh
+apple@kishankalandoor DevOps % vim exit0.sh
+apple@kishankalandoor DevOps % chmod -x exit0.sh
+apple@kishankalandoor DevOps % ./exit0.sh      
+zsh: permission denied: ./exit0.sh
+apple@kishankalandoor DevOps % sudo ./exit0.sh
+sudo: ./exit0.sh: command not found
+apple@kishankalandoor DevOps % sudo chmod -x exit0.sh
+apple@kishankalandoor DevOps % ./exit0.sh      
+zsh: permission denied: ./exit0.sh
+apple@kishankalandoor DevOps % vim exit0.sh    
+apple@kishankalandoor DevOps % cat exit0.sh
+#!/usr/bin/env bash
+
+echo &quot;exit with exit 0 &quot;
+
+exit 0
+
+
+
+apple@kishankalandoor DevOps % sudo chmod +x exit0.sh
+apple@kishankalandoor DevOps % ./exit0.sh            
+exit with exit 0
+apple@kishankalandoor DevOps % vim filecount.sh
+apple@kishankalandoor DevOps % chmod +x  filecount.sh
+apple@kishankalandoor DevOps % ./filecount.sh
+zsh: ./filecount.sh: bad interpreter: /usr/bash/bin: no such file or directory
+apple@kishankalandoor DevOps % cat filecount.sh
+#!/usr/bash/bin
+
+count_files(){
+
+count_files=($find. -maxdepth 1 -type f |  wc -l)
+echo&quot;file count is $count_files&quot;
+}
+count_files()
+apple@kishankalandoor DevOps % vim filecount.sh      
+apple@kishankalandoor DevOps % vim filecount.sh
+apple@kishankalandoor DevOps % vim filecount.sh
+apple@kishankalandoor DevOps % vim filecount.sh
+apple@kishankalandoor DevOps % chmod +x  filecount.sh
+apple@kishankalandoor DevOps % ./filecount.sh        
+./filecount.sh: line 6: syntax error near unexpected token `|'
+./filecount.sh: line 6: `count_files=(find. -maxdepth 1 -type f |  wc -l)'
+file count is
+./filecount.sh: line 8: syntax error near unexpected token `}'
+./filecount.sh: line 8: `}'
+apple@kishankalandoor DevOps % vim filecount.sh      
+apple@kishankalandoor DevOps % vim filecount.sh
+apple@kishankalandoor DevOps % chmod +x  filecount.sh
+apple@kishankalandoor DevOps % ./filecount.sh      
+./filecount.sh: line 6: syntax error near unexpected token `|'
+./filecount.sh: line 6: `count_files=(find . -maxdepth 1 -type f |  wc -l)'
+file count is
+./filecount.sh: line 8: syntax error near unexpected token `}'
+./filecount.sh: line 8: `}'
+apple@kishankalandoor DevOps % vim filecount.sh      
+apple@kishankalandoor DevOps % chmod +x  filecount.sh
+apple@kishankalandoor DevOps % ./filecount.sh      
+file count is       82
+apple@kishankalandoor DevOps % vim filecount.sh      
+apple@kishankalandoor DevOps % cp  filecount.sh graterthan2o.sh
+apple@kishankalandoor DevOps % vim graterthan2o.sh
+apple@kishankalandoor DevOps % chmod +x  graterthan2o.sh
+apple@kishankalandoor DevOps % ./graterthan2o.sh
+enter the number50
+./graterthan2o.sh: line 5: syntax error near unexpected token `then'
+./graterthan2o.sh: line 5: `if[num -gt 20];then'
+apple@kishankalandoor DevOps % vim graterthan2o.sh
+apple@kishankalandoor DevOps % chmod +x  graterthan2o.sh
+apple@kishankalandoor DevOps % ./graterthan2o.sh      
+enter the number30
+./graterthan2o.sh: line 5: syntax error near unexpected token `then'
+./graterthan2o.sh: line 5: `if[num -gt 20]; then'
+apple@kishankalandoor DevOps % vim graterthan2o.sh      
+apple@kishankalandoor DevOps % chmod +x  graterthan2o.sh
+apple@kishankalandoor DevOps % ./graterthan2o.sh      
+enter the number33
+./graterthan2o.sh: line 5: syntax error near unexpected token `then'
+./graterthan2o.sh: line 5: `if[&quot;$num&quot; -gt 20]; then'
+apple@kishankalandoor DevOps % vim graterthan2o.sh      
+apple@kishankalandoor DevOps % chmod +x  graterthan2o.sh
+apple@kishankalandoor DevOps % ./graterthan2o.sh      
+enter the number33
+grater than 20
+./graterthan2o.sh: line 12: [: 1-eq: unary operator expected
+the number is odd
+apple@kishankalandoor DevOps % vim graterthan2o.sh      
+apple@kishankalandoor DevOps % chmod +x  graterthan2o.sh
+apple@kishankalandoor DevOps % ./graterthan2o.sh      
+enter the number44
+grater than 20
+number is even
+apple@kishankalandoor DevOps % ./graterthan2o.sh
+enter the number23
+grater than 20
+the number is odd
+apple@kishankalandoor DevOps % ./graterthan2o.sh22.4
+zsh: no such file or directory: ./graterthan2o.sh22.4
+apple@kishankalandoor DevOps % ./graterthan2o.sh    
+enter the number22.5
+./graterthan2o.sh: line 5: [: 22.5: integer expression expected
+lesser than 20
+./graterthan2o.sh: line 12: 22.5: syntax error: invalid arithmetic operator (error token is &quot;.5&quot;)
+apple@kishankalandoor DevOps % ./graterthan2o.sh    
+enter the number11
+lesser than 20
+the number is odd
+apple@kishankalandoor DevOps %</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ↑
+    </div>
+
+    <footer class="bg-light text-center py-4 mt-5">
+        <p class="mb-0 text-muted">&copy; 2026 DevOps Terminal Documentation</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>

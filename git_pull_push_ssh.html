@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Pull, Push & SSH Setup Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+            background: #ffffff;
+            color: #1d1d1f;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #1d1d1f !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: none;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 22px;
+            color: #ffffff !important;
+        }
+
+        .nav-link {
+            font-weight: 400;
+            color: #f5f5f7 !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            background: #ffffff;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .page-header h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1.5px;
+            color: #1d1d1f;
+        }
+
+        .page-header .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            font-weight: 400;
+        }
+
+        .terminal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .terminal-window {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+            transition: all 0.3s ease;
+        }
+
+        .terminal-window:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border-color: #d2d2d7;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e5e5e7;
+            background: #f5f5f7;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red {
+            background: #ff5f56;
+        }
+
+        .terminal-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .terminal-dot.green {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: #1d1d1f;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-right: 50px;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            background: #1d1d1f;
+            max-height: 600px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #3d3d3f;
+            border-radius: 4px;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: #66d9ef;
+        }
+
+        .section-header {
+            background: #ffffff;
+            border: none;
+            color: #1d1d1f;
+            padding: 20px 0;
+            border-radius: 0;
+            margin: 50px 0 30px 0;
+            font-weight: 700;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: none;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .section-header i {
+            font-size: 28px;
+        }
+
+        footer {
+            background: #f5f5f7;
+            padding: 40px;
+            text-align: center;
+            color: #86868b;
+            border-radius: 0;
+            border-top: 1px solid #e5e5e7;
+            margin-top: 50px;
+            box-shadow: none;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1d1d1f;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .page-header {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="bi bi-git me-2"></i>Git Pull, Push & SSH Setup</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="page-header">
+            <h1>Git Pull, Push & SSH Setup</h1>
+            <p class="subtitle">Complete terminal guide for Git operations and SSH authentication</p>
+        </div>
+
+        <!-- Git Status and Remote Check -->
+        <div class="section-header">
+            <i class="bi bi-info-circle-fill"></i>
+            Git Status and Remote Check
+        </div>
+        
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Git Status</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+modified:   .DS_Store
+modified:   sample.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+3days.sh
+bash/
+compress.html
+compression.png
+count.txt
+devops/
+final.txt
+fruits.txt
+git
+hellofromgoogle.sh
+hellopws.sh
+learn.txt
+learn_lines.txt
+pathdemo.sh
+repos/
+server.log
+unix.txt
+usernamefile.sh
+whoami.sh
+
+no changes added to commit (use "git add" and/or "git commit -a")</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Git Remote Verification</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git remote -v
+
+origin https://github.com/kishankalandoor/DevOps.git (fetch)
+origin https://github.com/kishankalandoor/DevOps.git (push)</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Git Add and Commit -->
+        <div class="section-header">
+            <i class="bi bi-plus-circle-fill"></i>
+            Git Add and Commit
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Adding Files</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git add .
+
+warning: adding embedded git repository: devops
+hint: You've added another git repository inside your current repository.
+hint: Clones of the outer repository will not contain the contents of
+hint: the embedded repository and will not know how to obtain it.
+hint: If you meant to add a submodule, use:
+hint:
+hint: git submodule add <url> devops
+hint:
+hint: If you added this path by mistake, you can remove it from the
+hint: index with:
+hint:
+hint: git rm --cached devops
+hint:
+hint: See "git help submodule" for more information.
+hint: Disable this message with "git config set advice.addEmbeddedRepo false"
+warning: adding embedded git repository: repos/repo</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Committing Changes</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git commit -m "Add all local files"
+
+[main 476c8f0] Add all local files
+ 22 files changed, 990 insertions(+)
+ create mode 100755 3days.sh
+ create mode 100755 bash/bash_script.sh
+ create mode 100755 compress.html
+ create mode 100644 compression.png
+ create mode 100644 count.txt
+ create mode 160000 devops
+ create mode 100644 final.txt
+ create mode 100644 fruits.txt
+ create mode 100644 git
+ create mode 100755 hellofromgoogle.sh
+ create mode 100755 hellopws.sh
+ create mode 100644 learn.txt
+ create mode 100644 learn_lines.txt
+ create mode 100755 pathdemo.sh
+ create mode 100644 repos/git
+ create mode 160000 repos/repo
+ create mode 100644 server.log
+ create mode 100644 unix.txt
+ create mode 100755 usernamefile.sh
+ create mode 100755 whoami.sh</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Git Push - Authentication Failed -->
+        <div class="section-header">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            Git Push - Authentication Failed
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Push Failed (Password Authentication)</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git push origin main
+
+Username for 'https://github.com': kishankalandoor
+Password for 'https://kishankalandoor@github.com':
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/kishankalandoor/DevOps.git/'</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Attempted Commits</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git commit -m 'Gopal commit'
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+modified:   repos/repo (untracked content)
+
+no changes added to commit (use "git add" and/or "git commit -a")
+apple@kishankalandoor DevOps % git commit -m 'Gopal commit'
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+modified:   repos/repo (untracked content)
+
+no changes added to commit (use "git add" and/or "git commit -a")</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Git Clone Attempts -->
+        <div class="section-header">
+            <i class="bi bi-cloud-download-fill"></i>
+            Git Clone Attempts and Navigation
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Failed Clone Commands</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % DevOps>git clone git@github.com:kishankalandoor/DevOps.git            
+zsh: command not found: DevOps
+apple@kishankalandoor DevOps % cd ..                                                    
+apple@kishankalandoor htdocs % DevOps>git clone git@github.com:kishankalandoor/DevOps.git
+zsh: command not found: DevOps
+apple@kishankalandoor htdocs % DevOps>git clone git@github.com:kishankalandoor/DevOps.git
+
+zsh: command not found: DevOps
+apple@kishankalandoor htdocs % cd ~/htdocs
+
+cd: no such file or directory: /Users/apple/htdocs
+apple@kishankalandoor htdocs % git clone git@github.com:kishankalandoor/DevOps.git
+
+fatal: destination path 'DevOps' already exists and is not an empty directory.
+apple@kishankalandoor htdocs % git branch
+
+fatal: not a git repository (or any of the parent directories): .git
+apple@kishankalandoor htdocs % git pull origin main
+
+fatal: not a git repository (or any of the parent directories): .git
+apple@kishankalandoor htdocs %
+apple@kishankalandoor htdocs % cd DevOps</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - List Directory Contents</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % ls -a
+
+--dry-run host-commands.html
+-avh host.png
+. index.html
+.. innodedemo.txt
+.DS_Store inode.html
+.git learn_lines.txt
+.github learn.txt
+.vscode linux_user_add.png
+30-01-2026-16-54-54.txt logs and journalctl.html
+3days.sh logs_raw_content.txt
+a.tx missing.txt
+a.txt must
+b.txt netstat-guide.html
+backup netstat.txt
+bash nginx
+broken nginx.html
+change_hostname.html nmap.html
+check_nesting.py pacewisdom_scan.txt
+check_sizes.py passsword.txt
+compress.html password.html
+compress.png pathdemo.sh
+compressed_folder.zip pattern.txt
+compressed_folder22.zip pinglogs.txt
+compression pipe.html
+compression.html rebuild_with_split_terminals.py
+compression.png remove_old_terminal.py
+count.txt repos
+cut.html roadmap.html
+date_time_file_creation.html rsync
+demo.txt sample.txt
+demo.txtygiygiygvobgbo sed.html
+demo1.txt server.log
+devops Shell Scripting - Standard Input, Output and Error,pipe basics.html
+DevOps-backup softlink.html
+devops.xlsx split_into_30.py
+dig.html split_into_60.py
+env.html split_large_terminal.py
+final.txt split_terminals.py
+find_large_terminals.py std_in_out_err.html
+fix_terminal_nesting.py traceroute Ping.html
+fruits.txt traceroutelog1.txt
+generate_roadmap.py ufw.html
+git unix.txt
+gopal usernamefile.sh
+hello.txt validate_html.py
+hellofromgoogle.sh var
+hellopws.sh whoami.sh
+home</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Git Branch and Pull -->
+        <div class="section-header">
+            <i class="bi bi-diagram-3-fill"></i>
+            Git Branch and Pull
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Branch Check and Pull</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git branch
+
+* main
+apple@kishankalandoor DevOps % git pull origin main
+
+From https://github.com/kishankalandoor/DevOps
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+apple@kishankalandoor DevOps % git status
+
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+modified:   repos/repo (untracked content)
+
+no changes added to commit (use "git add" and/or "git commit -a")</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Push Attempts with Permission Errors</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git push origin main
+
+Username for 'https://github.com': kishankalandoor
+Password for 'https://kishankalandoor@github.com':
+remote: Permission to kishankalandoor/DevOps.git denied to kishankalandoor.
+fatal: unable to access 'https://github.com/kishankalandoor/DevOps.git/': The requested URL returned error: 403
+apple@kishankalandoor DevOps % git push origin main
+
+Everything up-to-date
+apple@kishankalandoor DevOps % git push origin main
+
+Everything up-to-date
+apple@kishankalandoor DevOps % mkdir waste  
+apple@kishankalandoor DevOps % git push origin main
+
+Everything up-to-date</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Git Submodule and Status -->
+        <div class="section-header">
+            <i class="bi bi-layers-fill"></i>
+            Git Submodule and Status
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Submodule Update and Status</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git submodule update --checkout
+
+apple@kishankalandoor DevOps % git status                    
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+modified:   .DS_Store
+modified:   repos/repo (untracked content)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+waste/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+apple@kishankalandoor DevOps % git commit
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+modified:   .DS_Store
+modified:   repos/repo (untracked content)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+waste/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+apple@kishankalandoor DevOps % git status
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+modified:   .DS_Store
+modified:   repos/repo (untracked content)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+waste/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+apple@kishankalandoor DevOps % git pull origin main        
+
+From https://github.com/kishankalandoor/DevOps
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+apple@kishankalandoor DevOps % git push origin main
+
+Everything up-to-date
+apple@kishankalandoor DevOps % git status          
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+modified:   .DS_Store
+modified:   repos/repo (untracked content)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+waste/
+
+no changes added to commit (use "git add" and/or "git commit -a")</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Commit Errors and Remote</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git commit waste    
+error: pathspec 'waste' did not match any file(s) known to git
+apple@kishankalandoor DevOps % git commit -m
+error: switch `m' requires a value
+apple@kishankalandoor DevOps % git remote -v
+origin https://github.com/kishankalandoor/DevOps.git (fetch)
+origin https://github.com/kishankalandoor/DevOps.git (push)</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Successful Commit and Push -->
+        <div class="section-header">
+            <i class="bi bi-check-circle-fill"></i>
+            Successful Commit and Push
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Add, Commit and Push</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git add .
+apple@kishankalandoor DevOps % git commit -m "Gopala commit"                  
+[main b9c9d9d] Gopala commit
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 waste/waste delete this file.png
+apple@kishankalandoor DevOps % git push origin main
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 11 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 485 bytes | 485.00 KiB/s, done.
+Total 4 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/kishankalandoor/DevOps.git
+   476c8f0..b9c9d9d  main -> main</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Git Status After Push</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git ststus          
+git: 'ststus' is not a git command. See 'git --help'.
+
+The most similar command is
+status
+apple@kishankalandoor DevOps % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+modified:   repos/repo (untracked content)
+
+no changes added to commit (use "git add" and/or "git commit -a")
+apple@kishankalandoor DevOps %</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- SSH Setup Process -->
+        <div class="section-header">
+            <i class="bi bi-key-fill"></i>
+            SSH Setup Process
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Initial SSH and Directory Setup</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>Last login: Thu Feb  5 11:44:06 on ttys002
+You have new mail.
+/Users/apple/.bashrc:2: parse error near `>'
+apple@kishankalandoor apple % cd ~
+apple@kishankalandoor apple % $ mkdir repos
+zsh: command not found: $
+apple@kishankalandoor apple % $mkdir repos
+zsh: command not found: repos
+apple@kishankalandoor apple % mkdir repos
+apple@kishankalandoor apple %  cd ~/repos</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Git Clone Help and Errors</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % git clone
+fatal: You must specify a repository to clone.
+
+usage: git clone [<options>] [--] <repo> [<dir>]
+
+    -v, --[no-]verbose    be more verbose
+    -q, --[no-]quiet      be more quiet
+    --[no-]progress       force progress reporting
+    --[no-]reject-shallow don't clone shallow repository
+    -n, --no-checkout     don't create a checkout
+    --checkout            opposite of --no-checkout
+    --[no-]bare           create a bare repository
+    --[no-]mirror         create a mirror repository (implies --bare)
+    -l, --[no-]local      to clone from a local repository
+    --no-hardlinks        don't use local hardlinks, always copy
+    --hardlinks           opposite of --no-hardlinks
+    -s, --[no-]shared     setup as shared repository
+    --[no-]recurse-submodules[=<pathspec>]
+                          initialize submodules in the clone
+    --[no-]recursive ...  alias of --recurse-submodules
+    -j, --[no-]jobs <n>   number of submodules cloned in parallel
+    --[no-]template <template-directory>
+                          directory from which templates will be used
+    --[no-]reference <repo>
+                          reference repository
+    --[no-]reference-if-able <repo>
+                          reference repository
+    --[no-]dissociate     use --reference only while cloning
+    -o, --[no-]origin <name>
+                          use <name> instead of 'origin' to track upstream
+    -b, --[no-]branch <branch>
+                          checkout <branch> instead of the remote's HEAD
+    --[no-]revision <rev> clone single revision <rev> and check out
+    -u, --[no-]upload-pack <path>
+                          path to git-upload-pack on the remote
+    --[no-]depth <depth>  create a shallow clone of that depth
+    --[no-]shallow-since <time>
+                          create a shallow clone since a specific time
+    --[no-]shallow-exclude <ref>
+                          deepen history of shallow clone, excluding ref
+    --[no-]single-branch  clone only one branch, HEAD or --branch
+    --[no-]tags           clone tags, and make later fetches not to follow them
+    --[no-]shallow-submodules
+                          any cloned submodules will be shallow
+    --[no-]separate-git-dir <gitdir>
+                          separate git dir from working tree
+    --[no-]ref-format <format>
+                          specify the reference format to use
+    -c, --[no-]config <key=value>
+                          set config inside the new repository
+    --[no-]server-option <server-specific>
+                          option to transmit
+    -4, --ipv4            use IPv4 addresses only
+    -6, --ipv6            use IPv6 addresses only
+    --[no-]filter <args>  object filtering
+    --[no-]also-filter-submodules
+                          apply partial clone filters to submodules
+    --[no-]remote-submodules
+                          any cloned submodules will use their remote-tracking branch
+    --[no-]sparse         initialize sparse-checkout file to include only files at root
+    --[no-]bundle-uri <uri>
+                          a URI for downloading bundles before fetching from origin remote
+
+apple@kishankalandoor repos % https://emmap1@bitbucket.org/emmap1/bitbucketstationlocations.git
+zsh: no such file or directory: https://emmap1@bitbucket.org/emmap1/bitbucketstationlocations.git
+apple@kishankalandoor repos % export PATH=... >
+zsh: parse error near `\n'</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Navigate to DevOps and Clone Attempts</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % cd ..
+apple@kishankalandoor apple % cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+apple@kishankalandoor DevOps % mkdir repos
+apple@kishankalandoor DevOps % cd repos
+apple@kishankalandoor repos % git clone
+fatal: You must specify a repository to clone.
+
+usage: git clone [<options>] [--] <repo> [<dir>]
+
+    -v, --[no-]verbose    be more verbose
+    -q, --[no-]quiet      be more quiet
+    --[no-]progress       force progress reporting
+    --[no-]reject-shallow don't clone shallow repository
+    -n, --no-checkout     don't create a checkout
+    --checkout            opposite of --no-checkout
+    --[no-]bare           create a bare repository
+    --[no-]mirror         create a mirror repository (implies --bare)
+    -l, --[no-]local      to clone from a local repository
+    --no-hardlinks        don't use local hardlinks, always copy
+    --hardlinks           opposite of --no-hardlinks
+    -s, --[no-]shared     setup as shared repository
+    --[no-]recurse-submodules[=<pathspec>]
+                          initialize submodules in the clone
+    --[no-]recursive ...  alias of --recurse-submodules
+    -j, --[no-]jobs <n>   number of submodules cloned in parallel
+    --[no-]template <template-directory>
+                          directory from which templates will be used
+    --[no-]reference <repo>
+                          reference repository
+    --[no-]reference-if-able <repo>
+                          reference repository
+    --[no-]dissociate     use --reference only while cloning
+    -o, --[no-]origin <name>
+                          use <name> instead of 'origin' to track upstream
+    -b, --[no-]branch <branch>
+                          checkout <branch> instead of the remote's HEAD
+    --[no-]revision <rev> clone single revision <rev> and check out
+    -u, --[no-]upload-pack <path>
+                          path to git-upload-pack on the remote
+    --[no-]depth <depth>  create a shallow clone of that depth
+    --[no-]shallow-since <time>
+                          create a shallow clone since a specific time
+    --[no-]shallow-exclude <ref>
+                          deepen history of shallow clone, excluding ref
+    --[no-]single-branch  clone only one branch, HEAD or --branch
+    --[no-]tags           clone tags, and make later fetches not to follow them
+    --[no-]shallow-submodules
+                          any cloned submodules will be shallow
+    --[no-]separate-git-dir <gitdir>
+                          separate git dir from working tree
+    --[no-]ref-format <format>
+                          specify the reference format to use
+    -c, --[no-]config <key=value>
+                          set config inside the new repository
+    --[no-]server-option <server-specific>
+                          option to transmit
+    -4, --ipv4            use IPv4 addresses only
+    -6, --ipv6            use IPv6 addresses only
+    --[no-]filter <args>  object filtering
+    --[no-]also-filter-submodules
+                          apply partial clone filters to submodules
+    --[no-]remote-submodules
+                          any cloned submodules will use their remote-tracking branch
+    --[no-]sparse         initialize sparse-checkout file to include only files at root
+    --[no-]bundle-uri <uri>
+                          a URI for downloading bundles before fetching from origin remote</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bitbucket Clone Attempts -->
+        <div class="section-header">
+            <i class="bi bi-git"></i>
+            Bitbucket Clone Attempts
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Failed HTTPS Authentication</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % git clone https://bitbucket.org/demogopalaaaa/repo.git
+
+Cloning into 'repo'...
+Username for 'https://bitbucket.org': kalandoor
+Password for 'https://kalandoor@bitbucket.org':
+remote: You may not have access to this repository or it no longer exists in this workspace. If you think this repository exists and you have access, make sure you are authenticated.
+fatal: Authentication failed for 'https://bitbucket.org/demogopalaaaa/repo.git/'
+apple@kishankalandoor repos % git clone https://bitbucket.org/demogopalaaaa/repo.git
+
+Cloning into 'repo'...
+Username for 'https://bitbucket.org': kalandoor
+Password for 'https://kalandoor@bitbucket.org':
+remote: You may not have access to this repository or it no longer exists in this workspace. If you think this repository exists and you have access, make sure you are authenticated.
+fatal: Authentication failed for 'https://bitbucket.org/demogopalaaaa/repo.git/'</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- SSH Commands -->
+        <div class="section-header">
+            <i class="bi bi-terminal-fill"></i>
+            SSH Commands and OpenSSH Installation
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - SSH Version Check</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % ssh -v
+usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface] [-b bind_address]
+           [-c cipher_spec] [-D [bind_address:]port] [-E log_file]
+           [-e escape_char] [-F configfile] [-I pkcs11] [-i identity_file]
+           [-J destination] [-L address] [-l login_name] [-m mac_spec]
+           [-O ctl_cmd] [-o option] [-P tag] [-p port] [-R address]
+           [-S ctl_path] [-W host:port] [-w local_tun[:remote_tun]]
+           destination [command [argument ...]]
+       ssh [-Q query_option]
+apple@kishankalandoor repos % ssH -v
+usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface] [-b bind_address]
+           [-c cipher_spec] [-D [bind_address:]port] [-E log_file]
+           [-e escape_char] [-F configfile] [-I pkcs11] [-i identity_file]
+           [-J destination] [-L address] [-l login_name] [-m mac_spec]
+           [-O ctl_cmd] [-o option] [-P tag] [-p port] [-R address]
+           [-S ctl_path] [-W host:port] [-w local_tun[:remote_tun]]
+           destination [command [argument ...]]
+       ssh [-Q query_option]
+apple@kishankalandoor repos % ssh -V                                                
+OpenSSH_10.0p2, LibreSSL 3.3.6</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Install OpenSSH via Homebrew</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % brew install openssh
+==> Auto-updating Homebrew...
+Adjust how often this is run with `$HOMEBREW_AUTO_UPDATE_SECS` or disable with
+`$HOMEBREW_NO_AUTO_UPDATE=1`. Hide these hints with `$HOMEBREW_NO_ENV_HINTS=1` (see `man brew`).
+==> Auto-updated Homebrew!
+Updated 2 taps (homebrew/core and homebrew/cask).
+==> New Formulae
+go-air: Live reload for Go apps
+ic-wasm: CLI tool for performing Wasm transformations specific to ICP canisters
+icp-cli: Development tool for building and deploying canisters on ICP
+jqfmt: Opinionated formatter for jq
+mac-cleanup-go: TUI macOS cleaner that scans caches/logs and lets you select what to delete
+==> New Casks
+codex-app: OpenAI's Codex desktop app for managing coding agents
+codexbar: Menu bar usage monitor for Codex and Claude
+commander: AI agent operator
+elegoo-slicer: Open-source slicer for FDM 3D printers
+ethui: Ethereum development toolkit with wallet and anvil support
+middledrag: Middle-click and middle-drag via three-finger trackpad gestures
+plasticity: 3D modeling software for concept artists and designers
+repobar: Menu bar dashboard for GitHub repository health
+retrace: Local-first screen recording and search application
+trimmy: Paste-once, run-once clipboard cleaner for terminal snippets
+yandextelemost: Yandex video calls and meetings platform
+
+You have 3 outdated formulae and 1 outdated cask installed.
+
+==> Fetching downloads for: openssh
+✔︎ Bottle Manifest openssh (10.2p1)                                                                                                                                                                                              Downloaded   25.7KB/ 25.7KB
+✔︎ Bottle Manifest ldns (1.9.0)                                                                                                                                                                                                  Downloaded   21.2KB/ 21.2KB
+✔︎ Bottle Manifest openssl@3 (3.6.1)                                                                                                                                                                                             Downloaded   11.8KB/ 11.8KB
+✔︎ Bottle Manifest python@3.14 (3.14.2_1)                                                                                                                                                                                        Downloaded   29.5KB/ 29.5KB
+✔︎ Bottle Manifest libcbor (0.13.0)                                                                                                                                                                                              Downloaded    9.3KB/  9.3KB
+✔︎ Bottle Manifest libfido2 (1.16.0_1)                                                                                                                                                                                           Downloaded   19.9KB/ 19.9KB
+✔︎ Bottle libcbor (0.13.0)                                                                                                                                                                                                       Downloaded   43.6KB/ 43.6KB
+✔︎ Bottle libfido2 (1.16.0_1)                                                                                                                                                                                                    Downloaded  363.3KB/363.3KB
+✔︎ Bottle ldns (1.9.0)                                                                                                                                                                                                           Downloaded    1.3MB/  1.3MB
+✔︎ Bottle openssh (10.2p1)                                                                                                                                                                                                       Downloaded    2.9MB/  2.9MB
+✔︎ Bottle openssl@3 (3.6.1)                                                                                                                                                                                                      Downloaded   10.9MB/ 10.9MB
+✔︎ Bottle python@3.14 (3.14.2_1)                                                                                                                                                                                                 Downloaded   18.7MB/ 18.7MB
+==> Installing dependencies for openssh: ldns, libcbor and libfido2
+==> Installing openssh dependency: ldns
+==> Pouring ldns--1.9.0.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/ldns/1.9.0: 573 files, 7.5MB
+==> Installing openssh dependency: libcbor
+==> Pouring libcbor--0.13.0.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/libcbor/0.13.0: 36 files, 216.8KB
+==> Installing openssh dependency: libfido2
+==> Pouring libfido2--1.16.0_1.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/libfido2/1.16.0_1: 566 files, 1.4MB
+==> Installing openssh
+==> Pouring openssh--10.2p1.arm64_tahoe.bottle.1.tar.gz
+🍺  /opt/homebrew/Cellar/openssh/10.2p1: 48 files, 8.2MB
+==> Running `brew cleanup openssh`...
+Disable this behaviour by setting `HOMEBREW_NO_INSTALL_CLEANUP=1`.
+Hide these hints with `HOMEBREW_NO_ENV_HINTS=1` (see `man brew`).</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - More Failed Clone Attempts</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % git clone https://demogopalaaaa-admin@bitbucket.org/demogopalaaaa/repo.git
+Cloning into 'repo'...
+Password for 'https://demogopalaaaa-admin@bitbucket.org':
+remote: You may not have access to this repository or it no longer exists in this workspace. If you think this repository exists and you have access, make sure you are authenticated.
+fatal: Authentication failed for 'https://bitbucket.org/demogopalaaaa/repo.git/'
+apple@kishankalandoor repos % git clone https://demogopalaaaa-admin@bitbucket.org/demogopalaaaa/repo.git
+Cloning into 'repo'...
+Password for 'https://demogopalaaaa-admin@bitbucket.org':
+remote: You may not have access to this repository or it no longer exists in this workspace. If you think this repository exists and you have access, make sure you are authenticated.
+fatal: Authentication failed for 'https://bitbucket.org/demogopalaaaa/repo.git/'</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- SSH Key Generation -->
+        <div class="section-header">
+            <i class="bi bi-shield-lock-fill"></i>
+            SSH Key Generation
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - First SSH Clone Attempt</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % git clone git@bitbucket.org:demogopalaaaa/repo.git
+Cloning into 'repo'...
+The authenticity of host 'bitbucket.org (13.200.41.136)' can't be established.
+ED25519 key fingerprint is SHA256:ybgmFkzwOSotHTHLJgHO0QN8L0xErw6vd0VhFA9m3SM.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'bitbucket.org' (ED25519) to the list of known hosts.
+git@bitbucket.org: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Directory Creation and SSH Check</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % repo > git clone git@bitbucket.org:demogopalaaaa/repo.git
+zsh: command not found: repo
+apple@kishankalandoor repos % mkdir repo
+apple@kishankalandoor repos % repo > git clone git@bitbucket.org:demogopalaaaa/repo.git
+zsh: command not found: repo
+apple@kishankalandoor repos % repo>git clone git@bitbucket.org:demogopalaaaa/repo.git
+zsh: command not found: repo
+apple@kishankalandoor repos % ls ~/.ssh
+
+known_hosts</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Generate ED25519 SSH Key</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % ssh-keygen -t ed25519 -C "your-email@example.com"
+
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/Users/apple/.ssh/id_ed25519): key.txt
+Enter passphrase for "key.txt" (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in key.txt
+Your public key has been saved in key.txt.pub
+The key fingerprint is:
+SHA256:CuuAVz8lMVzaZEG+Bg5vQ6G+dxXj9R/2KMCglzws//s your-email@example.com
+The key's randomart image is:
++--[ED25519 256]--+
+|      ..*.       |
+|     o O         |
+|    o B + o .    |
+|   . = B * + .   |
+|    + O S =   .o |
+| . . * X o .  .oo|
+|. o o = o   . . o|
+| . o . o .   .   |
+|    .     ooE    |
++----[SHA256]-----+</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- SSH Key Setup -->
+        <div class="section-header">
+            <i class="bi bi-file-earmark-lock-fill"></i>
+            SSH Key Setup and Configuration
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - SSH Agent and Add Key</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+Agent pid 75305
+/Users/apple/.ssh/id_ed25519: No such file or directory
+apple@kishankalandoor repos % cat ~/.ssh/id_ed25519.pub
+
+cat: /Users/apple/.ssh/id_ed25519.pub: No such file or directory
+apple@kishankalandoor repos % ls
+git key.txt key.txt.pub repo</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Move Keys and Set Permissions</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % mv key.txt ~/.ssh/id_ed25519
+mv key.txt.pub ~/.ssh/id_ed25519.pub
+
+apple@kishankalandoor repos % chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub
+
+apple@kishankalandoor repos % eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+Agent pid 75386
+Enter passphrase for /Users/apple/.ssh/id_ed25519:
+Bad passphrase, try again for /Users/apple/.ssh/id_ed25519:
+Identity added: /Users/apple/.ssh/id_ed25519 (your-email@example.com)</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - View Public Key</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % cat ~/.ssh/id_ed25519.pub
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMsNxxFgkVEiLc5QTR4zjdQn85TWyWdQeOs3dRyhAfNf your-email@example.com
+apple@kishankalandoor repos % Identity added: /Users/apple/.ssh/id_ed25519
+
+zsh: command not found: Identity
+apple@kishankalandoor repos % ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMsNxxFgkVEiLc5QTR4zjdQn85TWyWdQeOs3dRyhAfNf your-email@example.com
+
+zsh: command not found: ssh-ed25519
+apple@kishankalandoor repos % ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMsNxxFgkVEiLc5QTR4zjdQn85TWyWdQeOs3dRyhAfNf your-email@example.com
+
+zsh: command not found: ssh-ed25519
+apple@kishankalandoor repos % Identity added: /Users/apple/.ssh/id_ed25519
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMsNxxFgkVEiLc5QTR4zjdQn85TWyWdQeOs3dRyhAfNf your-email@example.com
+
+zsh: command not found: Identity
+zsh: command not found: ssh-ed25519
+apple@kishankalandoor repos % cat ~/.ssh/id_ed25519.pub
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMsNxxFgkVEiLc5QTR4zjdQn85TWyWdQeOs3dRyhAfNf your-email@example.com
+apple@kishankalandoor repos % ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMsNxxFgkVEiLc5QTR4zjdQn85TWyWdQeOs3dRyhAfNf kalandooexyz@gmail.com
+
+zsh: command not found: ssh-ed25519</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Successful SSH Connection -->
+        <div class="section-header">
+            <i class="bi bi-check2-circle"></i>
+            Successful SSH Connection and Clone
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Test SSH Connection</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % ssh -T git@bitbucket.org
+
+authenticated via ssh key.
+
+You can use git to connect to Bitbucket. Shell access is disabled</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Successful Git Clone via SSH</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repos % git clone git@bitbucket.org:demogopalaaaa/repo.git
+
+Cloning into 'repo'...
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (4/4), done.
+apple@kishankalandoor repos % cd repo
+git clone git@bitbucket.org:demogopalaaaa/repo.git
+
+Cloning into 'repo'...
+Receiving objects: 100% (4/4), done.</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Add Key to Keychain and Verify</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repo % ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+
+Enter passphrase for /Users/apple/.ssh/id_ed25519:
+Identity added: /Users/apple/.ssh/id_ed25519 (your-email@example.com)
+apple@kishankalandoor repo % ssh -T git@bitbucket.org                      
+
+authenticated via ssh key.
+
+You can use git to connect to Bitbucket. Shell access is disabled</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clone DevOps Repository -->
+        <div class="section-header">
+            <i class="bi bi-folder-fill"></i>
+            Clone DevOps Repository
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Clone DevOps Repo</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor repo % cd ..
+apple@kishankalandoor repos % cd ..
+apple@kishankalandoor DevOps % repo>git clone git@bitbucket.org:demogopalaaaa/devops.git                    
+zsh: command not found: repo
+apple@kishankalandoor DevOps % DevOps>git clone git@bitbucket.org:demogopalaaaa/devops.git
+zsh: command not found: DevOps
+apple@kishankalandoor DevOps % cd ..
+apple@kishankalandoor htdocs % DevOps>git clone git@bitbucket.org:demogopalaaaa/devops.git
+zsh: command not found: DevOps
+apple@kishankalandoor htdocs % cd DevOps                                          
+apple@kishankalandoor DevOps % git clone git@bitbucket.org:demogopalaaaa/devops.git
+
+Cloning into 'devops'...
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (4/4), done.</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Git Operations After Clone -->
+        <div class="section-header">
+            <i class="bi bi-arrow-clockwise"></i>
+            Git Operations After Clone
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Git Status and Init</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git status
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+modified:   .DS_Store
+modified:   sample.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+3days.sh
+bash/
+compress.html
+compression.png
+count.txt
+devops/
+final.txt
+fruits.txt
+git
+hellofromgoogle.sh
+hellopws.sh
+learn.txt
+learn_lines.txt
+pathdemo.sh
+repos/
+server.log
+unix.txt
+usernamefile.sh
+whoami.sh
+
+no changes added to commit (use "git add" and/or "git commit -a")
+apple@kishankalandoor DevOps % git status ls
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+apple@kishankalandoor DevOps % git status  
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+modified:   .DS_Store
+modified:   sample.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+3days.sh
+bash/
+compress.html
+compression.png
+count.txt
+devops/
+final.txt
+fruits.txt
+git
+hellofromgoogle.sh
+hellopws.sh
+learn.txt
+learn_lines.txt
+pathdemo.sh
+repos/
+server.log
+unix.txt
+usernamefile.sh
+whoami.sh
+
+no changes added to commit (use "git add" and/or "git commit -a")
+apple@kishankalandoor DevOps % git init
+
+Reinitialized existing Git repository in /Applications/XAMPP/xamppfiles/htdocs/DevOps/.git/
+apple@kishankalandoor DevOps % git status
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+modified:   .DS_Store
+modified:   sample.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+3days.sh
+bash/
+compress.html
+compression.png
+count.txt
+devops/
+final.txt
+fruits.txt
+git
+hellofromgoogle.sh
+hellopws.sh
+learn.txt
+learn_lines.txt
+pathdemo.sh
+repos/
+server.log
+unix.txt
+usernamefile.sh
+whoami.sh
+
+no changes added to commit (use "git add" and/or "git commit -a")</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Git Log Commands -->
+        <div class="section-header">
+            <i class="bi bi-journal-text"></i>
+            Git Log Commands
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Git Log Since 3 Days</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git log --since="3 days ago"
+
+commit 5fdbd8f4aae26e9c1ce70a0e65804ae9a0644c5c (HEAD -> main, origin/main)
+Author: Kishan Kalandoor <126354384+kishankalandoor@users.noreply.github.com>
+Date:   Mon Feb 2 16:47:19 2026 +0530
+
+    Add more pipe examples: tee, wc, input redirection
+
+commit e694e96be9e22a7103eed47b7faaf35cbbb8390a
+Author: Kishan Kalandoor <126354384+kishankalandoor@users.noreply.github.com>
+Date:   Mon Feb 2 16:32:20 2026 +0530
+
+    Add pipe.html with terminal windows and update index card
+
+commit cc4fb20b93a950ab7bcb2fb6574db112916b0239
+Author: Kishan Kalandoor <126354384+kishankalandoor@users.noreply.github.com>
+Date:   Mon Feb 2 16:11:53 2026 +0530
+
+    Added compression, change_hostname, env, std_in_out_err, roadmap HTML files and updated index
+apple@kishankalandoor DevOps % git log --since="3 days ago" --oneline
+
+5fdbd8f (HEAD -> main, origin/main) Add more pipe examples: tee, wc, input redirection
+e694e96 Add pipe.html with terminal windows and update index card
+cc4fb20 Added compression, change_hostname, env, std_in_out_err, roadmap HTML files and updated index</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Git Log Custom Format</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git log --since="3 days ago" --pretty=format:"%h %ad %an %s" --date=short
+
+5fdbd8f 2026-02-02 Kishan Kalandoor Add more pipe examples: tee, wc, input redirection
+e694e96 2026-02-02 Kishan Kalandoor Add pipe.html with terminal windows and update index card
+cc4fb20 2026-02-02 Kishan Kalandoor Added compression, change_hostname, env, std_in_out_err, roadmap HTML files and updated index
+apple@kishankalandoor DevOps % git log --since="10 days ago" \
+  --pretty=format:"%h | %an | %ad | %s" \
+  --date=local
+
+5fdbd8f | Kishan Kalandoor | Mon Feb 2 16:47:19 2026 | Add more pipe examples: tee, wc, input redirection
+e694e96 | Kishan Kalandoor | Mon Feb 2 16:32:20 2026 | Add pipe.html with terminal windows and update index card
+cc4fb20 | Kishan Kalandoor | Mon Feb 2 16:11:53 2026 | Added compression, change_hostname, env, std_in_out_err, roadmap HTML files and updated index
+f99de5a | Kishan Kalandoor | Wed Jan 28 17:15:30 2026 | Add linux_user_add.png image to user creation section
+92ff577 | Kishan Kalandoor | Wed Jan 28 17:03:25 2026 | Create static.yml
+a6fad47 | Kishan Kalandoor | Wed Jan 28 17:03:10 2026 | Create jekyll-gh-pages.yml
+d8c9d9b | Kishan Kalandoor | Wed Jan 28 17:02:36 2026 | Remove workflow, use branch deployment
+4c5aae3 | Kishan Kalandoor | Wed Jan 28 17:00:27 2026 | Update VSCode settings
+4ee386c | Kishan Kalandoor | Wed Jan 28 17:00:11 2026 | Add GitHub Pages deployment workflow
+327e8ed | Kishan Kalandoor | Wed Jan 28 16:49:56 2026 | Initial commit: DevOps learning repository with HTML tutorials, logs, and scripts</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Git Log with Stats</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git log --since="10 days ago" --stat
+
+commit 5fdbd8f4aae26e9c1ce70a0e65804ae9a0644c5c (HEAD -> main, origin/main)
+Author: Kishan Kalandoor <126354384+kishankalandoor@users.noreply.github.com>
+Date:   Mon Feb 2 16:47:19 2026 +0530
+
+    Add more pipe examples: tee, wc, input redirection
+
+ pipe.html | 279 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 279 insertions(+)
+
+commit e694e96be9e22a7103eed47b7faaf35cbbb8390a
+Author: Kishan Kalandoor <126354384+kishankalandoor@users.noreply.github.com>
+Date:   Mon Feb 2 16:32:20 2026 +0530
+
+    Add pipe.html with terminal windows and update index card
+
+ index.html |   1 +
+ pipe.html  | 614 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 615 insertions(+)
+
+commit cc4fb20b93a950ab7bcb2fb6574db112916b0239
+Author: Kishan Kalandoor <126354384+kishankalandoor@users.noreply.github.com>
+Date:   Mon Feb 2 16:11:53 2026 +0530
+
+    Added compression, change_hostname, env, std_in_out_err, roadmap HTML files and updated index
+
+ .DS_Store                                                                          |  Bin 14340 -> 16388 bytes
+ .github/workflows/jekyll-gh-pages.yml                                              |    0
+ .github/workflows/static.yml                                                       |    0
+ .vscode/settings.json                                                              |    0
+ 30-01-2026-16-54-54.txt                                                            |    1 +
+ Shell Scripting - Standard Input, Output and Error,pipe basics.html                | 1002 ++++++++++++++++++++++++++++++++++
+ a.tx                                                                               |    0
+ a.txt                                                                              |    0
+ b.txt                                                                              |    0
+ change_hostname.html                                                               |  483 ++++++++++++++++
+ check_nesting.py                                                                   |    0
+ check_sizes.py                                                                     |    0
+ compress.png                                                                       |  Bin 0 -> 767421 bytes
+ compressed_folder.zip                                                              |  Bin 0 -> 16851794 bytes
+ compressed_folder22.zip                                                            |  Bin 0 -> 5210 bytes
+ compression.html                                                                   |  452 +++++++++++++++
+ compression/EmergingTrendsofPhysicalEducationSportsScience-1.pdf                   |  Bin 0 -> 13165536 bytes
+ compression/_Understanding artificial intelligence ethics and safety full copy.pdf |  Bin 0 -> 5761896 bytes
+ cut.html                                                                           |  689 +++++++++++++++++++++++
+ date_time_file_creation.html                                                       |    0
+ demo.txt                                                                           |    4 +
+ demo.txtygiygiygvobgbo                                                             |   10 +
+ demo1.txt                                                                          |    4 +</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-grid">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal - Git Diff</div>
+                </div>
+                <div class="terminal-body">
+                    <pre>apple@kishankalandoor DevOps % git diff --since="10 days ago"
+
+diff --git a/.DS_Store b/.DS_Store
+index 2dfa1fd..388a460 100755
+Binary files a/.DS_Store and b/.DS_Store differ
+diff --git a/sample.txt b/sample.txt
+index 78102b8..0564582 100644
+--- a/sample.txt
++++ b/sample.txt</pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 DevOps Learning Hub. All rights reserved.</p>
+        <p>Terminal logs for Git Pull, Push & SSH setup guide.</p>
+    </footer>
+
+    <div class="scroll-top" id="scrollTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Scroll to top functionality
+        window.addEventListener('scroll', function () {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        document.getElementById('scrollTop').addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+
+</html>

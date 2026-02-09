@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal History - DevOps Commands Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            background: #f5f5f5;
+            color: #212529;
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 1400px;
+        }
+
+        .page-header {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .section-title {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 30px 0 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .section-title h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #495057;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .terminal-window {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: #e9ecef;
+            border-bottom: 1px solid #dee2e6;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .terminal-body {
+            background: #212529;
+            color: #f8f9fa;
+            padding: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+            max-height: 600px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .terminal-body pre {
+            margin: 0;
+            color: #f8f9fa;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #343a40;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #6c757d;
+            border-radius: 5px;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: #adb5bd;
+        }
+
+        .prompt {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .command {
+            color: #ffc107;
+        }
+
+        .output {
+            color: #17a2b8;
+        }
+
+        .error {
+            color: #dc3545;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #0d6efd;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-top.visible {
+            display: flex;
+        }
+
+        .scroll-top:hover {
+            background: #0b5ed7;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: #6c757d;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="bi bi-terminal"></i> Terminal History Reference</h1>
+            <p class="mb-0">Complete DevOps Command History and Terminal Logs</p>
+        </div>
+
+        <!-- Bash Scripting Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-file-earmark-code"></i> Bash Scripting</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">bash_script.sh - Basic Script Execution</div>
+            </div>
+            <div class="terminal-body">
+                <pre>Last login: Tue Feb  3 15:06:40 on ttys000
+You have new mail.
+apple@kishankalandoor ~ % cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+apple@kishankalandoor DevOps % mkdir bash
+apple@kishankalandoor DevOps % cd bash
+apple@kishankalandoor bash % sudo vim bash_script.sh
+apple@kishankalandoor bash % chmod +x bash_script.sh
+chmod: Unable to change file mode on bash_script.sh: Operation not permitted
+apple@kishankalandoor bash % sudo chmod +x bash_script.sh
+apple@kishankalandoor bash % ./bash_script.sh
+You cannot vote
+apple@kishankalandoor bash % sudo vim bash_script.sh
+apple@kishankalandoor bash % ./bash_script.sh
+You can vote
+apple@kishankalandoor bash % sudo vim bash_script.sh
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 50
+You are 50 years old. You can vote!
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 1
+You are only 1. You cannot vote yet.
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 17.99
+./bash_script.sh: line 7: [: 17.99: integer expression expected
+You are only 17.99. You cannot vote yet.
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 18 - 6 + 18 - 9 -9 +6
+./bash_script.sh: line 7: [: 18 - 6 + 18 - 9 -9 +6: integer expression expected
+You are only 18 - 6 + 18 - 9 -9 +6. You cannot vote yet.</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Bash Version and File Listing</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor bash % bash --version
+GNU bash, version 3.2.57(1)-release (arm64-apple-darwin25)
+Copyright (C) 2007 Free Software Foundation, Inc.
+apple@kishankalandoor bash % ls -l
+total 8
+-rwxr-xr-x  1 root  staff  260  4 Feb 15:25 bash_script.sh
+apple@kishankalandoor bash % ls -R
+bash_script.sh</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Echo Command Examples</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor bash % echo "hello "
+hello
+apple@kishankalandoor bash % echo " hello \n worls "
+ hello
+ worls
+apple@kishankalandoor bash % echo -E " hello \n worls "
+ hello \n worls
+apple@kishankalandoor bash % echo -e " hello \n worls "
+ hello
+ worls
+apple@kishankalandoor bash % echo -e " hello \n worls "
+ hello
+ worls</pre>
+            </div>
+        </div>
+
+        <!-- Environment Variables Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-gear"></i> Environment Variables and Shell Configuration</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Bash History</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor bash % cat ~/.bash_history
+echo $MYVAR
+unset MYVAR
+echo $MYVAR
+q
+cd ..
+export MYVAR=hello
+export MYVAR=hello
+echo $MYVAR
+unset MYVAR
+echo $MYVAR
+.zshrc/
+/.zshrc
+.zshrc
+~/.zshrc
+sudo ~/.zshrc
+echo $APP_ENV</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Zsh Configuration and Aliases</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor bash % vim ~/.bash_profile
+apple@kishankalandoor bash % source ~/.bash_profile
+apple@kishankalandoor bash % gotodev
+apple@kishankalandoor DevOps % gotodev
+apple@kishankalandoor DevOps % gotodev
+apple@kishankalandoor DevOps % vim ~/.zshrc
+apple@kishankalandoor DevOps % source ~/.zshrc
+apple@kishankalandoor DevOps % export APP_ENV=development
+apple@kishankalandoor DevOps % echo $SHELL
+/bin/zsh
+apple@kishankalandoor DevOps % alias
+gotodev='cd /Applications/XAMPP/xamppfiles/htdocs/DevOps'
+run-help=man
+uninstall-spyder=/Users/apple/Library/spyder-6/uninstall-spyder.sh
+which-command=whence
+apple@kishankalandoor DevOps % gotodev
+apple@kishankalandoor DevOps % source
+source: not enough arguments</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Prompt Customization</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % PROMPT='%1d %#'
+DevOps % abadb
+zsh: command not found: abadb
+DevOps % tmte
+zsh: command not found: tmte
+DevOps % apple@kishankalandoor
+zsh: command not found: apple@kishankalandoor
+DevOps % source ~/.zshrc
+DevOps % vim ~/.zshrc
+DevOps % source ~/.zshrc
+DevOps % export APP_ENV=development
+DevOps % echo $SHELL
+/bin/zsh
+DevOps % vim ~/.zshrc
+DevOps % source ~/.zshrc
+apple@kishankalandoor DevOps % PROMPT='%n@%m %1c %#'</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Zsh History</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % ~/.zsh_history
+zsh: permission denied: /Users/apple/.zsh_history
+apple@kishankalandoor DevOps % cat ~/.zsh_history
+sudo /Applications/XAMPP/xamppfiles/xampp start
+tail -20 /Applications/XAMPP/xamppfiles/logs/error_log
+rm /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/.htaccess
+mv /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index.html /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index_old.html && mv /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index_enhanced.html /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index.html
+tail -30 /Applications/XAMPP/xamppfiles/logs/php_error_log
+tail -50 /Applications/XAMPP/xamppfiles/logs/php_error_log | grep -A 5 "JANAUSHADHICADF"
+php setup_simple.php > /tmp/setup_output.txt 2>&1 && cat /tmp/setup_output.txt
+open "http://localhost/JANAUSHADHICADF/report.html"
+open "http://localhost/JANAUSHADHICADF/report.html"</pre>
+            </div>
+        </div>
+
+        <!-- Networking Commands Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-diagram-3"></i> Networking Commands</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Netstat Commands</div>
+            </div>
+            <div class="terminal-body">
+                <pre>netstat -r
+netstat -a
+netstat -g
+netstat -i
+netstat -M
+netstat -s
+netstat -v
+netstat -W
+netstat -n
+netstat -at
+netstat -au</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Ping Commands</div>
+            </div>
+            <div class="terminal-body">
+                <pre>ping -c 1 pacewisdom.com
+ping -c 1 google.com
+ping -c 1 kalandoor.com
+ping -c 10 kalandoor.com
+ping -I en0 google.com
+ping -S 192.168.0.174 google.com
+ping -S 192.168.0.174 pacewisdom.com
+ping -i 2 pacewisdom.com
+ping -W 2 pacewisdom.com
+ping -w 2 pacewisdom.com
+ping -s 2 pacewisdom.com
+ping -q -c 5 pacewisdom.com</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Host Command</div>
+            </div>
+            <div class="terminal-body">
+                <pre>host pacewisdom.com
+host 198.202.211.1
+host -a pacewisdom.com
+host -t a pacewisdom.com
+host -t A pacewisdom.com
+host 52.25.109.230
+host -c IN pacewisdom.com
+host -v pacewisdom.com
+host -t AAAA pacewisdom.com
+host -t MX pacewisdom.com
+host -t TXT pacewisdom.com
+host -t TXT viprithinobyte.in
+host -t TXT sheshakuteera.com
+host -t TXT sheshakuteera.in
+host -t NS pacewisdom.com
+host pacewisdom.com 8.8.8.8
+host -R 10 pacewisdom.com
+host -R 30 pacewisdom.com
+host -4 pacewisdom.com
+host -6 pacewisdom.com
+host -W 4 pacewisdom.com</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Dig Command</div>
+            </div>
+            <div class="terminal-body">
+                <pre>dig pacewisdom.com +short
+dig pacewisdom.com
+dig -4 pacewisdom.com
+dig -6 pacewisdom.com
+dig 8.8.8.8 pacewisdom.com
+dig pacewisdom.com +short
+dig pacewisdom.com +nocomments
+dig pacewisdom.com +noall
+dig pacewisdom.com +noall +answer
+dig pacewisdom.com +any
+dig pacewisdom.com MX
+dig pacewisdom.com @8.8.8.8
+dig pacewisdom.com ANY +noall +answer</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Nmap Security Scanning</div>
+            </div>
+            <div class="terminal-body">
+                <pre>brew install nmap
+nmap --version
+nmap www.pacewisdom.com
+nmap -v www.pacewisdom.com
+nmap -p 8,8443 www.pacewisdom.com
+nmap -sn www.pacewisdom.com
+sudo nmap -sS www.pacewisdom.com
+sudo nmap -sV www.pacewisdom.com
+nmap -sV www.pacewisdom.com
+sudo nmap -O www.pacewisdom.com
+sudo nmap -A www.pacewisdom.com
+nmap -sS www.pacewisdom.com -oG pacewisdom_scan.txt
+cat pacewisdom_scan.txt</pre>
+            </div>
+        </div>
+
+        <!-- File Operations Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-folder"></i> File Operations and Directory Management</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Directory Creation and Navigation</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cd /Users/apple/Documents/DevOps
+ls -a
+ls -la
+mkdir gopal
+cd gopal
+touch gopal.txt
+cat gopal.txt
+nano gopal.txt
+pwd
+ls
+cd ..
+mkdir var
+cd var
+mkdir www
+touch a1.txt b2.txt
+ls
+cd ..
+mkdir home
+cd var
+mv a1.txt b2.txt www/
+cd www
+ls
+cd ..
+cd ..
+cd home</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Symbolic Links</div>
+            </div>
+            <div class="terminal-body">
+                <pre>ln -s /Users/apple/Documents/DevOps/var/www/a1.txt
+ln -s /Users/apple/Documents/DevOps/var/www/b2.txt
+cd /Users/apple/Documents/DevOps
+touch innodedemo.txt
+cat innodedemo.txt
+vi innodedemo.txt
+ls
+stat innodedemo.txt
+ls -i
+ls -i /etc
+mkdir inode
+cd inode
+ls -id .
+cd ..
+ls -i
+ln pinglogs.txt traceroutelog1.txt
+touch a.txt b.txt
+nano a.txt
+nano b.txt
+stat b.txt
+stat a.txt</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Inode Operations</div>
+            </div>
+            <div class="terminal-body">
+                <pre>ls -i a.txt
+find /Users/apple/Documents/DevOps -inum 36253699
+du -h a.txt
+du -h netstat-guide.html
+df -i
+df -i netstat-guide.html
+ls -i /Users/apple/Documents/DevOps
+ls -i ..
+echo "Hello" > a.txt
+tail -f a.txt
+echo "Hello hallo" >> a.txt
+tail -f a.txt
+ls -s a.txt broken
+ls -l broken
+ln -s missing.txt broken
+ls -l broken
+cat broken
+echo "No issues" > missing.txt
+cat broken</pre>
+            </div>
+        </div>
+
+        <!-- Text Processing Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-file-text"></i> Text Processing and Search</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Grep Commands</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cd /Users/apple/Documents/DevOps
+grep "hallo" hello.txt
+touch hello.txt
+grep "hallo" hello.txt
+nano hello.txt
+grep -i "hallo" hello.txt
+grep "hallo" hello.txt
+grep "hello" hello.txt
+grep -c "hallo" hello.txt
+grep -c "hello" hello.txt
+grep -c "helloi" hello.txt
+grep -l "hallo" hello.txt
+grep -w "hallo" hello.txt
+grep -w "hi" hello.txt
+grep -w "hello" hello.txt
+grep -l "hello" hello.txt
+grep -w "hallo" hello.txt
+grep -l "hallo" hello.txt
+grep -c "hallo" hello.txt
+grep -o "hallo" hello.txt
+grep -n "hallo" hello.txt
+grep -v "hallo" hello.txt
+grep "^hallo" hello.txt
+grep "hallo$" hello.txt
+grep -e "hallo" hello.txt
+grep -e "hallo" -e "hi" hello.txt
+touch pattern.txt
+nano pattern.txt
+grep -f pattern.txt hello.txt
+grep -A2 "hello" hello.txt
+grep -B1 "hello" hello.txt
+grep -C1 "hello" hello.txt
+grep -C2 "hello" hello.txt
+grep -r "hallo" hello.txt</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Advanced Grep - Server Log Analysis</div>
+            </div>
+            <div class="terminal-body">
+                <pre>vim server.log
+ls -l server.log
+grep "Failed" server.log
+egrep "Failed|404" server.log
+grep -E -o "([0-9]{1,3}\.){3}[0-9]{1,3}" server.log
+grep "Failed" server.log
+grep -i "error" server.log
+grep -E "error" server.log
+grep -E "Failed|404" server.log
+grep -c "Accepted" server.log
+grep -E -o "([0-9]{1,3}\.){3}[0-9]{1,3}" server.log</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Cut Command</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cat demo.txt
+cut -c 1-5 demo.txt
+cut -c 1-3 demo.txt
+cut -c 1 demo.txt
+cut -f 1,4 demo.txt
+cut -f 1,3 demo.txt
+cut -d "d" -f 1,2 demo.txt
+cut -b 1,2,3,4 demo.txt
+cut -b 1,2,3,4,5 demo.txt
+cut -b 1-2,4-5 demo.txt
+cut -b -3 demo.txt
+cut -b -4 demo.txt
+cut -f 1 demo.txt
+cut -f 4 demo.txt
+cut -d " " -f 1-2 demo.txt
+cut --complement -d " " -f 1-2 demo.txt
+cut --complement -d " " -f 1 demo.txt
+cut -d " " -f 1-2 demo.txt | cut -b -3 demo.txt | cut -b 1,2,3,4 demo.txt
+cut -d " " -f 1-2 demo.txt | cut -b -3 demo.txt | cut -b 1,2,3,4 demo.txt > demo1.txt
+sudo vim demo1.txt</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Sed - Stream Editor</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+sed '' demo.txt
+sed '2d' demo.txt
+sed 's/hi/hello/' demo.txt
+sed -n '2,3p' demo.txt
+sed -n '1,3p' demo.txt
+sed '' demo.txt
+sed -i '' 's/old/new/g' demo.txt
+sed '2,4d' demo.txt
+sed '3,4d' demo.txt
+sed -n '1,3p' demo.txt
+sed -i '' 's/hi/hello/g' demo.txt
+sed '3 s/hello/hi/' demo.txt
+sed '2 s/hello/hi/' demo.txt
+sed '4 s/hello/hi/' demo.txt
+sed 's/hi/hello/p' demo.txt
+sed -n 's/hi/hello/p' demo.txt
+sed '1d' demo.txt
+sed '2d' demo.txt
+sed '/hello/d' demo.txt
+cat demo.txt
+sed '2i\
+This is a new line before line 2' demo.txt
+sed '2a\
+This is a new line after line 2' demo.txt
+sed '2d' demo.txt
+sed '$d' demo.txt
+sed -i '' '/hello/d' demo.txt
+cat demo.txt
+sed -e '2,4d' -e '/world/d' demo.txt
+cat demo.txt</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">AWK Command</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+vim sample.txt
+cat sample.txt
+awk '{print}' sample.txt
+awk -F 'DevOps' '{print $1,$4}' sample.txt
+awk -F 'DevOps' '{print $1,"Jannuary",$4}' sample.txt</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">WC - Word Count</div>
+            </div>
+            <div class="terminal-body">
+                <pre>wc fruits.txt
+wc demo.txt fruits.txt
+wc -l demo.txt fruits.txt
+wc -w fruits.txt
+wc -w demo.txt
+wc -m demo.txt
+wc -m demo.txt fruits.txt
+wc -m demo.txt | cut -c1</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Sort and Uniq Commands</div>
+            </div>
+            <div class="terminal-body">
+                <pre>vim fruits.txt
+cat fruits.txt
+sort -r fruits.txt
+sort -n fruits.txt
+sort -k 2,2 fruits.txt
+sort -k 3,1 fruits.txt
+sort -u fruits.txt
+sort -t "," -k2,2 -k4,2 fruits.txt
+sort -t "," -k1,1 -k2,2r fruits.txt
+uniq fruits.txt
+sort -u fruits.txt
+uniq -d fruits.txt
+uniq -c fruits.txt
+sort fruits.txt | uniq -c | awk '{print $2 ", " $1}'
+uniq -d fruits.txt
+uniq -D fruits.txt
+uniq -f 1 fruits.txt
+uniq -s 2 fruits.txt
+cut -c1-3 fruits.txt | sort | uniq -c
+awk '{print substr($0,1,3)}' fruits.txt | uniq</pre>
+            </div>
+        </div>
+
+        <!-- Piping and Redirection Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-arrow-left-right"></i> Piping and Redirection</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Pipe Examples</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+cat demo.txt | grep "learn"
+cat demo.txt | grep "learn" | grep "unix"
+cat demo.txt | grep "learn" | grep "great"
+grep "learn" demo.txt | grep "unix"
+cat demo.txt | head -3
+cat demo.txt | head -1
+cat demo.txt | head -4
+cat demo.txt | tail -4
+cat demo.txt | head -1 | tail -4</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Redirection and Tee</div>
+            </div>
+            <div class="terminal-body">
+                <pre>grep "learn" demo.txt > learn.txt
+cat learn.txt
+cat demo.txt | grep -i "unix" | tee unix.txt | wc -l
+cat learn.txt
+cat unix.txt
+grep "learn" demo.txt > learn.txt
+cat learn.txt
+cat demo.txt | grep "learn" > learn.txt
+grep "unix" < demo.txt | tee unix.txt > count.txt
+cat < demo.txt | grep -i "learn" | tee learn_lines.txt > final.txt
+cat learn_lines.txt
+cat final.txt
+cat unix.txt
+cat < demo.txt | grep -i "learn" | tee learn_lines.txt
+cat < demo.txt | grep -i "learn" | tee learn_lines.txt | tee final.txt</pre>
+            </div>
+        </div>
+
+        <!-- System Administration Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-server"></i> System Administration</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">User Management and Permissions</div>
+            </div>
+            <div class="terminal-body">
+                <pre>passwd
+whoami
+groups
+id
+newgrp kishan</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Mail Configuration</div>
+            </div>
+            <div class="terminal-body">
+                <pre>sudo newaliases
+echo "Test Email" | mail -s "Test" info
+sudo nano /etc/aliases
+sudo newaliases
+sudo postfix start
+sudo postfix status
+echo "Test Email from macOS" | mail -s "Test Support Alias" support
+echo "Test root alias" | mail -s "Root Alias Test" root
+sudo nano /etc/postfix/main.cf
+sudo nano /etc/postfix/sasl_passwd
+sudo chmod 600 /etc/postfix/sasl_passwd
+sudo postmap /etc/postfix/sasl_passwd
+sudo postfix reload
+sudo postconf | grep relayhost
+ls -l /etc/postfix/sasl_passwd*
+echo "Postfix relay test $(date)" | mail -s "Postfix Gmail Test" gopal@pacewisdom.com
+mailq</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Hostname Configuration</div>
+            </div>
+            <div class="terminal-body">
+                <pre>hostname
+sudo scutil --set HostName kishankalandoor
+sudo scutil --set ComputerName kishankalandoor
+sudo scutil --set LocalHostName kishankalandoor
+sudo dscacheutil -flushcache
+hostname</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Firewall and Security</div>
+            </div>
+            <div class="terminal-body">
+                <pre>sudo ufw status verbose
+sudo ufw status
+sudo ufw enable
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate
+sudo pfctl -s info
+sudo pfctl -e</pre>
+            </div>
+        </div>
+
+        <!-- Docker Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-box"></i> Docker and Containerization</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Docker Installation and Setup</div>
+            </div>
+            <div class="terminal-body">
+                <pre>brew install --cask docker
+docker --version
+docker ps
+open -a Docker
+brew list --cask | grep docker
+ls /Applications | grep -i docker
+docker run -d -p 8080:80 --name nginx-test nginx
+docker run -d -p 3000:80 --name nginx-test1 nginx
+curl http://localhost:3000
+docker run -d -p 8081:80 --name nginx-test2 nginx
+curl http://localhost:8081
+docker ps
+docker stop nginx-test2
+docker ps
+docker stop nginx-test nginx-test1 nginx-test2
+docker rm nginx-test nginx-test1 nginx-test2</pre>
+            </div>
+        </div>
+
+        <!-- Web Server Configuration Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-globe"></i> Web Server Configuration</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Nginx Setup and Configuration</div>
+            </div>
+            <div class="terminal-body">
+                <pre>ls /Applications/XAMPP/xamppfiles/htdocs/DevOps
+nano /Applications/XAMPP/xamppfiles/htdocs/DevOps/index.html
+nano /opt/homebrew/etc/nginx/nginx.conf
+sudo chown -R apple:staff /Applications/XAMPP/xamppfiles/htdocs/DevOps
+sudo chmod -R 755 /Applications/XAMPP/xamppfiles/htdocs/DevOps
+nginx -t
+brew install nginx
+brew list | grep nginx
+which nginx
+/opt/homebrew/bin/nginx
+vim /opt/homebrew/etc/nginx/nginx.conf
+nginx -t
+nginx
+curl http://localhost:8081
+tail -f /opt/homebrew/var/log/nginx/access.log
+tail -f /opt/homebrew/var/log/nginx/error.log
+open http://localhost:8081
+ps aux | grep nginx
+nginx -s reload
+open http://localhost:8081
+curl http://localhost:8081</pre>
+            </div>
+        </div>
+
+        <!-- Database Operations Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-database"></i> Database Operations</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">MySQL Commands</div>
+            </div>
+            <div class="terminal-body">
+                <pre>mysql -u root -e "SHOW DATABASES LIKE 'homeopathy_ai';" 2>&1
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "SHOW DATABASES LIKE 'homeopathy_ai';"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root < /Applications/XAMPP/xamppfiles/htdocs/homeopathy/setup_database.sql
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e "SHOW TABLES;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e "DELETE FROM symptoms_master WHERE id > 0; DELETE FROM extracted_symptoms WHERE id > 0;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e "TRUNCATE TABLE symptoms_master;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e "SELECT COUNT(*) as count FROM patients;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e "SELECT MIN(id) as min_id, MAX(id) as max_id FROM patients;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "USE hitech_power; SHOW TABLES;" 2>&1 | grep -i -E 'staff|employee'
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "USE hitech_power; DESCRIBE staff;" 2>&1
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "DESCRIBE users;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "SELECT Username, FullName, Role FROM users LIMIT 5;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "SELECT Username, FullName, Role FROM users;"</pre>
+            </div>
+        </div>
+
+        <!-- PHP Development Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-code-slash"></i> PHP Development</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">PHP Syntax Checking</div>
+            </div>
+            <div class="terminal-body">
+                <pre>php -v
+ps aux | grep -i mysql | grep -v grep
+ps aux | grep -i httpd | grep -v grep | head -1
+/Applications/XAMPP/xamppfiles/bin/php -v
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/dashboard.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/stock_adjustment.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/stock_report.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/index.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/electric_fence_calculator.php && /Applications/XAMPP/xamppfiles/bin/php -l quotations/fence_roughwork.php
+/Applications/XAMPP/xamppfiles/bin/php -l index.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php && /Applications/XAMPP/xamppfiles/bin/php -l quotations/save_quotation.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/electric_fence_auto.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/api/save_auto_quotation.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/index.php
+/Applications/XAMPP/xamppfiles/bin/php -l staff/index.php && /Applications/XAMPP/xamppfiles/bin/php -l staff/add.php && /Applications/XAMPP/xamppfiles/bin/php -l staff/pay_salary.php
+/Applications/XAMPP/xamppfiles/bin/php -l staff/edit.php
+/Applications/XAMPP/xamppfiles/bin/php -l products/index.php && /Applications/XAMPP/xamppfiles/bin/php -l products/add.php && /Applications/XAMPP/xamppfiles/bin/php -l products/edit.php</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">PHP Script Execution</div>
+            </div>
+            <div class="terminal-body">
+                <pre>php setup_db.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/setup_db.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/add_sample_data.php
+curl -s http://localhost/homeopathy/api/get_stats.php | python3 -m json.tool
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php -r "require 'database/db_config.php'; $result = $pdo->query('SELECT COUNT(*) as count FROM products'); echo 'Current products in database: ' . $result->fetch()['count'] . PHP_EOL;"
+/Applications/XAMPP/xamppfiles/bin/php -r "echo password_hash('Gopala', PASSWORD_DEFAULT);"</pre>
+            </div>
+        </div>
+
+        <!-- Environment and Build Tools Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-tools"></i> Environment and Build Tools</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Environment Variables</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+env
+env PROJECT=DevOps env
+echo $PROJECT
+env ls
+env -u PATH ls
+env -u PATH /bin/ls
+env -i env
+VAR=value
+MYVAR=hello
+echo $MYVAR
+export MYVAR=hello
+env | grep MYVAR
+env MYVAR=hello bash
+echo $APP_ENV
+printenv APP_ENV
+APP_ENV=production
+DB_HOST=localhost
+echo $APP_ENV
+printenv APP_ENV
+echo "Environment: $APP_ENV"
+env --version
+env --help
+env</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Homebrew Package Manager</div>
+            </div>
+            <div class="terminal-body">
+                <pre>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew --version
+brew install nmap
+brew install nginx
+brew list | grep nginx</pre>
+            </div>
+        </div>
+
+        <!-- Compression and Archiving Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-file-zip"></i> Compression and Archiving</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Zip Commands</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+zip -r compressed_folder.zip compression/
+zip -r -9 compressed_folder.zip compression/
+zip -r -9 compressed_folder.zip env.html
+zip -r compressed_folder22.zip env.html</pre>
+            </div>
+        </div>
+
+        <!-- Cron Jobs Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-clock"></i> Scheduled Tasks and Cron Jobs</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Cron Configuration</div>
+            </div>
+            <div class="terminal-body">
+                <pre>crontab -e
+crontab -l
+
+Cron Examples:
+1. Every day at 12:00 AM
+2. Every Sunday at 9 AM
+3. Trigger a cron hourly (once in every hour)
+4. From Monday - Friday every day at 10 PM trigger a cron job
+5. Trigger a cron at minute 15 past every 3rd hour from 0 through 20
+6. Trigger a cron at minute 0 past hour 0 and 12 on day-of-month 1 in every 2nd month</pre>
+            </div>
+        </div>
+
+        <!-- Date and Time Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-calendar"></i> Date and Time Operations</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Date Commands and File Creation</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+FILENAME="$(date '+%d-%m-%Y-%H-%M-%S').txt"
+echo "This file was created on $(date '+%d-%m-%Y %H:%M:%S')" > "$FILENAME"
+ls -l | grep "$FILENAME"
+cat 30-01-2026-16-54-54.txt
+date</pre>
+            </div>
+        </div>
+
+        <!-- Ngrok and Tunneling Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-link"></i> Ngrok and Tunneling</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Ngrok Setup</div>
+            </div>
+            <div class="terminal-body">
+                <pre>brew install ngrok
+ngrok http 3000
+ngrok config add-authtoken 38erxpkXJ87bmIPGgYoaMsM9gnC_5vuFSKrFoAzhSosi5U6co</pre>
+            </div>
+        </div>
+
+        <!-- Python Development Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-python"></i> Python Development</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Python Scripts Execution</div>
+            </div>
+            <div class="terminal-body">
+                <pre>cd "/Users/apple/Downloads/tata ai" && "/Users/apple/Downloads/tata ai/.venv/bin/python" convert_to_word.py
+cd "/Users/apple/Downloads/tata ai/Task 2" && "/Users/apple/Downloads/tata ai/.venv/bin/python" create_task2_report.py
+cd "/Users/apple/Downloads/tata ai/Task 3" && "/Users/apple/Downloads/tata ai/.venv/bin/python" create_task3_report.py
+cd "/Users/apple/Downloads/tata ai/Task 4" && "/Users/apple/Downloads/tata ai/.venv/bin/python" create_task4_presentation.py
+cd "/Users/apple/Downloads/milma bill" && python3 generate_receipts_pdf.py</pre>
+            </div>
+        </div>
+
+        <!-- Permissions and Ownership Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-shield-lock"></i> Permissions and Ownership</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">File Permissions</div>
+            </div>
+            <div class="terminal-body">
+                <pre>chmod +x setup.sh check_installation.sh verify_system.py
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/homeopathy/setup.sh
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/heartbeat/install.sh
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/heartbeat/verify.sh
+chmod +x verify.sh && ls -la *.sh
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/heartbeat/test.sh && /Applications/XAMPP/xamppfiles/htdocs/heartbeat/test.sh
+./test.sh
+./install.sh
+./verify.sh</pre>
+            </div>
+        </div>
+
+        <!-- XAMPP Management Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-stack"></i> XAMPP Server Management</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">XAMPP Commands</div>
+            </div>
+            <div class="terminal-body">
+                <pre>/Applications/XAMPP/xamppfiles/xampp start
+sudo /Applications/XAMPP/xamppfiles/xampp start
+sudo /Applications/XAMPP/xamppfiles/xampp start
+tail -20 /Applications/XAMPP/xamppfiles/logs/error_log
+tail -30 /Applications/XAMPP/xamppfiles/logs/php_error_log
+tail -50 /Applications/XAMPP/xamppfiles/logs/php_error_log | grep -A 5 "JANAUSHADHICADF"
+open "http://localhost/JANAUSHADHICADF/report.html"</pre>
+            </div>
+        </div>
+
+        <!-- Miscellaneous Section -->
+        <div class="section-title">
+            <h2><i class="bi bi-three-dots"></i> Miscellaneous Commands</h2>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">Various Utility Commands</div>
+            </div>
+            <div class="terminal-body">
+                <pre>tree -L 3 -I 'venv|__pycache__|*.pyc' > project_structure.txt 2>/dev/null || find . -type f -not -path "./venv/*" -not -path "./__pycache__/*" | head -30
+ls -lah
+ls -1 | grep -E '\.(php|md|sh)$' | sort
+echo "Total files: $(find . -type f | wc -l | xargs)"
+echo "Code files: $(find . -type f \( -name "*.php" -o -name "*.js" -o -name "*.css" -o -name "*.sql" \) | wc -l | xargs)"
+find . -type f -name "*.php" | wc -l
+find . -type f \( -name "*.php" -o -name "*.js" -o -name "*.css" -o -name "*.sql" \) -exec wc -l {} + | tail -1
+du -sh .
+find /Applications/XAMPP/xamppfiles/htdocs/Hitech -type f \( -name "*.csv" -o -name "*.xlsx" -o -name "*.xls" -o -name "*products*" -o -name "*items*" \) 2>/dev/null | head -20
+wc -l /Applications/XAMPP/xamppfiles/htdocs/Hitech/inventory/seed_all_products.php
+grep -n "^function " quotations/js/fence_calculator_engine.js | head -30
+node --check quotations/js/fence_calculator_engine.js 2>&1 || echo "If node not found, JS syntax should be manually checked in browser"
+curl -s "http://localhost/Hitech/quotations/api/get_products.php" | head -50
+ps aux | grep -i "httpd\|mysql" | grep -v grep
+ipconfig getifaddr en0 || ipconfig getifaddr en1
+grep -n "Require local" /Applications/XAMPP/xamppfiles/etc/httpd.conf | head -5
+open -a TextEdit /Applications/XAMPP/xamppfiles/etc/httpd.conf</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <footer>
+        <p><strong>Terminal History Reference</strong> | Complete DevOps Command Documentation</p>
+        <p class="mb-0">Generated on: February 9, 2026</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        // Smooth scrolling for all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

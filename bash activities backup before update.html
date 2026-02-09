@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bash Activities - Terminal Logs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+        }
+
+        .page-header {
+            background: #ffffff;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #d2d2d7;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-header .subtitle {
+            font-size: 18px;
+            color: #6e6e73;
+        }
+
+        .section-header {
+            color: #1d1d1f;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 50px 0 25px 0;
+            padding: 15px 20px;
+            background: #ffffff;
+            border-left: 4px solid #0071e3;
+            border-radius: 6px;
+        }
+
+        .terminal-window {
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #d2d2d7;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: #f5f5f7;
+            border-bottom: 1px solid #d2d2d7;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red {
+            background: #ff5f56;
+        }
+
+        .terminal-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .terminal-dot.green {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: #1d1d1f;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 40px;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            font-size: 13px;
+            color: #1d1d1f;
+            background: #fafafa;
+            max-height: 500px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .terminal-body pre {
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            color: #1d1d1f;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #e5e5e7;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #d2d2d7;
+            border-radius: 5px;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: #aeaeb2;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #0071e3;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 113, 227, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-header">
+        <h1>Bash Activities Terminal Logs</h1>
+        <p class="subtitle">Complete DevOps Terminal Session Documentation</p>
+    </div>
+
+    <div class="container">
+        <h2 class="section-header">Bash Script Development - morethan5files.sh</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Initial Script Development & Debugging</div>
+            </div>
+            <div class="terminal-body">
+                <pre>Last login: Thu Feb  5 17:24:01 on ttys009
+You have new mail.
+/Users/apple/.bashrc:2: parse error near `>'
+apple@kishankalandoor apple % cd /Applications/XAMPP/xamppfiles/htdocs/DevOps/sed.html
+cd: not a directory: /Applications/XAMPP/xamppfiles/htdocs/DevOps/sed.html
+apple@kishankalandoor apple % cd Applications/XAMPP/xamppfiles/htdocs/DevOps/sed.html
+cd: no such file or directory: Applications/XAMPP/xamppfiles/htdocs/DevOps/sed.html
+apple@kishankalandoor apple % cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh
+./morethan5files.sh: line 3: BASE_DIR: command not found
+./morethan5files.sh: line 21: syntax error near unexpected token `fi'
+./morethan5files.sh: line 21: `          fi'
+apple@kishankalandoor DevOps % cat  morethan5files.sh                
+#!/usr/bin/env bash
+
+BASE_DIR = "."
+
+for dir in  "BASE_DIR"/*;  do
+     
+    if [ -d "$dir" ]; then
+
+      file_count=$(fiind "$dir" -maxdepth 1 -typef | wc -l)
+
+         if ["$file_count" -gt 5]; then
+             
+            echo "DIRECTORY: $dir   contains $filecount "
+
+
+         for file in "$dir"/*; do
+                if [-f "file"];then
+                      echo "Basename : $file"
+                fi
+             dome
+          fi
+        fi
+  done</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Fixing Syntax Errors</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % sudo vim morethan5files.sh                    
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+./morethan5files.sh: line 3: BASE_DIR: command not found
+./morethan5files.sh: line 21: syntax error near unexpected token `fi'
+./morethan5files.sh: line 21: `          fi'
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+./morethan5files.sh: line 7: [-d./--dry-run]: No such file or directory
+./morethan5files.sh: line 7: [-d./-avh]: No such file or directory
+./morethan5files.sh: line 7: [-d./30-01-2026-16-54-54.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./3days.sh]: No such file or directory
+./morethan5files.sh: line 7: [-d./a.tx]: No such file or directory
+./morethan5files.sh: line 7: [-d./a.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./b.txt]: No such file or directory
+./morethan5files.sh: line 7: [-d./backup]: No such file or directory
+./morethan5files.sh: line 7: [-d./bash]: No such file or directory
+./morethan5files.sh: line 7: [-d./broken]: No such file or directory</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">More Debugging Iterations</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+./morethan5files.sh: line 7: i[-d ./--dry-run]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./-avh]: No such file or directory
+./morethan5files.sh: line 7: i[-d ./30-01-2026-16-54-54.txt]: No such file or directory
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+./morethan5files.sh: line 7: i[ -d ./--dry-run]: No such file or directory
+./morethan5files.sh: line 7: i[ -d ./-avh]: No such file or directory</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Final Working Version</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+ENter the directory /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh      
+apple@kishankalandoor DevOps % cat  morethan5files.sh
+#!/usr/bin/env bash
+read -p "ENter the directory " BASE_DIR
+
+if [ ! -d "$BASE_DIR" ]; then
+echo " directory not found "
+
+exit 1
+fi
+
+
+for dir in "$BASE_DIR"/*;  do
+     
+    if [ -d "$dir" ]; then
+
+      file_count=$(find "$dir" -maxdepth 1 -type f | wc -l)
+
+         if  [ "$file_count" -gt 5 ]; then
+             
+            echo "DIRECTORY: $dir   contains $file_count "
+
+
+         for file in "$dir"/*; do
+                if [ -f "$file" ];then
+                      echo "$(basename " $file")"
+                fi
+             done
+                  echo
+          fi
+        fi
+  done
+
+apple@kishankalandoor DevOps % sudo vim morethan5files.sh
+apple@kishankalandoor DevOps % sudo chmod +x  morethan5files.sh
+apple@kishankalandoor DevOps % ./morethan5files.sh      
+ENter the directory /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh
+
+DIRECTORY: /Applications/XAMPP/xamppfiles/htdocs/DevOps/waste  contains        6
+hellofromgoogle.sh
+hellopws.sh
+pathdemo.sh
+usernamefile.sh
+waste delete this file.png
+whoami.sh</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">readlines.sh - File Line Counter Script</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">readlines.sh Development</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % sudo vim readlines.sh    
+apple@kishankalandoor DevOps % sudo chmod +x  readlines.sh    
+apple@kishankalandoor DevOps % ./readlines.sh    
+path of the file /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5files.sh
+./readlines.sh: line 8: morethan5files.sh: command not found
+./readlines.sh: line 9: filelines: command not found
+file name  =  linesx =  
+apple@kishankalandoor DevOps % cat readlines.sh
+#!/usr/bin/env bash
+
+# Ask user for file name
+read -p  "path of the file " filepath
+
+if [ -f "$filepath" ];then
+
+   filename= $(basename "$filepath")
+   filelines =$(wc -l <  "$filepath")
+
+
+echo "file name  = "$filename" linesx = "$filelines" "
+
+else
+echo "error"
+
+fi
+
+
+apple@kishankalandoor DevOps % sudo vim readlines.sh          
+apple@kishankalandoor DevOps % sudo chmod +x  readlines.sh    
+apple@kishankalandoor DevOps % ./readlines.sh          
+path of the file /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5files.sh
+./readlines.sh: line 8: morethan5files.sh: command not found
+file name is  Number of lines    32
+apple@kishankalandoor DevOps % sudo vim readlines.sh          
+apple@kishankalandoor DevOps % sudo chmod +x  readlines.sh    
+apple@kishankalandoor DevOps % ./readlines.sh          
+path of the file  /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5files.sh
+./readlines.sh: line 8: morethan5files.sh: command not found
+file name is  ;  Number of lines    32
+apple@kishankalandoor DevOps % ./readlines.sh    
+path of the file /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5lines.sh
+error
+apple@kishankalandoor DevOps % ./readlines.sh    
+path of the file /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5files.sh
+./readlines.sh: line 8: morethan5files.sh: command not found
+file name is  ;  Number of lines    32
+apple@kishankalandoor DevOps % sudo vim readlines.sh  
+apple@kishankalandoor DevOps % sudo chmod +x  readlines.sh    
+apple@kishankalandoor DevOps % ./readlines.sh          
+path of the file /Applications/XAMPP/xamppfiles/htdocs/DevOps/morethan5files.sh
+file name is morethan5files.sh ;  Number of lines    32
+apple@kishankalandoor DevOps % sudo vim readlines.sh</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">filetype.sh - File Type Detection Script</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">filetype.sh Creation & Testing</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % vim filetype.sh
+apple@kishankalandoor DevOps % sudo chmod -x  filetype.sh
+apple@kishankalandoor DevOps % ./filetype.sh
+zsh: permission denied: ./filetype.sh
+apple@kishankalandoor DevOps % sudo ./filetype.sh
+sudo: ./filetype.sh: command not found
+apple@kishankalandoor DevOps % cat filetype.sh
+#!/usr/bin/bash
+
+read -p "Enter the file name " name
+
+if [ -e "$name" ]; then
+    if [ -f "$name" ]; then
+        echo "$name' is a regular file."
+    elif [ -d "$name" ]; then
+        echo "$name' is a repository."
+    else
+        echo "$name' is a other type of file."
+
+    fi
+else
+echo " file doesn't exist"
+fi
+
+apple@kishankalandoor DevOps % sudo chmod -x filetype.sh
+
+apple@kishankalandoor DevOps % vim filetype.sh          
+apple@kishankalandoor DevOps % sudo chmod -x  filetype.sh
+apple@kishankalandoor DevOps % ./filetype.sh      
+zsh: permission denied: ./filetype.sh
+apple@kishankalandoor DevOps % sudo chmod -x filetype.sh
+
+apple@kishankalandoor DevOps % ./filetype.sh
+zsh: permission denied: ./filetype.sh
+apple@kishankalandoor DevOps % ls -l filetype.sh
+
+-rw-r--r--  1 apple  staff  321  6 Feb 13:54 filetype.sh
+apple@kishankalandoor DevOps % ./filetype.sh    
+
+zsh: permission denied: ./filetype.sh
+apple@kishankalandoor DevOps % cat filetype.sh
+
+#!/usr/bin/env bash
+
+
+read -p "Enter the file name " name
+
+if [ -e "$name" ]; then
+    if [ -f "$name" ]; then
+        echo "$name' is a regular file."
+    elif [ -d "$name" ]; then
+        echo "$name' is a repository."
+    else
+        echo "$name' is a other type of file."
+
+    fi
+else
+echo " file doesn't exist"
+fi
+
+apple@kishankalandoor DevOps % chmod +x filetype.sh
+
+apple@kishankalandoor DevOps % ls -l filetype.sh
+
+-rwxr-xr-x  1 apple  staff  321  6 Feb 13:54 filetype.sh
+apple@kishankalandoor DevOps % vim  filetype.sh
+
+apple@kishankalandoor DevOps % vim  filetype.sh
+
+apple@kishankalandoor DevOps % chmod +x filetype.sh
+
+apple@kishankalandoor DevOps % ./filetype.sh    
+
+Enter the file name cut
+ file doesn't exist
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name cut.html
+cut.html is a regular file.
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name bash
+bash is a repository.
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name gopala.gopala
+ file doesn't exist
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name gopal
+gopal is a repository.
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name gopala
+ file doesn't exist
+apple@kishankalandoor DevOps % ./filetype.sh
+
+Enter the file name devops.xlsx
+devops.xlsx is a regular file.
+apple@kishankalandoor DevOps % vim  filetype.sh</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">filetypeloop.sh - Loop Version</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">filetypeloop.sh Development</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % cp  filetype.sh filetypeloop.sh
+apple@kishankalandoor DevOps % vim filetypeloop.sh
+apple@kishankalandoor DevOps % sudo chmod +x  filetypeloop.sh
+apple@kishankalandoor DevOps % ./filetypeloop.sh
+./filetypeloop.sh: line 4: syntax error near unexpected token `if'
+./filetypeloop.sh: line 4: `if [ -e "$name" ]; then'
+apple@kishankalandoor DevOps % vim filetypeloop.sh          
+apple@kishankalandoor DevOps % sudo chmod +x  filetypeloop.sh
+apple@kishankalandoor DevOps % ./filetypeloop.sh          
+apple@kishankalandoor DevOps % sudo chmod +x  filetypeloop.sh
+apple@kishankalandoor DevOps % ./filetypeloop.sh            
+apple@kishankalandoor DevOps % ./filetypeloop.sh  gopal gopala filetype.sh
+gopal is a repository.
+ file doesn't exist
+filetype.sh is a regular file.
+apple@kishankalandoor DevOps % vim filetypeloop.sh</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">exit0.sh - Exit Status Script</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">exit0.sh Creation</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % cp filetype.sh exit0.sh
+apple@kishankalandoor DevOps % vim exit0.sh
+apple@kishankalandoor DevOps % chmod -x exit0.sh
+apple@kishankalandoor DevOps % ./exit0.sh      
+zsh: permission denied: ./exit0.sh
+apple@kishankalandoor DevOps % sudo ./exit0.sh
+sudo: ./exit0.sh: command not found
+apple@kishankalandoor DevOps % sudo chmod -x exit0.sh
+apple@kishankalandoor DevOps % ./exit0.sh      
+zsh: permission denied: ./exit0.sh
+apple@kishankalandoor DevOps % vim exit0.sh    
+apple@kishankalandoor DevOps % cat exit0.sh
+#!/usr/bin/env bash
+
+echo "exit with exit 0 "
+
+exit 0
+
+
+
+apple@kishankalandoor DevOps % sudo chmod +x exit0.sh
+apple@kishankalandoor DevOps % ./exit0.sh            
+exit with exit 0</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">filecount.sh - File Counter Script</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">filecount.sh Development & Debugging</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % vim filecount.sh
+apple@kishankalandoor DevOps % chmod +x  filecount.sh
+apple@kishankalandoor DevOps % ./filecount.sh
+zsh: ./filecount.sh: bad interpreter: /usr/bash/bin: no such file or directory
+apple@kishankalandoor DevOps % cat filecount.sh
+#!/usr/bash/bin
+
+count_files(){
+
+count_files=($find. -maxdepth 1 -type f |  wc -l)
+echo"file count is $count_files"
+}
+count_files()
+apple@kishankalandoor DevOps % vim filecount.sh      
+apple@kishankalandoor DevOps % vim filecount.sh
+apple@kishankalandoor DevOps % vim filecount.sh
+apple@kishankalandoor DevOps % vim filecount.sh
+apple@kishankalandoor DevOps % chmod +x  filecount.sh
+apple@kishankalandoor DevOps % ./filecount.sh        
+./filecount.sh: line 6: syntax error near unexpected token `|'
+./filecount.sh: line 6: `count_files=(find. -maxdepth 1 -type f |  wc -l)'
+file count is
+./filecount.sh: line 8: syntax error near unexpected token `}'
+./filecount.sh: line 8: `}'
+apple@kishankalandoor DevOps % vim filecount.sh      
+apple@kishankalandoor DevOps % vim filecount.sh
+apple@kishankalandoor DevOps % chmod +x  filecount.sh
+apple@kishankalandoor DevOps % ./filecount.sh      
+./filecount.sh: line 6: syntax error near unexpected token `|'
+./filecount.sh: line 6: `count_files=(find . -maxdepth 1 -type f |  wc -l)'
+file count is
+./filecount.sh: line 8: syntax error near unexpected token `}'
+./filecount.sh: line 8: `}'
+apple@kishankalandoor DevOps % vim filecount.sh      
+apple@kishankalandoor DevOps % chmod +x  filecount.sh
+apple@kishankalandoor DevOps % ./filecount.sh      
+file count is       82
+apple@kishankalandoor DevOps % vim filecount.sh</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">graterthan20.sh - Number Comparison Script</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">graterthan20.sh Testing</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % cp  filecount.sh graterthan2o.sh
+apple@kishankalandoor DevOps % vim graterthan2o.sh
+apple@kishankalandoor DevOps % chmod +x  graterthan2o.sh
+apple@kishankalandoor DevOps % ./graterthan2o.sh
+enter the number50
+./graterthan2o.sh: line 5: syntax error near unexpected token `then'
+./graterthan2o.sh: line 5: `if[num -gt 20];then'
+apple@kishankalandoor DevOps % vim graterthan2o.sh
+apple@kishankalandoor DevOps % chmod +x  graterthan2o.sh
+apple@kishankalandoor DevOps % ./graterthan2o.sh      
+enter the number30
+./graterthan2o.sh: line 5: syntax error near unexpected token `then'
+./graterthan2o.sh: line 5: `if[num -gt 20]; then'
+apple@kishankalandoor DevOps % vim graterthan2o.sh      
+apple@kishankalandoor DevOps % chmod +x  graterthan2o.sh
+apple@kishankalandoor DevOps % ./graterthan2o.sh      
+enter the number33
+./graterthan2o.sh: line 5: syntax error near unexpected token `then'
+./graterthan2o.sh: line 5: `if["$num" -gt 20]; then'
+apple@kishankalandoor DevOps % vim graterthan2o.sh      
+apple@kishankalandoor DevOps % chmod +x  graterthan2o.sh
+apple@kishankalandoor DevOps % ./graterthan2o.sh      
+enter the number33
+grater than 20
+./graterthan2o.sh: line 12: [: 1-eq: unary operator expected
+the number is odd
+apple@kishankalandoor DevOps % vim graterthan2o.sh      
+apple@kishankalandoor DevOps % chmod +x  graterthan2o.sh
+apple@kishankalandoor DevOps % ./graterthan2o.sh      
+enter the number44
+grater than 20
+number is even
+apple@kishankalandoor DevOps % ./graterthan2o.sh
+enter the number23
+grater than 20
+the number is odd
+apple@kishankalandoor DevOps % ./graterthan2o.sh22.4
+zsh: no such file or directory: ./graterthan2o.sh22.4
+apple@kishankalandoor DevOps % ./graterthan2o.sh    
+enter the number22.5
+./graterthan2o.sh: line 5: [: 22.5: integer expression expected
+lesser than 20
+./graterthan2o.sh: line 12: 22.5: syntax error: invalid arithmetic operator (error token is ".5")
+apple@kishankalandoor DevOps % ./graterthan2o.sh    
+enter the number11
+lesser than 20
+the number is odd
+apple@kishankalandoor DevOps %</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Bash Scripting Session - Age Validation</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">bash_script.sh - Voting Age Checker</div>
+            </div>
+            <div class="terminal-body">
+                <pre>Last login: Tue Feb  3 15:06:40 on ttys000
+You have new mail.
+apple@kishankalandoor ~ % cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+apple@kishankalandoor DevOps % mkdir bash
+apple@kishankalandoor DevOps % cd bash
+apple@kishankalandoor bash % sudo vim bash_script.sh
+apple@kishankalandoor bash % chmod +x bash_script.sh
+chmod: Unable to change file mode on bash_script.sh: Operation not permitted
+apple@kishankalandoor bash % sudo chmod +x bash_script.sh
+apple@kishankalandoor bash % ./bash_script.sh
+You cannot vote
+apple@kishankalandoor bash % sudo vim bash_script.sh                        
+apple@kishankalandoor bash % ./bash_script.sh      
+You can vote
+apple@kishankalandoor bash % sudo vim bash_script.sh
+apple@kishankalandoor bash % ./bash_script.sh      
+Enter your age: 50
+You are 50 years old. You can vote!
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 1
+You are only 1. You cannot vote yet.
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 17.99
+./bash_script.sh: line 7: [: 17.99: integer expression expected
+You are only 17.99. You cannot vote yet.
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 18 - 6 + 18 - 9 -9 +6
+./bash_script.sh: line 7: [: 18 - 6 + 18 - 9 -9 +6: integer expression expected
+You are only 18 - 6 + 18 - 9 -9 +6. You cannot vote yet.</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Bash Environment & History</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Bash Version & Echo Commands</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor bash % bash --version
+GNU bash, version 3.2.57(1)-release (arm64-apple-darwin25)
+Copyright (C) 2007 Free Software Foundation, Inc.
+apple@kishankalandoor bash % ls -l
+total 8
+-rwxr-xr-x  1 root  staff  260  4 Feb 15:25 bash_script.sh
+apple@kishankalandoor bash % ls -R
+bash_script.sh
+apple@kishankalandoor bash % echo "hello "
+hello
+apple@kishankalandoor bash % echo " hello \n worls "
+ hello
+ worls
+apple@kishankalandoor bash % echo -E " hello \n worls "
+ hello \n worls
+apple@kishankalandoor bash % echo -e " hello \n worls "
+ hello
+ worls
+apple@kishankalandoor bash % echo -e " hello \n worls "
+ hello
+ worls</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Bash History Inspection</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor bash % cat ~/.bash_history
+echo $MYVAR
+unset MYVAR
+echo $MYVAR
+q
+cd ..
+export MYVAR=hello
+export MYVAR=hello
+echo $MYVAR
+unset MYVAR
+echo $MYVAR
+.zshrc/
+/.zshrc
+.zshrc
+~/.zshrc
+sudo ~/.zshrc
+echo $APP_ENV</pre>
+            </div>
+        </div>
+
+        <h2 class="section-header">Shell Profile Configuration</h2>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">Bash Profile & Alias Setup</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor bash % vim ~/.bash_profile
+apple@kishankalandoor bash % source ~/.bash_profile
+apple@kishankalandoor DevOps % gotodev
+apple@kishankalandoor DevOps % gotodev
+apple@kishankalandoor DevOps % gotodev
+apple@kishankalandoor DevOps % vim ~/.zshrc
+apple@kishankalandoor DevOps % source ~/.zshrc
+apple@kishankalandoor DevOps % export APP_ENV=development
+apple@kishankalandoor DevOps % echo $SHELL
+/bin/zsh
+apple@kishankalandoor DevOps % alias
+gotodev='cd /Applications/XAMPP/xamppfiles/htdocs/DevOps'
+run-help=man
+uninstall-spyder=/Users/apple/Library/spyder-6/uninstall-spyder.sh
+which-command=whence</pre>
+            </div>
+        </div>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                </div>
+                <div class="terminal-title">ZSH Prompt Customization</div>
+            </div>
+            <div class="terminal-body">
+                <pre>apple@kishankalandoor DevOps % PROMPT='%1d %#'
+DevOps %abadb
+zsh: command not found: abadb
+DevOps %tmte
+zsh: command not found: tmte
+DevOps %apple@kishankalandoo
+zsh: command not found: apple@kishankalandoo
+DevOps %apple@kishankalandoor
+zsh: command not found: apple@kishankalandoor
+DevOps %source ~/.zshrc
+DevOps %vim ~/.zshrc          
+DevOps %source ~/.zshrc          
+DevOps %export APP_ENV=development
+DevOps %echo $SHELL              
+/bin/zsh
+DevOps %vim ~/.zshrc
+]%
+DevOps %source ~/.zshrc
+apple@kishankalandoor DevOps % PROMPT='%n@%m %1c %#'</pre>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ↑
+    </div>
+
+    <footer class="bg-light text-center py-4 mt-5">
+        <p class="mb-0 text-muted">&copy; 2026 DevOps Terminal Documentation | All Sessions Logged</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>

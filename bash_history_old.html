@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal History - DevOps Commands Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Consolas', 'Courier New', monospace;
+            background: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
+            padding: 20px 0;
+        }
+
+        .navbar {
+            background: #1d1d1f !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-bottom: none;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 22px;
+            color: #ffffff !important;
+        }
+
+        .nav-link {
+            font-weight: 400;
+            color: #f5f5f7 !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            background: #ffffff;
+            color: #1d1d1f;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .page-header h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1.5px;
+            color: #1d1d1f;
+        }
+
+        .page-header .subtitle {
+            font-size: 21px;
+            color: #86868b;
+            font-weight: 400;
+        }
+
+        .terminal-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .terminal-window {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+            transition: all 0.3s ease;
+        }
+
+        .terminal-window:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            border-color: #d2d2d7;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e5e5e7;
+            background: #f5f5f7;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red {
+            background: #ff5f56;
+        }
+
+        .terminal-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .terminal-dot.green {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            color: #1d1d1f;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-right: 50px;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            color: #f8f8f2;
+            background: #1d1d1f;
+            max-height: 600px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+
+        .terminal-body pre {
+            color: #f8f8f2;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #3d3d3f;
+            border-radius: 4px;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: #66d9ef;
+        }
+
+        .section-header {
+            background: #ffffff;
+            border: none;
+            color: #1d1d1f;
+            padding: 20px 0;
+            border-radius: 0;
+            margin: 50px 0 30px 0;
+            font-weight: 700;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: none;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .section-header i {
+            font-size: 28px;
+        }
+
+        footer {
+            background: #f5f5f7;
+            padding: 40px;
+            text-align: center;
+            color: #86868b;
+            border-radius: 0;
+            border-top: 1px solid #e5e5e7;
+            margin-top: 50px;
+            box-shadow: none;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1d1d1f;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-custom {
+            background: #1d1d1f;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .page-header {
+                padding: 40px 20px;
+            }
+        }
+        .image-container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .image-caption {
+            text-align: center;
+            margin-top: 12px;
+            color: #86868b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+Conversation opened. 1 read message.
+
+Skip to content
+Using Gmail with screen readers
+1 of 48
+bash , history tec etc etc
+Summarise this email
+Kalandoor Xyz <kalandoorxyz@gmail.com>
+	
+Thu 5 Feb, 11:28 (4 days ago)
+	
+	
+to Kishan
+Last login: Tue Feb  3 15:06:40 on ttys000
+You have new mail.
+apple@kishankalandoor ~ % cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+apple@kishankalandoor DevOps % mkdir bash
+apple@kishankalandoor DevOps % cd bash
+apple@kishankalandoor bash % sudo vim bash_script.sh
+apple@kishankalandoor bash % chmod +x bash_script.sh
+chmod: Unable to change file mode on bash_script.sh: Operation not permitted
+apple@kishankalandoor bash %
+sudo chmod +x bash_script.sh
+apple@kishankalandoor bash % ./bash_script.sh
+You cannot vote
+apple@kishankalandoor bash % sudo vim bash_script.sh                        
+apple@kishankalandoor bash % ./bash_script.sh      
+You can vote
+apple@kishankalandoor bash % sudo vim bash_script.sh
+apple@kishankalandoor bash % ./bash_script.sh      
+Enter your age: 50
+You are 50 years old. You can vote!
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 1
+You are only 1. You cannot vote yet.
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 17.99
+./bash_script.sh: line 7: [: 17.99: integer expression expected
+You are only 17.99. You cannot vote yet.
+apple@kishankalandoor bash % ./bash_script.sh
+Enter your age: 18 - 6 + 18 - 9 -9 +6
+./bash_script.sh: line 7: [: 18 - 6 + 18 - 9 -9 +6: integer expression expected
+You are only 18 - 6 + 18 - 9 -9 +6. You cannot vote yet.
+apple@kishankalandoor bash % bash --version
+GNU bash, version 3.2.57(1)-release (arm64-apple-darwin25)
+Copyright (C) 2007 Free Software Foundation, Inc.
+apple@kishankalandoor bash % ls -l
+total 8
+-rwxr-xr-x  1 root  staff  260  4 Feb 15:25 bash_script.sh
+apple@kishankalandoor bash % ls -R
+bash_script.sh
+apple@kishankalandoor bash % echo "hello "
+hello
+apple@kishankalandoor bash % echo " hello \n worls "
+ hello
+ worls
+apple@kishankalandoor bash % echo -E " hello \n worls "
+ hello \n worls
+apple@kishankalandoor bash % echo -e " hello \n worls "
+ hello
+ worls
+apple@kishankalandoor bash % echo -e " hello \n worls "
+ hello
+ worls
+apple@kishankalandoor bash % cat ~/.bash_history
+echo $MYVAR
+unset MYVAR
+echo $MYVAR
+q
+cd ..
+export MYVAR=hello
+export MYVAR=hello
+echo $MYVAR
+unset MYVAR
+echo $MYVAR
+.zshrc/
+/.zshrc
+.zshrc
+~/.zshrc
+sudo ~/.zshrc
+echo $APP_ENV
+apple@kishankalandoor bash % vim ~/.bash_profile
+apple@kishankalandoor bash % source ~/.bash_profile
+apple@kishankalandoor bash % gotodev
+apple@kishankalandoor DevOps % gotodev
+apple@kishankalandoor DevOps % gotodev
+apple@kishankalandoor DevOps % vim ~/.zshrc
+apple@kishankalandoor DevOps % source ~/.zshrc
+apple@kishankalandoor DevOps % export APP_ENV=development
+apple@kishankalandoor DevOps % echo $SHELL
+/bin/zsh
+apple@kishankalandoor DevOps % alias
+gotodev='cd /Applications/XAMPP/xamppfiles/htdocs/DevOps'
+run-help=man
+uninstall-spyder=/Users/apple/Library/spyder-6/uninstall-spyder.sh
+which-command=whence
+apple@kishankalandoor DevOps % gotodev                
+apple@kishankalandoor DevOps % source
+source: not enough arguments
+apple@kishankalandoor DevOps % PROMPT='%1d %#'
+DevOps %abadb
+zsh: command not found: abadb
+DevOps %tmte
+zsh: command not found: tmte
+DevOps %apple@kishankalandoo
+zsh: command not found: apple@kishankalandoo
+DevOps %apple@kishankalandoor
+zsh: command not found: apple@kishankalandoor
+DevOps %source ~/.zshrc
+DevOps %vim ~/.zshrc          
+DevOps %source ~/.zshrc          
+DevOps %export APP_ENV=development
+DevOps %echo $SHELL              
+/bin/zsh
+DevOps %vim ~/.zshrc
+]%                                                                                                                                                                                                                                                         DevOps %source ~/.zshrc
+apple@kishankalandoor DevOps % PROMPT='%n@%m %1c %#'
+apple@kishankalandoor DevOps %~/.zsh_history
+zsh: permission denied: /Users/apple/.zsh_history
+apple@kishankalandoor DevOps %cat ~/.zsh_history
+sudo /Applications/XAMPP/xamppfiles/xampp start
+tail -20 /Applications/XAMPP/xamppfiles/logs/error_log
+rm /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/.htaccess
+mv /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index.html /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index_old.html && mv /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index_enhanced.html /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/index.html
+tail -30 /Applications/XAMPP/xamppfiles/logs/php_error_log
+tail -50 /Applications/XAMPP/xamppfiles/logs/php_error_log | grep -A 5 "JANAUSHADHICADF"
+php setup_simple.php > /tmp/setup_output.txt 2>&1 && cat /tmp/setup_output.txt
+open "http://localhost/JANAUSHADHICADF/report.html"
+open "http://localhost/JANAUSHADHICADF/report.html"
+open "http://localhost/JANAUSHADHICADF/report.html"
+open "http://localhost/JANAUSHADHICADF/report.html"
+open "http://localhost/JANAUSHADHICADF/report.html"
+open "http://localhost/JANAUSHADHICADF/report.html"
+open "http://localhost/JANAUSHADHICADF/report.html"
+open "http://localhost/JANAUSHADHICADF/report.html"
+cd /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/Documentation && python3 -c "\
+import matplotlib.pyplot as plt\
+import matplotlib.patches as mpatches\
+from matplotlib.patches import FancyBboxPatch, FancyArrowPatch\
+import matplotlib.lines as mlines\
+\
+# Passport size: 2x2 inches at 300 DPI = 600x600 pixels\
+fig, ax = plt.subplots(figsize=(2, 2), dpi=300)\
+ax.set_xlim(0, 10)\
+ax.set_ylim(0, 10)\
+ax.axis('off')\
+\
+# Title\
+ax.text(5, 9.5, 'Jan Aushadhi CADF', ha='center', va='top', fontsize=7, weight='bold')\
+\
+# Layer 1: Presentation (Top)\
+box1 = FancyBboxPatch((0.5, 7.5), 9, 1.5, boxstyle='round,pad=0.05', \
+                      edgecolor='#2C3E50', facecolor='#3498DB', linewidth=1)\
+ax.add_patch(box1)\
+ax.text(5, 8.25, 'Web Interface', ha='center', va='center', fontsize=5, color='white', weight='bold')\
+\
+# Layer 2: Application Logic\
+box2 = FancyBboxPatch((0.5, 5.5), 9, 1.5, boxstyle='round,pad=0.05',\
+                      edgecolor='#2C3E50', facecolor='#2ECC71', linewidth=1)\
+ax.add_patch(box2)\
+ax.text(5, 6.25, 'PHP Backend + API', ha='center', va='center', fontsize=5, color='white', weight='bold')\
+\
+# Layer 3: Federated Learning\
+box3 = FancyBboxPatch((0.5, 3.5), 9, 1.5, boxstyle='round,pad=0.05',\
+                      edgecolor='#2C3E50', facecolor='#E74C3C', linewidth=1)\
+ax.add_patch(box3)\
+ax.text(5, 4.25, 'FL Engine (PyTorch)', ha='center', va='center', fontsize=5, color='white', weight='bold')\
+\
+# Layer 4: Data Storage\
+box4 = FancyBboxPatch((0.5, 1.5), 9, 1.5, boxstyle='round,pad=0.05',\
+                      edgecolor='#2C3E50', facecolor='#9B59B6', linewidth=1)\
+ax.add_patch(box4)\
+ax.text(5, 2.25, 'MySQL Database', ha='center', va='center', fontsize=5, color='white', weight='bold')\
+\
+# Arrows connecting layers\
+arrow_props = dict(arrowstyle='->', lw=1.5, color='#34495E')\
+ax.annotate('', xy=(5, 7.5), xytext=(5, 7), arrowprops=arrow_props)\
+ax.annotate('', xy=(5, 5.5), xytext=(5, 5), arrowprops=arrow_props)\
+ax.annotate('', xy=(5, 3.5), xytext=(5, 3), arrowprops=arrow_props)\
+\
+# Users (bottom)\
+ax.text(2, 0.7, 'Doctor', ha='center', fontsize=4, weight='bold', color='#2C3E50')\
+ax.text(5, 0.7, 'Volunteer', ha='center', fontsize=4, weight='bold', color='#2C3E50')\
+ax.text(8, 0.7, 'Kendra', ha='center', fontsize=4, weight='bold', color='#2C3E50')\
+\
+plt.tight_layout(pad=0.1)\
+plt.savefig('System Architecture.png', dpi=300, bbox_inches='tight', facecolor='white')\
+print('System Architecture.png created successfully!')\
+"
+cd /Applications/XAMPP/xamppfiles/htdocs/JANAUSHADHICADF/Documentation && python3 -c "\
+import matplotlib.pyplot as plt\
+import matplotlib.patches as mpatches\
+from matplotlib.patches import FancyBboxPatch, Rectangle, Circle\
+import numpy as np\
+\
+# Passport size with higher resolution for clarity\
+fig, ax = plt.subplots(figsize=(3, 3), dpi=400)\
+ax.set_xlim(0, 12)\
+ax.set_ylim(0, 12)\
+ax.axis('off')\
+\
+# Title with background\
+title_box = Rectangle((0, 11), 12, 1, facecolor='#1a1a1a', edgecolor='none')\
+ax.add_patch(title_box)\
+ax.text(6, 11.5, 'JAN AUSHADHI CADF SYSTEM', ha='center', va='center', \
+        fontsize=8, color='white', weight='bold', family='sans-serif')\
+\
+# Client Layer\
+client_bg = Rectangle((0.3, 9), 11.4, 1.5, facecolor='#E8F5E9', edgecolor='#4CAF50', linewidth=2)\
+ax.add_patch(client_bg)\
+ax.text(6, 10.2, 'CLIENT LAYER', ha='center', fontsize=6, weight='bold', color='#2E7D32')\
+\
+# Three user types\
+users = [\
+    ('Doctor\nDashboard', 2.5, '#1976D2'),\
+    ('Volunteer\nKiosk', 6, '#F57C00'),\
+    ('Kendra\nManagement', 9.5, '#7B1FA2')\
+]\
+for label, x, color in users:\
+    circle = Circle((x, 9.5), 0.4, facecolor=color, edgecolor='white', linewidth=2)\
+    ax.add_patch(circle)\
+    ax.text(x, 9.5, '??????', ha='center', va='center', fontsize=8, color='white')\
+    ax.text(x, 8.7, label, ha='center', fontsize=4.5, color='#333', weight='bold')\
+\
+# Presentation Layer\
+pres_box = FancyBboxPatch((0.5, 6.8), 11, 1.3, boxstyle='round,pad=0.05',\
+                          edgecolor='#0277BD', facecolor='#03A9F4', linewidth=2)\
+ax.add_patch(pres_box)\
+ax.text(6, 7.7, 'WEB INTERFACE', ha='center', fontsize=6, weight='bold', color='white')\
+ax.text(6, 7.2, 'HTML5  ? Bootstrap  ? JavaScript', ha='center', fontsize=4, color='white', style='italic')\
+\
+# Application Layer\
+app_box = FancyBboxPatch((0.5, 5), 11, 1.3, boxstyle='round,pad=0.05',\
+                         edgecolor='#388E3C', facecolor='#4CAF50', linewidth=2)\
+ax.add_patch(app_box)\
+ax.text(6, 5.9, 'APPLICATION LAYER', ha='center', fontsize=6, weight='bold', color='white')\
+ax.text(6, 5.4, 'PHP Backend  ? REST API  ? Authentication', ha='center', fontsize=4, color='white', style='italic')\
+\
+# FL Engine Layer\
+fl_box = FancyBboxPatch((0.5, 3.2), 11, 1.3, boxstyle='round,pad=0.05',\
+                        edgecolor='#C62828', facecolor='#F44336', linewidth=2)\
+ax.add_patch(fl_box)\
+ax.text(6, 4.1, 'FEDERATED LEARNING ENGINE', ha='center', fontsize=6, weight='bold', color='white')\
+ax.text(6, 3.6, 'PyTorch  ? Privacy-Preserving  ? Differential Privacy', ha='center', fontsize=4, color='white', style='italic')\
+\
+# Data Layer\
+data_box = FancyBboxPatch((0.5, 1.4), 11, 1.3, boxstyle='round,pad=0.05',\
+                          edgecolor='#6A1B9A', facecolor='#9C27B0', linewidth=2)\
+ax.add_patch(data_box)\
+ax.text(6, 2.3, 'DATA STORAGE LAYER', ha='center', fontsize=6, weight='bold', color='white')\
+ax.text(6, 1.8, 'MySQL  ? ECG Data  ? Patient Records  ? Training Logs', ha='center', fontsize=4, color='white', style='italic')\
+\
+# External Services\
+ext_box = Rectangle((0.5, 0.2), 5, 0.9, facecolor='#FFF3E0', edgecolor='#FF6F00', linewidth=1.5)\
+ax.add_patch(ext_box)\
+ax.text(3, 0.8, 'External Services', ha='center', fontsize=5, weight='bold', color='#E65100')\
+ax.text(3, 0.4, 'Ambulance  ? Hospitals', ha='center', fontsize=4, color='#E65100')\
+\
+# Security\
+sec_box = Rectangle((6.5, 0.2), 5, 0.9, facecolor='#FFEBEE', edgecolor='#D32F2F', linewidth=1.5)\
+ax.add_patch(sec_box)\
+ax.text(9, 0.8, 'Security Layer', ha='center', fontsize=5, weight='bold', color='#C62828')\
+ax.text(9, 0.4, 'Role-Based Access  ? Encryption', ha='center', fontsize=4, color='#C62828')\
+\
+# Arrows with better styling\
+arrow_style = dict(arrowstyle='->', lw=2, color='#37474F', connectionstyle='arc3,rad=0')\
+\
+# Vertical flow arrows\
+for y_start, y_end in [(8.7, 6.8), (6.8, 5), (5, 3.2), (3.2, 1.4)]:\
+    ax.annotate('', xy=(6, y_end), xytext=(6, y_start), arrowprops=arrow_style)\
+\
+# Side connections\
+ax.annotate('', xy=(3, 1.4), xytext=(3, 1.1), arrowprops=dict(arrowstyle='->', lw=1.5, color='#FF6F00'))\
+ax.annotate('', xy=(9, 1.4), xytext=(9, 1.1), arrowprops=dict(arrowstyle='<->', lw=1.5, color='#D32F2F'))\
+\
+# Add small icons/indicators on the right\
+ax.text(11.5, 7.45, '??????', ha='center', fontsize=6)\
+ax.text(11.5, 5.65, '⃺??︃?', ha='center', fontsize=6)\
+ax.text(11.5, 3.85, '??????', ha='center', fontsize=6)\
+ax.text(11.5, 2.05, '??????', ha='center', fontsize=6)\
+\
+plt.tight_layout(pad=0.2)\
+plt.savefig('System Architecture.png', dpi=400, bbox_inches='tight', facecolor='white', edgecolor='none')\
+print('Enhanced System Architecture.png created!')\
+"
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/homeopathy/setup.sh
+grep -n "??????\|???????\|??????\|⃺??︃?\|???????\|???????\|??????\|??????\|???????\|??????\|��\|??????\|⃺??\|??????\|???????\|⃺??︃?\|??????\|??????\|???????\|??????\|⃺??︃?\|??????\|???????\|???????\|???????\|???????\|???????\|???????\|???????︃?\|⃸?︃?\|???????\|???????\|??????\|??????\|???????\|��\|???????\|?????\|??????\|??????\|???????\|???????\|⃼??\|⃯?︃?\|???????\|??????\|?????\|??????\|??????\|??????\|???????\|??????\|??????\|⃻??︃?\|???????" report.html | head -50
+grep -n "??????\|???????\|??????\|⃺??︃?\|???????\|???????\|??????\|??????\|???????\|??????\|��\|??????\|⃺??\|??????\|???????\|⃺??︃?\|??????\|??????\|???????\|??????\|⃺??︃?\|??????\|???????\|???????\|???????\|???????\|???????\|???????\|???????︃?\|⃸?︃?\|???????\|???????\|??????\|??????\|???????\|��\|???????\|?????\|??????\|??????\|???????\|???????\|⃼??\|⃯?︃?\|???????\|??????\|?????\|??????\|??????\|???????\|??????\|??????\|⃻??︃?\|???????\|???????\|???????\|???????︃?\|???????︃?\|??????\|??????\|???????\|???????" report.html
+grep -c "??????\|???????\|??????\|⃺??︃?\|???????\|???????\|??????\|??????\|???????\|??????\|��\|??????\|⃺??\|??????\|???????\|⃺??︃?\|??????\|??????\|???????\|??????\|⃺??︃?\|??????\|???????\|???????\|???????\|???????\|???????\|???????\|???????︃?\|⃸?︃?\|???????\|???????\|??????\|??????\|???????\|��\|???????\|?????\|??????\|??????\|???????\|???????\|⃼??\|⃯?︃?\|???????\|??????\|?????\|??????\|??????\|???????\|??????\|??????\|⃻??︃?\|???????\|???????\|???????\|???????︃?\|???????︃?\|??????\|??????\|???????\|???????\|???????︃?\|??????\|???????\|???????" report.html
+grep -n "??????\|???????\|??????\|⃺??︃?\|???????\|???????\|??????\|??????\|???????\|??????\|��\|??????\|⃺??\|??????\|???????\|⃺??︃?\|??????\|??????\|???????\|??????\|⃺??︃?\|??????\|???????\|???????\|???????\|???????\|???????\|???????\|???????︃?\|⃸?︃?\|???????\|???????\|??????\|??????\|???????\|��\|???????\|?????\|??????\|??????\|???????\|???????\|⃼??\|⃯?︃?\|???????\|??????\|?????\|??????\|??????\|???????\|??????\|??????\|⃻??︃?\|???????\|???????\|???????\|???????︃?\|???????︃?\|??????\|???????\|???????\|???????︃?\|??????" report.html
+mysql -u root -e "SHOW DATABASES LIKE 'homeopathy_ai';" 2>&1
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "SHOW DATABASES LIKE 'homeopathy_ai';"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root < /Applications/XAMPP/xamppfiles/htdocs/homeopathy/setup_database.sql
+php setup_db.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/setup_db.php
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e "SHOW TABLES;"
+grep -n "\.formula-grid" report.html | head -20
+grep -n 'class="formula-grid"' report.html
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/add_sample_data.php
+curl -s http://localhost/homeopathy/api/get_stats.php | python3 -m json.tool
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e "DELETE FROM symptoms_master WHERE id > 0; DELETE FROM extracted_symptoms WHERE id > 0;"
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e "TRUNCATE TABLE symptoms_master;"
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e "SELECT COUNT(*) as count FROM patients;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root homeopathy_ai -e "SELECT MIN(id) as min_id, MAX(id) as max_id FROM patients;"
+/Applications/XAMPP/xamppfiles/bin/php /Applications/XAMPP/xamppfiles/htdocs/homeopathy/load_production_data.php
+curl -s http://localhost/homeopathy/api/get_stats.php | python3 -m json.tool
+php -v
+ps aux | grep -i mysql | grep -v grep
+ps aux | grep -i httpd | grep -v grep | head -1
+/Applications/XAMPP/xamppfiles/bin/php -v
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/dashboard.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/stock_adjustment.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/stock_report.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/index.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/purchase_order.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/electric_fence_calculator.php && /Applications/XAMPP/xamppfiles/bin/php -l quotations/fence_roughwork.php
+/Applications/XAMPP/xamppfiles/bin/php -l index.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php && /Applications/XAMPP/xamppfiles/bin/php -l quotations/save_quotation.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/create.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/electric_fence_auto.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/api/save_auto_quotation.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/index.php
+node --check quotations/js/fence_calculator_engine.js 2>&1 || echo "JS check completed"
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/electric_fence_auto.php && echo "⃼?? Main file syntax OK"
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/api/save_auto_quotation.php && echo "⃼?? API file syntax OK"
+node -e "const fs = require('fs'); const code = fs.readFileSync('quotations/js/fence_calculator_engine.js', 'utf8'); console.log('⃼?? JS file loaded:', code.length, 'chars'); console.log('⃼?? Functions found:', (code.match(/function /g) || []).length);"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "USE hitech_power; SHOW TABLES LIKE 'quotation%';" 2>&1 | head -20
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "USE hitech_power; DESCRIBE quotations;" 2>&1
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "USE hitech_power; DESCRIBE quotation_items;" 2>&1
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/api/save_auto_quotation.php && echo "⃼?? API file syntax verified"
+cat << 'EOF'\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+⃵??     ⃼?? ELECTRIC FENCE CALCULATOR - VERIFICATION COMPLETE     ⃵??\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+\
+??????? VERIFICATION SUMMARY:\
+\
+⃼?? PHP Syntax:         PASS - No errors\
+⃼?? JavaScript:         PASS - 22 functions, 31,839 chars\
+⃼?? Database Schema:    FIXED - Now compatible\
+⃼?? API Integration:    UPDATED - Matches actual tables\
+⃼?? Calculations:       VERIFIED - All formulas working\
+⃼?? Product Database:   COMPLETE - 70+ items\
+⃼?? Documentation:      COMPLETE - 1,800+ lines\
+\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+\
+?????? HOW TO TEST:\
+\
+1︃?⃣?  AUTOMATED TESTS (Recommended First):\
+   URL: http://localhost/Hitech/quotations/test_calculator.html\
+   Action: Click "Run All Tests"\
+   Expected: 23/23 tests passing\
+\
+2︃?⃣?  LIVE CALCULATOR TEST:\
+   URL: http://localhost/Hitech/quotations/electric_fence_auto.php\
+   \
+   Sample Input:\
+   - Fence Length: 500\
+   - Corners: 4\
+   - Gates: 2\
+   - Terrain: Flat\
+   - Fence Height: 8\
+   - Post Spacing: 3\
+   - Live Wires: 6\
+   - Power Source: Solar\
+   - Application: Cattle\
+   - Backup Days: 3\
+   \
+   Expected Output:\
+   ⃼?? H900 Charger\
+   ⃼?? Tubular 150Ah Battery\
+   ⃼?? 100W Solar Panel\
+   ⃼?? 28 Main Poles\
+   ⃼?? 167 Supporting Poles\
+   ⃼?? 3,210m Wire\
+   ⃼?? 1,062 Insulators\
+   ⃼?? Complete BOQ with prices\
+\
+3︃?⃣?  DATABASE SAVE TEST:\
+   - Fill calculator form\
+   - Click "Auto Calculate"\
+   - Review BOQ\
+   - Click "Save Quotation"\
+   - Enter customer name\
+   - Verify success message\
+\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+\
+?????? FILES CREATED:\
+\
+Core System (3 files):\
+  ⃼?? quotations/electric_fence_auto.php\
+  ⃼?? quotations/js/fence_calculator_engine.js\
+  ⃼?? quotations/api/save_auto_quotation.php\
+\
+Testing:\
+  ⃼?? quotations/test_calculator.html\
+\
+Documentation (5 files):\
+  ⃼?? ELECTRIC_FENCE_QUICK_START.md\
+  ⃼?? ELECTRIC_FENCE_CALCULATOR_DOCUMENTATION.md\
+  ⃼?? ELECTRIC_FENCE_IMPLEMENTATION_SUMMARY.md\
+  ⃼?? ELECTRIC_FENCE_VISUAL_FLOW.md\
+  ⃼?? README_ELECTRIC_FENCE.md\
+  ⃼?? TEST_VERIFICATION_REPORT.md\
+\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+\
+?????? KEY FIXES APPLIED TODAY:\
+\
+⃼?? Database Integration:\
+   - Updated API to use actual 'quotations' table\
+   - Fixed column names (QuotationNumber, CustomerID, etc.)\
+   - Added customer lookup/creation logic\
+   - Fixed quotation_items schema (ItemName, GSTRate)\
+   - Auto-generates quotation numbers\
+\
+⃼?? All Syntax Verified:\
+   - PHP files: No errors\
+   - JavaScript: Valid code\
+   - SQL: Prepared statements\
+\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+\
+??????? STATUS: PRODUCTION READY\
+\
+The system is fully tested and ready to use!\
+\
+Start here: http://localhost/Hitech/quotations/electric_fence_auto.php\
+\
+⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??⃵??\
+EOF
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "USE hitech_power; SHOW TABLES LIKE '%staff%' OR SHOW TABLES LIKE '%employee%';" 2>&1
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "USE hitech_power; SHOW TABLES;" 2>&1 | grep -i -E 'staff|employee'
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "USE hitech_power; DESCRIBE staff;" 2>&1
+/Applications/XAMPP/xamppfiles/bin/php -l staff/index.php && /Applications/XAMPP/xamppfiles/bin/php -l staff/add.php && /Applications/XAMPP/xamppfiles/bin/php -l staff/pay_salary.php && echo "⃼?? All staff files syntax OK"
+/Applications/XAMPP/xamppfiles/bin/php -l staff/edit.php
+/Applications/XAMPP/xamppfiles/bin/php -l products/index.php && /Applications/XAMPP/xamppfiles/bin/php -l products/add.php && /Applications/XAMPP/xamppfiles/bin/php -l products/edit.php
+/Applications/XAMPP/xamppfiles/bin/php -l products/edit.php
+wc -l /Applications/XAMPP/xamppfiles/htdocs/Hitech/inventory/seed_all_products.php
+/Applications/XAMPP/xamppfiles/bin/php -r "require 'database/db_config.php'; \$result = \$pdo->query('SELECT COUNT(*) as count FROM products'); echo 'Current products in database: ' . \$result->fetch()['count'] . PHP_EOL;"
+find /Applications/XAMPP/xamppfiles/htdocs/Hitech -type f \( -name "*.csv" -o -name "*.xlsx" -o -name "*.xls" -o -name "*products*" -o -name "*items*" \) 2>/dev/null | head -20
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/seed_110_products.php
+/Applications/XAMPP/xamppfiles/bin/php -l quotations/api/get_products.php && echo "⃼?? API syntax OK"
+/Applications/XAMPP/xamppfiles/bin/php -l inventory/index.php
+grep -n "^function " quotations/js/fence_calculator_engine.js | head -30
+node --check quotations/js/fence_calculator_engine.js 2>&1 || echo "If node not found, JS syntax should be manually checked in browser"
+curl -s "http://localhost/Hitech/quotations/api/get_products.php" | head -50
+ps aux | grep -i "httpd\|mysql" | grep -v grep
+/Applications/XAMPP/xamppfiles/xampp start
+sudo /Applications/XAMPP/xamppfiles/xampp start
+/Applications/XAMPP/xamppfiles/bin/mysql -u root -e "SHOW DATABASES LIKE 'hitech_power';"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "SHOW TABLES LIKE 'users';"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "DESCRIBE users;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "SELECT Username, FullName, Role FROM users LIMIT 5;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "UPDATE users SET Password = '\$2y\$10\$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' WHERE Username = 'admin';"
+php -r "echo password_hash('Gopala', PASSWORD_DEFAULT);"
+/Applications/XAMPP/xamppfiles/bin/php -r "echo password_hash('Gopala', PASSWORD_DEFAULT);"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "UPDATE users SET Username = 'Kalandoor', Password = '\$2y\$10\$tp1HNVAR/Nzb5JN7NcwhpegABa.Eu9EPWHcfDVO4ZehEBzoxwBiFu' WHERE Username = 'admin';"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "SELECT Username, FullName, Role FROM users;"
+rm /Applications/XAMPP/xamppfiles/htdocs/Hitech/login.php
+rm /Applications/XAMPP/xamppfiles/htdocs/Hitech/index.html && echo "File removed"
+cat &lt;&lt; 'EOF' | /Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power
+CREATE TABLE IF NOT EXISTS consultations (\
+  ConsultationID INT AUTO_INCREMENT PRIMARY KEY,\
+  FullName VARCHAR(255) NOT NULL,\
+  Phone VARCHAR(20) NOT NULL,\
+  Email VARCHAR(150),\
+  Location VARCHAR(255) NOT NULL,\
+  FenceType VARCHAR(100) NOT NULL,\
+  AreaAcres DECIMAL(10,2),\
+  AreaCents DECIMAL(10,2),\
+  Message TEXT,\
+  Status ENUM('New', 'Contacted', 'Completed', 'Cancelled') DEFAULT 'New',\
+  IsRead BOOLEAN DEFAULT FALSE,\
+  IsFlagged BOOLEAN DEFAULT FALSE,\
+  CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\
+  UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\
+  INDEX idx_status (Status),\
+  INDEX idx_created (CreatedAt)\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+EOF
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "CREATE TABLE IF NOT EXISTS consultations (\
+  ConsultationID INT AUTO_INCREMENT PRIMARY KEY,\
+  FullName VARCHAR(255) NOT NULL,\
+  Phone VARCHAR(20) NOT NULL,\
+  Email VARCHAR(150),\
+  Location VARCHAR(255) NOT NULL,\
+  FenceType VARCHAR(100) NOT NULL,\
+  AreaAcres DECIMAL(10,2),\
+  AreaCents DECIMAL(10,2),\
+  Message TEXT,\
+  Status ENUM('New', 'Contacted', 'Completed', 'Cancelled') DEFAULT 'New',\
+  IsRead BOOLEAN DEFAULT FALSE,\
+  IsFlagged BOOLEAN DEFAULT FALSE,\
+  CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\
+  UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\
+  INDEX idx_status (Status),\
+  INDEX idx_created (CreatedAt)\
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"
+/Applications/XAMPP/xamppfiles/bin/mysql -u root hitech_power -e "ALTER TABLE consultations ADD COLUMN Budget DECIMAL(12,2) AFTER AreaCents;"
+ipconfig getifaddr en0 || ipconfig getifaddr en1
+grep -n "Require local" /Applications/XAMPP/xamppfiles/etc/httpd.conf | head -5
+open -a TextEdit /Applications/XAMPP/xamppfiles/etc/httpd.conf
+cd "/Users/apple/Downloads/tata ai" && "/Users/apple/Downloads/tata ai/.venv/bin/python" convert_to_word.py
+cd "/Users/apple/Downloads/tata ai/Task 2" && "/Users/apple/Downloads/tata ai/.venv/bin/python" create_task2_report.py
+cd "/Users/apple/Downloads/tata ai/Task 3" && "/Users/apple/Downloads/tata ai/.venv/bin/python" create_task3_report.py
+cd "/Users/apple/Downloads/tata ai/Task 4" && "/Users/apple/Downloads/tata ai/.venv/bin/python" create_task4_presentation.py
+cd "/Users/apple/Downloads/milma bill" && python3 generate_receipts_pdf.py
+cd "/Users/apple/Downloads/milma bill" && python3 generate_receipts_pdf.py
+cd "/Users/apple/Downloads/milma bill" && python3 generate_receipts_pdf.py
+chmod +x setup.sh check_installation.sh verify_system.py
+tree -L 3 -I 'venv|__pycache__|*.pyc' > project_structure.txt 2>/dev/null || find . -type f -not -path "./venv/*" -not -path "./__pycache__/*" | head -30
+ls -lah
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/heartbeat/install.sh
+cat >> /Applications/XAMPP/xamppfiles/htdocs/heartbeat/assets/css/style.css << 'EOF'\
+\
+/* Stress Level Badges */\
+.badge-stress-low {\
+    background: linear-gradient(135deg, #2E7D32, #4CAF50);\
+    color: white;\
+}\
+\
+.badge-stress-moderate {\
+    background: linear-gradient(135deg, #F9A825, #FDD835);\
+    color: #333;\
+}\
+\
+.badge-stress-high {\
+    background: linear-gradient(135deg, #F57C00, #FFB74D);\
+    color: white;\
+}\
+\
+.badge-stress-very-high {\
+    background: linear-gradient(135deg, #D32F2F, #F44336);\
+    color: white;\
+    animation: pulse-badge 2s infinite;\
+}\
+\
+@keyframes pulse-badge {\
+    0%, 100% { opacity: 1; }\
+    50% { opacity: 0.7; }\
+}\
+\
+/* Stat Card Variants */\
+.stat-card.danger {\
+    background: linear-gradient(135deg, #D32F2F, #F44336);\
+}\
+\
+.stat-card.success {\
+    background: linear-gradient(135deg, #2E7D32, #4CAF50);\
+}\
+\
+/* Print Styles */\
+@media print {\
+    .navbar, .btn, .alert, .modal { \
+        display: none !important; \
+    }\
+    .card { \
+        page-break-inside: avoid;\
+        box-shadow: none;\
+        border: 1px solid #ddd;\
+    }\
+    body { \
+        background: white !important; \
+    }\
+    .container {\
+        max-width: 100%;\
+        padding: 0;\
+    }\
+}\
+EOF
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/heartbeat/verify.sh
+chmod +x verify.sh && ls -la *.sh
+find . -type f -name "*.php" | wc -l && find . -type f \( -name "*.php" -o -name "*.js" -o -name "*.css" -o -name "*.sql" \) -exec wc -l {} + | tail -1
+ls -1 *.php *.md *.sh | wc -l && du -sh .
+chmod +x /Applications/XAMPP/xamppfiles/htdocs/heartbeat/test.sh && /Applications/XAMPP/xamppfiles/htdocs/heartbeat/test.sh
+./test.sh
+./test.sh
+ls -1 | grep -E '\.(php|md|sh)$' | sort && echo "---" && echo "Total files: $(find . -type f | wc -l | xargs)" && echo "Code files: $(find . -type f \( -name "*.php" -o -name "*.js" -o -name "*.css" -o -name "*.sql" \) | wc -l | xargs)" && echo "Lines of code: $(find . -type f \( -name "*.php" -o -name "*.js" -o -name "*.css" -o -name "*.sql" \) -exec wc -l {} + 2>/dev/null | tail -1 | awk '{print $1}')"
+cat /Applications/XAMPP/xamppfiles/htdocs/heartbeat/FINAL_DELIVERY.txt
+./install.sh
+./verify.sh
+cat > /Applications/XAMPP/xamppfiles/htdocs/heartbeat/login.php << 'EOF'\
+<?php\
+session_start();\
+\
+// Auto-login (no authentication required)\
+if (!isset($_SESSION['user_id'])) {\
+    $_SESSION['user_id'] = 1;\
+    $_SESSION['username'] = 'admin';\
+    $_SESSION['full_name'] = 'Administrator';\
+    $_SESSION['role'] = 'admin';\
+}\
+\
+header('Location: index.php');\
+exit;\
+EOF
+cat > /Applications/XAMPP/xamppfiles/htdocs/heartbeat/test_camera.html << 'EOF'\
+<!DOCTYPE html>\
+<html>\
+<head>\
+    <title>Camera Test</title>\
+    <style>\
+        body { font-family: Arial, sans-serif; padding: 20px; }\
+        video { border: 2px solid #4CAF50; max-width: 640px; }\
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }\
+        .error { background: #ffebee; color: #c62828; }\
+        .success { background: #e8f5e9; color: #2e7d32; }\
+        .info { background: #e3f2fd; color: #1565c0; }\
+    </style>\
+</head>\
+<body>\
+    <h1>?????? Camera Access Test</h1>\
+    <div id="status" class="status info">Click the button to test camera...</div>\
+    <button onclick="testCamera()" style="padding: 10px 20px; font-size: 16px; margin: 10px 0;">Test Camera</button>\
+    <br>\
+    <video id="video" autoplay playsinline></video>\
+    \
+    <script>\
+    async function testCamera() {\
+        const video = document.getElementById('video');\
+        const status = document.getElementById('status');\
+        \
+        status.textContent = 'Requesting camera access...';\
+        status.className = 'status info';\
+        \
+        try {\
+            const stream = await navigator.mediaDevices.getUserMedia({\
+                video: { facingMode: 'user' },\
+                audio: false\
+            });\
+            \
+            video.srcObject = stream;\
+            \
+            status.textContent = '⃼?? Camera working! You should see yourself above.';\
+            status.className = 'status success';\
+            \
+        } catch (error) {\
+            let message = '⃽?? Camera Error: ';\
+            \
+            if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {\
+                message += 'Permission denied. Please allow camera access.';\
+            } else if (error.name === 'NotFoundError') {\
+                message += 'No camera found on this device.';\
+            } else if (error.name === 'NotReadableError') {\
+                message += 'Camera is already in use by another application.';\
+            } else {\
+                message += error.message;\
+            }\
+            \
+            status.textContent = message;\
+            status.className = 'status error';\
+            \
+            console.error('Camera error:', error);\
+        }\
+    }\
+    </script>\
+</body>\
+</html>\
+EOF
+echo "Test page created: http://localhost/heartbeat/test_camera.html"
+cat > /Applications/XAMPP/xamppfiles/htdocs/heartbeat/test_hrv.html << 'EOF'\
+<!DOCTYPE html>\
+<html>\
+<head>\
+    <title>HRV Test</title>\
+    <link rel="stylesheet" href="assets/css/style.css">\
+</head>\
+<body style="padding: 20px;">\
+    <h1>HRV Monitor Test</h1>\
+    \
+    <div class="card">\
+        <div class="card-body">\
+            <h3>Live Metrics</h3>\
+            <div style="font-size: 2rem; margin: 20px 0;">\
+                <div><strong id="hrDisplay">--</strong> Heart Rate (BPM)</div>\
+                <div><strong id="sdnnDisplay">--</strong> SDNN (ms)</div>\
+                <div><strong id="rmssdDisplay">--</strong> RMSSD (ms)</div>\
+                <div><strong id="qualityDisplay">--</strong> Data Quality</div>\
+            </div>\
+            <button onclick="startTest()" class="btn btn-primary">Start Test</button>\
+            <button onclick="stopTest()" class="btn btn-danger">Stop Test</button>\
+        </div>\
+    </div>\
+    \
+    <script>\
+    let testInterval = null;\
+    \
+    function startTest() {\
+        let counter = 0;\
+        testInterval = setInterval(() => {\
+            counter++;\
+            // Simulate realistic values\
+            const hr = 60 + Math.floor(Math.random() * 40); // 60-100 BPM\
+            const sdnn = 30 + Math.random() * 50; // 30-80 ms\
+            const rmssd = 25 + Math.random() * 45; // 25-70 ms\
+            const quality = Math.random(); // 0-1\
+            \
+            document.getElementById('hrDisplay').textContent = hr;\
+            document.getElementById('sdnnDisplay').textContent = sdnn.toFixed(1);\
+            document.getElementById('rmssdDisplay').textContent = rmssd.toFixed(1);\
+            document.getElementById('qualityDisplay').textContent = (quality * 100).toFixed(0) + '%';\
+            \
+            console.log('Test update:', {hr, sdnn, rmssd, quality});\
+        }, 1000);\
+        \
+        alert('Test started - metrics should update every second');\
+    }\
+    \
+    function stopTest() {\
+        if (testInterval) {\
+            clearInterval(testInterval);\
+            testInterval = null;\
+            alert('Test stopped');\
+        }\
+    }\
+    </script>\
+</body>\
+</html>\
+EOF
+echo "⃼?? Test file created"
+netstat -r
+netstat -a
+-a
+-g
+netstat -g
+netstat -i
+netstat -M
+netstat -s
+netstat -v
+-W
+netstat -W
+netstat -n
+netstat -hosts
+-hosts
+sudo newaliases
+sudo newaliases
+Echo"Test Email" | mail -s "Test" info  
+echo"Test Email" | mail -s "Test" info  
+echo "Test Email" | mail -s "Test" info  
+sudo ufw --badname
+sudo newusers --badname users_badname.txt
+echo "neville:password123:1001:1002:Neville Smith:/home/neville:/bin/bash" > users.txt
+/etc/aliases\
+
+sudo nano /etc/aliases\
+
+sudo newaliases\
+
+sudo postfix start\
+
+sudo postfix status\
+
+echo "Test Email from macOS" | mail -s "Test Support Alias" support\
+
+[200~q
+~
+q\
+
+q
+-q
+mail\
+
+root:kishanbvn@gmail.com
+sudo nano /etc/aliases\
+
+sudo newaliases\
+
+sudo postfix start\
+sudo postfix status\
+
+echo "Test root alias" | mail -s "Root Alias Test" root\
+
+history
+cat ~/.zsh_history\
+
+history 100\
+
+whoami\
+
+sudo -i\
+
+hb
+sudo -i\
+
+sudo newusers users.txt\
+
+sudo -i\
+
+postfix status\
+
+sudo postfix status\
+
+sudo postfix stop\
+
+sudo postfix reload\
+
+sudo postfix status\
+
+sudo postfix start
+sudo postfix status\
+
+echo "Hello" | mail -s "Test" gopal@pacewisdom.com\
+
+sudo nano /etc/postfix/main.cf\
+
+sudo nano /etc/postfix/sasl_passwd\
+
+sudo chmod 600 /etc/postfix/sasl_passwd\
+
+sudo postmap /etc/postfix/sasl_passwd\
+
+sudo postfix reload\
+
+sudo postconf | grep relayhost\
+
+ls -l /etc/postfix/sasl_passwd*\
+
+ls -l /etc/postfix/sasl_passwd*\
+
+sudo postfix reload\
+
+sudo postfix stop\
+sudo postfix start\
+
+echo "Postfix relay test $(date)" | mail -s "Postfix Gmail Test" gopal@pacewisdom.com\
+
+mailq\
+
+sudo ufw
+sudo ufw
+sudo ufw status verbose
+sudo ufw status
+sudo ufw enable
+history
+whoami\
+groups\
+
+id\
+
+newgrp kishan\
+
+sudo  ufw enable
+netstat -a
+netstat -netsstat ie
+netstat -netstat ie
+netstat -at
+netstat -au
+netstat -au
+netstat -lt
+man ipconfig
+sudo apt
+sudo apt install -net -tools
+sudo apt install net -tools
+ipconfig -a
+sudo ifconfig ens33 up
+sudo ifconfig show dev ens33 up
+sudo ifconfig ens33 promiscs
+sudo zypper install traeroute
+pwd
+ls
+cd /Users/apple/Documents/DevOps
+ls -a
+ls -la
+mkdir gopal
+cd gopal
+touch gopal.txt
+cd gopal.txt
+-ls
+ls -a
+cat gopal
+cat gopal.txt
+nano gopal.txt
+cd gopal.txt
+passwd
+passwd
+passwd
+ping -c pacewisdom.com
+ping -c 1 pacewisdom.com
+ping -c 1 google.com
+ping -c 1 kalandoor.com
+ping -c 10 kalandoor.com
+ping -I gopal kalandoor.com
+ping -I em2 google.com
+ifconfig
+ping -I en0 google.com\
+
+ping -S
+ping -S xyz kalandoor.com
+ping -S 192.16.8.8.8.8  kalandoor.com
+ping -S 192.168.0.174 google.com\
+
+ping -I em2 linuxize.com
+ifconfig en0\
+
+ping -S 192.168.0.174 pacewisdom.com\
+
+ping -i 2 pacewisdom.com
+ping -W 2 pacewisdom.com
+ping -w 2 pacewisdom.com
+ping -s 2 pacewisdom.com
+ping -q -c 5 pacewisdom.com
+cd /Users/apple/Documents/DevOps
+mkdir var
+cd var
+mkdir www
+touch a1.txt b2.txt
+ls
+..
+cd ..
+mkdir home
+cd var
+mv a1.txt b2.txt www/
+cd www
+-l
+ls
+cd ..
+cd ..
+cd www
+cd home
+ln -s /Users/apple/Documents/DevOps/var/www/a1.txt
+ln -s /Users/apple/Documents/DevOps/var/www/b2.txt
+cd /Users/apple/Documents/DevOps
+ls
+touch innodedemo.txt
+cat innodedemo.txt
+vi  innodedemo.txt
+vi sahdgsq
+ls
+stat  innodedemo.txt
+ls -i
+ls -i /etc
+mkdir inode
+cd inode
+ls -id .
+ls id..
+ls -id..
+cd.
+cd .
+cd ..
+ls
+ls -i
+ln pinglogs.txt traceroutelog1.txt
+mkdir inode
+rm inode
+rmdir inode
+ls
+ls -i
+touch a.txt b.txt
+nano a.txt
+nano b.txt
+stat b.txt\
+
+stat a.txt\
+
+find file using node number :
+ls -i a.txt
+ find /Users/apple/Documents/DevOps -inum 36253699
+du h a.txt
+du -h a.txt
+du -h netstat-guide.html
+df -i
+df -i netstat-guide.html\
+
+Directory inode listing
+ls -i  /Users/apple/Documents/DevOps
+for parent ls -i ..
+ ls -i ..
+echo "Hello" a.txt
+tail -f  a.txt
+echo "Hello" > a.txt
+tail -f  a.txt
+echo "Hello hallo" >> a.txt
+tail -f  a.txt
+ls -s a.txt broken
+ls -l broken
+ls -l missing.txt broken
+ln -s missing.txt broken
+ls -l broken
+ls -l missing.txt broken
+cat broken
+echo "No issues" > missing.txt
+cat broken
+cd /Users/apple/Documents/DevOps
+grep "hallo" hello.txt
+touch hello.txt
+grep "hallo" hello.txt
+nano hello.txt
+grep -i  "hallo" hello.txt
+nano hello.txt
+grep -i  "hallo" hello.txt
+grep "hallo" hello.txt
+grep "hello" hello.txt
+grep -c  "hallo" hello.txt
+grep -c  "hello" hello.txt
+grep -c  "helloi" hello.txt
+grep -l  "hallo" hello.txt
+grep -w  "hallo" hello.txt
+grep -w  "hi" hello.txt
+nano hello.txt
+grep -w  "hi" hello.txt
+grep -w  "hello" hello.txt
+grep -l  "hello" hello.txt
+grep -w  "hallo" hello.txt
+grep -l  "hallo" hello.txt
+grep -c  "hallo" hello.txt
+grep -o  "hallo" hello.txt
+grep -n  "hallo" hello.txt
+grep -v  "hallo" hello.txt
+grep  "^hallo" hello.txt
+grep  "hallo$" hello.txt
+grep -e  "hallo" hello.txt
+grep -e  "hallo" -e "hi"  hello.txt
+touch pattern.txt
+nano pattern.txt
+grep -f pattern.txt hello.txt
+grep -[A] pattern.txt
+grep -A[] pattern.txt
+grep -A[n] pattern.txt
+grep -A2  "hello" hello.txt
+grep -B1  "hello" hello.txt
+grep -C1  "hello" hello.txt
+grep -C2  "hello" hello.txt
+grep -r  "hallo"   hello.txt
+ls
+brew install ngrok
+ngrok http 3000
+ngrok http 3000
+ngrok http 3000
+nmap www.pacewisdom.com
+brew --version\
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\
+
+brew install nmap\
+
+nmap --version\
+
+nmap www.pacewisdom.com\
+
+nmap -v  www.pacewisdom.com\
+
+nmap -p  www.pacewisdom.com\
+
+nmap -p 8,8443  www.pacewisdom.com\
+
+nmap -sn  www.pacewisdom.com\
+
+nmap -sS  www.pacewisdom.com\
+
+sudo nmap -sS  www.pacewisdom.com\
+
+sudo nmap -sV  www.pacewisdom.com\
+
+ nmap -sV  www.pacewisdom.com
+sudo   nmap -O  www.pacewisdom.com
+sudo   nmap -O  www.pacewisdom.com
+sudo   nmap -A  www.pacewisdom.com
+cd /Users/apple/Documents/DevOps
+nmap -SS  www.pacewisdom.com -oG pacewisdom_scan.txt
+nmap -sS  www.pacewisdom.com -oG pacewisdom_scan.txt
+cat pacewisdom_scan.txt
+touch  pacewisdom_scan.txt
+nmap -sS  www.pacewisdom.com -oG pacewisdom_scan.txt
+cat pacewisdom_scan.txt
+nmap -h
+cd
+cd
+cd /Applications/XAMPP/xamppfiles/htdocs/sheshakuteera
+ls
+code .
+ngrok config add-authtoken 38erxpkXJ87bmIPGgYoaMsM9gnC_5vuFSKrFoAzhSosi5U6co
+man curl
+log
+date
+cd..
+/Applications/XAMPP/xamppfiles/htdocs/DevOps
+cd ...
+cd.
+cd .
+cd ..
+cd DevOps
+date
+host pacewisdom.com
+ping pacewisdom.com
+host 198.202.211.1
+host -a  pacewisdom.com
+host pacewisdom.com\
+
+host -t a  pacewisdom.com\
+
+host -t A  pacewisdom.com
+host 52.25.109.230
+host pacewisdom.com\
+
+host 2620:cb:2000::1
+host man
+curl man host
+man host
+host --help
+host -a pacewisdom.com
+host -c devops
+host -c pacewisdom.com
+ipconfig pacewisdom.com
+info pacewisdom.com
+curl  pacewisdom.com
+ping  pacewisdom.com
+host --help
+host 192.168.0.1
+host -c 192.168.0.1
+host [-aCdilrTvVw] [-c class] [-N ndots] [-t type] [-W time]\
+            [-R number] [-m flag] hostname [server]\
+       -a is equivalent to -v -t ANY\
+       -c specifies query class for non-IN data\
+       -C compares SOA records on authoritative nameservers\
+       -d is equivalent to -v\
+       -i IP6.INT reverse lookups\
+       -l lists all hosts in a domain, using AXFR\
+       -m set memory debugging flag (trace|record|usage)\
+       -N changes the number of dots allowed before root lookup is done\
+       -r disables recursive processing\
+       -R specifies number of retries for UDP packets\
+       -s a SERVFAIL response should stop query\
+       -t specifies the query type\
+       -T enables TCP/IP mode\
+       -v enables verbose output\
+       -V print version number and exit\
+       -w specifies to wait forever for a reply\
+       -W specifies how long to wait for a reply\
+       -4 use IPv4 query transport only\
+       -6 use IPv6 query transport only\
+a
+host -c IN  pacewisdom.com
+host -c OUT  pacewisdom.com
+host -v  pacewisdom.com
+host -t AAAA  pacewisdom.com
+host -t A  pacewisdom.com
+host -t MX  pacewisdom.com
+host -v pacewisdom.com
+v -t pacewisdom.com
+-v -t pacewisdom.com
+host -a pacewisdom.com
+host -t TXT  pacewisdom.com
+host -t TXT  viprithinobyte.in
+host -t TXT  sheshakuteera.com
+host -t TXT  sheshakuteera.in
+host -t NS  pacewisdom.com
+host pacewisdom.com 8.8.8.8
+man host
+host --help
+host -R  pacewisdom.com
+host -R pacewisdom.com
+host -R 3  pacewisdom.com
+host -R 10  pacewisdom.com
+host -R 10  pacewisdom.com
+host -R 30 4  pacewisdom.com
+host -R 30   pacewisdom.com
+host -4  pacewisdom.com
+host -6  pacewisdom.com
+host -t A pacewisdom.com
+host -4  pacewisdom.com
+host -W  pacewisdom.com
+host -W 4  pacewisdom.com
+host -m  pacewisdom.com
+host -m 3  pacewisdom.com
+host man
+man host
+host --help
+host  pacewisdom.com
+host -t TXT  pacewisdom.com
+dig --help
+dig -h
+dig --help
+dig pacewisdom.com +short
+dig pacewisdom.com +long
+dig pacewisdom.com +[3]crypto
+dig pacewisdom.com +3 crypto
+dig +[3]crypto pacewisdom.com
+dig pacewisdom.com  +[3]crypto
+dig pacewisdom.com
+dig -4 pacewisdom.com
+dig -6 pacewisdom.com
+q
+dig 8.8.8.8  pacewisdom.com
+dig  pacewisdom.com +short
+dig  pacewisdom.com +nocomments
+dig  pacewisdom.com +noall
+dig  pacewisdom.com +noall +answer
+dig  pacewisdom.com +noall +any
+dig  pacewisdom.com +noall +ANY
+dig  pacewisdom.com +any
+dig  pacewisdom.com +MX
+dig  pacewisdom.com @8.8.8.8
+dig  pacewisdom.com ANY
+dig  pacewisdom.com ANY +noall
+dig  pacewisdom.com ANY +noall +answer
+dig  pacewisdom.com MX
+ufw --help
+ufw -h
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate\
+
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate\
+
+sudo pfctl -s info\
+
+sudo pfctl -e\
+
+sudo apt install ufw\
+ufw --help\
+
+ufw --help\
+zsh: command not found: ufw\
+
+ufw --help
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate\
+
+sudo pfctl -s info\
+
+sudo pfctl -e\
+
+sudo apt install ufw\
+\
+
+sudo apt update\
+sudo apt install ufw\
+ufw --help\
+
+sudo apt update\
+\
+
+sudo apt update\
+sudo apt install ufw\
+ufw --help\
+
+/var/log
+sudo /var/log
+python3 -c "\
+import re\
+with open('logs and journalctl.html', 'r') as f:\
+    content = f.read()\
+matches = re.findall(r'System Logs - Part (\d+) of (\d+)', content)\
+if matches:\
+    print(f'Found: Part X of {matches[0][1]}')\
+    print(f'Total matches: {len(matches)}')\
+"
+echo "Started with PID: $
+q
+code vim  -digitalocean/haproxt-webtf
+/Applications/XAMPP/xamppfiles/htdocs/DevOps
+net user
+resetpassword
+passwd\
+
+sudo apt install docker
+sudo -apt install docker
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\
+
+brew --version\
+
+brew install --cask docker\
+
+docker --version\
+docker ps\
+
+docker --version\
+\
+
+open -a Docker\
+
+brew list --cask | grep docker\
+
+ls /Applications | grep -i docker\
+
+ls ~/Applications | grep -i docker\
+
+ls ~/Applications | grep -i docker\
+
+brew list --cask | grep docker\
+
+open -a Docker\
+
+open -a Docker\
+
+open -a Docker\
+
+Jan 30 15:57:04 on ttys004\
+You have new mail.\
+apple@Apples-MacBook-Pro ~ % open -a Docker\
+\
+apple@Apples-MacBook-Pro ~ % \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+
+Jan 30 15:57:04 on ttys004\
+You have new mail.\
+apple@Apples-MacBook-Pro ~ % open -a Docker\
+\
+apple@Apples-MacBook-Pro ~ % \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+
+open -a Docker\
+
+docker --version\
+docker ps\
+
+docker run -d -p 8080:80 --name nginx-test nginx\
+
+http://localhost:8080
+ls /Applications/XAMPP/xamppfiles/htdocs/DevOps\
+
+nano /Applications/XAMPP/xamppfiles/htdocs/DevOps/index.html\
+
+nano /opt/homebrew/etc/nginx/nginx.conf\
+
+sudo chown -R apple:staff /Applications/XAMPP/xamppfiles/htdocs/DevOps\
+sudo chmod -R 755 /Applications/XAMPP/xamppfiles/htdocs/DevOps\
+
+nginx -t\
+
+brew install nginx\
+
+brew list | grep nginx\
+
+which nginx\
+
+/opt/homebrew/bin/nginx\
+
+docker run -d -p 3000  --name nginx-test nginx\
+
+docker run -d -p 3000:80  --name nginx-test nginx
+docker run -d -p 3000:80  --name nginx-test1 nginx
+http://localhost:3000
+curl http://localhost:3000
+vim  /opt/homebrew/etc/nginx/nginx.conf\
+
+docker run -d -p 8081:80  --name nginx-test2  nginx
+curl http://localhost:8081
+http://localhost:8081
+nginx -t\
+
+nginx\
+
+http://localhost:8081\
+
+curl http://localhost:8081\
+
+docker ps\
+docker stop nginx-test2\
+
+vim /opt/homebrew/etc/nginx/nginx.conf\
+
+nginx -t\
+
+vim /opt/homebrew/etc/nginx/nginx.conf\
+
+nginx -t\
+
+nginx\
+
+http://localhost:8081\
+
+curl http://localhost:8081\
+
+tail -f /opt/homebrew/var/log/nginx/access.log\
+
+tail -f /opt/homebrew/var/log/nginx/error.log\
+
+open http://localhost:8081\
+
+status  http://localhost:8081\
+
+status  http://localhost:8080\
+
+ps aux | grep nginx\
+
+docker ps\
+docker stop nginx-test nginx-test1 nginx-test2\
+docker rm nginx-test nginx-test1 nginx-test2\
+
+curl http://localhost:8081\
+
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+FILENAME="$(date '+%d-%m-%Y-%H-%M-%S').txt"\
+echo "This file was created on $(date '+%d-%m-%Y %H:%M:%S')" > "$FILENAME"
+ls -l | grep "$FILENAME"
+vim /opt/homebrew/etc/nginx/nginx.conf\
+
+nginx -t\
+
+nginx -s reload
+http://localhost:8081\
+
+open http://localhost:8081\
+
+curl http://localhost:8081/"$FILENAME"\
+
+cat 30-01-2026-16-54-54.txt
+Cron job: Use the echo command to write the current date and time to filename called pwscron.txt.\
+1. Every day at 12:00 AM.\
+2. Every Sunday at 9 AM.\
+3. Trigger a cron hourly(once in every hour).\
+4. From Monday - Friday every day at 10 PM trigger a cron job\
+5. Trigger a cron at minute 15 past every 3rd hour from 0 through 20.\
+6. Trigger a cron at minute 0 past hour 0 and 12 on day-of-month 1 in every 2nd month.
+crontab -e\
+
+crontab -e\
+
+crontab -l
+grep -h
+grep -m
+grep --m
+cd file:///Applications/XAMPP/xamppfiles/htdocs/DevOps/
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+sudo touch demo.txt
+sudo vim demo.txt
+grep "hello" demo.txt
+grep "this" demo.txt
+grep -i "hello" demo.txt
+grep -c "hello" demo.txt
+grep -l "hello" demo.txt
+grep -w "hello" demo.txt
+grep -n "hello" demo.txt
+grep -v "hello" demo.txt
+grep "^hello" demo.txt
+Match Lines Ending with a String using grep
+grep "hello$" demo.txt
+grep "o$" demo.txt
+grep "i$" demo.txt
+grep "os$" demo.txt
+grep "m$" demo.txt
+grep "p$" demo.txt
+grep "map$" demo.txt
+grep -e "hello" -e"hi" demo.txt
+grep -e "hello" -e"hello" demo.txt
+grep -e "hello" -e"map" demo.txt
+ -f to Read Patterns from a File
+sudo vim pattern.txt
+grep -f pattern.txt  demo.txt
+grep -A[3] pattern.txt
+grep -A["world"] pattern.txt
+grep -A"world" pattern.txt
+grep -A1 "world" pattern.txt
+grep -A2 "world" demo.txt
+grep -A3 "world" demo.txt
+grep -A1 "hello" demo.txt
+grep -A3 "hello" demo.txt
+grep -A3 pattern.txt demo.txt
+grep -A1 pattern.txt demo.txt
+grep -r  "hello" demo.txt
+grep -r  "h" demo.txt
+grep -r  "i" demo.txt
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+cat demo.txt
+cut -h
+cut -c 1-5 demo.txt
+cut -c 1-3 demo.txt
+cut -c 1 demo.txt
+cut -f 1,4  demo.txt
+cut -f 1,3  demo.txt
+cut -f " "  1,3  demo.txt
+cut -f "hello"  1,3  demo.txt
+cut -d "hello"  -f 1,3  demo.txt
+cut -d "hello"  -f 1,2  demo.txt
+cut -d ""  -f 1,2  demo.txt
+cut -d "d"  -f 1,2  demo.txt
+cut -d "d"  -f 1,2  demo.txt -> must be " only 1 character in  the sample txt"
+cut -b 1,2,3,4   demo.txt
+cut -b 1,2,3,4,5   demo.txt
+cut -b 1-2,4-,5   demo.txt
+cut 4-5 , 1-2   demo.txt
+cut  1-2,4-5   demo.txt
+cut  1-2,3-4  demo.txt
+cut -b  1-2,3-4  demo.txt
+cut -b   1-2,4-5   demo.txt
+cut -b -3  demo.txt
+cut -b 3  demo.txt
+-6
+cut -b -4  demo.txt
+cut -f 1  demo.txt
+cut -f 4  demo.txt
+cut -d "d"  -f 1-2  demo.txt
+cut -d ""  -f 1-2  demo.txt
+cut -d " "  -f 1-2  demo.txt
+cut-- complement  -d " "  -f 1-2  demo.txt
+cut --complement  -d " "  -f 1-2  demo.txt
+cut --complement  -d " "  -f 1  demo.txt
+cut -d " "  -f 1-2  demo.txt | cut -b -3  demo.txt |  cut -b 1,2,3,4   demo.txt
+cut -d " "  -f 1-2  demo.txt | cut -b -3  demo.txt |  cut -b 1,2,3,4   demo.txt > demo1.txt
+sudo vim demo1.txt
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+sed -h
+sed '' demo.txt\
+
+sed '2d' demo.txt\
+
+sed 's/hi/hello' demo.txt\
+
+sed 's/hi/hello/' demo.txt\
+
+sed -n '2,3p' demo.txt\
+
+sed -n '1,3p' demo.txt\
+
+sed '' demo.txt\
+
+edit file in a place
+sed -i '' 's/old/new/g' demo.txt\
+
+sed '2,4d' demo.txt\
+
+sed '3,4d' demo.txt\
+
+sed -n '1,3p' demo.txt\
+
+sed -i '' 's/hi/hello/g' demo.txt\
+
+sed '3 s/hello/hi/' demo.txt\
+
+sed '2 s/hello/hi/' demo.txt\
+
+sed '4 s/hello/hi/' demo.txt\
+
+sed 's/hi/hello/p' demo.txt\
+
+sed -n 's/hi/hello/p' demo.txt\
+
+for deleteing \
+
+sed '1d' demo.txt  
+sed '2d' demo.txt
+sed '/hello/d' demo.txt  # Delete lines containing "hello"
+cat > demo.txt<< EOF\
+hello hello \
+hello world \
+world map unix is great os. unix is opensource. unix is free os.\
+learn operating system.\
+unix linux which one you \
+EOF \
+\
+
+cat demo.txt
+vim demo.txt
+cat geekfile.txt\
+
+cat demo.txt\
+
+sed '/hello/d' demo.txt  # Delete lines containing "hello"
+cat demo.txt\
+
+sed '2i\\
+This is a new line before line 2' demo.txt
+\
+sed '2a\\
+This is a new line after line 2' demo.txt
+sed '2d' demo.txt\
+
+sed '$d' demo.txt\
+
+sed -i 'ygiygiygvobgbo ' '$d' demo.txt\
+
+cat demo.txt
+sed '$d' demo.txt\
+
+sed -i '' '/hello/d' demo.txt\
+
+cat demo.txt
+sed -e '2,4d' -e '/world/d' demo.txt\
+
+cat demo.txt
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+env
+env -h
+\
+env PROJECT=DevOps env\
+
+\
+env PROJECT=DevOps env\
+echo $PROJECT\
+
+echo $PROJECT\
+
+env ls\
+
+env -u PATH ls\
+
+env -u PATH /bin/ls\
+
+env -i env\
+
+VAR=value\n\
+
+VAR=value\0\
+
+env -v PATH=/bin ls\
+
+env -C /Applications ls\
+
+env | less\
+
+MYVAR=hello\
+
+echo $MYVAR\
+
+export MYVAR=hello\
+
+env | grep MYVAR\
+
+env MYVAR=hello bash\
+
+echo $APP_ENV\
+
+printenv APP_ENV\
+
+APP_ENV=production\
+DB_HOST=localhost\
+
+echo $APP_ENV\
+
+printenv APP_ENV\
+
+#/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\
+\
+echo "Environment: $APP_ENV"\
+
+env -0
+env --version
+env --help
+\
+
+env
+PATH=...\
+HOME=/Users/apple\
+USER=apple\
+PWD=/Applications/XAMPP/xamppfi\les/htdocs/DevOps\
+
+env -0\
+
+env -0\
+
+PATH=HOME=/Users/apple\
+USER=apple\
+PWD=/Applications/XAMPP/xamppfi\les/htdocs/DevOps\
+
+awk -h
+awk --h
+man awk\
+
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+vim sample.txt
+cat sample.txt
+$awk '{print}' sample.txt
+$ awk '{print}' sample.txt
+awk '{print}' sample.txt
+awk --h
+awk -h '{print}' sample.txt
+awk -F '{print}' sample.txt
+awk -F 'DevOps' '{print}' sample.txt
+awk -F 'DevOps' '{print $1,$4}' sample.txt
+awk -F 'DevOps' '{print $1,"Jannuary",$4}' sample.txt
+hostname
+sudo  scutil -set HostName  NewHostName
+sudo scutil --set HostName kishankalandoor
+sudo scutil --set ComputerName kishankalandoor
+sudo scutil --set LocalHostName kishankalandoor
+sudo dscacheutil -flushcache
+hostname\
+
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+zip -r compressed_folder.zip compression/\
+
+zip -r -9  compressed_folder.zip compression/\
+
+zip -r -99  compressed_folder.zip compression/\
+
+zip -r -9  compressed_folder.zip env.html\
+
+zip -r   compressed_folder22.zip env.html\
+
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+cat demo.txt
+cat demo.txt | grep "learn"
+cat demo.txt | grep "learn" | grep "unix"
+cat demo.txt | grep "learn" | grep "great"
+grep "learn" demo.txt | grep "unix"
+cat demo.txt | head -3
+cat demo.txt | head -1
+cat demo.txt | head -4
+cat demo.txt | tail -4
+cat demo.txt | head -1 tail -4
+cat demo.txt | head -1 | tail -4
+grep "learn" demo.txt > learn.txt
+cat learn.txt
+cat demo.txt | grep -i "unix" | tee unix.txt | wc -l |rm learn.txt
+cat learn.txt
+cat unix.txt
+cat demo.txt\
+
+cat demo.txt | grep learn
+cat demo.txt | grep "learn"
+grep "learn" demo.txt > learn.txt\
+
+cat learn.txt\
+
+cat demo.txt | grep -i "unix" | tee unix.txt | wc -l\
+
+rm learn.txt\
+
+cat learn.txt\
+
+grep "learn" demo.txt > learn.txt\
+
+cat learn.txt
+cat demo.txt | grep "learn" > learn.txt\
+
+grep "unix" < demo.txt | tee unix.txt > count.txt\
+
+cat < demo.txt | grep -i "learn" | tee learn_lines.txt > final.txt\
+
+cat < demo.txt | grep -i "learn" | tee learn_lines.txt > final.txt\
+
+cat learn_lines.txt\
+
+cat final.txt\
+
+cat unix.txt\
+
+cat < demo.txt | grep -i "learn" | tee learn_lines.txt\
+
+cat < demo.txt | grep -i "learn" | tee learn_lines.txt | tee final.txt\
+
+cd /Applications/XAMPP/xamppfiles/htdocs/DevOps
+vim fruits.txt
+cat fruits.txt
+sort -r fruits.txt
+sort -n fruits.txt
+sort -k 3,2 fruits.txt
+sort -k 2,2 fruits.txt
+sort -k 3,1 fruits.txt
+sort -u fruits.txt
+sort -t "," -k2,2  -k4,2 fruits.txt
+sort -t "," -k1,1 -k2,2r fruits.txt
+uniq  fruits.txt
+sort -u fruits.txt
+uniq -d  fruits.txt
+uniq -c fruits.txt
+sort kt.txt | uniq -c | awk '{print $2 ", " $1}'
+sort fruits.txt | uniq -c | awk '{print $2 ", " $1}'
+uniq -d fruits.txt
+uniq -D fruits.txt
+uniq -f 2  fruits.txt
+uniq -f 1  fruits.txt
+uniq -s 3  fruits.txt
+uniq -s 2  fruits.txt
+cat  fruits.txt
+uniq -w 3  fruits.txt
+uniq -w 3   fruits.txt
+uniq -w 3   fruits.txt is not available on Mac OS
+cut -c1-3 fruits.txt | uniq
+cut -c1-3 fruits.txt | sort | uniq -c\
+
+awk '{print substr($0,1,3)}' fruits.txt | uniq\
+
+server.log
+ls server.log
+vim server.log\
+
+ls -l server.log\
+
+grep "Failed" server.log\
+
+egrep "Failed|404" server.log\
+
+grep -o "([0-9]{1,3}\.){3}[0-9]{1,3}" server.log\
+
+grep -E -o "([0-9]{1,3}\.){3}[0-9]{1,3}" server.log\
+
+grep "Failed" server.log
+grep -i "error" server.log
+grep -i "error" server.log
+no output  - - grep -i "error" server.log
+grep -E "error" server.log
+grep -E "Failed|404" server.log
+grep -C "Accepted" server.log
+grep -c "Accepted" server.log
+grep -E -o "([0-9]{1,3}\\.){3}[0-9]{1-3}"  server.log
+grep -E -o "([0-9]{1,3}\\.){3}[0-9]{1,3}" server.log
+wc fruits.txt
+wc demo.txt fruits.txt
+wc -l demo.txt fruits.txt
+wc -w fruits.txt
+wc -w demo.txt
+wc -m demo.txt
+wc -m demo.txt fruits.txt
+wc -m demo.txt | wc -w fruits.txt
+wc -m demo.txt | cut -c1
+wc -w demo.txt | cut -c1<
+...
+
+[Message clipped]  View entire message
+
+
+</html>
